@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0044)http://members.a1.net/ranmasaotome/tut4.html -->
+<HTML><HEAD><TITLE>Tutorial 4</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<META content="MSHTML 6.00.6000.16525" name=GENERATOR></HEAD>
+<BODY bgColor=#a0b7cd><BIG>
+<P></BIG>Lesson #4 From the File menu click New Project and choose 
+DialogAsMain.tpl as our new template. <BR>Name the project "Program"</P>
+<P><IMG height=465 alt="Wizard4.jpg (82347 Byte)" src="tut4_files/Wizard4.jpg" 
+width=300></P>
+<P>Create 2 editboxes and a button like on the screenshot. We will retrieve the 
+programs application path as well<BR>as writing a line of text into a file using 
+API WritePrivateProfileString and run an application (Notepad) by pressing <BR>a 
+button. We will also learn how to code Single Instance only.</P>
+<P><BR>Now something very important: Click the Program.rc file and select the Dialog. Look at the property 
+window. There is a line called CLASS.<BR>At its property you read: DLGCLASS 
+change this into MYCLASS. This is the first time we change our programs 
+class.You should do so to prevent collisions with other programs.<BR>Set 
+the 2 editboxes properties LOCKED to TRUE and AUTOSCROLL to HORIZONTAL. Set the 
+Dialogs border to TOOL and the SIZEBORDER property to FALSE.<BR>This will create 
+a TOOLWINDOW for us. Dont forget to implement a nice icon again. If you would 
+set SYSMENU to FALSE<BR>you will see the closing button "x" will disappear on 
+your TOOLWINDOW. So be sure you set SYSMENU to TRUE.<BR>You can still shut the 
+program down either pressing ALT+F4 or in the Taskmanager.</P>
+<P><BR>When your finished you have something like this:</P>
+<P><IMG height=207 alt="Dialog5.jpg (17091 Byte)" src="tut4_files/Dialog5.jpg" 
+width=297></P>
+<P>&nbsp;</P>
+<P>Now first open your Program.bi file. We have to insert some lines 
+there.<BR>I wont explain anything again, that was already explained in the 
+tutorials be4. OK ?<BR></P>
+
+<P>First change the line</P>
+<P><FONT color=#ff0000><STRONG>Const ClassName="DLGCLASS"</STRONG></FONT></P>
+<P>to </P>
+<P><FONT color=#ff0000><STRONG>Const ClassName="MYCLASS"</STRONG></FONT><FONT color=#008000> <STRONG>'(like we did in the 
+dialog editor)</STRONG></FONT></P>
+<P>;then add</P>
+<P><FONT color=#ff0000><STRONG>Const Settings="Settings.ini"<BR>
+Const process="c:\Windows\notepad.exe"</STRONG></FONT></P>
+<P>NOTE: Please edit the path of process so it fits to your Notepad path. Or 
+else it wont work.<BR></P>
+<P><STRONG><FONT color=#ff0000>Dim Shared AppPath As ZString*256 
+</FONT></STRONG> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <FONT 
+color=#008000><STRONG>' the buffer to store our application 
+path</STRONG></FONT><BR></P>
+<P><FONT color=#008000><STRONG>'this is what we need to run other 
+programs</STRONG></FONT><BR><FONT color=#ff0000><STRONG>
+Dim Shared processinfo As PROCESS_INFORMATION<BR>
+Dim Shared startinfo As STARTUPINFO</STRONG></FONT></P>
+<P>
+DONT FORGET TO ADD ALL CODE FOR YOUR ICON, <BR>
+EDITBOX AND BUTTON. AS I SAID I DID NOT EXPLAIN IT 
+AGAIN - YOU SHOULD HAVE LEARNED THIS BY NOW.<BR>
+We are done with the Program.bi file. You can close it. Double click the Program.bas 
+file now.<BR>First we add our Previous Instance code to our WinMain function.</P>
+<P><FONT color=#000000>The code looks like this:</FONT></P>
+<P><FONT color=#ff0000><STRONG>
+
+' Single Instance<BR>
+hWnd=FindWindow(@ClassName,NULL)<BR>
+If hWnd Then<BR>
+&nbsp;&nbsp;ShowWindow(hWnd,SW_RESTORE)<BR>
+&nbsp;&nbsp;SetForegroundWindow(hWnd)<BR>
+&nbsp;&nbsp;Return 0<BR>
+EndIf<BR>
+
+</STRONG></FONT></P>
+<P>Place this as the first line in the WinMain function below the local variables. 
+This code will look for an already existing window with the same ClassName and 
+if it finds one it closes the application and sets focus to the existing 
+one.<BR>We are done with the WinMain function. </P>
+
+<P>Now move to the WndProc function.<BR>
+First we add two local variables for a textbuffer and Integer value. </P>
+<P><FONT color=#ff0000><STRONG>
+Dim buffer As ZString*256<BR>
+Dim x As Integer
+</STRONG></FONT></P>
+<P>Then we move to the WM_INITDIALOG<BR>ADD YOUR CODE FOR THE ICON.</P>
+<P><STRONG><FONT color=#ff0000>
+
+' Get full path of our program<BR>
+GetModuleFileName(NULL,@AppPath,260)<BR>
+' Remove program name<BR>
+While TRUE<BR>
+&nbsp;&nbsp;If InStr(x+1,AppPath,"\") Then<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;x=InStr(x+1,AppPath,"\")<BR>
+&nbsp;&nbsp;Else<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Exit While<BR>
+&nbsp;&nbsp;EndIf<BR>
+Wend<BR>
+AppPath[x]=NULL<BR>
+SetDlgItemText(hWin,IDC_EDT1,@AppPath)<BR>
+' Combine two strings<BR>
+lstrcat(@AppPath,@Settings)<BR>
+SetDlgItemText(hWin,IDC_EDT2,@AppPath)<BR>
+' WIN API to write a line of text to an *.ini file<BR>
+WritePrivateProfileString(@AppName,@ClassName,@process,@AppPath)<BR>
+
+</FONT></STRONG></P>
+<P>The button code to fire up the notepad is following:</P>
+<P><FONT color=#ff0000><STRONG>
+Case IDC_BTN1<BR>
+&nbsp;&nbsp;CreateProcess(@process,0,0,0,0,CREATE_NEW_CONSOLE,0,0,@startinfo,@processinfo)<BR>
+</STRONG></FONT></P>
+<P>finished:</P>
+<P><IMG height=207 alt="Dialog6.jpg (24194 Byte)" src="tut4_files/Dialog6.jpg" 
+width=297></P>
+<P>&nbsp;</P>
+<P>The files for this example can be found <A 
+href="http://www.radasm.com/fbedit/tutorials/tutorial4.zip">here.</A></P></BODY></HTML>

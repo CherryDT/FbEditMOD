@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0044)http://members.a1.net/ranmasaotome/tut3.html -->
+<HTML><HEAD><TITLE>Tutorial 3</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<META content="MSHTML 6.00.6000.16525" name=GENERATOR></HEAD>
+<BODY bgColor=#a0b7cd>
+<P><FONT size=3>This 3rd Tutorial will be completely about the FBEDIT TOOLBAR 
+CREATOR.</FONT></P>
+<P><FONT size=3><U>STEP 1</U></FONT></P>
+<P><FONT size=3>Create a New Project named Toolbar and use the <B>DialogAsMain.tpl</B> 
+Template.<BR>Place a toolbar from the left on your dialog. Leave the default 
+Name and ID.<BR>Set the ToolTip property to TRUE. We will need it in STEP 2<BR>
+Now some confusing thing: Hit Go.<BR>Your Dialog will appear but 
+you wont see a toolbar.<BR>It does not have any buttons yet. This is where we use the 
+FbEdit Toolbar creator.<BR>From the FbEdit Menu click <U>Project</U> click 
+<U>Add New</U> click <U>File</U><BR>
+Name the file Toolbar.tbr and Click Save</FONT></P>
+<P><FONT size=3>This rather huge dialog you see now:</FONT></P>
+<P><IMG height=465 alt="ToolbarCreator.jpg (93319 Byte)" 
+src="tut3_files/ToolbarCreator.jpg" width=567></P>
+<P><FONT size=3>Once again, FbEdit will do lots of work for us here, so lets 
+enjoy.<BR>The editor can even place a Ready to go bitmap for an editor for us.<BR>
+We will do so in our tutorial. You can easiely insert your own 
+bitmap, use<BR>FbEdit resource dialog to add the bitmap and give it a new name 
+and ID, the<BR>Existing one is reserved.<BR>Add following buttons and insert 
+their names and ID`s<BR>On Top of the Toolbar Creator Dialog you see your future Toolbar as a 
+preview, keep an eye on it.</FONT></P>
+<P><FONT size=3><BR>Then add</FONT></P>
+<P><STRONG><FONT size=3><FONT color=#ff0000>IDC_CUT 1002<BR>IDC_COPY 
+1003<BR>IDC_PASTE 1004<BR>-<BR>IDC_UNDO 1005<BR>IDC_REDO 1006<BR>-<BR>IDM_FILE_EXIT 
+</FONT><FONT color=#008000> ' DONT GIVE AN ID</FONT></FONT></STRONG></P>
+<P><FONT size=3><BR>You get this</FONT></P>
+<P><IMG height=465 alt="ToolbarCreator2.jpg (103475 Byte)" 
+src="tut3_files/ToolbarCreator2.jpg" width=567></P><FONT size=4>
+<P></FONT><FONT size=3>Then save your Toolbar by clicking on Save on the right 
+side.<BR>Then close the toolbar creator dialog.<BR>It is gone now. Double click Toolbar.tbr file to open 
+it.<BR>Click on IDC_CUT and then click on the lill Toolbar pictures for the 
+scissor picture. Click it.<BR>An icon will appear on the toolbar you 
+created.<BR>Add icons to all your buttons till you get this:</FONT></P>
+<P><IMG height=465 alt="ToolbarCreator3.jpg (109202 Byte)" 
+src="tut3_files/ToolbarCreator3.jpg" width=567></P>
+<FONT size=3>We finally created our toolbar.<BR>Now we have to copy it into our 
+project.<BR>From the Toolbar creator dialog click export. You will see text 
+appear&nbsp;<BR>in the output window of FbEdit. We will need 
+it.<BR>First select and copy following to your .bi file.<BR>To copy you have to 
+use Ctrl + C.</FONT></P>
+<P><STRONG><FONT color=#ff0000 
+size=3>#Define IDC_TBR1 1001<BR>#Define IDC_CUT 1002<BR>#Define IDC_COPY 1003<BR>#Define IDC_PASTE 
+1004<BR>#Define IDC_UNDO 1005<BR>#Define IDC_REDO 1006<BR><BR>
+</STRONG></FONT>
+<FONT size=3>Thats all we need for the 
+.bi file.<BR>Now select following (the DoToolBar sub) and copy it into your 
+.bas file:</FONT></P>
+<P><FONT color=#ff0000 size=3><STRONG>
+Sub DoToolbar(ByVal hTbr As HWND,ByVal hInst As HINSTANCE)<BR>
+&nbsp;&nbsp;Dim tbab As TBADDBITMAP<BR>
+&nbsp;&nbsp;Dim tbrbtn8 As TBBUTTON=(5,IDM_FILE_EXIT,TBSTATE_ENABLED,TBSTYLE_BUTTON,{0,0},0)<BR>
+&nbsp;&nbsp;Dim tbrbtn7 As TBBUTTON=(0,0,TBSTATE_ENABLED,TBSTYLE_SEP,{0,0},0)<BR>
+&nbsp;&nbsp;Dim tbrbtn6 As TBBUTTON=(4,IDC_REDO,TBSTATE_ENABLED,TBSTYLE_BUTTON,{0,0},0)<BR>
+&nbsp;&nbsp;Dim tbrbtn5 As TBBUTTON=(3,IDC_UNDO,TBSTATE_ENABLED,TBSTYLE_BUTTON,{0,0},0)<BR>
+&nbsp;&nbsp;Dim tbrbtn4 As TBBUTTON=(0,0,TBSTATE_ENABLED,TBSTYLE_SEP,{0,0},0)<BR>
+&nbsp;&nbsp;Dim tbrbtn3 As TBBUTTON=(2,IDC_PASTE,TBSTATE_ENABLED,TBSTYLE_BUTTON,{0,0},0)<BR>
+&nbsp;&nbsp;Dim tbrbtn2 As TBBUTTON=(1,IDC_COPY,TBSTATE_ENABLED,TBSTYLE_BUTTON,{0,0},0)<BR>
+&nbsp;&nbsp;Dim tbrbtn1 As TBBUTTON=(0,IDC_CUT,TBSTATE_ENABLED,TBSTYLE_BUTTON,{0,0},0)<BR><BR>
+&nbsp;&nbsp;'Set toolbar struct size<BR>
+&nbsp;&nbsp;SendMessage(hTbr,TB_BUTTONSTRUCTSIZE,SizeOf(TBBUTTON),0)<BR>
+&nbsp;&nbsp;'Set toolbar bitmap<BR>
+&nbsp;&nbsp;tbab.hInst=hInst<BR>
+&nbsp;&nbsp;tbab.nID=IDB_STD_SMALL_COLOR<BR>
+&nbsp;&nbsp;SendMessage(hTbr,TB_ADDBITMAP,15,Cast(LPARAM,@tbab))<BR>
+&nbsp;&nbsp;'Set toolbar buttons<BR>
+&nbsp;&nbsp;SendMessage(hTbr,TB_ADDBUTTONS,8,Cast(LPARAM,@tbrbtn1))<BR><BR>
+End Sub<BR></FONT></STRONG></P>
+<P><FONT size=3>Our DoToolBar sub is then completed.<BR>
+<BR><BR>Under the WM_INITDIALOG you have to add those lines:</FONT></P>
+<P><FONT size=3><BR><STRONG><FONT color=#ff0000>
+DoToolbar(GetDlgItem(hWin,IDC_TBR1),HINST_COMMCTRL)<BR>
+</FONT></STRONG></FONT></P>
+<P><IMG height=511 alt="DoToolbar.jpg (123158 Byte)" 
+src="tut3_files/DoToolbar.jpg" width=804></P>
+<P>We are done with Step 1. Click go!</P>
+<P><IMG height=212 alt="Dialog4.jpg (18566 Byte)" src="tut3_files/Dialog4.jpg" 
+width=299></P>
+<P><FONT size=3><U>STEP 2</U></FONT></P>
+<P><FONT size=3>Adding tooltips to our toolbar.<BR>We have a nice looking 
+toolbar with lots of icons but nobody knows what those buttons are good 
+for.<BR>So we need lill tooltips on our toolbar. In Step 2 we will add tooltips 
+to our just created toolbar.<BR>First select Toolbar.rc, then click <U>Resource</U> and 
+<U>Add Stringtable.</U><BR>Fill the Grid till it looks like this:</FONT></P>
+<P><IMG height=285 alt="Stringtable.jpg (48110 Byte)" 
+src="tut3_files/Stringtable.jpg" width=477></P>
+<P><FONT size=3>In your WndProc you have to add following lines of 
+code:</FONT></P>
+<P><STRONG><FONT color=#ff0000 size=3>
+Dim lpTOOLTIPTEXT As TOOLTIPTEXT ptr<BR>
+Dim buff As ZString*256<BR><BR>
+Case WM_NOTIFY<BR>
+&nbsp;&nbsp;' ToolBar tooltip<BR>
+&nbsp;&nbsp;lpTOOLTIPTEXT=Cast(TOOLTIPTEXT ptr,lParam)<BR>
+&nbsp;&nbsp;If lpTOOLTIPTEXT->hdr.code=TTN_NEEDTEXT Then<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;LoadString(hInstance,lpTOOLTIPTEXT->hdr.idFrom,@buff,SizeOf(buff))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;lpTOOLTIPTEXT->lpszText=@buff<BR>
+&nbsp;&nbsp;EndIf<BR>
+&nbsp;&nbsp;'<BR>
+</FONT></STRONG></P>
+<P><FONT size=3>Note: Please be sure in your dialog to have Toolbar STYLE set TOOLTIPS to TRUE.</FONT></P>
+<P><FONT size=3>Click Go! and enjoy your tooltips.</FONT></P>
+<P><FONT size=3>Full code for this example you get <A 
+href="http://www.radasm.com/fbedit/tutorials/tutorial3.zip">here</A>.</FONT></P>
+<P>&nbsp;</P></BODY></HTML>

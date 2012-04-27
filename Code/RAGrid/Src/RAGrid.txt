@@ -1,0 +1,16 @@
+KetilO (C) 2003-2009
+radasmide@hotmail.com
+
+To build RAGrid.dll use Release build option
+To build RAGrid.lib use Debug build option
+
+RAGrid.dll is a RadASM custom control.
+
+In RadASM.ini section [CustCtrl] add:
+
+x=RAGrid.dll,1
+
+Where x is next free number.
+Copy RAGrid.dll to C:\Windows\System
+
+KetilO

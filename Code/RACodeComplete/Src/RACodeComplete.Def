@@ -1,0 +1,4 @@
+LIBRARY RACodeComplete.dll
+EXPORTS
+	GetDef
+	GetDefEx

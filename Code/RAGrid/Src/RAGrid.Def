@@ -1,0 +1,4 @@
+LIBRARY RAGrid.dll
+EXPORTS
+	GetDefEx
+	GetDef
