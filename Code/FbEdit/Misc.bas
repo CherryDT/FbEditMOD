@@ -901,7 +901,7 @@ Function EditProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,B
 													buff=Mid(buff,InStr(buff,Chr(34))+1)
 													'reset last dir
 													dirlist=""
-													BuildDirList(ad.fbcPath & "\Inc",NULL,6)
+													BuildDirList(ad.fbcPath & "\include",NULL,6)
 													If fProject Then
 														BuildDirList(ad.ProjectPath,NULL,7)
 													EndIf
@@ -1107,7 +1107,7 @@ Function EditProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,B
 						If InStr(s,"#INCLUDE")<>0 And lp=0 Then
 							'reset last dir
 							dirlist=""
-							BuildDirList(ad.fbcPath & "\Inc",NULL,6)
+							BuildDirList(ad.fbcPath & "\include",NULL,6)
 							If fProject Then
 								BuildDirList(ad.ProjectPath,NULL,7)
 							EndIf
@@ -2399,7 +2399,7 @@ Function OpenInclude() As String
 					Return buff
 				Else
 					If Len(ad.fbcPath) Then
-						buff=ad.fbcPath & "\inc\" & buff
+						buff=ad.fbcPath & "\include\" & buff
 					Else
 						buff=ad.AppPath & "\inc\" & buff
 					EndIf

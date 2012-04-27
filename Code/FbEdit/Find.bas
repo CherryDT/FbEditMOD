@@ -660,14 +660,28 @@ Function FindDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 							ShowWindow(hCtl,SW_SHOWNA)
 						Else
 							If f.fres<>-1 Then
-								f.nreplacecount+=1
-								SendMessage(ah.hred,EM_REPLACESEL,TRUE,Cast(Integer,@f.replacebuff))
-								If f.fdir=2 Then
-									' Up
-									f.ft.chrg.cpMin=f.ft.chrg.cpMin-1
-								EndIf
-							EndIf
-							Find(hWin,f.fr)
+                        f.nreplacecount+=1
+                        
+                        Dim As LONG lTmp = f.ft.chrg.cpMin
+                        
+                        'Replace
+                        SendMessage(ah.hred,EM_REPLACESEL,TRUE, CUInt(@f.replacebuff))
+                        
+                        If f.fdir=2 Then
+                           ' Up
+                           f.ft.chrg.cpMin=f.ft.chrg.cpMin-1
+                        Else
+                           
+                           If lTmp = f.ft.chrg.cpMin Then
+                              f.ft.chrg.cpMin += Len(f.replacebuff) - Len(f.findbuff)
+                              f.ft.chrg.cpMax += Len(f.replacebuff) - Len(f.findbuff)
+                           EndIf
+                           
+                        EndIf
+                        
+                     EndIf
+                     
+                     Find(hWin,f.fr)
 						EndIf
 						'
 					Case IDC_BTN_FINDALL
