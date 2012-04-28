@@ -7,6 +7,7 @@
 	-------
 	FbEdit and all sources are free to use in any way you see fit.
 	Sources for the custom controls used by FbEdit can be found at:
+	Sources for the custom controls used by FbEdit can be found at:
 	radasm.110mb.com
 
 '/
@@ -255,6 +256,11 @@ Function DlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,By
 				ad.DefProjectPath=Left(ad.AppPath,2) & ad.DefProjectPath
 			EndIf
 			FixPath(ad.DefProjectPath)
+			GetPrivateProfileString(StrPtr("Include"),StrPtr("Path"),@szNULL,@ad.IncPath,SizeOf(ad.IncPath),@ad.IniFile)
+			If Asc(ad.IncPath)=Asc("\") Then
+				ad.IncPath=Left(ad.AppPath,2) & ad.fbcPath & "\inc\"
+			EndIf
+			FixPath(ad.IncPath)
 			GetPrivateProfileString(StrPtr("Make"),StrPtr("fbcPath"),@szNULL,@ad.fbcPath,SizeOf(ad.fbcPath),@ad.IniFile)
 			If Asc(ad.fbcPath)=Asc("\") Then
 				ad.fbcPath=Left(ad.AppPath,2) & ad.fbcPath

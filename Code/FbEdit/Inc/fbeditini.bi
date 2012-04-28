@@ -2,7 +2,7 @@ Const szSecWin=			!"[Win]\13\10"_
 								!"Winpos=0,0,0,850,600,127,0,0,162,221,514,107,10,10,0,180,150,10,10\13\10"_
 								!"Colors=16777215,0,8404992,16777215,33587200,0,255,16777215,15393755,15329769,15987699,11184810,0,0,16777215,16777215,16777215,16777215,65535,65280,16777215,0,16777215,0,16777215,0,14024703,0,8404992,128,128\13\10"_
 								!"Ressize=257,170,0,52,100,100\13\10"_
-								!"Version=1076\13\10"
+								!"Version=1077\13\10"
 Const szSecTheme=			!"[Theme]\13\10"_
 								!"Current=8\13\10"_
 								!"1=Default,128,128,128,8421440,8388608,128,128,128,128,16777344,536871040,128,128,10485760,10485760,10485760,65535,65535,65535,285147264,276824319,14024703,268435456,276840448,16777215,4227072,10485760,255,15329769,12632256,12632256,12632256,8421504,8404992,8421504,14024703,14024703,14024703,14024703,65535,65280,14024703,8404992,13828050,8404992,14024703,0,14024703,0,4194432,16711680,210\13\10"_
@@ -117,6 +117,8 @@ Const szSecHelp=			!"[Help]\13\10"_
 								!"Path=\\FreeBASIC\\Help\13\10"
 Const szSecProject=		!"[Project]\13\10"_
 								!"Path=$A\\Projects\13\10"
+Const szSecInclude = 	!"[Include]\13\10"_
+								!"Path=$C\\inc\13\10"
 Const szSecMake=			!"[Make]\13\10"_
 								!"fbcPath=\\FreeBASIC\13\10"_
 								!"Module=Module Build,fbc -c\13\10"_
@@ -302,7 +304,7 @@ Sub CheckIniFile()
 		' FbEdit.ini does not exist, create it.
 		hFile=CreateFile(@ad.IniFile,GENERIC_WRITE,FILE_SHARE_READ,NULL,CREATE_NEW,FILE_ATTRIBUTE_NORMAL,NULL)
 		If hFile<>INVALID_HANDLE_VALUE Then
-			buff=szSecWin & szSecTheme & szSecEdit1 & szSecEdit2 & szSecEdit3 & szSecEdit4 & szSecEdit5 & szSecEdit6 & szSecEdit7 & szSecBlock & szSecAutoFormat & szSecResource & szSecTools & szSecHelp & szSecProject & szSecMake & szSecOpen & szSecApi & szSecDebug & szSecTemplate & szSecPrinter & szSecLanguage & szSecSniplet & szSecToolbar & szSecFileTab & szSecShowVars & szSecProjectZip
+			buff=szSecWin & szSecTheme & szSecEdit1 & szSecEdit2 & szSecEdit3 & szSecEdit4 & szSecEdit5 & szSecEdit6 & szSecEdit7 & szSecBlock & szSecAutoFormat & szSecResource & szSecTools & szSecHelp & szSecProject & szSecInclude & szSecMake & szSecOpen & szSecApi & szSecDebug & szSecTemplate & szSecPrinter & szSecLanguage & szSecSniplet & szSecToolbar & szSecFileTab & szSecShowVars & szSecProjectZip
 			WriteFile(hFile,@buff,Len(buff),@lret,NULL)
 			CloseHandle(hFile)
 			DialogBoxParam(hInstance,Cast(ZString Ptr,IDD_DLGPATHOPTION),NULL,@PathOptDlgProc,0)
@@ -400,6 +402,12 @@ Sub CheckIniFile()
 					lret+=1
 				Wend
 				'
+			ElseIf lret<1077 Then
+				'Add path Include path to ini
+				GetPrivateProfileString(StrPtr("Include"),StrPtr("Path"),@szNULL,@buff,SizeOf(buff),@ad.IniFile)
+				If Len(buff) Then buff &=","
+				buff &="$C\inc"
+				WritePrivateProfileString("Include","Path",@buff,@ad.IniFile)
 			EndIf
 			WritePrivateProfileString("Win","Version",Str(ad.version),@ad.IniFile)
 			MessageBox(NULL,"The FbEdit.ini file has been updated." & CR & "A backup is saved as FbEditOld.ini","FbEdit",MB_OK Or MB_ICONINFORMATION)

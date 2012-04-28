@@ -7,6 +7,8 @@
 #Define IDC_BTNOPTPROJECTPATH				1007
 #Define IDC_BTNOPTCOMPILERPATH			1008
 #Define IDC_BTNOPTHELPPATH					5401
+#Define IDC_EDTOPTINCPATH					5405
+#Define IDC_BTNOPTINCPATH					5406
 
 Function PathOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
 
@@ -20,6 +22,8 @@ Function PathOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As 
 			SetDlgItemText(hWin,IDC_EDTOPTCOMPILERPATH,@buff)
 			GetPrivateProfileString(StrPtr("Help"),StrPtr("Path"),@szNULL,@buff,260,@ad.IniFile)
 			SetDlgItemText(hWin,IDC_EDTOPTHELPPATH,@buff)
+			GetPrivateProfileString(StrPtr("Include"),StrPtr("Path"),@szNULL,@buff,260,@ad.IniFile)
+			SetDlgItemText(hWin,IDC_EDTOPTINCPATH,@buff)
 			'
 		Case WM_CLOSE
 			EndDialog(hWin, 0)
@@ -45,6 +49,12 @@ Function PathOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As 
 						ad.HelpPath=Left(ad.AppPath,2) & ad.HelpPath
 					EndIf
 					FixPath(ad.HelpPath)
+					GetDlgItemText(hWin,IDC_EDTOPTINCPATH,@ad.IncPath,260)
+					WritePrivateProfileString(StrPtr("Include"),StrPtr("Path"),@ad.IncPath,@ad.IniFile)
+					If Asc(ad.IncPath)=Asc("\") Then
+						ad.IncPath=Left(ad.AppPath,2) & ad.IncPath
+					EndIf
+					FixPath(ad.IncPath)
 					GetMakeOption
 					EndDialog(hWin, 0)
 					'
@@ -59,6 +69,9 @@ Function PathOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As 
 					'
 				Case IDC_BTNOPTHELPPATH
 					BrowseFolder(hWin,IDC_EDTOPTHELPPATH)
+					'
+				Case IDC_BTNOPTINCPATH
+					BrowseFolder(hwin,IDC_EDTOPTINCPATH)
 					'
 			End Select
 		Case Else
