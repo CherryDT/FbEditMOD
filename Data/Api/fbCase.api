@@ -151,6 +151,7 @@ Exec
 Exit
 Exp
 Export
+Extends
 Extern
 Field
 FileAttr
@@ -244,6 +245,7 @@ NoKeyword
 Nogosub
 Not
 Now
+Object
 Oct
 OffsetOf
 On
@@ -255,7 +257,7 @@ Or
 OrElse
 Out
 Output
-OverLoad
+Overload
 PCopy
 PMap
 PReset
@@ -349,6 +351,7 @@ Tan
 Then
 Then
 This
+ThreadCall
 ThreadCreate
 ThreadWait
 Time

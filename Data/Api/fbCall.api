@@ -283,6 +283,7 @@ Swap,ByRef a:Any,ByRef b:Any
 System,retval:Integer=0
 Tab,column
 Tan,number:Double|Double
+ThreadCall,proc:Sub,[param,...]
 ThreadCreate,proc:Sub(Any Ptr),param:Any Ptr=0|Any Ptr
 ThreadWait,id:Any Ptr
 TimeSerial,Hour:Integer,Minute:Integer,Second:Integer|Double
