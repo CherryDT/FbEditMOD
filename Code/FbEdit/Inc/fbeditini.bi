@@ -26,14 +26,14 @@ Const szSecEdit2=			!"C0=\34Abs ACos ASin ATan2 Atn Cos Exp Fix Frac Int Log Ran
 								!"C2=\34And AndAlso Delete Eqv Imp Let Mod New Not Or OrElse ProcPtr Shl Shr StrPtr VarPtr Xor \34\13\10"_
 								!"C3=\34$Dynamic $Include $Lang $Static #Define #Else #ElseIf #EndIf #EndMacro #Error #If #Ifdef #Ifndef #Inclib #Include #Lang #LibPath #Line #Macro #Pragma #Print #Undef \34\13\10"_
 								!"C4=\34CByte CDbl CInt CLng CLngInt CPtr CShort CSign CSng CUByte CUInt CULng CULngint CUnsg CUShort CVD CVI CVL CVLongInt CVS CVShort \34\13\10"_
-								!"C5=\34Second Seek SetDate SetEnviron SetMouse SetTime Shell SizeOf Sleep Space Spc Static StdCall Stick Stop Str Strig Swap System Scrn Tab This ThreadCreate ThreadWait Time Timer TimeSerial TimeValue To Trans Trim TypeOf UBound UCase Union UnLock Unsigned Until Using va_arg va_first va_next Val ValInt ValLng ValUInt ValULng Var View Wait WBin WChr Weekday WeekdayName WHex Width Window WindowTitle WInput With WOct Write WSpace WStr Year \34\13\10"_
+								!"C5=\34Base Second Seek SetDate SetEnviron SetMouse SetTime Shell SizeOf Sleep Space Spc Static StdCall Stick Stop Str Strig Swap System Scrn Tab This ThreadCreate ThreadWait Time Timer TimeSerial TimeValue To Trans Trim TypeOf UBound UCase Union UnLock Unsigned Until Using va_arg va_first va_next Val ValInt ValLng ValUInt ValULng Var View Wait WBin WChr Weekday WeekdayName WHex Width Window WindowTitle WInput With WOct Write WSpace WStr Year \34\13\10"_
 								!"C6=\34Access Add Alias Allocate Alpha Append Asc Asm Assert AssertWarn Beep Bin Binary Bit BitReset BitSet BLoad BSave Call Callocate Cast Cdecl Chain ChDir Chr Circle Class Clear Close Cls Color Command Common CondBroadcast CondCreate CondDestroy CondSignal CondWait Continue CsrLin CurDir Data Date DateAdd DateDiff DatePart DateSerial DateValue Day DeAllocate DefByte DefDbl Defined DefInt DefLng Deflongint \34\13\10"_
 								!"C7=\34DefShort DefSng DefStr DefUByte DefUInt Defulongint DefUShort Dir Draw DylibFree DylibLoad DylibSymbol Encoding Enum Environ Eof Erase Erfn Erl Ermn Err Error Exec ExePath Exit Export Extern Field FileAttr FileCopy FileDateTime FileExists FileLen Flip Format Frac Fre FreeFile Get GetJoystick GetKey GetMouse GoSub GoTo Hex HiByte HiWord Hour IIf ImageConvertRow ImageCreate ImageDestroy ImageInfo Import InKey Inp Input InStr InStrRev Is IsDate Kill LBound LCase Left Len Lib Line LoByte LOC Local Locate Lock Lof LoWord LPos LPrint LSet LTrim \34\13\10"_
-								!"C8=\34ByRef ByVal As Shared Cons GoSub GoTo Lpt Mid Minute Mkd MkDir Mki Mkl MkLongint Mks MkShort Month MonthName MultiKey MutexCreate MutexDestroy MutexLock MutexUnLock Name Nogosub NoKeyword Now Oct OffsetOf On Once Open Option Out Output OverLoad Paint Palette Pascal PCopy Peek Pipe PMap Point Pointer Poke Pos Preserve PReset Print Private Private Protected PSet Public Put Random Read ReAllocate ReDim Rem Reset Restore Resume Return RGB RGBA Right RmDir RSet RTrim Run SAdd Scope \34\13\10"_
+								!"C8=\34ByRef ByVal As Shared Cons Extends GoSub GoTo Lpt Mid Minute Mkd MkDir Mki Mkl MkLongint Mks MkShort Month MonthName MultiKey MutexCreate MutexDestroy MutexLock MutexUnLock Name Nogosub NoKeyword Now Oct OffsetOf On Once Open Option Out Output OverLoad Paint Palette Pascal PCopy Peek Pipe PMap Point Pointer Poke Pos Preserve PReset Print Private Private Protected PSet Public Put Random Read ReAllocate ReDim Rem Reset Restore Resume Return RGB RGBA Right RmDir RSet RTrim Run SAdd Scope \34\13\10"_
 								!"C9=\34Const Case Constructor Declare Destructor Dim If Then Else ElseIf End EndIf For Do Loop While Wend Function Namespace Next Operator Property Select Step Sub Then Type \34\13\10"_
 								!"C10=\34#define #include ACCELERATORS ALT AUTOCHECKBOX AUTORADIOBUTTON BEGIN BITMAP BLOCK CAPTION CLASS COMBOBOX CONTROL CURSOR DIALOGEX DISCARDABLE EDITTEXT END EXSTYLE FALSE FILEOS FILETYPE FILEVERSION FONT GROUPBOX ICON LISTBOX LTEXT MENU MENUITEM NOINVERT NULL POPUP PRODUCTVERSION PUSHBUTTON SEPARATOR SHIFT STRINGTABLE STYLE TRUE VALUE VERSIONINFO VIRTKEY \34\13\10"_
 								!"C11=\34__DATE__ __FB_ARGC__ __FB_ARGV__ __FB_BIGENDIAN__ __FB_BUILD_DATE__ __FB_CYGWIN__ __FB_DEBUG__ __FB_DOS__ __FB_ERR__ __FB_FREEBSD__ __FB_LANG__ __FB_LINUX__ __FB_MAIN__ __FB_MIN_VERSION__ __FB_MT__ __FB_OPTION_BYVAL__ __FB_OPTION_DYNAMIC__ __FB_OPTION_ESCAPE__ __FB_OPTION_EXPLICIT__ __FB_OPTION_GOSUB__ __FB_OPTION_PRIVATE__ __FB_OUT_DLL__ __FB_OUT_EXE__ __FB_OUT_LIB__ __FB_OUT_OBJ__ __FB_SIGNATURE__ __FB_SSE__ __FB_VER_MAJOR__ __FB_VER_MINOR__ __FB_VER_PATCH__ __FB_VERSION__ __FB_WIN32__ __FB_XBOX__ __FILE__ __FILE_NQ__ __FUNCTION__ __FUNCTION_NQ__ __LINE__ __PATH__ __TIME__ \34\13\10"_
-								!"C12=\34Byte Double Integer Long LongInt Short Single String UByte UInteger ULong ULongInt UShort WString ZString Ptr Any \34\13\10"_
+								!"C12=\34Byte Double Integer Long LongInt Object Short Single String UByte UInteger ULong ULongInt UShort WString ZString Ptr Any \34\13\10"_
 								!"C13=\34\34\13\10"_
 								!"C14=\34\34\13\10"_
 								!"C15=\34\34\13\10"_
@@ -57,7 +57,7 @@ Const szSecBlock=			!"[Block]\13\10"_
 								!"7=constructor $,End Constructor,,,6\13\10"_
 								!"8=destructor $,End Destructor,,,6\13\10"_
 								!"9=property $,End Property,,,6\13\10"_
-								!"10=enum $,End Enum,,,4\13\10"_
+								!"10=enum,End Enum,,,4\13\10"_
 								!"11=#macro $,#EndMacro,,,6\13\10"_
 								!"12=select case !end select,End Select,case,,0\13\10"_
 								!"13=if $! then,EndIf|End If,elseif,else,0\13\10"_
@@ -66,7 +66,8 @@ Const szSecBlock=			!"[Block]\13\10"_
 								!"16=for $ !next,Next,,,0\13\10"_
 								!"17=operator#(,End Operator,,,6\13\10"_
 								!"18=with $,End With,,,0\13\10"_
-								!"19=asm,End Asm,,,192\13\10"
+								!"19=asm,End Asm,,,192\13\10"_
+								!"20=class $,End Class,,,4\13\10"
 Const szSecAutoFormat=	!"[AutoFormat]\13\10"_
 								!"0=if $! then,0,0,1\13\10"_
 								!"1=endif,0,0,0\13\10"_
@@ -97,7 +98,15 @@ Const szSecAutoFormat=	!"[AutoFormat]\13\10"_
 								!"26='{,26,0,1\13\10"_
 								!"27='},26,0,0\13\10"_
 								!"28=asm,28,0,1\13\10"_
-								!"29=end asm,28,0,0\13\10"
+								!"29=end asm,28,0,0\13\10"_
+								!"30=constructor $,30,0,1\13\10"_
+								!"31=end constructor,30,0,0\13\10"_
+								!"32=destructor $,32,0,1\13\10"_
+								!"33=end destructor,32,0,0\13\10"_
+								!"34=enum,34,0,1\13\10"_
+								!"35=end enum,34,0,0\13\10"_
+								!"36=class $,36,0,1\13\10"_
+								!"37=end class,36,0,0\13\10"
 Const szSecResource=		!"[Resource]\13\10"_
 								!"Export=1,2,0,rsrc.bi\13\10"_
 								!"Grid=3,3,1,1,1,32896,0,1,0,0,0,1\13\10"
@@ -408,6 +417,67 @@ Sub CheckIniFile()
 				If Len(buff) Then buff &=","
 				buff &="$C\inc"
 				WritePrivateProfileString("Include","Path",@buff,@ad.IniFile)
+				'Add new block formatting
+				GetPrivateProfileString(StrPtr("Block"),StrPtr("20"),@szNULL,@buff,SizeOf(buff),@ad.IniFile)
+				If Len(buff) Then buff &=","
+				buff &="class $,End Class,,,4"
+				WritePrivateProfileString("Block","20",@buff,@ad.IniFile)
+				buff =""
+				buff &="enum,End Enum,,,4"
+				WritePrivateProfileString("Block","10",@buff,@ad.IniFile)
+				Adds new auto format
+				GetPrivateProfileString(StrPtr("AutoFormat"),StrPtr("30"),@szNULL,@buff,SizeOf(buff),@ad.IniFile)
+				If Len(buff) Then buff &=","
+				buff &="constructor $,30,0,1"
+				WritePrivateProfileString("AutoFormat","30",@buff,@ad.IniFile)
+				
+				GetPrivateProfileString(StrPtr("AutoFormat"),StrPtr("31"),@szNULL,@buff,SizeOf(buff),@ad.IniFile)
+				If Len(buff) Then buff &=","
+				buff &="end constructor,30,0,0"
+				WritePrivateProfileString("AutoFormat","31",@buff,@ad.IniFile)
+				
+				GetPrivateProfileString(StrPtr("AutoFormat"),StrPtr("32"),@szNULL,@buff,SizeOf(buff),@ad.IniFile)
+				If Len(buff) Then buff &=","
+				buff &="destructor $,32,0,1"
+				WritePrivateProfileString("AutoFormat","32",@buff,@ad.IniFile)
+				
+				GetPrivateProfileString(StrPtr("AutoFormat"),StrPtr("33"),@szNULL,@buff,SizeOf(buff),@ad.IniFile)
+				If Len(buff) Then buff &=","
+				buff &="end destructor,32,0,0"
+				WritePrivateProfileString("AutoFormat","33",@buff,@ad.IniFile)
+				
+				GetPrivateProfileString(StrPtr("AutoFormat"),StrPtr("34"),@szNULL,@buff,SizeOf(buff),@ad.IniFile)
+				If Len(buff) Then buff &=","
+				buff &="enum,34,0,1"
+				WritePrivateProfileString("AutoFormat","34",@buff,@ad.IniFile)
+				
+				GetPrivateProfileString(StrPtr("AutoFormat"),StrPtr("35"),@szNULL,@buff,SizeOf(buff),@ad.IniFile)
+				If Len(buff) Then buff &=","
+				buff &="end enum,34,0,0"
+				WritePrivateProfileString("AutoFormat","35",@buff,@ad.IniFile)
+				
+				GetPrivateProfileString(StrPtr("AutoFormat"),StrPtr("36"),@szNULL,@buff,SizeOf(buff),@ad.IniFile)
+				If Len(buff) Then buff &=","
+				buff &="class $,36,0,1"
+				WritePrivateProfileString("AutoFormat","36",@buff,@ad.IniFile)
+				
+				GetPrivateProfileString(StrPtr("AutoFormat"),StrPtr("37"),@szNULL,@buff,SizeOf(buff),@ad.IniFile)
+				If Len(buff) Then buff &=","
+				buff &="end class,36,0,0"
+				WritePrivateProfileString("AutoFormat","37",@buff,@ad.IniFile)
+				
+				'Add new keywords
+				buff = ""
+				buff &= Chr(34) & "Base Scrn Second Seek SetDate SetEnviron SetMouse SetTime Shell SizeOf Sleep Space Spc Static StdCall Stick Stop Str Strig Swap System Tab This ThreadCreate ThreadWait Time Timer TimeSerial TimeValue To Trans Trim TypeOf UBound UCase Union UnLock Unsigned Until Using va_arg va_first va_next Val ValInt ValLng ValUInt ValULng Var View Wait WBin WChr Weekday WeekdayName WHex Width Window WindowTitle WInput With WOct Write WSpace WStr Year " & !"\34"
+				WritePrivateProfileString("Edit","C5",@buff,@ad.IniFile)
+				
+				buff =""
+				buff &= Chr(34) & "As ByRef ByVal Cons Extends GoSub GoTo Lpt Mid Minute Mkd MkDir Mki Mkl MkLongint Mks MkShort Month MonthName MultiKey MutexCreate MutexDestroy MutexLock MutexUnLock Name Nogosub NoKeyword Now Oct OffsetOf On Once Open Option Out Output OverLoad Paint Palette Pascal PCopy Peek Pipe PMap Point Pointer Poke Pos Preserve PReset Print Private Private Protected PSet Public Put Random Read ReAllocate ReDim Rem Reset Restore Resume Return RGB RGBA Right RmDir RSet RTrim Run SAdd Scope Shared " & !"\34"
+				WritePrivateProfileString("Edit","C8",@buff,@ad.IniFile)
+				
+				buff =""
+				buff &= Chr(34) & "Any Byte Double Integer Long LongInt Object Ptr Short Single String UByte UInteger ULong ULongInt UShort WString ZString " & !"\34"
+				WritePrivateProfileString("Edit","C12",@buff,@ad.IniFile)
 			EndIf
 			WritePrivateProfileString("Win","Version",Str(ad.version),@ad.IniFile)
 			MessageBox(NULL,"The FbEdit.ini file has been updated." & CR & "A backup is saved as FbEditOld.ini","FbEdit",MB_OK Or MB_ICONINFORMATION)
