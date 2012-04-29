@@ -425,7 +425,7 @@ Sub CheckIniFile()
 				buff =""
 				buff &="enum,End Enum,,,4"
 				WritePrivateProfileString("Block","10",@buff,@ad.IniFile)
-				Adds new auto format
+				'Adds new auto format
 				GetPrivateProfileString(StrPtr("AutoFormat"),StrPtr("30"),@szNULL,@buff,SizeOf(buff),@ad.IniFile)
 				If Len(buff) Then buff &=","
 				buff &="constructor $,30,0,1"

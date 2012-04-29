@@ -494,7 +494,7 @@ Sub FormatIndent(ByVal hWin As HWND)
 		If fAsm Then
 			wp=fAsm
 		EndIf
-		While wp<32
+		While wp<38
 			If szIndent(wp)<>szNULL Then
 				If SendMessage(hWin,REM_ISLINE,ln,Cast(LPARAM,@szIndent(wp)))>=0 Then
 					If UCase(szIndent(wp))="ASM" Then
@@ -521,7 +521,7 @@ Sub FormatIndent(ByVal hWin As HWND)
 			EndIf
 			wp=wp+1
 		Wend
-		If wp=32 Then
+		If wp=38 Then
 			lz=SendMessage(hWin,EM_LINEINDEX,ln,0)
 			If SendMessage(hWin,REM_ISCHARPOS,lz,0)<>1 Then
 				SetIndent(hWin,ln,@buff)

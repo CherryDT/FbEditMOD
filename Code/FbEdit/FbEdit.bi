@@ -488,8 +488,8 @@ Type AUTOFORMAT
 	add2	As Integer
 End Type
 
-Dim Shared autofmt(40) As AUTOFORMAT
-Dim Shared szIndent(40) As ZString*32
+Dim Shared autofmt(50) As AUTOFORMAT
+Dim Shared szIndent(50) As ZString*32
 
 Const sf1 = !"Courier New\0                    "
 Const sf2 = !"Terminal\0                       "
