@@ -26,7 +26,7 @@ Dim Shared lpFunctions As ADDINFUNCTIONS Ptr
 Dim Shared lpData As ADDINDATA Ptr
 
 Const Caption As String="FbEdit Lite"
-Const Install As String=!"Activate FbEdit Lite for beginners?\13\10\13\10If Yes then you must restart FbEdit."
+Const Install As String=!"Activate FBEdit+ Lite for beginners?\13\10\13\10If Yes then you must restart FBEdit+."
 Const Addins As String=!"AdvEdit.dll=1\0" & _
 							  !"FileTabStyle.dll=0\0" & _
 							  !"HelpAddin.dll=1\0" & _

@@ -1,7 +1,7 @@
 #Include Once "windows.bi"
 #Include Once "win/commctrl.bi"
 
-#Include "..\..\..\..\..\Inc\Addins.bi"
+#Include "..\..\..\Inc\Addins.bi"
 
 #Include "FbEditLite.bi"
 

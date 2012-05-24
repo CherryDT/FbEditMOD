@@ -2171,15 +2171,15 @@ Sub SetWinCaption()
 
 	If ah.hred Then
 		If fProject Then
-			SetWindowText(ah.hwnd,"FbEdit - " & ProjectDescription & " - ["& ad.filename & "]")
+			SetWindowText(ah.hwnd,"FBEdit+ - " & ProjectDescription & " - ["& ad.filename & "]")
 		Else
-			SetWindowText(ah.hwnd,"FbEdit - " & ad.filename)
+			SetWindowText(ah.hwnd,"FBEdit+ - " & ad.filename)
 		EndIf
 	Else
 		If fProject Then
-			SetWindowText(ah.hwnd,"FbEdit - " & ProjectDescription)
+			SetWindowText(ah.hwnd,"FBEdit+ - " & ProjectDescription)
 		Else
-			SetWindowText(ah.hwnd,"FbEdit")
+			SetWindowText(ah.hwnd,"FBEdit+")
 		EndIf
 	EndIf
 
@@ -2478,7 +2478,7 @@ Sub PrintDoc
 	hOldFont=SelectObject(fmr.hdc,ah.rafnt.hFont)
 	fmr.hdcTarget=pd.hDC
 	doci.cbSize=SizeOf(doci)
-	doci.lpszDocName=StrPtr("FbEdit")
+	doci.lpszDocName=StrPtr("FBEdit+")
 	If pd.Flags And PD_PRINTTOFILE Then
 		buffer="FILE:"
 		doci.lpszOutput=@buffer

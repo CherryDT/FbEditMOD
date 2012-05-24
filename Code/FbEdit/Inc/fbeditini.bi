@@ -122,7 +122,7 @@ Const szSecHelp=			!"[Help]\13\10"_
 								!"1=Win32,$H\\WIN32.HLP\13\10"_
 								!"2=FreeBASIC,$H\\FB.chm\13\10"_
 								!"3=Window styles,$A\\Help\\Windows_styles.chm\13\10"_
-								!"4=FbEdit help,$A\\Help\\FbEdit.chm\13\10"_
+								!"4=FBEdit+ help,$A\\Help\\FbEdit.chm\13\10"_
 								!"Path=\\FreeBASIC\\Help\13\10"
 Const szSecProject=		!"[Project]\13\10"_
 								!"Path=$A\\Projects\13\10"
@@ -331,7 +331,7 @@ Sub CheckIniFile()
 			DeleteFile(@buff)
 			MoveFile(@ad.IniFile,@buff)
 			CheckIniFile
-			MessageBox(NULL,"Your FbEdit.ini file was too old to be updated." & CR & "A backup is saved as FbEditOld.ini","FbEdit",MB_OK Or MB_ICONINFORMATION)
+			MessageBox(NULL,"Your FbEdit.ini file was too old to be updated." & CR & "A backup is saved as FbEditOld.ini","FBEdit+",MB_OK Or MB_ICONINFORMATION)
 		ElseIf lret<ad.version Then
 			CopyFile(@ad.IniFile,@buff,FALSE)
 			If lret<1065 Then
@@ -480,7 +480,7 @@ Sub CheckIniFile()
 				WritePrivateProfileString("Edit","C12",@buff,@ad.IniFile)
 			EndIf
 			WritePrivateProfileString("Win","Version",Str(ad.version),@ad.IniFile)
-			MessageBox(NULL,"The FbEdit.ini file has been updated." & CR & "A backup is saved as FbEditOld.ini","FbEdit",MB_OK Or MB_ICONINFORMATION)
+			MessageBox(NULL,"The FbEdit.ini file has been updated." & CR & "A backup is saved as FbEditOld.ini","FBEdit+",MB_OK Or MB_ICONINFORMATION)
 		EndIf
 	EndIf
 

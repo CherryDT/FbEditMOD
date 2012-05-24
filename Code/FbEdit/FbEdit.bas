@@ -1,5 +1,6 @@
 
-/'	FbEdit, by KetilO
+/'	FBEdit+
+	Based on Code for FbEdit, by KetilO
 
 	compile with:	fbc -s gui FbEdit.bas FbEdit.rc
 
