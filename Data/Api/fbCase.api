@@ -410,6 +410,7 @@ Xor
 Year
 ZString
 __DATE__
+__DATE_ISO__
 __FB_ARGC__
 __FB_ARGV__
 __FB_BACKEND__
