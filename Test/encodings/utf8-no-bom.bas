@@ -1,0 +1,3 @@
+print "Seas Wöd"
+
+sleep

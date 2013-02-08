@@ -154,7 +154,7 @@ Options=52
 5=0,0,0,0,4212
 3=0,0,0,0,0
 4=0,0,0,0,8
-1=0,0,718,485,78
+1=0,0,718,485,1265
 7=0,0,718,485,11716
 6=0,0,0,0,407
 9=0,0,718,485,96712
@@ -260,7 +260,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=27
+MilestoneOnDateDate=12
 MilestoneOnDateTimeYear=2003
 MilestoneOnDateTimeMonth=10
 MilestoneOnDateTimeDate=16
@@ -359,7 +359,7 @@ Group=Assembly,Resources,Misc,Include
 36=
 51=,,
 [PTimer]
-PTimer=1117275797
+PTimer=1117535960
 
 [Exports]
 1=ResEdInstall

@@ -39,6 +39,7 @@ Asm
 Assert
 AssertWarn
 Atn
+Base
 BLoad
 BSave
 Beep
@@ -66,7 +67,7 @@ CULngInt
 CUShort
 CUnsg
 CvShort
-CVLongInt
+CvLongInt
 Call
 Callocate
 Case
@@ -158,6 +159,7 @@ Explicit
 Export
 Extends
 Extern
+Extends
 Field
 FileAttr
 FileCopy
@@ -191,6 +193,7 @@ ImageCreate
 ImageDestroy
 ImageInfo
 Imp
+Implements
 Import
 InKey
 InStr
@@ -242,12 +245,13 @@ MutexCreate
 MutexDestroy
 MutexLock
 MutexUnLock
+Naked
 Name
 Namespace
 New
 Next
 NoKeyword
-Nogosub
+NoGoSub
 Not
 Now
 Object
@@ -454,6 +458,12 @@ __FUNCTION__
 __LINE__
 __PATH__
 __TIME__
-va_Arg
-va_First
-va_Next
+__FB_DARWIN__
+__FB_NETBSD__
+__FB_OPENBSD__
+__FB_GOSUB__
+__FB_UNIX__
+__FB_VECTORIZE__
+va_arg
+va_first
+va_next

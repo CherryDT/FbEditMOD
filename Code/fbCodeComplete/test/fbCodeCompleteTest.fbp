@@ -1,0 +1,28 @@
+[Project]
+Version=3
+Description=fbCodeCompleteTest
+Api=fb (FreeBASIC),win (Windows)
+Grouping=1
+AddMainFiles=1
+AddModuleFiles=1
+ResExport=
+CompileIfNewer=0
+IncVersion=0
+RunCmd=0
+[Make]
+Module=Module Build,fbc -c
+Recompile=2
+Current=1
+1=fbCodeComplete,fbc -g -d RA=0 -s console -a "..\libfbCodeComplete.a" "..\fbCodeComplete.rc"
+2=RACodeComplete,fbc -g -d RA=1 -a "..\..\RACodeComplete\Lib\RACodeComplete.lib" "..\fbCodeComplete.rc"
+Output=
+Run=
+Delete=
+[TabOrder]
+TabOrder=1,0
+[File]
+1=fbCodeCompleteTest.bas
+[BreakPoint]
+1=
+[FileInfo]
+1=0,176,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0

@@ -172,6 +172,7 @@ Sub SelectTab(ByVal hWin As HWND,ByVal hEdit As HWND,ByVal nInx As Integer)
 				EndIf
 				SendMessage(ah.hwnd,WM_SIZE,0,0)
 				'SetFocus(lpTABMEM->hedit)
+				UpdateFileProperty()
 				SelectProjectFile(ad.filename)
 				Exit While
 			EndIf

@@ -319,6 +319,7 @@ Sub CheckIniFile()
 			DialogBoxParam(hInstance,Cast(ZString Ptr,IDD_DLGPATHOPTION),NULL,@PathOptDlgProc,0)
 		Else
 			' Coud not create it.
+			MessageBox(NULL, "Error while creating configuration file FBedit.ini" & CR & "FBEdit+ will now terminate", "FBEdit+", MB_OK Or MB_ICONERROR)
 			End
 		EndIf
 	Else

@@ -1,0 +1,1 @@
+fbc -dll -g "fbEditBase.bas" "fbEditBase.rc" -a "../lib/RACodeComplete.lib" -a "../lib/RAFile.lib" -a "../lib/RAProperty.lib" -a "../lib/RAGrid.lib" -a "../lib/RAHexEd.lib" -a "../lib/RAEdit.lib" -a "../lib/RAResEd.lib" -l kernel32 -l user32 -l gdi32 -l comctl32 -l ole32 -a "../3rd/Debug.lib" -l ntdll -l comdlg32 -l shell32 -Wl "fbEditBase.def"

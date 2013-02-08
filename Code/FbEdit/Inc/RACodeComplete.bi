@@ -59,5 +59,5 @@ Type TTITEM
 	nwidth As Integer									' Width of tooltip
 End Type
 
-Const szCCLBClassName = "RACodeComplete"
-Const szCCTTClassName = "RAToolTip"
+Const szCCLBClassName = "FBCodeComplete"
+Const szCCTTClassName = "FBToolTip"
