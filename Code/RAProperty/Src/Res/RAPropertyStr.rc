@@ -1,8 +1,0 @@
-STRINGTABLE DISCARDABLE
-BEGIN
-  11						"Current file"
-  12						"Open files"
-  13						"Selected project file"
-  14						"All project files"
-  15						"Refresh"
-END

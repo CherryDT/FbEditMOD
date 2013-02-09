@@ -1,4 +1,0 @@
-#define IDB_BMP							100
-#define IDB_TRV							101
-IDB_BMP					BITMAP    DISCARDABLE "Res/ToolBox.bmp"
-IDB_TRV					BITMAP    DISCARDABLE "Res/Toolbar.bmp"

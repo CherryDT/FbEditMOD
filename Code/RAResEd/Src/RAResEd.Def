@@ -1,5 +1,0 @@
-LIBRARY RAResEd.dll
-EXPORTS
-	ResEdInstall
-	ResEdUninstall
-	GetDef

@@ -1,4 +1,0 @@
-LIBRARY UpdateChecker
-EXPORTS
-	InstallDll
-	DllFunction

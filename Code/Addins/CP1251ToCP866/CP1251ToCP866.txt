@@ -1,3 +1,0 @@
-Converts from CP866 to CP1251 on file read.
-Converts from CP1251 to CP866 on file write.
-

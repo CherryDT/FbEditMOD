@@ -1,3 +1,0 @@
-print "Seas Wöd"
-
-sleep
