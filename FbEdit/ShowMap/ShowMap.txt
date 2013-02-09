@@ -1,0 +1,261 @@
+Poor mans navigation system.
+----------------------------
+
+Navigation systems to use in a boat is very expensive if you want a decent screen size and a nice user interface.
+Example: GPSMAP® 720/720s https://buy.garmin.com/shop/shop.do?pID=37719#specsTab
+In addition I would need a svinger for the sonar and a map covering my area, an additional $400 or so.
+Total cost: $1800
+
+For me the solution is obvious: Buy a cheap chart plotter / sonar and hook it up with a small cheap netbook via a RS232 to USB converter. And then make a chart plotter program.
+
+Cuda 350 chart plotter / sonar, svinger included: http://www.cabelas.com/p-0065672020560a.shtml
+I could probably get a cheap netbook for around $250, and a RS232 to USB for $20.
+The maps I can grab for free.
+Total cost: $480
+
+Actually this is both cheaper and a better solution for me as I will bring the netbook with me and dont have to sit in my boat to do trip planning and plot waypoints.
+
+The Cuda sends GPS data using the NMEA 0183 protocol: http://www.tronico.fi/OH6NT/docs/NMEA0183.pdf
+Longitude, Latitude is WGS 84, Degrees, Minutes and fractions of a minute. In my program I convert it to degrees and fractions of a degree and then convert it to an integer
+by ignoring the decimal point. The number of decimals is constant.
+
+So far so good. But I ran into problems when trying to figure out how to calculate the distance between two Longitude, Latitude coordinates.
+My math skills are really getting rusty.
+
+I found this on Wikipedia: http://en.wikipedia.org/wiki/Great-circle_distance
+Looking at the 'distance between two airports' example.
+The degrees to radians part is easy, but the second formula is Greek to me.
+
+Does anyone know what this formula means, example please?
+
+Currently I assume the earth is flat (back to the middelages), but uses coordinates of the nearest place to reduce the error.
+
+You can get what I have so far here: https://fbedit.svn.sourceforge.net/svnroot/fbedit/RadASM30/Release/Masm/Projects/ShowMap/ShowMap.zip
+Note that the map tiles has been blured as they are copyrighted material.
+Use the Trip Log / Replay Trip to see me race around my neighbourhood with my car. Actually the replay is x10 so I am not driving very fast. The speed shown is in knots.
+
+If there is any interest in this project I will post the sources when I am done.
+
+KetilO
+
+Spherical law of cosines: d = acos(sin(lat1).sin(lat2)+cos(lat1).cos(lat2).cos(long2-long1)).R
+R = earth’s radius (mean radius = 6,371km)
+
+From minor28
+y = a*ln(tan(45deg + latitude/2deg))
+where a is semi-major axis = 6,378,137m
+
+y=a*ln[tan(lat/2+PI/4)]
+
+Map top left
+66.53365,12.91296
+
+Sonar Description
+=================
+A short ping at 200 KHz is transmitted at intervals depending on depth range (200 to 400 ms).
+From the time it takes for the echo to return we can calculate the depth.
+The ADC measures the strenght of the echo at intervalls depending on range
+and stores it in a 512 byte array.
+
+Speed of sound in water
+=======================
+Temp (C)    Speed (m/s)
+  0             1403
+  5             1427
+ 10             1447
+ 20             1481
+ 30             1507
+ 40             1526
+
+1450 m/s is probably a good estimate.
+Time for sound to travel 100 cm: 1000000 / 1450 = 689,66 ~ 690 us
+Since it is the echo we are measuring: 690 * 2 = 1380 us
+
+Two timers are needed:
+1. Timer to generate the 200 KHz two phase none overlapping clock ping signal.
+   The number of pulses is variable (0 to 128).
+2. Timer to generate an interrupt for every pixel. The interval depends on selected range.
+
+Time needed for the different ranges:
+=======================================================================================================================
+Range		Time for echo to return		Pixel time					cm / Pixel						Pixel Timer
+=======================================================================================================================
+  2 m		1380 *   2 =   2760 us		  2760 / 512 =    5,4 us	   5,4 / 1380 * 100 =  0,39 cm		  215
+  4 m		1380 *   4 =   5520 us		  5520 / 512 =   10,8 us	  10,8 / 1380 * 100 =  0,78 cm		  430
+  6 m		1380 *   6 =   8280 us		  8280 / 512 =   16,1 us	  16,1 / 1380 * 100 =  1.17 cm		  646
+  8 m		1380 *   8 =  11040 us		  8280 / 512 =   21,6 us	  21,6 / 1380 * 100 =  1.56 cm		  861
+ 10 m		1380 *  10 =  13800 us		 13800 / 512 =   27,0 us	  27,0 / 1380 * 100 =  1.96 cm		 1077
+ 14 m		1380 *  14 =  19320 us		 19320 / 512 =   37,7 us	  37,7 / 1380 * 100 =  2,73 cm		 1508
+ 20 m		1380 *  20 =  27600 us		 27600 / 512 =   53,9 us	  53,9 / 1380 * 100 =  3,91 cm		 2154
+ 30 m		1380 *  30 =  41400 us		 41400 / 512 =   80,0 us	  80,0 / 1380 * 100 =  5,80 cm		 3232
+ 40 m		1380 *  40 =  55200 us		 55200 / 512 =  107,8 us	 107,8 / 1380 * 100 =  7,81 cm		 4309
+ 50 m		1380 *  50 =  69000 us		 69000 / 512 =  134,8 us	 134,8 / 1380 * 100 =  9,77 cm		 5387
+ 70 m		1380 *  70 =  96600 us		 96600 / 512 =  188,7 us	 188,7 / 1380 * 100 = 13,67 cm		 7542
+100 m		1380 * 100 = 138000 us		138000 / 512 =  269,5 us	 269,5 / 1380 * 100 = 19,53 cm		10775
+120 m		1380 * 120 = 165600 us		165600 / 512 =  323,4 us	 323,4 / 1380 * 100 = 23,44 cm		12930
+150 m		1380 * 150 = 207000 us		207000 / 512 =  404,3 us	 404,3 / 1380 * 100 = 29,30 cm		16163
+200 m		1380 * 200 = 276000 us		276000 / 512 =  539,1 us	 539,1 / 1380 * 100 = 39,07 cm		21551
+250 m		1380 * 250 = 345000 us		345000 / 512 =  673,8 us	 673,8 / 1380 * 100 = 48,83 cm		26939
+300 m		1380 * 300 = 414000 us		414000 / 512 =  808,6 us	 808,6 / 1380 * 100 = 58,59 cm		32327
+350 m		1380 * 350 = 483000 us		483000 / 512 =  943,4 us	 943,4 / 1380 * 100 = 68,36 cm		37715
+400 m		1380 * 400 = 552000 us		552000 / 512 = 1078,1 us	1078,1 / 1380 * 100 = 78,13 cm		43102
+500 m		1380 * 500 = 690000 us		690000 / 512 = 1347,7 us	1347,7 / 1380 * 100 = 97,66 cm		53878
+=======================================================================================================================
+
+Hardware environment
+====================
+Runs on STM32 Discovery.
+
+Additional hardware
+===================
+o Transmitter capable of delivering at least 150 watts RMS to the swinger.
+  For the swinger I am using (Lowrance HST-WSU Part #106-48), 1000 Vpp is needed.
+o Echo receiver tuned at 200KHz and with time dependant gain control (controled by DAC).
+
+Port pins used on STM32 Discovery
+=================================
+PA2		ADC Echo in
+PA3		ADC Battery in
+PA4		DAC channel1 Gain control out
+PA5		ADC Water temprature in
+PA6		ADC Air temprature in
+
+PA8		Ping phase 0 out
+PA9		Ping phase 1 out
+
+Transmitter transformer
+=======================
+Primary 6+6 turns and secondary 300 turns on an 8mm air core.
+I used a core found in a 11W light bulb. The ferrite core was removed.
+
+Receiver transformers
+=====================
+455KHz IF transformers, Toko type 7P core (http://www.toko.com.hk/Catalog/coils/7p.pdf).
+
+T1		Primary 70+7 turns, secondary 7 turns, Toko type 7P yellow IF coil rewound to spec.
+T2		455 KHz IF transformer, Toko type 7P white IF coil.
+
+Some specifications on Mouser 455KHz IF transformers
+====================================================
+
+Mouser 455 Khz IF transformers
+========================================================================================================================
+Mouser Number Impedance Application Slug Colour Turns Ratio Nominal Inductance Turns [1 - 2] Turns [2 - 3] Turns [4 - 6] 
+========================================================================================================================
+42IF101		  60K : 600 1st I.F		Yellow Type	22 : 1		680 uH			   70			 87			   7
+42IF301		  50K : 500 1st I.F		Yellow Type	20 : 1		680 uH			   77			 66			   7
+42IF102		  30K : 500 2nd I.F		White Type	22 : 1		680 uH			   98			 57			   7
+42IF302		  30K : 500 2nd I.F		White Type	22 : 1		680 uH			   95			 48			   7
+42IF103		  20K : 6K  3rd I.F		Black Type	6 : 1		680 uH			   103			 50			   27
+42IF303		  20K : 5K  3rd I.F		Black Type	7 : 1		680 uH			   102			 41			   21
+========================================================================================================================
+
+3	o---+---C | C---o	4
+	 C ==	C | C
+2	o--|----C | C
+	   |	C | C
+1	o--+----C | C---o	6
+
+1 - Collector
+2 - Vcc
+4 - Base
+6 - Gnd
+
+LC Calculation
+==============
+		  1
+f = -------------
+    2*pi*Sqr(L*C)
+
+
+Might be useful reading
+=======================
+IF stage:			http://www.qrp.pops.net/Cascode_BJT.asp
+AM/FM radio:		http://electronickits.com/kit/complete/radi/amfm-108k.pdf
+IF transformers:	http://www.electronics-tutorials.com/filters/if-amplifier-transformers.htm
+IF amplifier IC:	MC1350 if amplifier
+VCA:				http://schematicsforfree.com/archive/file/Audio/Circuits/Dynamics%20&%20Gain%20Control/Voltage%20Controlled%20Amplifiers.pdf
+Toko IF colils:		http://www.toko.com.hk/Catalog/coils/7p.pdf
+Mouser IF coils:	http://www.mouser.com/catalog/specsheets/XC-600131.pdf
+Hybrid IF:			http://www.ka7exm.net/hycas/hycas_200712_qst.pdf
+JFET:				http://www.w7zoi.net/jfet101.pdf
+
+Air temprature readings
+===========================
+Temprature		ADC Reading
+===========================
+	45				 980
+	40				1116
+	35				1268
+	30				1441
+	25				1610
+	20				1820
+	17				1926
+	15				2015
+	10				2218
+	 5				2522
+	 2				2563
+===========================
+ 
+(T1-Tx)/(V1-Vx)=(T1-T2)/(V1-V2)
+T1-Tx=(T1-T2)/(V1-V2)*(V1-Vx)
+Tx=-((T1-T2)/(V1-V2)*(V1-Vx)+T1)
+
+(15-20)/(2015-1820)*(2015-1900)+15
+
+dT1/dV1=dT2/dV2
+dT1=dT2/dV2*dV1
+
+Rx=15*Vx/(3-Vx)
+
+17C --> Vx = 3/4095*1926 = 1.41 = 13.3K
+27C --> Vx = 3/4095*1547 = 1.13 = 8.98K
+37C --> Vx = 3/4095*1208 = 0.88 = 6.23K
+
+Resiver sensivity for a full
+scale reading:
+===============================
+Input voltage		 Gain level
+===============================
+1000mV					 533
+ 500mV					 602
+ 200mV					 695
+ 100mV					 730
+  50mV					 760
+  20mV					 804
+  10mV					 836
+   5mV					 889
+   2mV					 990
+1000uV					1146
+ 500uV					1324
+ 200uV					1690
+ 100uV					2046
+  50uV					2598
+  20uV					3700
+  15uV					4095
+===============================
+
+Gain levels Ping 64
+=============================
+Range			Single bottom
+=============================
+ 2					 750
+ 4					 820
+ 6					 840
+ 8					 860
+10					 910
+14					 980
+20					1250
+30					1280
+40					1400
+50					1960
+=============================
+
+Gain levels Ping 128
+=============================
+Range			Single bottom
+=============================
+ 70					2630
+100					3280
+============================
+

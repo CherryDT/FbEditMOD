@@ -1,0 +1,19 @@
+UpdateChecker addin.
+--------------------
+
+The addin adds Check for Uptates to the Tools menu.
+
+The addin lets you:
+1. Get the version at Sourceforge and compare it to your version.
+2. Download RadASM.zip file to the chosen folder (C:\RadASM\RadASM_Update).
+3. Unzip the file to the chosen folder.
+   The chosen folder will contain all the latest RadASM files.
+4. View the WhatsNew.txt file.
+5. Update to the new version.
+
+How to install.
+---------------
+1. Copy UpdateChecker.dll To the addins folder (C:\RadASM\Addins).
+2. Copy UpdateChecker.txt To the addins help folder (C:\RadASM\Addins\Help).
+
+KetilO

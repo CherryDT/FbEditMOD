@@ -1,0 +1,17 @@
+This addin converts RadASM 2.x projects to RadASM 3.0 projects.
+
+WARNING!
+- Copy all files in the project to a new folder before attempting to convert.
+- RC files will be converted to a single file. mnu, dlg and rap files will be deleted.
+
+NOTE!
+- No attempt is made to convert the make options.
+- Previously non visible dialogs must be made non visible in the new project.
+- You need RadASM 3.0.0.1 or higher for the addin to work.
+
+HOW TO INSTALL
+- Copy the ConvertProject.dll to the Addins folder.
+- Copy the ConvertProject.txt to the Addins/Help folder.
+- Restart RadASM if it is running.
+
+KetilO

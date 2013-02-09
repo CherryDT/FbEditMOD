@@ -1,0 +1,354 @@
+ResEd
+
+2.2.0.7 - 2011-02-17
+--------------------
+o Fixed an image control parser bug.
+
+2.2.0.6d - 2011-01-12
+---------------------
+o Fixed an include file bug. File browser would not show.
+
+2.2.0.6c - 2010-07-03
+---------------------
+o Fixed accelerator table bug. The editcombo control in the grid
+  did not behave as it should.
+o Fixed bug in names export. IDOK, IDCANCEL, ... and IDC_STATIC is no longer exported.
+o Added IDABORT, IDRETRY, IDIGNORE, IDYES, IDNO, IDCLOSE and IDHELP to button names.
+
+2.2.0.6b - 2010-03-11
+---------------------
+o Fixed a parser bug. If a control had an help id and no exstyle
+  the parser would fail.
+
+2.2.0.6 - 2009-12-29
+--------------------
+o Added Check for Update to tools menu.
+  - It lets you check the version at Sourceforge and compare it to yours.
+  - Download the ResEd.zip file.
+  - Unzip ResEd.zip.
+  - View the WhatsNew.txt file.
+  - Update to the new version.
+o Fixed a dialog editor bug that caused it imposible to select controls
+  on win95,98 and me.
+
+2.2.0.5b - 2009-10-15
+---------------------
+o The exe filename is now part of the registry key.
+  Just make a copy of ResEd.exe and name it ResEd2.exe or whatever.
+  This makes it possible to have different configurations for each exe.
+o The command ResEd /Delete will remove ResEd from registry.
+  NOTE!
+  If ResEd2 is used it must be removed with 'ResEd2 /Delete' before ResEd can be removed.
+o Resource names are now validated.
+
+2.2.0.5 - 2009-10-04
+--------------------
+o Added user defined name export format. Uses %name and %id.
+o Added unicode support to file system. Use Save Project As to convert
+  to or from unicode. Since only the file system supports unicode you are
+  limitted to the language your computer is set to handle.
+o Fixed bug where hiding the output window would consumes all CPU cycles.
+
+2.2.0.4 - 2009-09-19
+--------------------
+o Improved dialog editor control selection and moving with snap to grid.
+o Fixed menu editor bug if enter key was pressed.
+o Fixed dialog editor bug if a control was partially outside the dialog.
+
+2.2.0.3c - 2009-09-01
+---------------------
+o Fixed bug where exported names could contain duplicates.
+
+2.2.0.3b - 2009-08-21
+---------------------
+o The work area scrollbars are now hidden when not needed.
+o Fixed bug where editing MANIFEST, TOOLBAR, RCDATA or custom resource could leave
+  garbage at the end.
+o Fixed bug where changing the manifest filename did not work.
+o Fixed a bug where the properties combo would be set to '#define' when names are exported.
+
+Thanks to Cherry for reporting these bugs.
+
+2.2.0.3 - 2009-08-12
+--------------------
+o Accelerator table and string table now has an edit combo in its name column.
+  The combo items are names from menues. This might save you some typing.
+o Added PBS_MARQUEE progress bar style.
+o Added user defined resource types with embedded file data.
+o Updated help file.
+o Fixed bug with custom styles.
+o Fixed bug with duplicate #define
+o Fixed bug with sizing while caption is changed.
+o Fixed bug with parsing versioninfo using { and } instead of BEGIN and END.
+
+2.2.0.2 - 2009-05-14
+--------------------
+o Added BS_SPLITBUTTON, BS_DEFSPLITBUTTON, BS_COMMANDLINK and BS_DEFCOMMANDLINK button styles.
+o Added TBS_REVERSED, TBS_DOWNISLEFT, TBS_NOTIFYBEFOREMOVE and TBS_TRANSPARENTBKGND trackbar styles.
+o Added language (if any) to project items.
+o Added SysLink control.
+o Added Compile to tools menu. Use Option / Options / Path to define the compiler command.
+o Grids now resizes to window.
+o Updated help file.
+o Fixed bug with Chinese font names.
+o Fixed bug with RCDATA / RT_RCDATA,MANIFEST and TOOLBAR. Linefeeds was missing.
+o Fixed some minor bugs.
+
+2.2.0.1 - 2008-12-21
+--------------------
+o Fixed bug with opening project by command line or drop file.
+  Did not set / open include file properly.
+o Fixed paint bug when selectin control by using keyboard.
+
+2.2.0.0d - 2008-12-04
+---------------------
+o Added caption property to RichEdit control.
+o Fixed bug with multiline caption in design mode.
+o Fixed bug with multiline caption in dialog preview.
+
+2.2.0.0c - 2008-11-18
+---------------------
+o Fixed serious bug with adding a new dialog to a project.
+  ResEd could crash.
+
+2.2.0.0b - 2008-11-17
+---------------------
+o Reduced flicker on dialog editor.
+o Fixed bug with menu editor.
+
+2.2.0.0 - 2008-11-06
+---------------------
+o Dialog editor uses dialogunits instead of pixels.
+o Fixed bug with custom styles.
+o To make a custom control keep it's height, enter a negative default height.
+  Example:
+  "mtcombo.dll,Mt_ComboBox32,IDC_MTCB,,MTComboBox,100,-100,50000003,00000000"
+o Added support for custom controls that has the the CustomControlInfoA function.
+  Also, if the dll has a group icon then the icon is used on the toolbox button.
+  Example:
+  "mtcombo.dll,,IDC_MTCB,,,,-100"
+
+2.1.0.3b - 2008-10-27
+---------------------
+o Fixed bug with Options / Custom styles. 
+
+2.1.0.3 - 2008.10.07
+--------------------
+o Fixed bug with style manager. Could show unrelated / duplicated styles.
+o Fixed bug with quoted menu text.
+
+2.1.0.2 - 2008.09.10
+--------------------
+o Added Open Project As Text.
+o Fixed bug with menu editor.
+o Fixed bug with menu preview.
+
+2.1.0.1 - 2008.07.03
+--------------------
+o Added preview to menu editor.
+o Language resource is now a child dialog.
+o Fixed problem with edit / richedit ES_NUMBER / ES_DISABLENOSCROLL style.
+o Fixed bug when showing menu accelerator on prview of a dialog with menu.
+o Fixed bug when dragging the dialog preview, with a menu, over the desiged dialog.
+
+2.1.0.0 - 2008.04.21
+--------------------
+o Previous modal dialogs are now child dialogs.
+  This makes the ResEd UI more uniform.
+o It is now possible to type the dialogs font.
+o Fixed problem with context menu on a dual screen system.
+o Fixed problem with keyboard resize after preview was used.
+o Added option to set Borland compatible.
+o Added option to set textmode font.
+o Added option to set resource startid and increment.
+o Added preview on resource files (bitmap, icon, cursor, ani cursor and avi clip).
+o It is now possible to directly edit the xStyle and xExStyle hex values.
+o Enhanced the custom control support. It is now possibe to add controls that are not RadASM compatible.
+  Example: Old rich edit control.
+  In Custom control field, type: "Riched32.dll,richedit,IDC_RED,Text,RichEdit,100,100,503110C4,00000200"
+  In Style mask field, type: WS_,ES_
+
+  This can also be used as a shortcut for often used controls.
+  Example: Horizontal line.
+  In Custom control field, type: ",static,IDC_LINE,,Horizontal line,100,2,50000110,00000000"
+  In Style mask field, type: WS_,SS_
+
+  Format for Custom control field: "[dll],class,name,[caption],tooltip,width,height,style,exstyle"
+  Format for Style mask field: Style1[,Style2[,Style3]]
+o Added option for custom styles.
+o Added options for default project path and system include path.
+  These paths are optional and can be left blank.
+o Added option to add custom resource types. You can also specify an editor for the resource.
+  Example:
+  Name:   MTTEXT
+  Value:  0
+  Files:  Text (*.txt)|*.txt|All files (*.*)|*.*
+  Editor: notpad.exe
+o Added option to browse for defines file on project open.
+o Added mru projects to file menu.
+o Added ResEd help file.
+o Added Window Styles help file by Philippe Berthault
+o Added SaveSel property to richedit control.
+
+2.0.0.0b - 2008.03.12
+---------------------
+o Added SS_REALSIZEIMAGE style.
+o Fixed some bugs.
+
+2.0.0.0 - 2008.02.05
+--------------------
+o RAResEd is now a single control. This makes it easier to use it in your own IDE.
+o Added nicer toolbar and menu.
+o Added option to use standard menu.
+o Added Undo / Redo to dialog editor
+  NOTE! Undo / Redo resets Send to Back / Bring to Front.
+  The only way to avoid this problem is to properly set the tabindexes.
+  Most important is that a GroupBox or Tab control should have a lower tabindex
+  than all the controls it contain.
+o Added support for IDOK / IDCANCEL to Button control.
+o Added support for IDC_STATIC to Static, Image and Shape controls.
+o Added option to define IDC_STATIC.
+o Added better support for multiline captions (Edit, Static and Button controls).
+  NOTE. Use Ctrl+Enter to insert a new line in the multiline text box.
+o Added TOOLBAR resource.
+o Added Text mode to dialog editor.
+o Fixed bugs with Image and Animate controls (name / id problems).
+o Fixed bug with #include <windows.h>.
+o Fixed bug with Add XP Manifest. #define MANIFEST 24 was not included.
+  This prevented the newly created application from running.
+
+1.1.4.3 - 2007.11.08
+--------------------
+o Added NM_DBLCLK notification when double clicking on dialog or control.
+o Added multiselected controls propery.
+o It is now possible to set default export filename to [Project].xxx.
+  - [Project] will be replaced by project filename.
+o Added option to set Simple Properties.
+o Added option to keep toolbox selection.
+o Style manager now supports RAEdit, RAGrid and SpreadSheet custom controls.
+o Fixed bug with caption containing double quote.
+o Fixed toolbar tooltip bug.
+
+1.1.4.2b - 2007.07.20
+---------------------
+o Fixed bugs when creating a new project and Save #defines to [Project].h file was enabled.
+
+1.1.4.2 - 2007.07.19
+---------------------
+o Dialog editor now checks if the controls name exist.
+o Added option to set dialog ,menu and rcdata default start ID and increment.
+o When adding a new resource like dialog, menu or rcdata an unique ID for the resource is generated.
+o When adding a new resource like menu or rcdata an unique name for the resource is generated.
+o Fixed bug where parser did not accept hex numbers with uppercase X.
+
+1.1.4.1 - 2007.07.02
+---------------------
+o Added option to save #defines to [Project].h file.
+o Fixed bug where grid combobox would show in taskbar.
+o Fixed bug where acceleratortable name or ID could not be changed.
+
+1.1.4.0 - 2007.05.16
+---------------------
+o Added option to size dialog to font
+o Fixed statusbar style bugs
+
+1.1.3.9 - 2007.05.02
+---------------------
+o Added xp manifest.
+o Added RCDATA.
+
+1.1.3.8 - 2007.04.30
+---------------------
+o Expanded string table memory from 64K to 512K
+o Fixed bug where changing class for a user defined control did not work.
+o Fixed image control bugs (ID / Name / Type mixup).
+o Fixed checkbox style bugs.
+
+1.1.3.7 - 2007.01.31
+---------------------
+o A user defined control can now have a caption text.
+
+1.1.3.6 - 2007.01.28
+---------------------
+o Holding Alt key inverts Snap to Grid setting. Thanks to AlexB.
+
+1.1.3.5b - 2007.01.10
+---------------------
+o Fixed bugs with listview styles.
+
+1.1.3.5 - 2007.01.02
+--------------------
+o Added 'Auto renumber ID's' to format menu
+  Start ID for auto renumber is taken from currently selected control in a multiselection.
+
+1.1.3.4 - 2006.12.07
+--------------------
+o Added 'Save as RadASM dlg file' to project menu
+
+1.1.3.3 - 2006.10.31
+--------------------
+o Added PowerBasic name export option.
+
+1.1.3.2 - 2006.10.17
+--------------------
+o Fixed bug where preview dialog did not work with WS_EX_LAYERED or WS_EX_TRANSPARENT extended styles.
+o Fixed bug where sizing or moving a control by using keyboard did not update changes when saved.
+
+1.1.3.1 - 2006.08.15
+--------------------
+o Fixed bug where setting WS_EX_LAYERED would crash ResEd.
+o Fixed bug where setting WS_EX_TRANSPARENT would make dialopg disappear.
+
+1.1.3.0 - 2006.05.06
+--------------------
+o Made option, tools menu and help menu dialogs larger.
+o Made project path removal from filenames in resources and include files case insensitive.
+o Updated internal grid component.
+o It is now possible to manually edit filename in resource and include file grids.
+o Pushing OK while still in grid edit mode now updates grid data.
+o New Project now forces you to create a file since several functions are dependant on a project path.
+o Accelerator key INSERT returned wrong code.
+ 
+1.1.2.9 - 2006.04.23
+--------------------
+o Fixed bug where radasm custom controls on a dialog would trigger endless paint loop.
+o Added support for line continuations in strings in the parser.
+o Added SS_CENTERIMAGE style to parser and stylemanager.
+o Fixed a bug where copy and paste a groupbox or tabcontrol would create duplicate tabindexes
+  and ResEd would crash after reporting the problem.
+o Fixed a paint bug in User Defined Control.
+
+1.1.2.8 - 2006.03.29
+--------------------
+o New style manager to set control styles.
+o Added Default to button text alignment.
+o Added function to set tabindexes.
+o Fixed a fontsize bug.
+
+1.1.2.7 - 2006.03.13
+--------------------
+o Swapped position of OK / Cancel button on some dialogs.
+o Fixed bug where Center in dialog did not work as expected if there was a multiselection.
+
+1.1.2.6 - 2006.03.08
+--------------------
+o Fixed bug where name export was not always auto saved to project path.
+o Fixed bug where resource file open dialog would not show if existing file was not in project path.
+o Fixed bug where include file open dialog would not show if existing file was not in project path.
+o Fixed bug where ResEd had an exit code of 1.
+o Updated the internal RAGrid component.
+
+1.1.2.5 - 2005.11.15
+--------------------
+o Fixed a paste bug. Controls did not get uniqe names.
+o Fixed a design problem with a groupbox on a tabcontrol. The groupbox would fall behind the tabcontrol.
+o Click and drag on Dialog creates a multiselect rectangle.
+o Shift+Click and drag on Dialog, GroupBox or TabControl creates a multiselect rectangle.
+o Added Center in Dialog function.
+o Fixed bug where Styles as Hex optionn would not take place until ResEd was restarted.
+o Added Add button to menu editor.
+o Menu editor now copies 'indent' from above line.
+o Fixed bug where NOT WS_VISIBLE would not be written as hex when Styles as Hex was selected.
+o Fixed paint bugs with property button.
+
+KetilO

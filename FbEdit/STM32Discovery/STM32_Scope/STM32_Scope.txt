@@ -1,0 +1,112 @@
+STM32 value line Discovery Digital Oscilloscope demo project.
+-------------------------------------------------------------------------------
+
+IMPORTANT NOTICE!
+-----------------
+The use of the evaluation board is restricted:
+"This device is not, and may not be, offered for sale or lease, or sold or
+leased or otherwise distributed".
+
+For more info see this license agreement:
+http://www.st.com/internet/com/LEGAL_RESOURCES/LEGAL_AGREEMENT/
+LICENSE_AGREEMENT/EvaluationProductLicenseAgreement.pdf
+
+Features:
+-------------------------------------------------------------------------------
+o Dual channel digital oscilloscope.
+  - Variable sample rate 27.778KS/Sec to 2.0MS/Sec.
+  - 8 bit verical resolution.
+  - 7K sample buffer.
+  - Subsampling gives 10MHz bandwidth in single channel mode.
+  - Minimum 4Hz frequency to sample one complete period.
+  - Trigger: Manual, rising or falling edge or from digital analyser.
+    With some additional hardware, variable trigger level and DC offset
+    (Y-Position) adjustment.
+o Two Waveform generators.
+  - 12 bit dac.
+  - Noise generator. Variable noise frequency, amplitude and DC offset.
+  - Triangle wave. Variable frequency, amplitude and DC offset.
+  - Square wave with variable frequency.
+  - Sine wave. Variable frequency, amplitude and DC offset.
+  - Wave file upload. Max 1.75K 12 bit amplitude. Variable frequency,
+    amplitude and DC offset.
+o DDS Waveform generator.
+  - 12 bit dac.
+  - 32 bit phase register gives 0.00163 Hz resolution.
+  - 2048 word amplitude lookup table.
+  - Sine wave.
+  - Triangle wave.
+  - Square wave.
+  - Sawtooth wave.
+  - Reverse sawtooth wave.
+  - Variable amplitude and DC offset.
+  - Sweep generator. Variable step time, 1ms to 6.5s.
+  	Variable frequency steps, 1Hz to 9999Hz.
+  	Variable number of steps, 1 to 1536.
+  	Sweep up, down or up and down.
+  - Peak detect mode samles peak ampltude for each step.
+o Two high speed clock outputs.
+  - Variable from 0.02Hz to 28.0MHz
+  - Variable pulse width, 0% to 100%.
+o Logic analyser.
+  - 8 bits.
+  - Variable sample rate, max 4.667MHz (9.333MHz with fixed 128 byte buffer).
+  - Trigger selection: Manual, rising or falling edge from oscilloscope CHA
+    or CHB, or from logic analyser. Trigger from logic analyser can be any
+    combination of high or low bits. There is also a mask to set dont care
+    bits. The trigger can be set to be edge sensitive.
+o Two frequency counters.
+  - Counts frequency up to 28MHz.
+  - 1Hz resolution.
+o Two digital voltmeters.
+  - 12 bit resolution.
+  - With some additional hardware +/- 30 Volts range.
+
+-------------------------------------------------------------------------------
+Port pins used:
+-------------------------------------------------------------------------------
+PB.00				ADC Channel 8 Input for scope CHA
+PB.01				ADC Channel 9 Input for scope CHB
+
+PA.02				ADC Channel 2 Input for DVMA
+PA.03				ADC Channel 3 Input for DVMB
+
+PA.04				DAC Channel 1 output for WAVEA.
+PA.05				DAC Channel 2 output for WAVEB.
+
+PA.06				ADC Channel 6 Input for scope CHC / DDS Sweep Peak detector.
+PA.07				ADC Channel 7 Input for scope CHD
+
+PA.01				TIM2 Input for frequency counter scope CHA
+PB.07				TIM4 Input for frequency counter scope CHB
+
+PA.08				TIM1 PWM Output Channel 1. Sets CHA trigger level
+PA.09				TIM1 PWM Output Channel 2. Sets CHA DC offset level
+PA.10				TIM1 PWM Output Channel 3. Sets CHB trigger level
+PA.11				TIM1 PWM Output Channel 4. Sets CHB DC offset level
+
+PB.08				TIM16 PWM Output. High speed clock output CLKA.
+PB.09				TIM17 PWM Output. High speed clock output CLKB.
+
+PC.00 to PC.07		Inputs for logic analyser
+
+PB.10 to PB.12		Outputs for CHA amplification selector.
+PB.13 to PB.15		Outputs for CHB amplification selector.
+
+-------------------------------------------------------------------------------
+Port pins used by discovery:
+-------------------------------------------------------------------------------
+PA.00				User button input
+PA.13				TMS/SWDIO
+PA.14				TCK/SWCLK
+
+PB.02				BOOT1
+
+PC.08				LED4 Output (Blue)
+PC.09				LED3 Output (Green)
+
+PC.14				OSC In
+PC.15				OSC Out
+
+PD.00				OSC In
+PD.01				OSC Out

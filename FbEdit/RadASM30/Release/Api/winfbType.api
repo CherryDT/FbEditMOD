@@ -1,0 +1,16 @@
+T3
+Byte,1
+UByte,1
+Short,2
+UShort,2
+Integer,4
+UInteger,4
+Long,4
+ULong,4
+LongInt,8
+ULongInt,8
+Single,4
+Double,8
+String,1
+ZString,1
+WString,2

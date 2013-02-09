@@ -1,0 +1,1115 @@
+<!-- DWF2XML 2.00.01 - Raisonance Dwarf information extractor -->
+<aoffile Filename="DIGScope" dwarf="1">
+ <modulelist>
+  <module Name="C:\STM32\Projects\DIGScope\main.c" >
+   <type Family="Base" Name="long int" ID="37"/>
+   <type Family="Base" Name="short int" ID="44"/>
+   <type Family="Base" Name="signed char" ID="51"/>
+   <type Family="Base" Name="long unsigned int" ID="69"/>
+   <type Family="typedef" Name="u32" Line="39" ID="58" toTI="69"/>
+   <type Family="Base" Name="short unsigned int" ID="87"/>
+   <type Family="typedef" Name="u16" Line="40" ID="76" toTI="87"/>
+   <type Family="Base" Name="unsigned char" ID="104"/>
+   <type Family="typedef" Name="u8" Line="41" ID="94" toTI="104"/>
+   <type Family="typedef" Name="FunctionalState" Line="59" ID="168" toTI="147"/>
+   <type Family="typedef" Name="ErrorStatus" Line="62" ID="200" toTI="179"/>
+   <type Family="ComponentList" Line="36" ID="211">
+    <Component Name="SR" TI="219" Line="38" Offs="0"/>
+    <Component Name="CR1" TI="232" Line="39" Offs="4"/>
+    <Component Name="CR2" TI="246" Line="40" Offs="8"/>
+    <Component Name="SMPR1" TI="260" Line="41" Offs="12"/>
+    <Component Name="SMPR2" TI="274" Line="42" Offs="16"/>
+    <Component Name="JOFR1" TI="288" Line="43" Offs="20"/>
+    <Component Name="JOFR2" TI="302" Line="44" Offs="24"/>
+    <Component Name="JOFR3" TI="316" Line="45" Offs="28"/>
+    <Component Name="JOFR4" TI="330" Line="46" Offs="32"/>
+    <Component Name="HTR" TI="344" Line="47" Offs="36"/>
+    <Component Name="LTR" TI="358" Line="48" Offs="40"/>
+    <Component Name="SQR1" TI="372" Line="49" Offs="44"/>
+    <Component Name="SQR2" TI="386" Line="50" Offs="48"/>
+    <Component Name="SQR3" TI="400" Line="51" Offs="52"/>
+    <Component Name="JSQR" TI="414" Line="52" Offs="56"/>
+    <Component Name="JDR1" TI="428" Line="53" Offs="60"/>
+    <Component Name="JDR2" TI="442" Line="54" Offs="64"/>
+    <Component Name="JDR3" TI="456" Line="55" Offs="68"/>
+    <Component Name="JDR4" TI="470" Line="56" Offs="72"/>
+    <Component Name="DR" TI="484" Line="57" Offs="76"/>
+   </type>
+   <type Family="typedef" Name="ADC_TypeDef" Line="58" ID="498" toTI="211"/>
+   <type Family="Base" Name="unsigned int" ID="509"/>
+   <type Family="ComponentList" Line="217" ID="516">
+    <Component Name="CR" TI="524" Line="219" Offs="0"/>
+    <Component Name="SWTRIGR" TI="537" Line="220" Offs="4"/>
+    <Component Name="DHR12R1" TI="551" Line="221" Offs="8"/>
+    <Component Name="DHR12L1" TI="565" Line="222" Offs="12"/>
+    <Component Name="DHR8R1" TI="579" Line="223" Offs="16"/>
+    <Component Name="DHR12R2" TI="593" Line="224" Offs="20"/>
+    <Component Name="DHR12L2" TI="607" Line="225" Offs="24"/>
+    <Component Name="DHR8R2" TI="621" Line="226" Offs="28"/>
+    <Component Name="DHR12RD" TI="635" Line="227" Offs="32"/>
+    <Component Name="DHR12LD" TI="649" Line="228" Offs="36"/>
+    <Component Name="DHR8RD" TI="663" Line="229" Offs="40"/>
+    <Component Name="DOR1" TI="677" Line="230" Offs="44"/>
+    <Component Name="DOR2" TI="691" Line="231" Offs="48"/>
+   </type>
+   <type Family="typedef" Name="DAC_TypeDef" Line="232" ID="706" toTI="516"/>
+   <type Family="ComponentList" Line="242" ID="717">
+    <Component Name="CCR" TI="725" Line="244" Offs="0"/>
+    <Component Name="CNDTR" TI="739" Line="245" Offs="4"/>
+    <Component Name="CPAR" TI="753" Line="246" Offs="8"/>
+    <Component Name="CMAR" TI="767" Line="247" Offs="12"/>
+   </type>
+   <type Family="typedef" Name="DMA_Channel_TypeDef" Line="248" ID="782" toTI="717"/>
+   <type Family="ComponentList" Line="250" ID="793">
+    <Component Name="ISR" TI="801" Line="252" Offs="0"/>
+    <Component Name="IFCR" TI="815" Line="253" Offs="4"/>
+   </type>
+   <type Family="typedef" Name="DMA_TypeDef" Line="254" ID="830" toTI="793"/>
+   <type Family="ComponentList" Line="334" ID="841">
+    <Component Name="CRL" TI="850" Line="336" Offs="0"/>
+    <Component Name="CRH" TI="865" Line="337" Offs="4"/>
+    <Component Name="IDR" TI="880" Line="338" Offs="8"/>
+    <Component Name="ODR" TI="895" Line="339" Offs="12"/>
+    <Component Name="BSRR" TI="910" Line="340" Offs="16"/>
+    <Component Name="BRR" TI="925" Line="341" Offs="20"/>
+    <Component Name="LCKR" TI="940" Line="342" Offs="24"/>
+   </type>
+   <type Family="typedef" Name="GPIO_TypeDef" Line="343" ID="956" toTI="841"/>
+   <type Family="ComponentList" Line="523" ID="968">
+    <Component Name="CR1" TI="977" Line="525" Offs="0"/>
+    <Component Name="RESERVED0" TI="992" Line="526" Offs="2"/>
+    <Component Name="CR2" TI="1007" Line="527" Offs="4"/>
+    <Component Name="RESERVED1" TI="1022" Line="528" Offs="6"/>
+    <Component Name="SMCR" TI="1037" Line="529" Offs="8"/>
+    <Component Name="RESERVED2" TI="1052" Line="530" Offs="10"/>
+    <Component Name="DIER" TI="1067" Line="531" Offs="12"/>
+    <Component Name="RESERVED3" TI="1082" Line="532" Offs="14"/>
+    <Component Name="SR" TI="1097" Line="533" Offs="16"/>
+    <Component Name="RESERVED4" TI="1111" Line="534" Offs="18"/>
+    <Component Name="EGR" TI="1126" Line="535" Offs="20"/>
+    <Component Name="RESERVED5" TI="1141" Line="536" Offs="22"/>
+    <Component Name="CCMR1" TI="1156" Line="537" Offs="24"/>
+    <Component Name="RESERVED6" TI="1171" Line="538" Offs="26"/>
+    <Component Name="CCMR2" TI="1186" Line="539" Offs="28"/>
+    <Component Name="RESERVED7" TI="1201" Line="540" Offs="30"/>
+    <Component Name="CCER" TI="1216" Line="541" Offs="32"/>
+    <Component Name="RESERVED8" TI="1231" Line="542" Offs="34"/>
+    <Component Name="CNT" TI="1246" Line="543" Offs="36"/>
+    <Component Name="RESERVED9" TI="1261" Line="544" Offs="38"/>
+    <Component Name="PSC" TI="1276" Line="545" Offs="40"/>
+    <Component Name="RESERVED10" TI="1291" Line="546" Offs="42"/>
+    <Component Name="ARR" TI="1306" Line="547" Offs="44"/>
+    <Component Name="RESERVED11" TI="1321" Line="548" Offs="46"/>
+    <Component Name="RCR" TI="1336" Line="549" Offs="48"/>
+    <Component Name="RESERVED12" TI="1351" Line="550" Offs="50"/>
+    <Component Name="CCR1" TI="1366" Line="551" Offs="52"/>
+    <Component Name="RESERVED13" TI="1381" Line="552" Offs="54"/>
+    <Component Name="CCR2" TI="1396" Line="553" Offs="56"/>
+    <Component Name="RESERVED14" TI="1411" Line="554" Offs="58"/>
+    <Component Name="CCR3" TI="1426" Line="555" Offs="60"/>
+    <Component Name="RESERVED15" TI="1441" Line="556" Offs="62"/>
+    <Component Name="CCR4" TI="1456" Line="557" Offs="64"/>
+    <Component Name="RESERVED16" TI="1471" Line="558" Offs="66"/>
+    <Component Name="BDTR" TI="1486" Line="559" Offs="68"/>
+    <Component Name="RESERVED17" TI="1501" Line="560" Offs="70"/>
+    <Component Name="DCR" TI="1516" Line="561" Offs="72"/>
+    <Component Name="RESERVED18" TI="1531" Line="562" Offs="74"/>
+    <Component Name="DMAR" TI="1546" Line="563" Offs="76"/>
+    <Component Name="RESERVED19" TI="1561" Line="564" Offs="78"/>
+   </type>
+   <type Family="typedef" Name="TIM_TypeDef" Line="565" ID="1577" toTI="968"/>
+   <type Family="ComponentList" Line="26" ID="1589">
+    <Component Name="ADC_Mode" TI="1597" Line="28" Offs="0"/>
+    <Component Name="ADC_ScanConvMode" TI="1611" Line="29" Offs="4"/>
+    <Component Name="ADC_ContinuousConvMode" TI="1625" Line="30" Offs="5"/>
+    <Component Name="ADC_ExternalTrigConv" TI="1639" Line="31" Offs="8"/>
+    <Component Name="ADC_DataAlign" TI="1653" Line="32" Offs="12"/>
+    <Component Name="ADC_NbrOfChannel" TI="1667" Line="33" Offs="16"/>
+   </type>
+   <type Family="typedef" Name="ADC_InitTypeDef" Line="34" ID="1682" toTI="1589"/>
+   <type Family="ComponentList" Line="26" ID="1693">
+    <Component Name="DMA_PeripheralBaseAddr" TI="1701" Line="28" Offs="0"/>
+    <Component Name="DMA_MemoryBaseAddr" TI="1715" Line="29" Offs="4"/>
+    <Component Name="DMA_DIR" TI="1729" Line="30" Offs="8"/>
+    <Component Name="DMA_BufferSize" TI="1743" Line="31" Offs="12"/>
+    <Component Name="DMA_PeripheralInc" TI="1757" Line="32" Offs="16"/>
+    <Component Name="DMA_MemoryInc" TI="1771" Line="33" Offs="20"/>
+    <Component Name="DMA_PeripheralDataSize" TI="1785" Line="34" Offs="24"/>
+    <Component Name="DMA_MemoryDataSize" TI="1799" Line="35" Offs="28"/>
+    <Component Name="DMA_Mode" TI="1813" Line="36" Offs="32"/>
+    <Component Name="DMA_Priority" TI="1827" Line="37" Offs="36"/>
+    <Component Name="DMA_M2M" TI="1841" Line="38" Offs="40"/>
+   </type>
+   <type Family="typedef" Name="DMA_InitTypeDef" Line="39" ID="1856" toTI="1693"/>
+   <type Family="typedef" Name="GPIOSpeed_TypeDef" Line="39" ID="1894" toTI="1867"/>
+   <type Family="typedef" Name="GPIOMode_TypeDef" Line="54" ID="1963" toTI="1905"/>
+   <type Family="ComponentList" Line="62" ID="1974">
+    <Component Name="GPIO_Pin" TI="1982" Line="64" Offs="0"/>
+    <Component Name="GPIO_Speed" TI="1996" Line="65" Offs="2"/>
+    <Component Name="GPIO_Mode" TI="2010" Line="66" Offs="3"/>
+   </type>
+   <type Family="typedef" Name="GPIO_InitTypeDef" Line="67" ID="2025" toTI="1974"/>
+   <type Family="ComponentList" Line="26" ID="2036">
+    <Component Name="NVIC_IRQChannel" TI="2044" Line="28" Offs="0"/>
+    <Component Name="NVIC_IRQChannelPreemptionPriority" TI="2058" Line="29" Offs="1"/>
+    <Component Name="NVIC_IRQChannelSubPriority" TI="2072" Line="30" Offs="2"/>
+    <Component Name="NVIC_IRQChannelCmd" TI="2086" Line="31" Offs="3"/>
+   </type>
+   <type Family="typedef" Name="NVIC_InitTypeDef" Line="32" ID="2101" toTI="2036"/>
+   <type Family="ComponentList" Line="27" ID="2112">
+    <Component Name="TIM_Prescaler" TI="2120" Line="29" Offs="0"/>
+    <Component Name="TIM_CounterMode" TI="2134" Line="30" Offs="2"/>
+    <Component Name="TIM_Period" TI="2148" Line="31" Offs="4"/>
+    <Component Name="TIM_ClockDivision" TI="2162" Line="32" Offs="6"/>
+    <Component Name="TIM_RepetitionCounter" TI="2176" Line="33" Offs="8"/>
+   </type>
+   <type Family="typedef" Name="TIM_TimeBaseInitTypeDef" Line="34" ID="2191" toTI="2112"/>
+   <type Family="ComponentList" Line="37" ID="2202">
+    <Component Name="TIM_OCMode" TI="2210" Line="39" Offs="0"/>
+    <Component Name="TIM_OutputState" TI="2224" Line="40" Offs="2"/>
+    <Component Name="TIM_OutputNState" TI="2238" Line="41" Offs="4"/>
+    <Component Name="TIM_Pulse" TI="2252" Line="42" Offs="6"/>
+    <Component Name="TIM_OCPolarity" TI="2266" Line="43" Offs="8"/>
+    <Component Name="TIM_OCNPolarity" TI="2280" Line="44" Offs="10"/>
+    <Component Name="TIM_OCIdleState" TI="2294" Line="45" Offs="12"/>
+    <Component Name="TIM_OCNIdleState" TI="2308" Line="46" Offs="14"/>
+   </type>
+   <type Family="typedef" Name="TIM_OCInitTypeDef" Line="47" ID="2323" toTI="2202"/>
+   <type Family="ComponentList" Line="81" ID="2334">
+    <Component Name="STM32_DataBlocks" TI="2342" Line="83" Offs="0"/>
+    <Component Name="STM32_TriggerMode" TI="2356" Line="84" Offs="1"/>
+    <Component Name="ADC_TriggerValueCHA" TI="2370" Line="85" Offs="2"/>
+    <Component Name="ADC_DCNullOutCHA" TI="2384" Line="86" Offs="3"/>
+   </type>
+   <type Family="ComponentList" Line="79" ID="2399">
+    <Component Name="(null)" TI="2407" Line="0" Offs="0"/>
+    <Component Name="Address" TI="2412" Line="88" Offs="0"/>
+    <Component Name="DDSPhaseFrq" TI="2423" Line="89" Offs="0"/>
+   </type>
+   <type Family="ComponentList" Line="93" ID="2435">
+    <Component Name="ADC_TriggerValueCHB" TI="2443" Line="95" Offs="0"/>
+    <Component Name="ADC_DCNullOutCHB" TI="2457" Line="96" Offs="1"/>
+    <Component Name="LGA_TriggerValue" TI="2471" Line="97" Offs="2"/>
+    <Component Name="LGA_TriggerMask" TI="2485" Line="98" Offs="3"/>
+   </type>
+   <type Family="ComponentList" Line="100" ID="2500">
+    <Component Name="SWEEP_StepTime" TI="2508" Line="102" Offs="0"/>
+    <Component Name="SWEEP_SubMode" TI="2522" Line="103" Offs="2"/>
+    <Component Name="DDSDacBuffer" TI="2536" Line="104" Offs="3"/>
+   </type>
+   <type Family="ComponentList" Line="91" ID="2551">
+    <Component Name="(null)" TI="2559" Line="0" Offs="0"/>
+    <Component Name="(null)" TI="2564" Line="0" Offs="0"/>
+    <Component Name="dByte" TI="2569" Line="106" Offs="0"/>
+    <Component Name="dHalfWord" TI="2580" Line="107" Offs="0"/>
+    <Component Name="dWord" TI="2591" Line="108" Offs="0"/>
+   </type>
+   <type Family="ComponentList" Line="112" ID="2603">
+    <Component Name="WAVE_SubModeCHA" TI="2611" Line="114" Offs="0"/>
+    <Component Name="WAVE_SubModeCHB" TI="2625" Line="115" Offs="1"/>
+    <Component Name="LGA_TriggerEdge" TI="2639" Line="116" Offs="2"/>
+    <Component Name="TIM3_TimeOut" TI="2653" Line="117" Offs="3"/>
+   </type>
+   <type Family="ComponentList" Line="119" ID="2668">
+    <Component Name="ADC_AmplifyCHA" TI="2676" Line="121" Offs="0"/>
+    <Component Name="ADC_AmplifyCHB" TI="2690" Line="122" Offs="1"/>
+   </type>
+   <type Family="ComponentList" Line="110" ID="2705">
+    <Component Name="(null)" TI="2713" Line="0" Offs="0"/>
+    <Component Name="(null)" TI="2718" Line="0" Offs="0"/>
+   </type>
+   <type Family="ComponentList" Line="73" ID="2724">
+    <Component Name="STM32_Command" TI="2732" Line="75" Offs="0"/>
+    <Component Name="STM32_Mode" TI="2746" Line="76" Offs="1"/>
+    <Component Name="STM32_SampleRateL" TI="2760" Line="77" Offs="2"/>
+    <Component Name="STM32_SampleRateH" TI="2774" Line="78" Offs="3"/>
+    <Component Name="(null)" TI="2788" Line="0" Offs="4"/>
+    <Component Name="(null)" TI="2796" Line="0" Offs="8"/>
+    <Component Name="(null)" TI="2804" Line="0" Offs="12"/>
+   </type>
+   <type Family="typedef" Name="STM32_CommandStructTypeDef" Line="125" ID="2813" toTI="2724"/>
+   <type Family="ComponentList" Line="127" ID="2824">
+    <Component Name="Frequency" TI="2832" Line="129" Offs="0"/>
+    <Component Name="PreviousCount" TI="2846" Line="130" Offs="4"/>
+    <Component Name="Reserved" TI="2860" Line="131" Offs="8"/>
+    <Component Name="DVM" TI="2874" Line="132" Offs="12"/>
+    <Component Name="TIMxH" TI="2888" Line="133" Offs="14"/>
+   </type>
+   <type Family="typedef" Name="STM32_FRQDataStructTypeDef" Line="134" ID="2903" toTI="2824"/>
+   <type Family="ComponentList" Line="136" ID="2914">
+    <Component Name="STM32_FRQDataStructCHA" TI="2923" Line="138" Offs="0"/>
+    <Component Name="STM32_FRQDataStructCHB" TI="2937" Line="139" Offs="16"/>
+    <Component Name="STM32_CommandStruct" TI="2951" Line="140" Offs="32"/>
+   <type Family="array" ID="2980" toTI="94"/>
+    <Component Name="STM32_Data" TI="2965" Line="141" Offs="48"/>
+   </type>
+   <type Family="typedef" Name="STM32_DataStructTypeDef" Line="142" ID="2997" toTI="2914"/>
+   <function Name="DAC_DDS_Configuration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="455">
+   </function >
+   <function Name="DDS_WaveLoop" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="478">
+   </function >
+   <function Name="DDSWaveGenerator" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="496">
+   </function >
+   <function Name="DDSSweepWaveGenerator" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="517">
+    <variable Name="TIM_TimeBaseStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="519" Addr="0x34000004" TI="2191"/>
+    <variable Name="NVIC_InitStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="520" Addr="0x34000000" TI="2101"/>
+   </function >
+   <function Name="TIM6_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="586">
+   </function >
+   <function Name="DDSSweepWaveGeneratorPeak" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="612">
+    <variable Name="ADC_InitStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="614" Addr="0x34000014" TI="1682"/>
+    <variable Name="TIM_TimeBaseStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="615" Addr="0x34000008" TI="2191"/>
+    <variable Name="NVIC_InitStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="616" Addr="0x34000004" TI="2101"/>
+   </function >
+   <function Name="TIM7_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="699">
+   </function >
+   <function Name="WaitForTrigger" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="729">
+    <variable Name="tmp" FileName="C:\STM32\Projects\DIGScope\main.c" Line="731" Addr="0x0" TI="76"/>
+   </function >
+   <function Name="FAST_LGA_Read" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="823">
+   <type Family="Pointer" TI="3328" toTI="94"/>
+    <variable Name="Adr" FileName="C:\STM32\Projects\DIGScope\main.c" Line="825" Addr="0x20000030" TI="3328"/>
+   </function >
+   <function Name="TIM2_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1102">
+   </function >
+   <function Name="TIM3_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1125">
+   </function >
+   <function Name="TIM4_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1170">
+   </function >
+   <function Name="ADC_Startup" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1191">
+    <variable Name="ADC_InitStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1193" Addr="0x34000004" TI="1682"/>
+   </function >
+   <function Name="ADC_DVMConfiguration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1226">
+    <variable Name="ADC_InitStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1228" Addr="0x34000004" TI="1682"/>
+   </function >
+   <function Name="ADC_Configuration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1255">
+    <variable Name="ADC_InitStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1257" Addr="0x34000004" TI="1682"/>
+   </function >
+   <function Name="DMA_ADC_Configuration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1309">
+    <variable Name="DMA_InitStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1311" Addr="0x34000004" TI="1856"/>
+   </function >
+   <function Name="DMA_LGA_Configuration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1338">
+    <variable Name="DMA_InitStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1340" Addr="0x34000004" TI="1856"/>
+   </function >
+   <function Name="RCC_Configuration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1366">
+   </function >
+   <function Name="GPIO_Configuration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1441">
+    <variable Name="GPIO_InitStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1443" Addr="0x34000004" TI="2025"/>
+   </function >
+   <function Name="NVIC_Configuration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1499">
+    <variable Name="NVIC_InitStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1501" Addr="0x34000004" TI="2101"/>
+   </function >
+   <function Name="TIM1_Configuration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1532">
+    <variable Name="TIM_TimeBaseStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1545" Addr="0x34000014" TI="2191"/>
+    <variable Name="TIM_OCInitStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1546" Addr="0x34000004" TI="2323"/>
+   </function >
+   <function Name="TIM2_Configuration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1588">
+    <variable Name="TIM_TimeBaseStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1590" Addr="0x34000004" TI="2191"/>
+   </function >
+   <function Name="TIM3_Configuration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1608">
+    <variable Name="TIM_TimeBaseStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1610" Addr="0x34000004" TI="2191"/>
+   </function >
+   <function Name="TIM4_Configuration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1645">
+    <variable Name="TIM_TimeBaseStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1647" Addr="0x34000004" TI="2191"/>
+   </function >
+   <function Name="TIM6_Configuration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1666">
+   </function >
+   <function Name="TIM7_Configuration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1682">
+   </function >
+   <function Name="TIM15_Configuration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1698">
+    <variable Name="TIM_TimeBaseStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1701" Addr="0x34000004" TI="2191"/>
+   </function >
+   <function Name="TIM16_Configuration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1718">
+    <variable Name="TIM_TimeBaseStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1720" Addr="0x34000014" TI="2191"/>
+    <variable Name="TIM_OCInitStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1721" Addr="0x34000004" TI="2323"/>
+   </function >
+   <function Name="TIM17_Configuration" TI="0" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1747">
+    <variable Name="TIM_TimeBaseStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1749" Addr="0x34000014" TI="2191"/>
+    <variable Name="TIM_OCInitStructure" FileName="C:\STM32\Projects\DIGScope\main.c" Line="1750" Addr="0x34000004" TI="2323"/>
+   </function >
+   <type Family="Base" Name="int" ID="4154"/>
+   <function Name="main" TI="4154" FileName="C:\STM32\Projects\DIGScope\main.c" Line="184">
+    <variable Name="i" FileName="C:\STM32\Projects\DIGScope\main.c" Line="186" Addr="0x0" TI="58"/>
+   <type Family="Pointer" TI="4161" toTI="58"/>
+    <variable Name="adr" FileName="C:\STM32\Projects\DIGScope\main.c" Line="187" Addr="0x20000024" TI="4161"/>
+   </function >
+   <variable Name="STM32_DataStruct" FileName="C:\STM32\Projects\DIGScope\main.c" Line="146" Addr="0x20000000" TI="2997"/>
+   <variable Name="HSEStartUpStatus" FileName="C:\STM32\Projects\DIGScope\main.c" Line="148" Addr="0x20001C30" TI="200"/>
+  </module>
+  <module Name="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" >
+   <type Family="Base" Name="long int" ID="4253"/>
+   <type Family="Base" Name="short int" ID="4260"/>
+   <type Family="Base" Name="signed char" ID="4267"/>
+   <type Family="Base" Name="long unsigned int" ID="4285"/>
+   <type Family="typedef" Name="u32" Line="39" ID="4274" toTI="4285"/>
+   <type Family="Base" Name="short unsigned int" ID="4303"/>
+   <type Family="typedef" Name="u16" Line="40" ID="4292" toTI="4303"/>
+   <type Family="Base" Name="unsigned char" ID="4320"/>
+   <type Family="typedef" Name="u8" Line="41" ID="4310" toTI="4320"/>
+   <type Family="typedef" Name="vu32" Line="47" ID="4327" toTI="4338"/>
+   <type Family="typedef" Name="FlagStatus" Line="57" ID="4364" toTI="4343"/>
+   <type Family="typedef" Name="ITStatus" Line="57" ID="4375" toTI="4343"/>
+   <type Family="typedef" Name="FunctionalState" Line="59" ID="4407" toTI="4386"/>
+   <type Family="ComponentList" Line="36" ID="4418">
+    <Component Name="SR" TI="4426" Line="38" Offs="0"/>
+    <Component Name="CR1" TI="4439" Line="39" Offs="4"/>
+    <Component Name="CR2" TI="4453" Line="40" Offs="8"/>
+    <Component Name="SMPR1" TI="4467" Line="41" Offs="12"/>
+    <Component Name="SMPR2" TI="4481" Line="42" Offs="16"/>
+    <Component Name="JOFR1" TI="4495" Line="43" Offs="20"/>
+    <Component Name="JOFR2" TI="4509" Line="44" Offs="24"/>
+    <Component Name="JOFR3" TI="4523" Line="45" Offs="28"/>
+    <Component Name="JOFR4" TI="4537" Line="46" Offs="32"/>
+    <Component Name="HTR" TI="4551" Line="47" Offs="36"/>
+    <Component Name="LTR" TI="4565" Line="48" Offs="40"/>
+    <Component Name="SQR1" TI="4579" Line="49" Offs="44"/>
+    <Component Name="SQR2" TI="4593" Line="50" Offs="48"/>
+    <Component Name="SQR3" TI="4607" Line="51" Offs="52"/>
+    <Component Name="JSQR" TI="4621" Line="52" Offs="56"/>
+    <Component Name="JDR1" TI="4635" Line="53" Offs="60"/>
+    <Component Name="JDR2" TI="4649" Line="54" Offs="64"/>
+    <Component Name="JDR3" TI="4663" Line="55" Offs="68"/>
+    <Component Name="JDR4" TI="4677" Line="56" Offs="72"/>
+    <Component Name="DR" TI="4691" Line="57" Offs="76"/>
+   </type>
+   <type Family="typedef" Name="ADC_TypeDef" Line="58" ID="4705" toTI="4418"/>
+   <type Family="Base" Name="unsigned int" ID="4716"/>
+   <type Family="ComponentList" Line="26" ID="4723">
+    <Component Name="ADC_Mode" TI="4731" Line="28" Offs="0"/>
+    <Component Name="ADC_ScanConvMode" TI="4745" Line="29" Offs="4"/>
+    <Component Name="ADC_ContinuousConvMode" TI="4759" Line="30" Offs="5"/>
+    <Component Name="ADC_ExternalTrigConv" TI="4773" Line="31" Offs="8"/>
+    <Component Name="ADC_DataAlign" TI="4787" Line="32" Offs="12"/>
+    <Component Name="ADC_NbrOfChannel" TI="4801" Line="33" Offs="16"/>
+   </type>
+   <type Family="typedef" Name="ADC_InitTypeDef" Line="34" ID="4816" toTI="4723"/>
+   <type Family="Pointer" TI="4868" toTI="4705"/>
+   <function Name="ADC_Init" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="174">
+    <parameter Name="ADCx" TI="4868" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="174" Addr="0x0" Param="Yes"/>
+   <type Family="Pointer" TI="4956" toTI="4816"/>
+    <parameter Name="ADC_InitStruct" TI="4956" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="174" Addr="0x1" Param="Yes"/>
+    <variable Name="tmpreg1" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="176" Addr="0x0" TI="4274"/>
+    <variable Name="tmpreg2" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="177" Addr="0x0" TI="4310"/>
+   </function >
+   <function Name="ADC_Cmd" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="266">
+    <parameter Name="ADCx" TI="4868" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="266" Addr="0x0" Param="Yes"/>
+    <parameter Name="NewState" TI="4407" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="266" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="ADC_ResetCalibration" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="358">
+    <parameter Name="ADCx" TI="4868" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="358" Addr="0x0" Param="Yes"/>
+   </function >
+   <function Name="ADC_GetResetCalibrationStatus" TI="4364" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="374">
+    <parameter Name="ADCx" TI="4868" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="374" Addr="0x0" Param="Yes"/>
+    <variable Name="bitstatus" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="376" Addr="0x0" TI="4364"/>
+   </function >
+   <function Name="ADC_StartCalibration" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="404">
+    <parameter Name="ADCx" TI="4868" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="404" Addr="0x0" Param="Yes"/>
+   </function >
+   <function Name="ADC_GetCalibrationStatus" TI="4364" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="420">
+    <parameter Name="ADCx" TI="4868" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="420" Addr="0x0" Param="Yes"/>
+    <variable Name="bitstatus" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="422" Addr="0x0" TI="4364"/>
+   </function >
+   <function Name="ADC_SoftwareStartConvCmd" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="452">
+    <parameter Name="ADCx" TI="4868" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="452" Addr="0x0" Param="Yes"/>
+    <parameter Name="NewState" TI="4407" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="452" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="ADC_RegularChannelConfig" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="602">
+    <parameter Name="ADCx" TI="4868" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="602" Addr="0x0" Param="Yes"/>
+    <parameter Name="ADC_Channel" TI="4310" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="602" Addr="0x1" Param="Yes"/>
+    <parameter Name="Rank" TI="4310" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="602" Addr="0x2" Param="Yes"/>
+    <parameter Name="ADC_SampleTime" TI="4310" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="602" Addr="0x3" Param="Yes"/>
+    <variable Name="tmpreg1" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="604" Addr="0x0" TI="4274"/>
+    <variable Name="tmpreg2" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="604" Addr="0x0" TI="4274"/>
+   </function >
+   <function Name="ADC_AutoInjectedConvCmd" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="760">
+    <parameter Name="ADCx" TI="4868" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="760" Addr="0x0" Param="Yes"/>
+    <parameter Name="NewState" TI="4407" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="760" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="ADC_InjectedChannelConfig" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="994">
+    <parameter Name="ADCx" TI="4868" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="994" Addr="0x0" Param="Yes"/>
+    <parameter Name="ADC_Channel" TI="4310" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="994" Addr="0x1" Param="Yes"/>
+    <parameter Name="Rank" TI="4310" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="994" Addr="0x2" Param="Yes"/>
+    <parameter Name="ADC_SampleTime" TI="4310" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="994" Addr="0x3" Param="Yes"/>
+    <variable Name="tmpreg1" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="996" Addr="0x0" TI="4274"/>
+    <variable Name="tmpreg2" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="996" Addr="0x0" TI="4274"/>
+    <variable Name="tmpreg3" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="996" Addr="0x0" TI="4274"/>
+   </function >
+   <function Name="ADC_InjectedSequencerLengthConfig" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="1062">
+    <parameter Name="ADCx" TI="4868" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="1062" Addr="0x0" Param="Yes"/>
+    <parameter Name="Length" TI="4310" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="1062" Addr="0x1" Param="Yes"/>
+    <variable Name="tmpreg1" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="1064" Addr="0x0" TI="4274"/>
+    <variable Name="tmpreg2" FileName="C:\STM32\Projects\DIGScope\stm32f10x_adc.c" Line="1065" Addr="0x0" TI="4274"/>
+   </function >
+  </module>
+  <module Name="C:\STM32\Projects\DIGScope\stm32f10x_dac.c" >
+   <type Family="Base" Name="long int" ID="7191"/>
+   <type Family="Base" Name="short int" ID="7198"/>
+   <type Family="Base" Name="signed char" ID="7205"/>
+   <type Family="Base" Name="long unsigned int" ID="7223"/>
+   <type Family="typedef" Name="u32" Line="39" ID="7212" toTI="7223"/>
+   <type Family="Base" Name="short unsigned int" ID="7241"/>
+   <type Family="typedef" Name="u16" Line="40" ID="7230" toTI="7241"/>
+   <type Family="Base" Name="unsigned char" ID="7248"/>
+   <type Family="typedef" Name="vu32" Line="47" ID="7255" toTI="7266"/>
+   <type Family="typedef" Name="FunctionalState" Line="59" ID="7292" toTI="7271"/>
+   <type Family="Base" Name="unsigned int" ID="7303"/>
+   <type Family="ComponentList" Line="217" ID="7310">
+    <Component Name="CR" TI="7318" Line="219" Offs="0"/>
+    <Component Name="SWTRIGR" TI="7331" Line="220" Offs="4"/>
+    <Component Name="DHR12R1" TI="7345" Line="221" Offs="8"/>
+    <Component Name="DHR12L1" TI="7359" Line="222" Offs="12"/>
+    <Component Name="DHR8R1" TI="7373" Line="223" Offs="16"/>
+    <Component Name="DHR12R2" TI="7387" Line="224" Offs="20"/>
+    <Component Name="DHR12L2" TI="7401" Line="225" Offs="24"/>
+    <Component Name="DHR8R2" TI="7415" Line="226" Offs="28"/>
+    <Component Name="DHR12RD" TI="7429" Line="227" Offs="32"/>
+    <Component Name="DHR12LD" TI="7443" Line="228" Offs="36"/>
+    <Component Name="DHR8RD" TI="7457" Line="229" Offs="40"/>
+    <Component Name="DOR1" TI="7471" Line="230" Offs="44"/>
+    <Component Name="DOR2" TI="7485" Line="231" Offs="48"/>
+   </type>
+   <type Family="typedef" Name="DAC_TypeDef" Line="232" ID="7500" toTI="7310"/>
+   <type Family="ComponentList" Line="26" ID="7511">
+    <Component Name="DAC_Trigger" TI="7519" Line="28" Offs="0"/>
+    <Component Name="DAC_WaveGeneration" TI="7533" Line="29" Offs="4"/>
+    <Component Name="DAC_LFSRUnmask_TriangleAmplitude" TI="7547" Line="30" Offs="8"/>
+    <Component Name="DAC_OutputBuffer" TI="7561" Line="31" Offs="12"/>
+   </type>
+   <type Family="typedef" Name="DAC_InitTypeDef" Line="32" ID="7576" toTI="7511"/>
+   <type Family="Pointer" TI="7694" toTI="7576"/>
+  </module>
+  <module Name="C:\STM32\Projects\DIGScope\stm32f10x_dma.c" >
+   <type Family="Base" Name="long int" ID="8287"/>
+   <type Family="Base" Name="short int" ID="8294"/>
+   <type Family="Base" Name="signed char" ID="8301"/>
+   <type Family="Base" Name="long unsigned int" ID="8319"/>
+   <type Family="typedef" Name="u32" Line="39" ID="8308" toTI="8319"/>
+   <type Family="Base" Name="short unsigned int" ID="8337"/>
+   <type Family="typedef" Name="u16" Line="40" ID="8326" toTI="8337"/>
+   <type Family="Base" Name="unsigned char" ID="8344"/>
+   <type Family="typedef" Name="FlagStatus" Line="57" ID="8377" toTI="8356"/>
+   <type Family="typedef" Name="ITStatus" Line="57" ID="8388" toTI="8356"/>
+   <type Family="typedef" Name="FunctionalState" Line="59" ID="8420" toTI="8399"/>
+   <type Family="Base" Name="unsigned int" ID="8431"/>
+   <type Family="ComponentList" Line="242" ID="8438">
+    <Component Name="CCR" TI="8446" Line="244" Offs="0"/>
+    <Component Name="CNDTR" TI="8460" Line="245" Offs="4"/>
+    <Component Name="CPAR" TI="8474" Line="246" Offs="8"/>
+    <Component Name="CMAR" TI="8488" Line="247" Offs="12"/>
+   </type>
+   <type Family="typedef" Name="DMA_Channel_TypeDef" Line="248" ID="8503" toTI="8438"/>
+   <type Family="ComponentList" Line="250" ID="8514">
+    <Component Name="ISR" TI="8522" Line="252" Offs="0"/>
+    <Component Name="IFCR" TI="8536" Line="253" Offs="4"/>
+   </type>
+   <type Family="typedef" Name="DMA_TypeDef" Line="254" ID="8551" toTI="8514"/>
+   <type Family="ComponentList" Line="26" ID="8562">
+    <Component Name="DMA_PeripheralBaseAddr" TI="8570" Line="28" Offs="0"/>
+    <Component Name="DMA_MemoryBaseAddr" TI="8584" Line="29" Offs="4"/>
+    <Component Name="DMA_DIR" TI="8598" Line="30" Offs="8"/>
+    <Component Name="DMA_BufferSize" TI="8612" Line="31" Offs="12"/>
+    <Component Name="DMA_PeripheralInc" TI="8626" Line="32" Offs="16"/>
+    <Component Name="DMA_MemoryInc" TI="8640" Line="33" Offs="20"/>
+    <Component Name="DMA_PeripheralDataSize" TI="8654" Line="34" Offs="24"/>
+    <Component Name="DMA_MemoryDataSize" TI="8668" Line="35" Offs="28"/>
+    <Component Name="DMA_Mode" TI="8682" Line="36" Offs="32"/>
+    <Component Name="DMA_Priority" TI="8696" Line="37" Offs="36"/>
+    <Component Name="DMA_M2M" TI="8710" Line="38" Offs="40"/>
+   </type>
+   <type Family="typedef" Name="DMA_InitTypeDef" Line="39" ID="8725" toTI="8562"/>
+   <function Name="DMA_DeInit" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_dma.c" Line="63">
+   <type Family="Pointer" TI="8774" toTI="8503"/>
+    <parameter Name="DMAy_Channelx" TI="8774" FileName="C:\STM32\Projects\DIGScope\stm32f10x_dma.c" Line="63" Addr="0x0" Param="Yes"/>
+   </function >
+   <function Name="DMA_Init" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_dma.c" Line="163">
+    <parameter Name="DMAy_Channelx" TI="8774" FileName="C:\STM32\Projects\DIGScope\stm32f10x_dma.c" Line="163" Addr="0x0" Param="Yes"/>
+   <type Family="Pointer" TI="8847" toTI="8725"/>
+    <parameter Name="DMA_InitStruct" TI="8847" FileName="C:\STM32\Projects\DIGScope\stm32f10x_dma.c" Line="163" Addr="0x1" Param="Yes"/>
+    <variable Name="tmpreg" FileName="C:\STM32\Projects\DIGScope\stm32f10x_dma.c" Line="165" Addr="0x0" TI="8308"/>
+   </function >
+   <function Name="DMA_Cmd" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_dma.c" Line="269">
+    <parameter Name="DMAy_Channelx" TI="8774" FileName="C:\STM32\Projects\DIGScope\stm32f10x_dma.c" Line="269" Addr="0x0" Param="Yes"/>
+    <parameter Name="NewState" TI="8420" FileName="C:\STM32\Projects\DIGScope\stm32f10x_dma.c" Line="269" Addr="0x1" Param="Yes"/>
+   </function >
+  </module>
+  <module Name="C:\STM32\Projects\DIGScope\stm32f10x_flash.c" >
+   <type Family="Base" Name="long int" ID="9331"/>
+   <type Family="Base" Name="short int" ID="9338"/>
+   <type Family="Base" Name="signed char" ID="9345"/>
+   <type Family="Base" Name="long unsigned int" ID="9363"/>
+   <type Family="typedef" Name="u32" Line="39" ID="9352" toTI="9363"/>
+   <type Family="Base" Name="short unsigned int" ID="9370"/>
+   <type Family="Base" Name="unsigned char" ID="9377"/>
+   <type Family="Base" Name="unsigned int" ID="9389"/>
+   <type Family="ComponentList" Line="268" ID="9396">
+    <Component Name="ACR" TI="9405" Line="270" Offs="0"/>
+    <Component Name="KEYR" TI="9420" Line="271" Offs="4"/>
+    <Component Name="OPTKEYR" TI="9435" Line="272" Offs="8"/>
+    <Component Name="SR" TI="9450" Line="273" Offs="12"/>
+    <Component Name="CR" TI="9464" Line="274" Offs="16"/>
+    <Component Name="AR" TI="9478" Line="275" Offs="20"/>
+    <Component Name="RESERVED" TI="9492" Line="276" Offs="24"/>
+    <Component Name="OBR" TI="9507" Line="277" Offs="28"/>
+    <Component Name="WRPR" TI="9522" Line="278" Offs="32"/>
+   </type>
+   <type Family="typedef" Name="FLASH_TypeDef" Line="279" ID="9538" toTI="9396"/>
+   <function Name="FLASH_SetLatency" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_flash.c" Line="86">
+    <parameter Name="FLASH_Latency" TI="9352" FileName="C:\STM32\Projects\DIGScope\stm32f10x_flash.c" Line="86" Addr="0x0" Param="Yes"/>
+   </function >
+   <function Name="FLASH_PrefetchBufferCmd" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_flash.c" Line="126">
+    <parameter Name="FLASH_PrefetchBuffer" TI="9352" FileName="C:\STM32\Projects\DIGScope\stm32f10x_flash.c" Line="126" Addr="0x0" Param="Yes"/>
+   </function >
+  </module>
+  <module Name="C:\STM32\Projects\DIGScope\stm32f10x_gpio.c" >
+   <type Family="Base" Name="long int" ID="9698"/>
+   <type Family="Base" Name="short int" ID="9705"/>
+   <type Family="Base" Name="signed char" ID="9712"/>
+   <type Family="Base" Name="long unsigned int" ID="9730"/>
+   <type Family="typedef" Name="u32" Line="39" ID="9719" toTI="9730"/>
+   <type Family="Base" Name="short unsigned int" ID="9748"/>
+   <type Family="typedef" Name="u16" Line="40" ID="9737" toTI="9748"/>
+   <type Family="Base" Name="unsigned char" ID="9765"/>
+   <type Family="typedef" Name="u8" Line="41" ID="9755" toTI="9765"/>
+   <type Family="typedef" Name="vu32" Line="47" ID="9772" toTI="9783"/>
+   <type Family="typedef" Name="FunctionalState" Line="59" ID="9809" toTI="9788"/>
+   <type Family="Base" Name="unsigned int" ID="9820"/>
+   <type Family="ComponentList" Line="334" ID="9827">
+    <Component Name="CRL" TI="9836" Line="336" Offs="0"/>
+    <Component Name="CRH" TI="9851" Line="337" Offs="4"/>
+    <Component Name="IDR" TI="9866" Line="338" Offs="8"/>
+    <Component Name="ODR" TI="9881" Line="339" Offs="12"/>
+    <Component Name="BSRR" TI="9896" Line="340" Offs="16"/>
+    <Component Name="BRR" TI="9911" Line="341" Offs="20"/>
+    <Component Name="LCKR" TI="9926" Line="342" Offs="24"/>
+   </type>
+   <type Family="typedef" Name="GPIO_TypeDef" Line="343" ID="9942" toTI="9827"/>
+   <type Family="ComponentList" Line="345" ID="9954">
+    <Component Name="EVCR" TI="9963" Line="347" Offs="0"/>
+    <Component Name="MAPR" TI="9978" Line="348" Offs="4"/>
+   <type Family="array" ID="10009" toTI="9730"/>
+    <Component Name="EXTICR" TI="9993" Line="349" Offs="8"/>
+   </type>
+   <type Family="typedef" Name="AFIO_TypeDef" Line="350" ID="10030" toTI="9954"/>
+   <type Family="typedef" Name="GPIOSpeed_TypeDef" Line="39" ID="10069" toTI="10042"/>
+   <type Family="typedef" Name="GPIOMode_TypeDef" Line="54" ID="10138" toTI="10080"/>
+   <type Family="ComponentList" Line="62" ID="10149">
+    <Component Name="GPIO_Pin" TI="10157" Line="64" Offs="0"/>
+    <Component Name="GPIO_Speed" TI="10171" Line="65" Offs="2"/>
+    <Component Name="GPIO_Mode" TI="10185" Line="66" Offs="3"/>
+   </type>
+   <type Family="typedef" Name="GPIO_InitTypeDef" Line="67" ID="10200" toTI="10149"/>
+   <type Family="typedef" Name="BitAction" Line="73" ID="10232" toTI="10211"/>
+   <type Family="Pointer" TI="10284" toTI="9942"/>
+   <function Name="GPIO_Init" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_gpio.c" Line="124">
+    <parameter Name="GPIOx" TI="10284" FileName="C:\STM32\Projects\DIGScope\stm32f10x_gpio.c" Line="124" Addr="0x0" Param="Yes"/>
+   <type Family="Pointer" TI="10453" toTI="10200"/>
+    <parameter Name="GPIO_InitStruct" TI="10453" FileName="C:\STM32\Projects\DIGScope\stm32f10x_gpio.c" Line="124" Addr="0x1" Param="Yes"/>
+    <variable Name="currentmode" FileName="C:\STM32\Projects\DIGScope\stm32f10x_gpio.c" Line="126" Addr="0x0" TI="9719"/>
+    <variable Name="currentpin" FileName="C:\STM32\Projects\DIGScope\stm32f10x_gpio.c" Line="126" Addr="0x0" TI="9719"/>
+    <variable Name="pinpos" FileName="C:\STM32\Projects\DIGScope\stm32f10x_gpio.c" Line="126" Addr="0x0" TI="9719"/>
+    <variable Name="pos" FileName="C:\STM32\Projects\DIGScope\stm32f10x_gpio.c" Line="126" Addr="0x0" TI="9719"/>
+    <variable Name="tmpreg" FileName="C:\STM32\Projects\DIGScope\stm32f10x_gpio.c" Line="127" Addr="0x0" TI="9719"/>
+    <variable Name="pinmask" FileName="C:\STM32\Projects\DIGScope\stm32f10x_gpio.c" Line="127" Addr="0x0" TI="9719"/>
+   </function >
+   <function Name="GPIO_SetBits" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_gpio.c" Line="333">
+    <parameter Name="GPIOx" TI="10284" FileName="C:\STM32\Projects\DIGScope\stm32f10x_gpio.c" Line="333" Addr="0x0" Param="Yes"/>
+    <parameter Name="GPIO_Pin" TI="9737" FileName="C:\STM32\Projects\DIGScope\stm32f10x_gpio.c" Line="333" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="GPIO_ResetBits" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_gpio.c" Line="352">
+    <parameter Name="GPIOx" TI="10284" FileName="C:\STM32\Projects\DIGScope\stm32f10x_gpio.c" Line="352" Addr="0x0" Param="Yes"/>
+    <parameter Name="GPIO_Pin" TI="9737" FileName="C:\STM32\Projects\DIGScope\stm32f10x_gpio.c" Line="352" Addr="0x1" Param="Yes"/>
+   </function >
+  </module>
+  <module Name="C:\STM32\Projects\DIGScope\stm32f10x_it.c" >
+   <type Family="Base" Name="long int" ID="11378"/>
+   <type Family="Base" Name="short int" ID="11385"/>
+   <type Family="Base" Name="signed char" ID="11392"/>
+   <type Family="Base" Name="long unsigned int" ID="11399"/>
+   <type Family="Base" Name="short unsigned int" ID="11406"/>
+   <type Family="Base" Name="unsigned char" ID="11413"/>
+   <type Family="Base" Name="unsigned int" ID="11420"/>
+   <function Name="WWDG_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="150">
+   </function >
+   <function Name="PVD_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="161">
+   </function >
+   <function Name="TAMPER_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="172">
+   </function >
+   <function Name="RTC_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="183">
+   </function >
+   <function Name="FLASH_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="194">
+   </function >
+   <function Name="RCC_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="205">
+   </function >
+   <function Name="EXTI0_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="216">
+   </function >
+   <function Name="EXTI1_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="227">
+   </function >
+   <function Name="EXTI2_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="238">
+   </function >
+   <function Name="EXTI3_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="249">
+   </function >
+   <function Name="EXTI4_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="260">
+   </function >
+   <function Name="DMA1_Channel1_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="271">
+   </function >
+   <function Name="DMA1_Channel2_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="282">
+   </function >
+   <function Name="DMA1_Channel3_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="293">
+   </function >
+   <function Name="DMA1_Channel4_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="304">
+   </function >
+   <function Name="DMA1_Channel5_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="315">
+   </function >
+   <function Name="DMA1_Channel6_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="326">
+   </function >
+   <function Name="DMA1_Channel7_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="337">
+   </function >
+   <function Name="ADC1_2_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="348">
+   </function >
+   <function Name="EXTI9_5_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="405">
+   </function >
+   <function Name="TIM1_BRK_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="416">
+   </function >
+   <function Name="TIM1_UP_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="428">
+   </function >
+   <function Name="TIM1_TRG_COM_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="440">
+   </function >
+   <function Name="TIM1_CC_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="451">
+   </function >
+   <function Name="I2C1_EV_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="495">
+   </function >
+   <function Name="I2C1_ER_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="506">
+   </function >
+   <function Name="I2C2_EV_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="517">
+   </function >
+   <function Name="I2C2_ER_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="528">
+   </function >
+   <function Name="SPI1_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="539">
+   </function >
+   <function Name="SPI2_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="550">
+   </function >
+   <function Name="USART1_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="561">
+   </function >
+   <function Name="USART2_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="572">
+   </function >
+   <function Name="USART3_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="583">
+   </function >
+   <function Name="EXTI15_10_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="594">
+   </function >
+   <function Name="RTCAlarm_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="605">
+   </function >
+   <function Name="USBWakeUp_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="616">
+   </function >
+   <function Name="TIM8_BRK_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="627">
+   </function >
+   <function Name="TIM8_UP_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="639">
+   </function >
+   <function Name="TIM8_TRG_COM_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="651">
+   </function >
+   <function Name="TIM8_CC_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="662">
+   </function >
+   <function Name="ADC3_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="673">
+   </function >
+   <function Name="FSMC_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="684">
+   </function >
+   <function Name="SDIO_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="695">
+   </function >
+   <function Name="TIM5_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="706">
+   </function >
+   <function Name="SPI3_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="717">
+   </function >
+   <function Name="UART4_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="728">
+   </function >
+   <function Name="UART5_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="739">
+   </function >
+   <function Name="DMA2_Channel1_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="772">
+   </function >
+   <function Name="DMA2_Channel2_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="783">
+   </function >
+   <function Name="DMA2_Channel3_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="794">
+   </function >
+   <function Name="DMA2_Channel4_5_IRQHandler" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_it.c" Line="806">
+   </function >
+  </module>
+  <module Name="C:\STM32\Projects\DIGScope\stm32f10x_lib.c" >
+   <type Family="Base" Name="long int" ID="12786"/>
+   <type Family="Base" Name="short int" ID="12793"/>
+   <type Family="Base" Name="signed char" ID="12800"/>
+   <type Family="Base" Name="long unsigned int" ID="12807"/>
+   <type Family="Base" Name="short unsigned int" ID="12814"/>
+   <type Family="Base" Name="unsigned char" ID="12821"/>
+   <type Family="Base" Name="unsigned int" ID="12828"/>
+  </module>
+  <module Name="C:\STM32\Projects\DIGScope\stm32f10x_nvic.c" >
+   <type Family="Base" Name="long int" ID="12873"/>
+   <type Family="Base" Name="short int" ID="12880"/>
+   <type Family="Base" Name="signed char" ID="12887"/>
+   <type Family="Base" Name="long unsigned int" ID="12905"/>
+   <type Family="typedef" Name="u32" Line="39" ID="12894" toTI="12905"/>
+   <type Family="Base" Name="short unsigned int" ID="12923"/>
+   <type Family="typedef" Name="u16" Line="40" ID="12912" toTI="12923"/>
+   <type Family="Base" Name="unsigned char" ID="12940"/>
+   <type Family="typedef" Name="u8" Line="41" ID="12930" toTI="12940"/>
+   <type Family="typedef" Name="vu32" Line="47" ID="12947" toTI="12958"/>
+   <type Family="typedef" Name="ITStatus" Line="57" ID="12989" toTI="12968"/>
+   <type Family="typedef" Name="FunctionalState" Line="59" ID="13021" toTI="13000"/>
+   <type Family="Base" Name="unsigned int" ID="13032"/>
+   <type Family="ComponentList" Line="385" ID="13039">
+   <type Family="array" ID="13224" toTI="12905"/>
+    <Component Name="ISER" TI="13049" Line="387" Offs="0"/>
+   <type Family="array" ID="13245" toTI="12894"/>
+    <Component Name="RESERVED0" TI="13064" Line="388" Offs="8"/>
+    <Component Name="ICER" TI="13079" Line="389" Offs="128"/>
+    <Component Name="RSERVED1" TI="13095" Line="390" Offs="136"/>
+    <Component Name="ISPR" TI="13111" Line="391" Offs="256"/>
+    <Component Name="RESERVED2" TI="13127" Line="392" Offs="264"/>
+    <Component Name="ICPR" TI="13143" Line="393" Offs="384"/>
+    <Component Name="RESERVED3" TI="13159" Line="394" Offs="392"/>
+    <Component Name="IABR" TI="13175" Line="395" Offs="512"/>
+   <type Family="array" ID="13281" toTI="12894"/>
+    <Component Name="RESERVED4" TI="13191" Line="396" Offs="520"/>
+   <type Family="array" ID="13297" toTI="12905"/>
+    <Component Name="IPR" TI="13207" Line="397" Offs="768"/>
+   </type>
+   <type Family="typedef" Name="NVIC_TypeDef" Line="398" ID="13318" toTI="13039"/>
+   <type Family="ComponentList" Line="400" ID="13330">
+    <Component Name="CPUID" TI="13339" Line="402" Offs="0"/>
+    <Component Name="ICSR" TI="13354" Line="403" Offs="4"/>
+    <Component Name="VTOR" TI="13369" Line="404" Offs="8"/>
+    <Component Name="AIRCR" TI="13384" Line="405" Offs="12"/>
+    <Component Name="SCR" TI="13399" Line="406" Offs="16"/>
+    <Component Name="CCR" TI="13414" Line="407" Offs="20"/>
+   <type Family="array" ID="13550" toTI="12905"/>
+    <Component Name="SHPR" TI="13429" Line="408" Offs="24"/>
+    <Component Name="SHCSR" TI="13444" Line="409" Offs="36"/>
+    <Component Name="CFSR" TI="13459" Line="410" Offs="40"/>
+    <Component Name="HFSR" TI="13474" Line="411" Offs="44"/>
+    <Component Name="DFSR" TI="13489" Line="412" Offs="48"/>
+    <Component Name="MMFAR" TI="13504" Line="413" Offs="52"/>
+    <Component Name="BFAR" TI="13519" Line="414" Offs="56"/>
+    <Component Name="AFSR" TI="13534" Line="415" Offs="60"/>
+   </type>
+   <type Family="typedef" Name="SCB_TypeDef" Line="416" ID="13571" toTI="13330"/>
+   <type Family="ComponentList" Line="26" ID="13583">
+    <Component Name="NVIC_IRQChannel" TI="13591" Line="28" Offs="0"/>
+    <Component Name="NVIC_IRQChannelPreemptionPriority" TI="13605" Line="29" Offs="1"/>
+    <Component Name="NVIC_IRQChannelSubPriority" TI="13619" Line="30" Offs="2"/>
+    <Component Name="NVIC_IRQChannelCmd" TI="13633" Line="31" Offs="3"/>
+   </type>
+   <type Family="typedef" Name="NVIC_InitTypeDef" Line="32" ID="13648" toTI="13583"/>
+   <function Name="NVIC_Init" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_nvic.c" Line="116">
+   <type Family="Pointer" TI="13895" toTI="13648"/>
+    <parameter Name="NVIC_InitStruct" TI="13895" FileName="C:\STM32\Projects\DIGScope\stm32f10x_nvic.c" Line="116" Addr="0x0" Param="Yes"/>
+    <variable Name="tmppriority" FileName="C:\STM32\Projects\DIGScope\stm32f10x_nvic.c" Line="118" Addr="0x0" TI="12894"/>
+    <variable Name="tmpreg" FileName="C:\STM32\Projects\DIGScope\stm32f10x_nvic.c" Line="118" Addr="0x0" TI="12894"/>
+    <variable Name="tmpmask" FileName="C:\STM32\Projects\DIGScope\stm32f10x_nvic.c" Line="118" Addr="0x0" TI="12894"/>
+    <variable Name="tmppre" FileName="C:\STM32\Projects\DIGScope\stm32f10x_nvic.c" Line="119" Addr="0x0" TI="12894"/>
+    <variable Name="tmpsub" FileName="C:\STM32\Projects\DIGScope\stm32f10x_nvic.c" Line="119" Addr="0x0" TI="12894"/>
+   </function >
+   <function Name="NVIC_SetVectorTable" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_nvic.c" Line="393">
+    <parameter Name="NVIC_VectTab" TI="12894" FileName="C:\STM32\Projects\DIGScope\stm32f10x_nvic.c" Line="393" Addr="0x0" Param="Yes"/>
+    <parameter Name="Offset" TI="12894" FileName="C:\STM32\Projects\DIGScope\stm32f10x_nvic.c" Line="393" Addr="0x1" Param="Yes"/>
+   </function >
+  </module>
+  <module Name="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" >
+   <type Family="Base" Name="long int" ID="15277"/>
+   <type Family="Base" Name="short int" ID="15284"/>
+   <type Family="Base" Name="signed char" ID="15291"/>
+   <type Family="Base" Name="long unsigned int" ID="15309"/>
+   <type Family="typedef" Name="u32" Line="39" ID="15298" toTI="15309"/>
+   <type Family="Base" Name="short unsigned int" ID="15327"/>
+   <type Family="typedef" Name="u16" Line="40" ID="15316" toTI="15327"/>
+   <type Family="Base" Name="unsigned char" ID="15344"/>
+   <type Family="typedef" Name="u8" Line="41" ID="15334" toTI="15344"/>
+   <type Family="typedef" Name="vu32" Line="47" ID="15351" toTI="15362"/>
+   <type Family="typedef" Name="vu8" Line="49" ID="15367" toTI="15378"/>
+   <type Family="typedef" Name="FlagStatus" Line="57" ID="15404" toTI="15383"/>
+   <type Family="typedef" Name="ITStatus" Line="57" ID="15415" toTI="15383"/>
+   <type Family="typedef" Name="FunctionalState" Line="59" ID="15447" toTI="15426"/>
+   <type Family="typedef" Name="ErrorStatus" Line="62" ID="15479" toTI="15458"/>
+   <type Family="Base" Name="unsigned int" ID="15490"/>
+   <type Family="ComponentList" Line="426" ID="15497">
+    <Component Name="CR" TI="15506" Line="428" Offs="0"/>
+    <Component Name="CFGR" TI="15520" Line="429" Offs="4"/>
+    <Component Name="CIR" TI="15535" Line="430" Offs="8"/>
+    <Component Name="APB2RSTR" TI="15550" Line="431" Offs="12"/>
+    <Component Name="APB1RSTR" TI="15565" Line="432" Offs="16"/>
+    <Component Name="AHBENR" TI="15580" Line="433" Offs="20"/>
+    <Component Name="APB2ENR" TI="15595" Line="434" Offs="24"/>
+    <Component Name="APB1ENR" TI="15610" Line="435" Offs="28"/>
+    <Component Name="BDCR" TI="15625" Line="436" Offs="32"/>
+    <Component Name="CSR" TI="15640" Line="437" Offs="36"/>
+   </type>
+   <type Family="typedef" Name="RCC_TypeDef" Line="438" ID="15656" toTI="15497"/>
+   <type Family="ComponentList" Line="25" ID="15668">
+    <Component Name="SYSCLK_Frequency" TI="15676" Line="27" Offs="0"/>
+    <Component Name="HCLK_Frequency" TI="15690" Line="28" Offs="4"/>
+    <Component Name="PCLK1_Frequency" TI="15704" Line="29" Offs="8"/>
+    <Component Name="PCLK2_Frequency" TI="15718" Line="30" Offs="12"/>
+    <Component Name="ADCCLK_Frequency" TI="15732" Line="31" Offs="16"/>
+   </type>
+   <type Family="typedef" Name="RCC_ClocksTypeDef" Line="32" ID="15747" toTI="15668"/>
+   <function Name="RCC_DeInit" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="124">
+   </function >
+   <function Name="RCC_HSEConfig" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="159">
+    <parameter Name="RCC_HSE" TI="15298" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="159" Addr="0x0" Param="Yes"/>
+   </function >
+   <function Name="RCC_PLLConfig" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="287">
+    <parameter Name="RCC_PLLSource" TI="15298" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="287" Addr="0x0" Param="Yes"/>
+    <parameter Name="RCC_PLLMul" TI="15298" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="287" Addr="0x1" Param="Yes"/>
+    <variable Name="tmpreg" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="289" Addr="0x0" TI="15298"/>
+   </function >
+   <function Name="RCC_PLLCmd" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="316">
+    <parameter Name="NewState" TI="15447" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="316" Addr="0x0" Param="Yes"/>
+   </function >
+   <function Name="RCC_SYSCLKConfig" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="335">
+    <parameter Name="RCC_SYSCLKSource" TI="15298" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="335" Addr="0x0" Param="Yes"/>
+    <variable Name="tmpreg" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="337" Addr="0x0" TI="15298"/>
+   </function >
+   <function Name="RCC_GetSYSCLKSource" TI="15334" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="365">
+   </function >
+   <function Name="RCC_HCLKConfig" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="388">
+    <parameter Name="RCC_SYSCLK" TI="15298" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="388" Addr="0x0" Param="Yes"/>
+    <variable Name="tmpreg" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="390" Addr="0x0" TI="15298"/>
+   </function >
+   <function Name="RCC_PCLK1Config" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="421">
+    <parameter Name="RCC_HCLK" TI="15298" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="421" Addr="0x0" Param="Yes"/>
+    <variable Name="tmpreg" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="423" Addr="0x0" TI="15298"/>
+   </function >
+   <function Name="RCC_PCLK2Config" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="454">
+    <parameter Name="RCC_HCLK" TI="15298" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="454" Addr="0x0" Param="Yes"/>
+    <variable Name="tmpreg" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="456" Addr="0x0" TI="15298"/>
+   </function >
+   <function Name="RCC_ADCCLKConfig" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="541">
+    <parameter Name="RCC_PCLK2" TI="15298" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="541" Addr="0x0" Param="Yes"/>
+    <variable Name="tmpreg" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="543" Addr="0x0" TI="15298"/>
+   </function >
+   <type Family="Pointer" TI="16685" toTI="15747"/>
+   <function Name="RCC_AHBPeriphClockCmd" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="768">
+    <parameter Name="RCC_AHBPeriph" TI="15298" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="768" Addr="0x0" Param="Yes"/>
+    <parameter Name="NewState" TI="15447" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="768" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="RCC_APB2PeriphClockCmd" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="801">
+    <parameter Name="RCC_APB2Periph" TI="15298" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="801" Addr="0x0" Param="Yes"/>
+    <parameter Name="NewState" TI="15447" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="801" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="RCC_APB1PeriphClockCmd" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="835">
+    <parameter Name="RCC_APB1Periph" TI="15298" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="835" Addr="0x0" Param="Yes"/>
+    <parameter Name="NewState" TI="15447" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="835" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="RCC_APB2PeriphResetCmd" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="867">
+    <parameter Name="RCC_APB2Periph" TI="15298" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="867" Addr="0x0" Param="Yes"/>
+    <parameter Name="NewState" TI="15447" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="867" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="RCC_APB1PeriphResetCmd" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="900">
+    <parameter Name="RCC_APB1Periph" TI="15298" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="900" Addr="0x0" Param="Yes"/>
+    <parameter Name="NewState" TI="15447" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="900" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="RCC_GetFlagStatus" TI="15404" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="989">
+    <parameter Name="RCC_FLAG" TI="15334" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="989" Addr="0x0" Param="Yes"/>
+    <variable Name="tmp" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="991" Addr="0x0" TI="15298"/>
+    <variable Name="statusreg" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="992" Addr="0x0" TI="15298"/>
+    <variable Name="bitstatus" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="993" Addr="0x0" TI="15404"/>
+   </function >
+   <function Name="RCC_WaitForHSEStartUp" TI="15479" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="198">
+    <variable Name="StartUpCounter" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="200" Addr="0x34000004" TI="15362"/>
+    <variable Name="status" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="201" Addr="0x34000010" TI="15479"/>
+    <variable Name="HSEStatus" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="202" Addr="0x10" TI="15404"/>
+   </function >
+   <type Family="array" ID="17383" toTI="15344"/>
+   <variable Name="APBAHBPrescTable" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="111" Addr="0x0" TI="17416"/>
+   <type Family="array" ID="17421" toTI="15344"/>
+   <variable Name="ADCPrescTable" FileName="C:\STM32\Projects\DIGScope\stm32f10x_rcc.c" Line="112" Addr="0x0" TI="17454"/>
+  </module>
+  <module Name="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" >
+   <type Family="Base" Name="long int" ID="17497"/>
+   <type Family="Base" Name="short int" ID="17504"/>
+   <type Family="Base" Name="signed char" ID="17511"/>
+   <type Family="Base" Name="long unsigned int" ID="17529"/>
+   <type Family="typedef" Name="u32" Line="39" ID="17518" toTI="17529"/>
+   <type Family="Base" Name="short unsigned int" ID="17547"/>
+   <type Family="typedef" Name="u16" Line="40" ID="17536" toTI="17547"/>
+   <type Family="Base" Name="unsigned char" ID="17564"/>
+   <type Family="typedef" Name="u8" Line="41" ID="17554" toTI="17564"/>
+   <type Family="typedef" Name="vu32" Line="47" ID="17571" toTI="17582"/>
+   <type Family="typedef" Name="FlagStatus" Line="57" ID="17613" toTI="17592"/>
+   <type Family="typedef" Name="ITStatus" Line="57" ID="17624" toTI="17592"/>
+   <type Family="typedef" Name="FunctionalState" Line="59" ID="17656" toTI="17635"/>
+   <type Family="Base" Name="unsigned int" ID="17667"/>
+   <type Family="ComponentList" Line="523" ID="17674">
+    <Component Name="CR1" TI="17683" Line="525" Offs="0"/>
+    <Component Name="RESERVED0" TI="17698" Line="526" Offs="2"/>
+    <Component Name="CR2" TI="17713" Line="527" Offs="4"/>
+    <Component Name="RESERVED1" TI="17728" Line="528" Offs="6"/>
+    <Component Name="SMCR" TI="17743" Line="529" Offs="8"/>
+    <Component Name="RESERVED2" TI="17758" Line="530" Offs="10"/>
+    <Component Name="DIER" TI="17773" Line="531" Offs="12"/>
+    <Component Name="RESERVED3" TI="17788" Line="532" Offs="14"/>
+    <Component Name="SR" TI="17803" Line="533" Offs="16"/>
+    <Component Name="RESERVED4" TI="17817" Line="534" Offs="18"/>
+    <Component Name="EGR" TI="17832" Line="535" Offs="20"/>
+    <Component Name="RESERVED5" TI="17847" Line="536" Offs="22"/>
+    <Component Name="CCMR1" TI="17862" Line="537" Offs="24"/>
+    <Component Name="RESERVED6" TI="17877" Line="538" Offs="26"/>
+    <Component Name="CCMR2" TI="17892" Line="539" Offs="28"/>
+    <Component Name="RESERVED7" TI="17907" Line="540" Offs="30"/>
+    <Component Name="CCER" TI="17922" Line="541" Offs="32"/>
+    <Component Name="RESERVED8" TI="17937" Line="542" Offs="34"/>
+    <Component Name="CNT" TI="17952" Line="543" Offs="36"/>
+    <Component Name="RESERVED9" TI="17967" Line="544" Offs="38"/>
+    <Component Name="PSC" TI="17982" Line="545" Offs="40"/>
+    <Component Name="RESERVED10" TI="17997" Line="546" Offs="42"/>
+    <Component Name="ARR" TI="18012" Line="547" Offs="44"/>
+    <Component Name="RESERVED11" TI="18027" Line="548" Offs="46"/>
+    <Component Name="RCR" TI="18042" Line="549" Offs="48"/>
+    <Component Name="RESERVED12" TI="18057" Line="550" Offs="50"/>
+    <Component Name="CCR1" TI="18072" Line="551" Offs="52"/>
+    <Component Name="RESERVED13" TI="18087" Line="552" Offs="54"/>
+    <Component Name="CCR2" TI="18102" Line="553" Offs="56"/>
+    <Component Name="RESERVED14" TI="18117" Line="554" Offs="58"/>
+    <Component Name="CCR3" TI="18132" Line="555" Offs="60"/>
+    <Component Name="RESERVED15" TI="18147" Line="556" Offs="62"/>
+    <Component Name="CCR4" TI="18162" Line="557" Offs="64"/>
+    <Component Name="RESERVED16" TI="18177" Line="558" Offs="66"/>
+    <Component Name="BDTR" TI="18192" Line="559" Offs="68"/>
+    <Component Name="RESERVED17" TI="18207" Line="560" Offs="70"/>
+    <Component Name="DCR" TI="18222" Line="561" Offs="72"/>
+    <Component Name="RESERVED18" TI="18237" Line="562" Offs="74"/>
+    <Component Name="DMAR" TI="18252" Line="563" Offs="76"/>
+    <Component Name="RESERVED19" TI="18267" Line="564" Offs="78"/>
+   </type>
+   <type Family="typedef" Name="TIM_TypeDef" Line="565" ID="18283" toTI="17674"/>
+   <type Family="ComponentList" Line="27" ID="18295">
+    <Component Name="TIM_Prescaler" TI="18303" Line="29" Offs="0"/>
+    <Component Name="TIM_CounterMode" TI="18317" Line="30" Offs="2"/>
+    <Component Name="TIM_Period" TI="18331" Line="31" Offs="4"/>
+    <Component Name="TIM_ClockDivision" TI="18345" Line="32" Offs="6"/>
+    <Component Name="TIM_RepetitionCounter" TI="18359" Line="33" Offs="8"/>
+   </type>
+   <type Family="typedef" Name="TIM_TimeBaseInitTypeDef" Line="34" ID="18374" toTI="18295"/>
+   <type Family="ComponentList" Line="37" ID="18385">
+    <Component Name="TIM_OCMode" TI="18393" Line="39" Offs="0"/>
+    <Component Name="TIM_OutputState" TI="18407" Line="40" Offs="2"/>
+    <Component Name="TIM_OutputNState" TI="18421" Line="41" Offs="4"/>
+    <Component Name="TIM_Pulse" TI="18435" Line="42" Offs="6"/>
+    <Component Name="TIM_OCPolarity" TI="18449" Line="43" Offs="8"/>
+    <Component Name="TIM_OCNPolarity" TI="18463" Line="44" Offs="10"/>
+    <Component Name="TIM_OCIdleState" TI="18477" Line="45" Offs="12"/>
+    <Component Name="TIM_OCNIdleState" TI="18491" Line="46" Offs="14"/>
+   </type>
+   <type Family="typedef" Name="TIM_OCInitTypeDef" Line="47" ID="18506" toTI="18385"/>
+   <type Family="ComponentList" Line="50" ID="18517">
+    <Component Name="TIM_Channel" TI="18525" Line="52" Offs="0"/>
+    <Component Name="TIM_ICPolarity" TI="18539" Line="53" Offs="2"/>
+    <Component Name="TIM_ICSelection" TI="18553" Line="54" Offs="4"/>
+    <Component Name="TIM_ICPrescaler" TI="18567" Line="55" Offs="6"/>
+    <Component Name="TIM_ICFilter" TI="18581" Line="56" Offs="8"/>
+   </type>
+   <type Family="typedef" Name="TIM_ICInitTypeDef" Line="57" ID="18596" toTI="18517"/>
+   <type Family="ComponentList" Line="60" ID="18607">
+    <Component Name="TIM_OSSRState" TI="18615" Line="62" Offs="0"/>
+    <Component Name="TIM_OSSIState" TI="18629" Line="63" Offs="2"/>
+    <Component Name="TIM_LOCKLevel" TI="18643" Line="64" Offs="4"/>
+    <Component Name="TIM_DeadTime" TI="18657" Line="65" Offs="6"/>
+    <Component Name="TIM_Break" TI="18671" Line="66" Offs="8"/>
+    <Component Name="TIM_BreakPolarity" TI="18685" Line="67" Offs="10"/>
+    <Component Name="TIM_AutomaticOutput" TI="18699" Line="68" Offs="12"/>
+   </type>
+   <type Family="typedef" Name="TIM_BDTRInitTypeDef" Line="69" ID="18714" toTI="18607"/>
+   <type Family="Pointer" TI="18839" toTI="18283"/>
+   <function Name="TIM_DeInit" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="135">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="135" Addr="0x0" Param="Yes"/>
+   </function >
+   <function Name="TIM_TimeBaseInit" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="199">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="199" Addr="0x0" Param="Yes"/>
+   <type Family="Pointer" TI="19067" toTI="18374"/>
+    <parameter Name="TIM_TimeBaseInitStruct" TI="19067" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="199" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="TIM_OC1Init" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="238">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="238" Addr="0x0" Param="Yes"/>
+   <type Family="Pointer" TI="19172" toTI="18506"/>
+    <parameter Name="TIM_OCInitStruct" TI="19172" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="238" Addr="0x1" Param="Yes"/>
+    <variable Name="tmpccmrx" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="240" Addr="0x0" TI="17536"/>
+    <variable Name="tmpccer" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="240" Addr="0x0" TI="17536"/>
+    <variable Name="tmpcr2" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="240" Addr="0x0" TI="17536"/>
+   </function >
+   <function Name="TIM_OC2Init" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="329">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="329" Addr="0x0" Param="Yes"/>
+    <parameter Name="TIM_OCInitStruct" TI="19172" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="329" Addr="0x1" Param="Yes"/>
+    <variable Name="tmpccmrx" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="331" Addr="0x0" TI="17536"/>
+    <variable Name="tmpccer" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="331" Addr="0x0" TI="17536"/>
+    <variable Name="tmpcr2" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="331" Addr="0x0" TI="17536"/>
+   </function >
+   <function Name="TIM_OC3Init" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="421">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="421" Addr="0x0" Param="Yes"/>
+    <parameter Name="TIM_OCInitStruct" TI="19172" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="421" Addr="0x1" Param="Yes"/>
+    <variable Name="tmpccmrx" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="423" Addr="0x0" TI="17536"/>
+    <variable Name="tmpccer" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="423" Addr="0x0" TI="17536"/>
+    <variable Name="tmpcr2" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="423" Addr="0x0" TI="17536"/>
+   </function >
+   <function Name="TIM_OC4Init" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="513">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="513" Addr="0x0" Param="Yes"/>
+    <parameter Name="TIM_OCInitStruct" TI="19172" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="513" Addr="0x1" Param="Yes"/>
+    <variable Name="tmpccmrx" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="515" Addr="0x0" TI="17536"/>
+    <variable Name="tmpccer" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="515" Addr="0x0" TI="17536"/>
+    <variable Name="tmpcr2" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="515" Addr="0x0" TI="17536"/>
+   </function >
+   <type Family="Pointer" TI="19543" toTI="18714"/>
+   <type Family="Pointer" TI="19669" toTI="18596"/>
+   <function Name="TIM_Cmd" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="829">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="829" Addr="0x0" Param="Yes"/>
+    <parameter Name="NewState" TI="17656" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="829" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="TIM_CtrlPWMOutputs" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="856">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="856" Addr="0x0" Param="Yes"/>
+    <parameter Name="NewState" TI="17656" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="856" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="TIM_ITConfig" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="894">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="894" Addr="0x0" Param="Yes"/>
+    <parameter Name="TIM_IT" TI="17536" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="894" Addr="0x1" Param="Yes"/>
+    <parameter Name="NewState" TI="17656" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="894" Addr="0x2" Param="Yes"/>
+   </function >
+   <function Name="TIM_DMACmd" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="989">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="989" Addr="0x0" Param="Yes"/>
+    <parameter Name="TIM_DMASource" TI="17536" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="989" Addr="0x1" Param="Yes"/>
+    <parameter Name="NewState" TI="17656" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="989" Addr="0x2" Param="Yes"/>
+   </function >
+   <function Name="TIM_InternalClockConfig" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1017">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1017" Addr="0x0" Param="Yes"/>
+   </function >
+   <function Name="TIM_OC1PreloadConfig" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1653">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1653" Addr="0x0" Param="Yes"/>
+    <parameter Name="TIM_OCPreload" TI="17536" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1653" Addr="0x1" Param="Yes"/>
+    <variable Name="tmpccmr1" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1655" Addr="0x0" TI="17536"/>
+   </function >
+   <function Name="TIM_OC2PreloadConfig" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1686">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1686" Addr="0x0" Param="Yes"/>
+    <parameter Name="TIM_OCPreload" TI="17536" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1686" Addr="0x1" Param="Yes"/>
+    <variable Name="tmpccmr1" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1688" Addr="0x0" TI="17536"/>
+   </function >
+   <function Name="TIM_OC3PreloadConfig" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1719">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1719" Addr="0x0" Param="Yes"/>
+    <parameter Name="TIM_OCPreload" TI="17536" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1719" Addr="0x1" Param="Yes"/>
+    <variable Name="tmpccmr2" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1721" Addr="0x0" TI="17536"/>
+   </function >
+   <function Name="TIM_OC4PreloadConfig" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1752">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1752" Addr="0x0" Param="Yes"/>
+    <parameter Name="TIM_OCPreload" TI="17536" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1752" Addr="0x1" Param="Yes"/>
+    <variable Name="tmpccmr2" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="1754" Addr="0x0" TI="17536"/>
+   </function >
+   <function Name="TIM_SelectOutputTrigger" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="2479">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="2479" Addr="0x0" Param="Yes"/>
+    <parameter Name="TIM_TRGOSource" TI="17536" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="2479" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="TIM_SetCounter" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="2554">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="2554" Addr="0x0" Param="Yes"/>
+    <parameter Name="Counter" TI="17536" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="2554" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="TIM_ClearITPendingBit" TI="0" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="3022">
+    <parameter Name="TIMx" TI="18839" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="3022" Addr="0x0" Param="Yes"/>
+    <parameter Name="TIM_IT" TI="17536" FileName="C:\STM32\Projects\DIGScope\stm32f10x_tim.c" Line="3022" Addr="0x1" Param="Yes"/>
+   </function >
+  </module>
+ </modulelist>
+</aoffile>
+

@@ -1,0 +1,2272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE> Regular Expressions </TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.3  (Win32)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGEDBY" CONTENT="Udo Richter">
+	<META NAME="CHANGED" CONTENT="20120311;230904">
+	<META NAME="KEYWORDS" CONTENT="Regular expressions, Search, RegEx, Tutorial, Perl, Python, Unix">
+</HEAD>
+<BODY LANG="de-DE" DIR="LTR">
+<DIV ID="page" DIR="LTR">
+	<H1>Regular Expressions</H1>
+	<DIV ID="obsahe" DIR="LTR">
+		<P><BR><BR>
+		</P>
+		<DIV ID="obspoz" DIR="LTR">
+			<P STYLE="margin-bottom: 0mm"><BR>
+			</P>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>What
+						are regular expressions ?</B> &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Regular
+						Expressions are a widely-used method of specifying patterns of
+						text to search for. Special metacharacters allow you to
+						specify, for instance, that a particular string you are looking
+						for occurs at the beginning or end of a line, or contains n
+						recurrences of a certain character. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><BR>
+						</P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Regular
+						expressions may look ugly to novices, but are actually a very
+						simple, handy and powerful tool. (well, usually simple ;) ) </FONT></FONT></FONT>
+						</P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><BR>
+						</P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Simple
+						Matches &nbsp;</B></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Any
+						single character matches itself, unless it is a metacharacter
+						with a special meaning described below. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE WIDTH=21 BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<COL WIDTH=14>
+				<COL WIDTH=7>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD WIDTH=7>
+						<P><BR>
+						</P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>A
+						series of characters matches that series of characters in the
+						target string, so the pattern &quot;bluh&quot; would match
+						&quot;bluh'' in the target string. Quite simple, eh ? &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>You
+						can cause characters that normally function as metacharacters
+						or escape sequences to be interpreted literally by 'escaping'
+						them. Do this by preceding them with a backslash &quot;\&quot;.
+						For instance: metacharacter &quot;^&quot; match beginning of
+						string, but &quot;\^&quot; match character &quot;^&quot;, &quot;\\&quot;
+						match &quot;\&quot; and so on. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<P STYLE="margin-bottom: 0mm"><BR>
+			</P>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Examples:
+						&nbsp;</B></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>foobar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						string 'foobar' &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\^FooBarPtr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						'^FooBarPtr' &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<P STYLE="margin-bottom: 0mm"><BR>
+			</P>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Escape
+						Sequences</B><FONT COLOR="#000080"> &nbsp;</FONT></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Characters
+						may be specified using a escape sequences syntax much like that
+						used in C and Perl: &quot;\n'' matches a newline, &quot;\t'' a
+						tab, etc. More generally, \xnn, where nn is a string of
+						hexadecimal digits, matches the character whose ASCII value is
+						nn. If You need wide (Unicode) character code, you can use
+						'\x{nnnn}', where 'nnnn' is one or more hexadecimal (base 16)
+						digits (1,2,3,4,5,6,7,8,9,A,B,C,D,E,F). Hex digit letters may
+						be in upper or lower case. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080">&nbsp;&nbsp;</FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\xnn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>char
+						with hex code nn &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080">&nbsp;&nbsp;</FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\x{nnnn}&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>char
+						with hex code nnnn (one byte for plain text and two bytes for
+						Unicode) &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080">&nbsp;&nbsp;</FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>tab
+						(HT/TAB), same as \x09 &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080">&nbsp;&nbsp;</FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>newline
+						(NL), same as \x0a &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080">&nbsp;&nbsp;</FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\r&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>car.return
+						(CR), same as \x0d &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080">&nbsp;&nbsp;</FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\f&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>form
+						feed (FF), same as \x0c &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080">&nbsp;&nbsp;</FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>alarm
+						(bell) (BEL), same as \x07 &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080">&nbsp;&nbsp;</FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\e&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>escape
+						(ESC), same as \x1b &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Examples:
+						&nbsp;</B></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>foo\x20bar&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						'foo bar' (note space in the middle) &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\tfoobar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						'foobar' predefined by tab &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<P STYLE="margin-bottom: 0mm"><BR>
+			</P>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Character
+						Classes</B><FONT COLOR="#000080"> &nbsp;</FONT></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>You
+						can specify a character class, by enclosing a list of
+						characters in [], which will match any one character from the
+						list. If the first character after the &quot;</FONT></FONT></FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>[</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>''
+						is &quot;</FONT></FONT></FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>^</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>'',
+						the class matches any character not in the list. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Examples:
+						&nbsp;</B></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>foob[aeiou]r&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>finds
+						strings 'foobar', 'foober' etc. but not 'foobbr', 'foobcr' etc.
+						&nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>foob[^aeiou]r&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>find
+						strings 'foobbr', 'foobcr' etc. but not 'foobar', 'foober' etc.
+						&nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Within
+						a list, the &quot;</FONT></FONT></FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>-</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>''
+						character is used to specify a range, so that a-z represents
+						all characters between &quot;a'' and &quot;z'', inclusive. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>If You
+						want &quot;</FONT></FONT></FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>-</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>''
+						itself to be a member of a class, put it at the start or end of
+						the list, or escape it with a backslash. If You want '</FONT></FONT></FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>]</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>'
+						you may place it at the start of list or escape it with a
+						backslash. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Examples:
+						&nbsp;</B></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>[-az]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						'a', 'z' and '-' &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>[az-]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						'a', 'z' and '-' &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>[a\-z]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						'a', 'z' and '-' &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>[a-z]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						all twenty six small characters from 'a' to 'z' &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>[\n-\x0D]&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						any of ASCII #10(Lf),#11,#12(Ff),#13(Cr). &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>[\d-t]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						any digit, '-' or 't'. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>[]-a]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						any char from ']'..'a'. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<P STYLE="margin-bottom: 0mm"><BR>
+			</P>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Metacharacters
+						&nbsp;</B></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Metacharacters
+						are special characters which are the essence of Regular
+						Expressions. There are different types of metacharacters,
+						described below. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><BR>
+						</P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Metacharacters
+						- Line Separators</B> &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>start
+						of line &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>end
+						of line &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>start
+						of text &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\Z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>end
+						of text &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>any
+						character in line &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<P STYLE="margin-bottom: 0mm"><BR>
+			</P>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Examples:
+						&nbsp;</B></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>^foobar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						string 'foobar' only if it's at the beginning of line &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>foobar$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						string 'foobar' only if it's at the end of line &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>^foobar$&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						string 'foobar' only if it's the only string in line &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>foob.r&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						strings like 'foobar', 'foobbr', 'foob1r' and so on &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<P STYLE="margin-bottom: 0mm"><BR>
+			</P>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>The
+						&quot;^&quot; metacharacter by default is only guaranteed to
+						match at the beginning of the input string/text, the &quot;$&quot;
+						metacharacter only at the end. Embedded line separators will
+						not be matched by &quot;^'' or &quot;$''. You may, however,
+						wish to treat a string as a multi-line buffer, such that the
+						&quot;^'' will match after any line separator within the
+						string, and &quot;$'' will match before any line separator. You
+						can do this by switching On the modifier /m. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><BR>
+						</P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>The \A
+						and \Z are just like &quot;^'' and &quot;$'', except that they
+						won't match multiple times when the modifier /m is used, while
+						&quot;^'' and &quot;$'' will match at every internal line
+						separator. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><BR>
+						</P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Metacharacters
+						- Predefined Classes</B><FONT COLOR="#000080"> </FONT></FONT></FONT></FONT>
+						</P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\w&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>an
+						alphanumeric character (including &quot;_&quot;) &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\W&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>a
+						nonalphanumeric &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>a
+						numeric character &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>a
+						non-numeric &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\s&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>any
+						space (same as [ \t\n\r\f]) &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>a
+						non space &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<P STYLE="margin-bottom: 0mm"><BR>
+			</P>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>You
+						may use \w, \d and \s within custom character classes. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<P STYLE="margin-bottom: 0mm"><BR>
+			</P>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Examples:
+						&nbsp;</B></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>foob\dr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						strings like 'foob1r', ''foob6r' and so on but not 'foobar',
+						'foobbr' and so on &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>foob[\w\s]r&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						strings like 'foobar', 'foob r', 'foobbr' and so on but not
+						'foob1r', 'foob=r' and so on &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>TRegExpr
+						uses properties SpaceChars and WordChars to define character
+						classes \w, \W, \s, \S, so You can easely redefine it. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Metacharacters
+						- Word Boundaries</B> &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\b&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Match
+						a word boundary &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Match
+						a non-(word boundary) &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<P STYLE="margin-bottom: 0mm"><BR>
+			</P>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>A word
+						boundary (\b) is a spot between two characters that has a \w on
+						one side of it and a \W on the other side of it (in either
+						order), counting the imaginary characters off the beginning and
+						end of the string as matching a \W. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Metacharacters
+						- Iterators</B><FONT COLOR="#000080"> &nbsp;</FONT></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Any
+						item of a regular expression may be followed by another type of
+						metacharacters - iterators. Using this metacharacters You can
+						specify number of occurrences of previous character,
+						metacharacter or subexpression. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>zero
+						or more (&quot;greedy&quot;), similar to {0,} &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>one
+						or more (&quot;greedy&quot;), similar to {1,} &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>zero
+						or one (&quot;greedy&quot;), similar to {0,1} &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>{n}&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>exactly
+						n times (&quot;greedy&quot;) &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>{n,}&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>at
+						least n times (&quot;greedy&quot;) &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>{n,m}&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>at
+						least n but not more than m times (&quot;greedy&quot;) &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>*?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>zero
+						or more (&quot;non-greedy&quot;), similar to {0,}? &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>+?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>one
+						or more (&quot;non-greedy&quot;), similar to {1,}? &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>??&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>zero
+						or one (&quot;non-greedy&quot;), similar to {0,1}? &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>{n}?&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>exactly
+						n times (&quot;non-greedy&quot;) &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>{n,}?&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>at
+						least n times (&quot;non-greedy&quot;) &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>{n,m}?&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>at
+						least n but not more than m times (&quot;non-greedy&quot;) &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<P STYLE="margin-bottom: 0mm"><BR>
+			</P>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>So,
+						digits in curly brackets of the form {n,m}, specify the minimum
+						number of times to match the item n and the maximum m. The form
+						{n} is equivalent to {n,n} and matches exactly n times. The
+						form {n,} matches n or more times. There is no limit to the
+						size of n or m, but large numbers will chew up more memory and
+						slow down r.e. execution. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>If a
+						curly bracket occurs in any other context, it is treated as a
+						regular character. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Examples:
+						&nbsp;</B></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>foob.*r&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						strings like 'foobar', 'foobalkjdflkj9r' and 'foobr' &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>foob.+r&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						strings like 'foobar', 'foobalkjdflkj9r' but not 'foobr' &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>foob.?r&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						strings like 'foobar', 'foobbr' and 'foobr' but not
+						'foobalkj9r' &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>fooba{2}r&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						the string 'foobaar' &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>fooba{2,}r&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						strings like 'foobaar', 'foobaaar', 'foobaaaar' etc. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>fooba{2,3}r&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						strings like 'foobaar', or 'foobaaar' but not 'foobaaaar' &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<P STYLE="margin-bottom: 0mm"><BR>
+			</P>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>A
+						little explanation about &quot;greediness&quot;. &quot;Greedy&quot;
+						takes as many as possible, &quot;non-greedy&quot; takes as few
+						as possible. For example, 'b+' and 'b*' applied to string
+						'abbbbc' return 'bbbb', 'b+?' returns 'b', 'b*?' returns empty
+						string, 'b{2,3}?' returns 'bb', 'b{2,3}' returns 'bbb'. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Metacharacters
+						- Alternatives</B><FONT COLOR="#000080"> &nbsp;</FONT></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>You
+						can specify a series of alternatives for a pattern using &quot;|''
+						to separate them, so that fee|fie|foe will match any of &quot;fee'',
+						&quot;fie'', or &quot;foe'' in the target string (as would
+						f(e|i|o)e). The first alternative includes everything from the
+						last pattern delimiter (&quot;('', &quot;['', or the beginning
+						of the pattern) up to the first &quot;|'', and the last
+						alternative contains everything from the last &quot;|'' to the
+						next pattern delimiter. For this reason, it's common practice
+						to include alternatives in parentheses, to minimize confusion
+						about where they start and end. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Alternatives
+						are tried from left to right, so the first alternative found
+						for which the entire expression matches, is the one that is
+						chosen. This means that alternatives are not necessarily
+						greedy. For example: when matching foo|foot against
+						&quot;barefoot'', only the &quot;foo'' part will match, as that
+						is the first alternative tried, and it successfully matches the
+						target string. (This might not seem important, but it is
+						important when you are capturing matched text using
+						parentheses.) &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Also
+						remember that &quot;</FONT></FONT></FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>|</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>''
+						is interpreted as a literal within square brackets, so if You
+						write [fee|fie|foe] You're really only matching [feio|]. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Examples:
+						&nbsp;</B></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>foo(bar|foo)&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						strings 'foobar' or 'foofoo'. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<P STYLE="margin-bottom: 0mm"><BR>
+			</P>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Metacharacters
+						- Subexpressions &nbsp;</B></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>The
+						bracketing construct ( ... ) may also be used to define r.e.
+						subexpressions (after parsing, you can find subexpression
+						positions, lengths and actual values in MatchPos, MatchLen and
+						Match properties of TRegExpr, and substitute it in clip strings
+						by TRegExpr.Substitute). &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Subexpressions
+						are numbered based on the left to right order of their opening
+						parenthesis. First subexpression has number '1' (whole r.e.
+						match has number '0' - You can substitute it in
+						TRegExpr.Substitute as '$0' or '$&amp;'). &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Examples:
+						&nbsp;</B></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>(foobar){8,10}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						strings which contain 8, 9 or 10 instances of the 'foobar' &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>foob([0-9]|a+)r&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						'foob0r', 'foob1r' , 'foobar', 'foobaar', 'foobaar' etc. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#0000ff"><FONT FACE="Courier New"><FONT SIZE=2>(abc(def)ghi(123))xzy</FONT></FONT></FONT><FONT COLOR="#000000">
+						&nbsp;&nbsp;&nbsp;</FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						abcdefghi123xyz (the only match), &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Then
+						backreferences: &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#0000ff"><FONT FACE="Courier New"><FONT SIZE=2>\1</FONT></FONT></FONT><FONT COLOR="#000000">
+						</FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>=
+						abcdefghi123, &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#0000ff"><FONT FACE="Courier New"><FONT SIZE=2>\2</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>=def,
+						&nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#0000ff"><FONT FACE="Courier New"><FONT SIZE=2>\3</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>=123,
+						&nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD>
+						<P><FONT COLOR="#0000ff"><FONT FACE="Courier New"><FONT SIZE=2>\0</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>=abcdefghi123xyz
+						(the whole match) &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=61></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>We
+						could find the same string using metacharacter Iterators with:
+						</FONT></FONT></FONT><FONT COLOR="#0000ff"><FONT FACE="Courier New"><FONT SIZE=2>(\w{3}([d-f]{3})...(\d*))xyz&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>and
+						the backreferences would have the same values. And yet the
+						pattern would also match: '123fdd@#$4444xyz',
+						'bbbeeeabc1234567xyz', 'ddddddaaaxyz'</FONT></FONT></FONT><FONT COLOR="#0000ff">
+						&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<P STYLE="margin-bottom: 0mm"><BR>
+			</P>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Metacharacters
+						- Backreferences</B><FONT COLOR="#000080"> &nbsp;</FONT></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Metacharacters
+						</FONT></FONT></FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\1</FONT></FONT></FONT><FONT COLOR="#000000">
+						</FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>through
+						</FONT></FONT></FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\9</FONT></FONT></FONT><FONT COLOR="#000000">
+						</FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>are
+						interpreted as backreferences in the Find text box. When used
+						outside of the regular expression, such as in the Replace
+						field, metacharacters </FONT></FONT></FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>$1</FONT></FONT></FONT><FONT COLOR="#000000">
+						</FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>through
+						</FONT></FONT></FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>$9</FONT></FONT></FONT><FONT COLOR="#000000">
+						</FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>are
+						interpreted as backreferences to the last find. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>\&lt;n&gt;</FONT></FONT></FONT><FONT COLOR="#000000">
+						</FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						previously matched subexpression </FONT></FONT></FONT><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>#&lt;n&gt;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>.
+						&nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Find
+						Examples: &nbsp;</B></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>(.)\1+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						'aaaa' and 'cc'. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>(.+)\1+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>also
+						match 'abab' and '123123' &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000080"><FONT FACE="Courier New"><FONT SIZE=2>(['&quot;]?)(\d+)\1&nbsp;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>matches
+						'&quot;13&quot; (in double quotes), or '4' (in single quotes)
+						or 77 (without quotes) etc &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<P STYLE="margin-bottom: 0mm"><BR>
+			</P>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Replace
+						Examples: &nbsp;</B></FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=20></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Date
+						format change from </FONT></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Arial"><FONT SIZE=2>dd.mm.yyyy</FONT></FONT></FONT><FONT COLOR="#000000">
+						</FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>to
+						</FONT></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Arial"><FONT SIZE=2>yyyy-mm-dd.</FONT></FONT></FONT><FONT COLOR="#000000">
+						</FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>This
+						will turn the European date style </FONT></FONT></FONT><FONT COLOR="#7f0000"><FONT FACE="Arial"><FONT SIZE=2>26.8.1994</FONT></FONT></FONT><FONT COLOR="#000000">
+						</FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>or
+						</FONT></FONT></FONT><FONT COLOR="#7f0000"><FONT FACE="Arial"><FONT SIZE=2>26/8/1994</FONT></FONT></FONT><FONT COLOR="#000000">
+						</FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>into
+						</FONT></FONT></FONT><FONT COLOR="#7f0000"><FONT FACE="Arial"><FONT SIZE=2>1994-8-26</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>.
+						&nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Search:
+						</FONT></FONT></FONT><FONT COLOR="#0000ff"><FONT FACE="Courier New"><FONT SIZE=2>([0-9]{1,2}).([0-9]{1,2}).([0-9]{4})
+						&nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>Replace:
+						</FONT></FONT></FONT><FONT COLOR="#0000ff"><FONT FACE="Courier New"><FONT SIZE=2>$3-$2-$1
+						&nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#0000ff">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>TIP:</B>
+						Make sure you check the box for &quot;Regular Expression&quot;.
+						And I always check, &quot;Prompt Each Replace&quot; to avoid
+						unintended replacements. Make sure your hit &quot;List&quot; or
+						&quot;Count&quot; before you hit &quot;Replace&quot;. You want
+						to make sure you get all the strings you had in mind. &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>For
+						explanation we used help text on regular expressions by Andrey
+						V. Sorokin (http://anso.virtualave.net</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>)
+						</B></FONT></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Arial"><FONT SIZE=2><B>Note:</B></FONT></FONT></FONT><FONT COLOR="#ff0000">
+						</FONT><FONT COLOR="#ff0000"><FONT FACE="Arial"><FONT SIZE=2>This
+						site uses </FONT></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Arial"><FONT SIZE=2><I>lots</I></FONT></FONT></FONT><FONT COLOR="#ff0000">
+						</FONT><FONT COLOR="#ff0000"><FONT FACE="Arial"><FONT SIZE=2>of
+						popups! &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Regular
+						Expression Tutorials</B> &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2>The
+						following is a list of a few sites that contain tutorials on
+						both regular expressions in general and their use in specific
+						loanguages: &nbsp;</FONT></FONT></FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><A HREF="http://www.regular-expressions.info/" TARGET="_blank"><FONT COLOR="#0000ff"><FONT FACE="Arial"><FONT SIZE=2><U>http://www.regular-expressions.info/
+						(General Tutorial)</U></FONT></FONT></FONT></A><FONT COLOR="#000000">
+						&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><A HREF="http://www.amk.ca/python/howto/regex/regex.html" TARGET="_blank"><FONT COLOR="#0000ff"><FONT FACE="Arial"><FONT SIZE=2><U>Regular
+						Expression HOWTO (For Python)</U></FONT></FONT></FONT></A><FONT COLOR="#000000">
+						&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><A HREF="http://www.uga.edu/~ucns/tti/Computer_Review/Spring95/Regular_expressions.html" TARGET="_blank"><FONT COLOR="#0000ff"><FONT FACE="Arial"><FONT SIZE=2><U>Regular
+						expressions in UNIX (Spring 1995) </U></FONT></FONT></FONT></A><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD>
+						<P><A HREF="http://www.english.uga.edu/humcomp/perl/regex2a.html" TARGET="_blank"><FONT COLOR="#0000ff"><FONT FACE="Arial"><FONT SIZE=2><U>Perl
+						Regular Expression Tutorial</U></FONT></FONT></FONT></A><FONT COLOR="#000000">
+						&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=41></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD>
+						<P><FONT COLOR="#000000">&nbsp;</FONT></P>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<TR VALIGN=TOP>
+					<TD WIDTH=14></TD>
+					<TD></TD>
+				</TR>
+			</TABLE>
+		</DIV>
+		<DIV ID="footer" DIR="LTR">
+			<P STYLE="margin-bottom: 0mm"><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><A HREF="http://www.pspad.com/">Editor
+			PSPad</A> - freeware editor, &copy; 1991 - 2007 </FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><B>Jan
+			Fiala</B></FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Arial"><FONT SIZE=2><BR>All
+			text is available under the terms of the <A HREF="licence.htm">GNU
+			Free Documentation License</A>.</FONT></FONT></FONT></P>
+			<P STYLE="margin-bottom: 0mm"><FONT COLOR="#000000">  &nbsp; </FONT>
+			</P>
+		</DIV>
+	</DIV>
+</DIV>
+</BODY>
+</HTML>

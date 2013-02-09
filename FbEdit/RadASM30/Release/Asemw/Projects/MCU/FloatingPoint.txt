@@ -1,0 +1,48 @@
+Floating point routines.
+------------------------------------------------------------------
+FLOATING_ADD
+FLOATING_SUB
+FLOATING_COMP
+FLOATING_MUL
+FLOATING_DIV
+HEXSCAN
+FLOATING_POINT_INPUT			CONVERTS CR TERMINATED ASCII STRING POINTED TO
+					BY DPTR AND PUTS IT ON THE FP STACK
+FLOATING_POINT_OUTPUT
+CONVERT_BINARY_TO_ASCII_STRING
+CONVERT_ASCII_STRING_TO_BINARY
+MULNUM10
+FPHEXOUT
+PUSHR2R0				CONVERTS 16 BIT INTEGER ASCII STRING POINTED TO
+					BY CONVT to FLOAT ON FP STACK
+IFIX					FLOAT to INTEGER
+PUSHAS					PUSH R2:R0 TO ARGUMENT
+POPAS					POP FP STACK TO R3:R1
+MOVAS					COPY FP STACK TO XRAM POINTED TO BY DPTR
+AINT					INT FUNCTION
+PUSHC					PUSH ARG IN DPTR TO STACK
+
+Formula to calculate Lx.
+------------------------------------------------------------------
+
+      -  /    \ 2    -     -  /    \ 2    -               /      \ 2
+     |  /  F1  \      |   |  /  F1  \      |     1       /    1   \
+Lx = | |--------| - 1 | x | |--------| - 1 | x ------ x |----------|
+     |  \  F3  /      |   |  \  F2  /      |    Ccal    \ 2xPixF1 /
+      -  \    /      -     -  \    /      -              \       /
+
+
+Formula to calculate Cx.
+------------------------------------------------------------------
+
+        /    \ 2    
+       /  F1  \     
+      |--------| - 1
+       \  F3  /     
+        \    /      
+Cx = --------------- x Ccal
+        /    \ 2    
+       /  F1  \     
+      |--------| - 1
+       \  F2  /     
+        \    /      

@@ -1,0 +1,26 @@
+#define IDB_TBRBMP						150
+#define IDC_HSPLIT						32109
+#define IDC_VSPLIT						32110
+#define IDB_MNUARROW					32101
+#define MANIFEST 						24
+IDB_TBRBMP				BITMAP    DISCARDABLE "Res/Toolbar.bmp"
+IDC_HSPLIT				CURSOR    DISCARDABLE "Res/SplitH.cur"
+IDC_VSPLIT				CURSOR    DISCARDABLE "Res/SplitV.cur"
+IDB_MNUARROW			BITMAP    DISCARDABLE "Res/MNUARROW.bmp"
+1						MANIFEST  DISCARDABLE "Res/xptheme.xml"
+102						BITMAP    DISCARDABLE "Res/Bookmark.bmp"
+106						BITMAP    DISCARDABLE "Res/Collapse.bmp"
+105						BITMAP    DISCARDABLE "Res/Expand.bmp"
+104						BITMAP    DISCARDABLE "Res/Linenumber.bmp"
+32100					BITMAP    DISCARDABLE "Res/ToolBox.bmp"
+32107					BITMAP    DISCARDABLE "Res/ProTrv.bmp"
+103						CURSOR    DISCARDABLE "Res/Select.cur"
+32106					ICON      DISCARDABLE "Res/MasmEd.ico"
+32106					BITMAP    DISCARDABLE "Res/Button.bmp"
+300						BITMAP    DISCARDABLE "Res/FileDir.bmp"
+32108					BITMAP    DISCARDABLE "Res/CollapseBM.bmp"
+110						BITMAP    DISCARDABLE "Res/Types.bmp"
+111						BITMAP    DISCARDABLE "Res/Close.bmp"
+101						CURSOR    DISCARDABLE "Res/SplitH.cur"
+101						BITMAP    DISCARDABLE "Res/PropertyToolbar.bmp"
+310						BITMAP    DISCARDABLE "Res/Project.bmp"

@@ -1,0 +1,29 @@
+[Project]
+Version=3
+Description=Addin to test AIM_FILESTATE
+Api=fb (FreeBASIC),win (Windows)
+Grouping=1
+AddMainFiles=1
+ResExport=
+[Make]
+Module=Module Build,fbc -c
+Recompile=0
+Current=1
+1=Windows dll,fbc -s gui -dll -export
+Output=
+Run=
+[File]
+1=Test AIM_FILESTATE.bas
+2=..\..\FbEdit\Inc\Addins.bi
+3=
+4=
+[FileInfo]
+1=0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+2=0,73,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+3=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+[TabOrder]
+TabOrder=1,2
+[BreakPoint]
+1=
+2=

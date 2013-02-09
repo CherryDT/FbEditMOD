@@ -1,0 +1,112 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 10 (filtered)">
+<title>ResourceEditorOptions</title>
+<style>
+<!--
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+@page Section1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+</head>
+<body lang=EN-US>
+<div class=Section1>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 align=left
+ style='background:#FFFF99;border-collapse:collapse;margin-left:6.75pt;
+ margin-right:6.75pt'>
+ <tr style='height:24.25pt'>
+  <td width=899 valign=top style='width:674.6pt;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:24.25pt'>
+  <p class=MsoNormal><b><span style='font-size:18.0pt;color:blue'>Options</span></b></p>
+  </td>
+ </tr>
+</table>
+<br><br><br>
+<p class=MsoNormal>&nbsp;<span style='font-size:16.0pt;color:blue'>Resource Editor Options.</span></p>
+<p><img border="0" src="images/ResourceEditorOptions1.JPG" width="510" height="295"></p>
+<p class=MsoNormal>&#9679; Name Export Format.</p>
+&nbsp;&nbsp;&nbsp;&nbsp;Assembly equ's: IDC_BUTTONADD equ 1001<br>
+&nbsp;&nbsp;&nbsp;&nbsp;C defines: #define IDC_BUTTONADD 1001<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hla: IDC_BUTTONADD := 1001;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;PureBasic: #IDC_BUTTONADD = 1001<br>
+&nbsp;&nbsp;&nbsp;&nbsp;PowerBasic: %IDC_BUTTONADD = 1001<br>
+&nbsp;&nbsp;&nbsp;&nbsp;User Defined: %name and %id will be replaced by the actual values.<br><br>
+<p class=MsoNormal>&#9679; Name Export Output.</p>
+&nbsp;&nbsp;&nbsp;&nbsp;File: The names are written to file.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Clip Board: The names are pasted to clipboard.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Output: The names are sendt to output window.<br><br>
+<p class=MsoNormal>&#9679; Default Export Filename.</p>
+&nbsp;&nbsp;&nbsp;&nbsp;Name of file if File is selected.<br><br>
+<p class=MsoNormal>&#9679; Auto export when saved.</p>
+&nbsp;&nbsp;&nbsp;&nbsp;If checked the export will be done when the project is saved.
+
+<p><img border="0" src="images/ResourceEditorOptions2.JPG" width="510" height="295"></p>
+<p class=MsoNormal>&#9679; Grid X-Size, Grid Y-Size</p>
+&nbsp;&nbsp;&nbsp;&nbsp;Sets the size of the grid.<br><br>
+<p class=MsoNormal>&#9679; Grid color</p>
+&nbsp;&nbsp;&nbsp;&nbsp;Click on the color box to change.<br><br>
+<p class=MsoNormal>&#9679; Show Grid</p>
+&nbsp;&nbsp;&nbsp;&nbsp;The grid will be visible.<br><br>
+<p class=MsoNormal>&#9679; Snap To Grid</p>
+&nbsp;&nbsp;&nbsp;&nbsp;While designing, controls will move and size according to grid.<br><br>
+<p class=MsoNormal>&#9679; Show Size/Pos</p>
+&nbsp;&nbsp;&nbsp;&nbsp;A tooltip will show size or position.<br><br>
+<p class=MsoNormal>&#9679; Grid as lines</p>
+&nbsp;&nbsp;&nbsp;&nbsp;The grid will be shown as lines.<br><br>
+<p class=MsoNormal>&#9679; Styles as hex</p>
+&nbsp;&nbsp;&nbsp;&nbsp;Control styles will be saved as hex values.<br><br>
+
+<p><img border="0" src="images/ResourceEditorOptions3.JPG" width="510" height="295"></p>
+<p class=MsoNormal>&#9679; Custom control column.</p>
+&nbsp;&nbsp;&nbsp;&nbsp;This field contains the filename of a RadASM compatible custom control or a quoted string.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Format RadASM control: filename.dll<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Example1: RAEdit.dll<br>
+&nbsp;&nbsp;&nbsp;&nbsp;RadASM compatible code edit control.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Format quoted string: "[dll],class,name,[caption],tooltip,width,height,style,exstyle"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Example2: "Riched32.dll,richedit,IDC_RED,Text,RichEdit,100,100,503110C4,00000200"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Old rich edit control.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Example3: ",static,IDC_LINE,,Horizontal line,100,2,50000110,00000000"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Horizontal line.<br><br>
+<p class=MsoNormal>&#9679; Style mask column.</p>
+&nbsp;&nbsp;&nbsp;&nbsp;This field contains the style mask. There can be max 3 masks.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Format: Mask1[,Mask2[,Mask3]]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Example: WS_,SS_<br>
+
+<p><img border="0" src="images/ResourceEditorOptions4.JPG" width="510" height="295"></p>
+Here you can add control styles that RadASM normally does not support.<br>
+The Value and Mask must be entered as hex values.<br>
+Normally the Mask is the same as the Value, but if the style is part of a group the group value should be entered.
+
+<p><img border="0" src="images/ResourceEditorOptions5.JPG" width="510" height="295"></p>
+Here you can add resource types that are not initially supported by RadASM.<br>
+You can also select an editor for existing resource types.<br>
+NOTE!<br>
+Some columns are read only for resource types that RadASM initially supports.<br><br>
+<p class=MsoNormal>&#9679; Name column.</p>
+&nbsp;&nbsp;&nbsp;&nbsp;The resource name.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Example: MTTEXT<br><br>
+<p class=MsoNormal>&#9679; Value column.</p>
+&nbsp;&nbsp;&nbsp;&nbsp;Normally 0, if user defined a value can be set.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Example: 0<br><br>
+<p class=MsoNormal>&#9679; Files column.</p>
+&nbsp;&nbsp;&nbsp;&nbsp;Open files of type.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Example: Ini (*.ini)|*.ini|Text (*.txt)|*.txt|All (*.*)|*.*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;NOTE!<br>
+&nbsp;&nbsp;&nbsp;&nbsp;If left blank the resource type uses embedded file data.<br><br>
+<p class=MsoNormal>&#9679; Editor column.</p>
+&nbsp;&nbsp;&nbsp;&nbsp;Here you can specify an editor for the file.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Example: notepad.exe<br><br>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+[Version]
+Version=3000
+[Project]
+Assembler=masm
+Path=C:\FbEdit\Projects\Applications\FbEdit\RadASM30\Release\Masm\Projects\Asm8051
+Group=2,-1,0,1,Asm8051,-2,-1,1,Assembly,-3,-1,1,Include,-4,-1,1,Misc
+F1=-2,2,1,22,22,600,400,487,Asm8051.Asm
+F2=-3,0,1,22,22,600,400,449,Asm8051.Inc
+Open=2,1,2,3
+Api=
+C2=0
+B2=
+M2=
+C1=0,0,0
+B1=
+M1=
+F3=-4,0,2,88,88,816,400,54,SFRMap.txt
+C3=
+B3=
+M3=
+[Make]
+Make=0
+0=Window Release,'/v "$R"',"$R.res",'/c /coff /Cp "$C"',"$C.obj",'/SUBSYSTEM:WINDOWS /RELEASE /VERSION:4.0 /OUT:$O $C $M $R',"$C.exe",'',
+Delete=1
+IncBuild=0
+Run=0,'',''

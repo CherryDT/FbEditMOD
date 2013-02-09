@@ -1,0 +1,26 @@
+[Version]
+Version=3000
+[Project]
+Assembler=MinGW
+Path=C:\FbEdit\Projects\Applications\FbEdit\RadASM30\Release\MinGW\Projects\Project
+Group=2,-1,0,1,Project,-2,-1,1,Assembly,-3,-1,1,Include,-4,-1,1,Misc,-5,-1,1,Resource
+F1=-2,2,1,22,22,600,400,0,Project.cpp
+F2=-3,0,1,22,22,600,400,0,Project.h
+F3=-5,2,4,22,22,600,400,0,Project.Rc
+Open=0,1,2,3
+Api=
+C3=
+B3=
+M3=
+C2=0
+B2=
+M2=
+C1=0
+B1=
+M1=
+[Make]
+Make=0
+0=Window Release,'-i"$R"',"$R.res",'-O3 -Wall -c -fmessage-length=0 -o"$C" "$R"',"$C.obj",'-o$O $C $R -lkernel32 -luser32 -lgdi32 -lcomctl32 -lcomdlg32',"$C.exe",'',
+Delete=0
+IncBuild=0
+Run=0,'',''

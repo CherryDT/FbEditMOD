@@ -1,0 +1,15 @@
+#include "Res/RAEditLibDlg.rc"
+#include "Res/RAEditLibVer.rc"
+
+#define IDC_HSPLITTCUR	101
+#define IDC_SELECTCUR	103
+#define IDB_BOOKMARK	102
+#define IDB_LINENUMBER	104
+#define IDB_EXPAND		105
+#define IDB_COLLAPSE	106
+IDC_HSPLITTCUR	CURSOR  DISCARDABLE "../RAEdit/Res/SplitH.cur"
+IDB_BOOKMARK	BITMAP  DISCARDABLE "../RAEdit/Res/Bookmark.bmp"
+IDC_SELECTCUR	CURSOR  DISCARDABLE "../RAEdit/Res/Select.cur"
+IDB_LINENUMBER	BITMAP  DISCARDABLE "../RAEdit/Res/Linenumber.bmp"
+IDB_EXPAND		BITMAP  DISCARDABLE "../RAEdit/Res/Expand.bmp"
+IDB_COLLAPSE	BITMAP  DISCARDABLE "../RAEdit/Res/Collapse.bmp"

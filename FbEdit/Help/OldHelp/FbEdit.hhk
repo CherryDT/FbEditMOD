@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Project">
+		<param name="Local" value="Pages/Project.htm">
+		<param name="Local" value="Pages/Addingfilestoproject.htm">
+		<param name="Local" value="Pages/CreatingNewProject.htm">
+		<param name="Local" value="Pages/ProjectOptions.htm">
+		<param name="Local" value="Pages/Removingfilefromproject.htm">
+		<param name="Local" value="Pages/Renamingprojectfile.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Regular Expression">
+		<param name="Name" value="Regular Expressions">
+		<param name="Local" value="Pages\RegularExpression.html">
+		</OBJECT>
+</UL>
+</BODY></HTML>

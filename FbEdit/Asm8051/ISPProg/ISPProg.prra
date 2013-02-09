@@ -1,0 +1,22 @@
+[Version]
+Version=3000
+[Project]
+Assembler=asm8051
+Path=C:\RadASM30\Asm8051\Projects\ISPProg
+Group=2,-1,0,1,ISP Programming AT89S62,-2,-1,1,Assembly,-3,-1,1,Include,-4,-1,1,Misc,-5,-1,1,Resource
+F1=-2,2,1,22,22,600,400,253,ISPProg.a51
+Open=0,1,2
+Api=
+C1=0
+B1=
+M1=
+F2=-2,0,2,22,22,816,400,50,ISPProg.txt
+C2=
+B2=
+M2=
+[Make]
+Make=0
+0=Release,'',,'"$C"',"$C.cmd",'',,'',
+Delete=0
+IncBuild=0
+Run=0,'',''

@@ -1,0 +1,60 @@
+MasmEd Project addin.
+---------------------
+
+Create Project:
+---------------
+The project addin helps you create new projects in an easy way.
+If a template is selected then startup code / files are generated.
+
+1. Optionally select a Project Path.
+2. Type in a name for your project. Note that the project name is used to create
+   a sub folder (optional) and file names. Avoid illegal file / path characters.
+3. Select folders you want to create.
+4. Select Files or Template tab depending on if you want code to be generated or not.
+   Files tab:
+   ----------
+   a. Select Project type from the combo box.
+   b. Select files you want to be created.
+   Template tab:
+   -------------
+   a. Select the tamplate you want to have startup code generated.
+      Selecting a template overrides all settings on the Files tab.
+5. Push 'OK' to have your project created.
+
+Create Template:
+----------------
+The project addin can also create new templates from existing project sources.
+
+1. Type in a short description of the template you are creating.
+2. Add files you want to include in your template.
+   Note that you can only add files that are in the path of the main file.
+3. Select the main file from the file list.
+4. Select the Project type from the combo box.
+5. Select a file name for your template.
+6. Push 'OK' to have the template created.
+
+Sniplets:
+---------
+Lets you copy often used sniplets to your code or to the output window.
+
+1. Select a file from the treeview.
+2. Optionaly select the part of the code you want to copy.
+3. Push 'To Output' or push 'To Code'
+4. Push 'Close' to close the sniplet window.
+
+Options:
+--------
+Here you can specify which files are to be threated as text file and which files
+are to be threated as binary files when creating a template. Note how dots are added
+before and after a file extention.
+Specify the number of backup versions of your files you want.
+You can also specify minor files to delete after a successful build.
+Example: *.obj;*.res
+
+1. Modify the Template text files.
+2. Modify the Template binary files.
+3. Change the number of backups you want (0 to 9).
+4. Modify the minor files to delete (only if a session file is open).
+5. Push 'OK' to save the changes.
+
+KetilO

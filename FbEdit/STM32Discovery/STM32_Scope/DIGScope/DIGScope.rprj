@@ -1,0 +1,4 @@
+
+<Project Header="Project 'DIGScope'" Path=".\DIGScope.rprj" Project="Yes" AsyncBuild="" OutputFile="" sate="96" ActiveApp="DIGScope" >
+	<ApplicationBuild Header="DIGScope" Extern=".\DIGScope.rapp" Path=".\DIGScope.rapp" AsyncBuild="" OutputFile=".\DIGScope.elf" sate="96" />
+</Project>

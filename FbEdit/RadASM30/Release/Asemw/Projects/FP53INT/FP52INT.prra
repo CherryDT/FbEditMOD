@@ -1,0 +1,18 @@
+[Version]
+Version=3000
+[Project]
+Assembler=asemw
+Path=C:\RadASM30\Asm8051\Projects\FP52
+Group=2,-1,0,1,BCD floating point,-2,-1,1,Assembly,-3,-1,1,Include,-4,-1,1,Misc,-5,-1,1,Resource
+F1=-2,2,1,22,22,600,400,1431,FP52INT.a51
+Open=0,1
+Api=
+C1=0
+B1=
+M1=
+[Make]
+Make=0
+0=Release,'',,'"$C"',"$C.hex",'"$C" "$O"',"$C.cmd",'',
+Delete=0
+IncBuild=0
+Run=0,'',''

@@ -1,0 +1,4 @@
+
+<Project Header="Project 'DVMProject'" Path=".\DVMProject.rprj" Project="Yes" AsyncBuild="" OutputFile="" sate="96" ActiveApp="DVMProject" >
+	<ApplicationBuild Header="DVMProject" Extern=".\DVMProject.rapp" Path=".\DVMProject.rapp" AsyncBuild="" OutputFile=".\DVMProject.elf" sate="98" />
+</Project>

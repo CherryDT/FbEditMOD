@@ -1,0 +1,3 @@
+#include "Res/ASCIIDlg.rc"
+#include "Res/raASCIIVer.rc"
+#include "Res/raASCIIStr.rc"

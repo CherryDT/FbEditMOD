@@ -1,0 +1,46 @@
+[Version]
+Version=3000
+[Project]
+Assembler=masm
+Api=winraeMsg.api,winraeConst.api
+Path=C:\Programing\Assembler\Compiladores\RadAsm\Masm\Projects\Module
+Group=2,-1,0,1,Module test,-2,-1,1,Assembly,-3,-1,1,Include,-5,-1,1,Resource,-6,-1,1,Module
+Open=
+F7=-6,1,1,110,134,967,417,20,Modx\Module4.asm
+F6=-6,1,1,44,68,967,417,8,Mod\Module2.asm
+F5=-6,1,1,22,46,967,417,0,Mod\Module1.asm
+F4=-6,1,1,-10,-30,1417,670,0,Module3.asm
+F3=-5,2,4,0,24,967,417,36,Module.Rc
+F2=-3,0,1,88,112,967,417,31,Module.Inc
+F1=-2,2,1,-10,-30,1417,670,17,Module.Asm
+C7=0
+B7=
+M7=
+C4=0
+B4=
+M4=
+C6=0
+B6=
+M6=8
+C5=0
+B5=
+M5=
+C3=
+B3=
+M3=
+C2=0
+B2=
+M2=
+C1=0
+B1=
+M1=
+F8=
+C8=
+B8=
+M8=
+[Make]
+Make=1
+0=Window Release,'/v "$R"',"$R.res",'/c /coff /Cp "$C"',"$C.obj",'/SUBSYSTEM:WINDOWS /RELEASE /VERSION:4.0 /OUT:$O $C $M $R',"$C.exe",'',
+1=Window Debug,'/v "$R"',"$R.res",'/c /coff /Cp /Zi /Zd "$C"',"$C.obj",'/SUBSYSTEM:WINDOWS /DEBUG /VERSION:4.0 /OUT:$O $C $M $R',"$C.exe",'',
+Delete=1
+Run=0,'',''

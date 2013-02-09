@@ -1,0 +1,45 @@
+
+<ApplicationBuild Header="Sonar" Extern=".\Sonar.rapp" Path=".\Sonar.rapp" AsyncBuild="" OutputFile=".\Sonar.elf" sate="98" >
+	<NodeText Path=".\readme.txt" Header="readme.txt" Marker="-1" AsyncBuild="" OutputFile="" sate="0" />
+	<NodeC Path=".\main.c" Header="main.c" Marker="-1" AsyncBuild="" OutputFile=".\main.o" sate="0" />
+	<NodeC Path=".\stm32f10x_adc.c" Header="stm32f10x_adc.c" Marker="-1" AsyncBuild="" OutputFile=".\stm32f10x_adc.o" sate="0" />
+	<NodeH Path=".\stm32f10x_conf.h" Header="stm32f10x_conf.h" Marker="-1" AsyncBuild="" OutputFile="" sate="0" />
+	<NodeC Path=".\stm32f10x_flash.c" Header="stm32f10x_flash.c" Marker="-1" AsyncBuild="" OutputFile=".\stm32f10x_flash.o" sate="0" />
+	<NodeC Path=".\stm32f10x_gpio.c" Header="stm32f10x_gpio.c" Marker="-1" AsyncBuild="" OutputFile=".\stm32f10x_gpio.o" sate="0" />
+	<NodeC Path=".\stm32f10x_it.c" Header="stm32f10x_it.c" Marker="-1" AsyncBuild="" OutputFile=".\stm32f10x_it.o" sate="0" />
+	<NodeH Path=".\stm32f10x_it.h" Header="stm32f10x_it.h" Marker="-1" AsyncBuild="" OutputFile="" sate="0" />
+	<NodeC Path=".\stm32f10x_lib.c" Header="stm32f10x_lib.c" Marker="-1" AsyncBuild="" OutputFile=".\stm32f10x_lib.o" sate="0" />
+	<NodeC Path=".\stm32f10x_nvic.c" Header="stm32f10x_nvic.c" Marker="-1" AsyncBuild="" OutputFile=".\stm32f10x_nvic.o" sate="0" />
+	<NodeC Path=".\stm32f10x_rcc.c" Header="stm32f10x_rcc.c" Marker="-1" AsyncBuild="" OutputFile=".\stm32f10x_rcc.o" sate="0" />
+	<NodeC Path=".\stm32f10x_tim.c" Header="stm32f10x_tim.c" Marker="-1" AsyncBuild="" OutputFile=".\stm32f10x_tim.o" sate="0" />
+	<Options>
+		<Config Header="Standard" >
+			<Set Header="ApplicationBuild" >
+				<Section Header="General" >
+					<Property Header="TargetFamily" Value="ARM" />
+																																		
+				</Section>
+				<Section Header="Directories" >
+					<Property Header="IncDir" Value="\STM32\Inc" Removable="1" />
+																									
+				</Section>
+																			
+			</Set>
+			<Set Header="Target" >
+				<Section Header="ProcessorARM" >
+					<Property Header="Processor" Value="STM32F100RB" />
+																																		
+				</Section>
+				<Section Header="ToolSetARM" >
+					<Property Header="BuildToolSetARM" Value="ARM\GNU.config" Removable="1" />
+																																		
+				</Section>
+				<Section Header="DebugARM" >
+					<Property Header="DebugTool_CORTEX" Value="SIM-ARM" Removable="1" />
+							
+				</Section>
+					
+			</Set>
+		</Config>
+	</Options>
+</ApplicationBuild>

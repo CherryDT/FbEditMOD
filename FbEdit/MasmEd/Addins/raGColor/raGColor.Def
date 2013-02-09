@@ -1,0 +1,4 @@
+LIBRARY raGColor
+EXPORTS
+AddinProc
+InstallAddin

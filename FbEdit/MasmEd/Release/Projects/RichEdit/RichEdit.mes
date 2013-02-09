@@ -1,0 +1,5 @@
+[Session]
+Folder=C:\MasmEd\Projects\RichEdit
+Session=0,0,RichEdit.Asm,0,RichEdit.Inc,-1,RichEdit.Rc,-1,RichEdit.tbr
+MainFile=RichEdit.Asm
+Build=0

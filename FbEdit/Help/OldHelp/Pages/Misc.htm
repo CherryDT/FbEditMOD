@@ -1,0 +1,192 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 10 (filtered)">
+<title>Misc</title>
+
+<style>
+<!--
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+@page Section1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US>
+
+<div class=Section1>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 align=left
+ style='background:#CC99FF;border-collapse:collapse;margin-left:6.75pt;
+ margin-right:6.75pt'>
+ <tr style='height:24.25pt'>
+  <td width=899 valign=top style='width:674.6pt;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:24.25pt'>
+  <p class=MsoNormal><b><span style='font-size:18.0pt;color:blue'>Misc</span></b></p>
+  </td>
+ </tr>
+</table>
+
+<br><br><br>
+
+<p class=MsoNormal>Path acronymes:</p>
+- $A Where FbEdit.exe is located.<br>
+- $C Compiler path.<br>
+- $H Help path.<br>
+- $P Default project path.<br><br>
+Path acronymes can be used on help and tools menu.<br><br>
+
+<p class=MsoNormal>Help files:</p>
+
+<p class=MsoNormal>- The first help file on the help menu can be opened with F1
+(Win32.hlp Windows api reference)</p>
+
+<p class=MsoNormal>- The second help file on the help menu can be opened with
+Ctrl+F1 (fb.chm FreeBASIC help file)</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>Project limitations:</p>
+
+<p class=MsoNormal>- The main source file must be file number 1 in the project.</p>
+
+<p class=MsoNormal>    [Files]</p>
+
+<p class=MsoNormal>    1=MyMainSource.bas</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>Resource scripts:</p>
+
+<p class=MsoNormal>- Resource scripts can be opened in text edit mode by
+holding Ctrl key while opening the file.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>Creating a new color theme:</p>
+<p class=MsoNormal>  1. Select Options / Code Editor</p>
+<p class=MsoNormal>  2. From the Color Theme combobox select a theme close to what you want.</p>
+<p class=MsoNormal>  3. Change the colors you want.</p>
+<p class=MsoNormal>  4. From the Color Theme combobox select New Theme.</p>
+<p class=MsoNormal>  5. Give it a proper name and click Add New.</p>
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>Templates:</p>
+
+<p class=MsoNormal>- Template files are plain text and can be edited using a
+text editor.</p>
+
+<p class=MsoNormal>- A template can contain multiple build options.</p>
+
+<p class=MsoNormal>- FbEdit.ini section [Template] specifies file types
+recognized by 'Create Template'.</p>
+
+<p class=MsoNormal>- If you want file renaming then replace filename with [*PRONAME*]</p>
+
+<p class=MsoNormal>  Example: #include &quot;[*PRONAME*].bi&quot;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>Block Complete:</p>
+
+<p class=MsoNormal>  If you prefer using End If instead of EndIf then change
+the following in</p>
+
+<p class=MsoNormal>  FbEdit.ini section [Block]</p>
+
+<p class=MsoNormal>            [Block]</p>
+
+<p class=MsoNormal>             .</p>
+
+<p class=MsoNormal>             .</p>
+
+<p class=MsoNormal>            13=if $$ then,EndIf|End If,elseif,else,0</p>
+
+<p class=MsoNormal>            Change it to:</p>
+
+<p class=MsoNormal>            [Block]</p>
+
+<p class=MsoNormal>             .</p>
+
+<p class=MsoNormal>             .</p>
+
+<p class=MsoNormal>            13=if $$ then,End If|EndIf,elseif,else,0</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>Case convert hidden setting.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>            Case convert uses the internal word list. The
+word list comes from the</p>
+
+<p class=MsoNormal>            currently loaded api files and from parsing your
+sources. Each word belongs</p>
+
+<p class=MsoNormal>            to a word group. The word groups are as follows:</p>
+
+<p class=MsoNormal>              From api file:</p>
+
+<p class=MsoNormal>                        A         From xxxConst.api</p>
+
+<p class=MsoNormal>                        C         From xxxCase.api</p>
+
+<p class=MsoNormal>                        P          From xxxCall.api</p>
+
+<p class=MsoNormal>                        S          From xxxStruct.api</p>
+
+<p class=MsoNormal>                        T          From xxxType.api</p>
+
+<p class=MsoNormal>                        W        From xxxWord.api</p>
+
+<p class=MsoNormal>              Parsed from sources:</p>
+
+<p class=MsoNormal>                        c          Constant</p>
+
+<p class=MsoNormal>                        d          Variable</p>
+
+<p class=MsoNormal>                        e          Enum</p>
+
+<p class=MsoNormal>                        m         Macro</p>
+
+<p class=MsoNormal>                        n          Namespace</p>
+
+<p class=MsoNormal>                        o          Operator</p>
+
+<p class=MsoNormal>                        p          Sub or Function</p>
+
+<p class=MsoNormal>                        s           UDT</p>
+
+<p class=MsoNormal>                        x          Constructor</p>
+
+<p class=MsoNormal>                        y          Destructor</p>
+
+<p class=MsoNormal>                        z           Property</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>            Case convert groups:</p>
+
+<p class=MsoNormal>            FbEdit.ini section [Edit]</p>
+
+<p class=MsoNormal>            [Edit]</p>
+
+<p class=MsoNormal>            CaseConvert=CWPp</p>
+
+</div>
+
+</body>
+
+</html>

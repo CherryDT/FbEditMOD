@@ -1,0 +1,22 @@
+[Version]
+Version=3000
+[Project]
+Assembler=asemw
+Path=C:\FbEdit\Projects\Applications\FbEdit\RadASM30\Release\Asemw\Projects\FrqCount
+Group=2,-1,0,1,130 MHz Frequency counter,-2,-1,1,Assembly,-4,-1,1,Misc
+F1=-2,2,1,22,22,600,400,17,FrqCount.a51
+Open=0,1
+Api=
+C1=0
+B1=
+M1=
+F2=-4,0,2,-6,-25,901,528,0,FrqCount.lst
+C2=
+B2=
+M2=
+[Make]
+Make=0
+0=Release,'',,'"$C"',"$C.hex",'"$C" "$O"',"$C.cmd",'',
+Delete=0
+IncBuild=0
+Run=0,'',''

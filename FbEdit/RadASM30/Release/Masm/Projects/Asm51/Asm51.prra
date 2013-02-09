@@ -1,0 +1,31 @@
+[Version]
+Version=3000
+[Project]
+Assembler=Masm
+Path=C:\FbEdit\Projects\Applications\FbEdit\RadASM30\Release\Masm\Projects\Asm51
+Group=2,-1,0,1,8051 assembler,-2,-1,1,Assembly,-3,-1,1,Include,-4,-1,1,Misc
+F1=-2,2,1,22,22,600,400,404,Asm51.asm
+F2=-3,0,1,88,88,816,400,343,Asm51.inc
+F3=-2,0,1,110,110,816,400,99,Misc.asm
+Open=4,1,2,3,4
+Api=
+C3=0
+B3=
+M3=
+C2=0
+B2=
+M2=
+C1=0,0,0
+B1=
+M1=
+F4=-2,0,2,66,66,816,400,7,Test.a51
+C4=
+B4=
+M4=
+[Make]
+Make=0
+0=Console Release,'/v "$R"',"$R.res",'/c /coff /Cp "$C"',"$C.obj",'/SUBSYSTEM:CONSOLE /RELEASE /VERSION:4.0 /OUT:$O $C $M $R',"$C.exe",'',
+1=Console Debug,'/v "$R"',"$R.res",'/c /coff /Cp /Zi /Zd "$C"',"$C.obj",'/SUBSYSTEM:CONSOLE /DEBUG /VERSION:4.0 /OUT:$O $C $M $R',"$C.exe",'',
+Delete=0
+IncBuild=0
+Run=0,'','Test.a51'

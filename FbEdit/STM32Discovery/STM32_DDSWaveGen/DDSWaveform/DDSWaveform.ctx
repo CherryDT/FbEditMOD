@@ -1,0 +1,172 @@
+
+<Debug>
+	<DDSWaveform>
+		<RegistersView Focus="134218212" TopRow="0" NbPerLine="4" />
+		<MemoryView Focus="134218212" TopRow="0" NbPerLine="8" />
+		<RegistersView Focus="134218212" TopRow="0" NbPerLine="4" />
+		<RegistersView Focus="134218212" TopRow="0" NbPerLine="4" />
+		<MemoryView Focus="134218212" TopRow="0" NbPerLine="8" />
+		<CodeView TopRow="134218606" Focus="4294967295" >
+			<CodeReport>
+				<0>119</0>
+				<1>131</1>
+				<2>71</2>
+				<3>394</3>
+				<4>72</4>
+				<5>150</5>
+																																																																																																																																												
+			</CodeReport>
+																																																																																																				
+		</CodeView>
+		<RegistersView Focus="134218212" TopRow="0" NbPerLine="4" />
+																																																												
+	</DDSWaveform>
+	<Flags>
+		<Report>
+			<Def Header="FlagReport" NbCol="9" >
+				<Col Type="PT_BOOL" Header="Check" sizeCache="18" AutoSize="0" Edit="1" Sortable="1" Icon="C:\Program Files\Raisonance\Ride\Config\Resources\check.bmp" />
+				<Col Type="PT_STRING" Header="Kind" sizeCache="DDDDDDDDDDD" AutoSize="1" Edit="0" Sortable="1" />
+				<Col Type="PT_STRING" Header="KindID" sizeCache="DD" AutoSize="1" Edit="0" Sortable="1" Visible="0" />
+				<Col Type="PT_STRING" Header="Space" sizeCache="DDDDDD" AutoSize="1" Edit="0" Sortable="1" />
+				<Col Type="PT_STRING" Header="SpaceID" sizeCache="DD" AutoSize="0" Edit="0" Sortable="0" Visible="0" />
+				<Col Type="PT_STRING" Header="Line" sizeCache="DDDDDDDDD" AutoSize="1" Edit="0" Sortable="1" Visible="1" />
+				<Col Type="PT_STRING" Header="File" sizeCache="DDDDDDDDDDDDDDDDDDDD" AutoSize="1" Edit="0" Sortable="1" Visible="1" />
+				<Col Type="PT_STRING" Header="Path" sizeCache="DDDDDDDDDDDDDDDDDDDD" AutoSize="1" Edit="0" Sortable="0" Visible="0" />
+				<Col Type="PT_STRING" Header="Condition" sizeCache="DDDDDDDDDDDDDDDDDDDDDDDD" AutoSize="1" Edit="0" Sortable="0" />
+				<Col Type="PT_STRING" Header="Condexpr" sizeCache="DD" AutoSize="1" Edit="0" Sortable="0" Visible="0" />
+				<Col Type="PT_STRING" Header="Condcount" sizeCache="DD" AutoSize="1" Edit="0" Sortable="0" Visible="0" />
+							
+			</Def>
+			<Rows/>
+					
+		</Report>
+			
+	</Flags>
+	<Views>
+		<View File="C:\STM32\Projects\DDSWaveform\main.c" Line="387" Index="0" focus="1" />
+	</Views>
+	<Grep>
+		<GrepIncludeSub>yes</GrepIncludeSub>
+		<GrepMatchCase>no</GrepMatchCase>
+		<GrepMatchWhole>no</GrepMatchWhole>
+		<GrepRegExp>no</GrepRegExp>
+		<GrepReplaceMode>no</GrepReplaceMode>
+		<GrepFileTypes>
+			<GrepFileTypesValue>*.c;*.h</GrepFileTypesValue>
+			<GrepFileType>*.c;*.h</GrepFileType>
+		</GrepFileTypes>
+		<GrepFindWhat>
+			<GrepFindWhatValue>#else</GrepFindWhatValue>
+			<GrepFindStr>#elif</GrepFindStr>
+			<GrepFindStr>#else</GrepFindStr>
+			<GrepFindStr>#elseif</GrepFindStr>
+			<GrepFindStr>#elseifdef</GrepFindStr>
+			<GrepFindStr>#ifdef</GrepFindStr>
+			<GrepFindStr>ARR</GrepFindStr>
+		</GrepFindWhat>
+		<GrepFindWhere>
+			<GrepFindWhereValue>D:\STM32\Inc</GrepFindWhereValue>
+			<GrepPathStr>Application Files</GrepPathStr>
+			<GrepPathStr>Application Path</GrepPathStr>
+			<GrepPathStr>D:\STM32\Inc</GrepPathStr>
+			<GrepPathStr>D:\STM32\Projects\FrequencyCounter</GrepPathStr>
+		</GrepFindWhere>
+		<GrepReplaceWhat>
+			<GrepReplaceWhatValue/>
+		</GrepReplaceWhat>
+	</Grep>
+	<FindStrings>
+		<Find>GPIO_SetBits</Find>
+		<Find>ADC_AmplifyCHA</Find>
+		<Find>ADC_InjectedChannelConfig</Find>
+		<Find>RCC_ADCCLKConfig</Find>
+		<Find>IS_ADC_REGULAR_LENGTH</Find>
+		<Find>ADC_ReadDVM</Find>
+		<Find>TIM_ClearITPendingBit</Find>
+		<Find>SWEEP_StepCount</Find>
+		<Find>SWEEP_StepSize</Find>
+		<Find>adr</Find>
+		<Find>NVIC_SetVectorTable</Find>
+		<Find>TI1_Config</Find>
+		<Find>IS_TIM_IC_POLARITY</Find>
+		<Find>GPIO_Mode_AF_PP</Find>
+		<Find>Channel6</Find>
+		<Find>TIM17</Find>
+		<Find>DMA_Init</Find>
+		<Find>dst</Find>
+		<Find>DAC_Channel</Find>
+		<Find>CR_EN_Set</Find>
+		<Find>DAC</Find>
+		<Find>RCC_AHBPeriph_DMA1</Find>
+		<Find>RCC_APB1Periph_TIM4</Find>
+		<Find>tim16</Find>
+		<Find>ADC_Channel_8</Find>
+		<Find>SMPR2_SMP_Set</Find>
+		<Find>CR2_ADON_Set</Find>
+		<Find>ADC_Cmd</Find>
+		<Find>CR2_DMA_Set</Find>
+		<Find>ADC_DMACmd</Find>
+		<Find>ErrorStatus</Find>
+		<Find>GPIO_ReadInputData</Find>
+		<Find>TIM_SelectOutputTrigger</Find>
+		<Find>DEBUG</Find>
+		<Find>IS_TIM_ALL_PERIPH</Find>
+		<Find>TIM_Cmd</Find>
+		<Find>TIM_ITConfig</Find>
+		<Find>TIM_InternalClockConfig</Find>
+		<Find>DMA</Find>
+		<Find>_TIM</Find>
+		<Find>IS_RCC_APB2_PERIPH</Find>
+		<Find>RCC_APB2PeriphClockCmd</Find>
+		<Find>RCC_APB2Periph_TIM1</Find>
+		<Find>TIM8</Find>
+		<Find>TIM</Find>
+		<Find>15</Find>
+		<Find>14</Find>
+		<Find>_14</Find>
+		<Find>TIM_OC4Init</Find>
+		<Find>TIM_OC4PreloadConfig</Find>
+		<Find>tim1</Find>
+		<Find>RCC_APB1Periph_TIM2</Find>
+		<Find>TIM_ARRPreloadConfig</Find>
+		<Find>TIM_OC1PreloadConfig</Find>
+		<Find>TIM_OC1Init</Find>
+		<Find>switch</Find>
+		<Find>TIM_ICInitTypeDef</Find>
+		<Find>TIM_TimeBaseInitTypeDef</Find>
+		<Find>TI2_Config</Find>
+		<Find>TIM_CounterMode_Up</Find>
+		<Find>CCR_ENABLE_Set</Find>
+		<Find>DMA_Cmd</Find>
+		<Find>IS_TIM_123458_PERIPH</Find>
+		<Find>8</Find>
+		<Find>7</Find>
+		<Find>6</Find>
+		<Find>TIM_TimeBaseInit</Find>
+		<Find>TIM5_BASE</Find>
+		<Find>TIM5_BASE:</Find>
+		<Find>TIM6</Find>
+		<Find>TIM15</Find>
+		<Find>tim5</Find>
+		<Find>DMA_Priority_High</Find>
+		<Find>DMA_Mode_Normal</Find>
+		<Find>ADC_SoftwareStartConvCmd</Find>
+		<Find>if</Find>
+		<Find>STM32Clock24MHz</Find>
+		<Find>ADC_SampleRate</Find>
+		<Find>RCC_PCLK2_Div2:</Find>
+		<Find>RCC_PCLK2_Div2</Find>
+		<Find>ADC_Init</Find>
+		<Find>ADC_RegularChannelConfig</Find>
+		<Find>ADC_InitTypeDef</Find>
+		<Find>DMA_PeripheralDataSize_HalfWord</Find>
+		<Find>TIM2</Find>
+		<Find>TIM3</Find>
+		<Find>TIM3_IRQHandler</Find>
+		<Find>DMA_Mode_Circular</Find>
+		<Find>ADCConvertedValue</Find>
+	</FindStrings>
+	<ReplaceStrings>
+		<Find>adr</Find>
+	</ReplaceStrings>
+</Debug>

@@ -1,0 +1,5 @@
+[Session]
+Folder=C:\MasmEd\Projects\MasmEdAddin
+Session=0,0,MasmEdAddin.Asm,18,MasmEdAddin.Inc,0,MasmEdAddin.Def,0,..\..\Addins\Addins.inc
+MainFile=MasmEdAddin.Asm
+Build=4

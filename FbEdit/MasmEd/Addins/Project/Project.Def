@@ -1,0 +1,4 @@
+LIBRARY Project
+EXPORTS
+	InstallAddin
+	AddinProc

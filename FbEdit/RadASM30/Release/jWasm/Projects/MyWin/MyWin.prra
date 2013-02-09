@@ -1,0 +1,17 @@
+[Version]
+Version=3000
+[Project]
+Assembler=jWasm
+Path=C:\Programing\Assembler\Compiladores\RadAsm\jwasm\Projects\MyWin
+Group=2,-1,0,1,A generic windows program without resources,-2,-1,1,Assembly,-3,-1,1,Include,-4,-1,1,Misc,-5,-1,1,Resource
+F1=-2,2,1,22,22,600,400,102,MyWin.asm
+Open=0,1
+Api=
+C1=0
+B1=
+M1=
+[Make]
+Make=0
+0=Window Release,'/r "$R"',"$R.res",'/c /coff /Cp "$C"',"$C.obj",'/SUBSYSTEM:WINDOWS /RELEASE /VERSION:4.0 /OUT:$O $C $M $R',"$C.exe",'',
+Delete=0
+Run=0,'',''

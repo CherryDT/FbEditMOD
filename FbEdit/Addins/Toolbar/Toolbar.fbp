@@ -1,0 +1,45 @@
+[Project]
+Version=3
+Description=FreeBASIC toolbar creator
+Api=fb (FreeBASIC),win (Windows)
+Grouping=2
+AddMainFiles=1
+ResExport=
+AddModuleFiles=1
+CompileIfNewer=0
+IncVersion=0
+RunCmd=0
+[Make]
+Module=Module Build,fbc -c
+Recompile=0
+Current=1
+1=Windows dll,fbc -s gui -dll -export
+Output=
+Run=
+Delete=
+PreBuildBatch=
+PostBuildBatch=
+[File]
+2=Toolbar.bi
+3=Toolbar.txt
+4=Toolbar.rc
+5=..\..\FbEdit\Inc\Addins.bi
+6=
+7=
+1=Toolbar.bas
+Main=1
+MainRC=4
+[FileInfo]
+1=0,714,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+2=0,31,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+3=0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4=0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5=0,280,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+[TabOrder]
+TabOrder=1,2,3,4,5
+CurrentTab=1
+[BreakPoint]
+1=
+2=
+3=
+5=

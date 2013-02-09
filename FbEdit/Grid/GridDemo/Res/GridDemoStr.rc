@@ -1,0 +1,8 @@
+STRINGTABLE DISCARDABLE
+BEGIN
+  1000						"Test String"
+  1001						"Test this string"
+  1002						"kjaskjasdkajsd"
+  1003						"alksaklsdlaksdlaksdlaksd"
+  1004						"hasfjahksjfkjasfasjkf"
+END

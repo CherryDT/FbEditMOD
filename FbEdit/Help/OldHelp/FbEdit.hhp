@@ -1,0 +1,51 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=FbEdit.chm
+Contents file=FbEdit.hhc
+Default topic=Pages\Introduction.htm
+Display compile progress=No
+Index file=FbEdit.hhk
+Language=0x414 Norwegisch (Bokmal)
+
+
+[FILES]
+Pages\tut6.htm
+Pages\Addingfilestoproject.htm
+Pages\CodeEditor.htm
+Pages\CodeEditorAcceleratorKeys.htm
+Pages\CodeEditorBlockmode.htm
+Pages\CodeEditorFind.htm
+Pages\CodeEditorFormatting.htm
+Pages\CodeEditorGoto.htm
+Pages\CodeEditorReplace.htm
+Pages\CreatingNewProject.htm
+Pages\Introduction.htm
+Pages\Misc.htm
+Pages\Options.htm
+Pages\Project.htm
+Pages\ProjectOptions.htm
+Pages\Removingfilefromproject.htm
+Pages\Renamingprojectfile.htm
+Pages\ResourceDialogEditor.htm
+Pages\ResourceEditor.htm
+Pages\ResourceMenuEdito.htm
+Pages\Templates.htm
+Pages\tut1.htm
+Pages\tut2.htm
+Pages\tut3.htm
+Pages\tut4.htm
+Pages\tut5.htm
+Pages\OptionsHelpMenu.htm
+Pages\OptionsToolsMenu.htm
+Pages\OptionsLanguage.htm
+Pages\OptionsCodeEditor.htm
+Pages\OptionsDialogEditor.htm
+Pages\OptionsPaths.htm
+Pages\OptionsDebug.htm
+Pages\OptionsBuild.htm
+Pages\OptionsExternalFiles.htm
+Pages\OptionsAddinManager.htm
+Pages\RegularExpression.html
+
+[INFOTYPES]
+

@@ -1,0 +1,26 @@
+[Version]
+Version=3000
+[Project]
+Assembler=fb
+Path=C:\RadASM30\fb\Projects\DialogApp
+Group=2,-1,0,1,Dialog application,-2,-1,1,Assembly,-3,-1,1,Include,-4,-1,1,Misc,-5,-1,1,Resource
+F1=-2,2,1,22,22,600,400,13,DialogApp.Bas
+F2=-5,2,4,22,22,600,400,0,DialogApp.Rc
+F3=-3,0,1,22,22,600,400,3,DialogApp.Bi
+Open=0,1,3,2
+Api=
+C2=
+B2=
+M2=
+C3=0
+B3=
+M3=
+C1=0
+B1=
+M1=
+[Make]
+Make=0
+0=Window Release,'/r "$R"',"$R.res",'-s gui "$C" $M $R -x $O',"$C.exe",'',"$C.exe",'',
+Delete=0
+IncBuild=0
+Run=0,'',''

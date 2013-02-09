@@ -1,0 +1,207 @@
+RAHexEd KetilO (C) 2003 - 2005
+_____________________________________________________________________
+
+IMPORTANT!
+In version 1.1.0,0 the HESELCHANGE structure is changed.
+Also the calling convention of RAHexEdInstall is changed
+to C calling convention.
+
+These changes were made to make RAHexEd C compatible.
+_____________________________________________________________________
+
+Adding RAHexEd to RadASM's visual dialog design:
+
+Copy RAHexEd.dll to C:\RadASM or to C:\Windows\System
+
+In RadASM.ini section [CustCtrl] add the following:
+
+xx=RAHexEd.dll,1
+
+Where xx is next free number
+_____________________________________________________________________
+
+RAHexEd window styles:
+
+STYLE_NOSPLITT
+No splitt button
+
+STYLE_NOLINENUMBER
+No linenumber button
+
+STYLE_NOHSCROLL
+No horizontal scrollbar
+
+STYLE_NOVSCROLL
+No vertical scrollbar
+
+STYLE_NOSIZEGRIP
+No sizegrip
+
+STYLE_NOSTATE
+No changed state indicator
+
+STYLE_NOADDRESS
+No address field
+
+STYLE_NOASCII
+No ascii field
+
+STYLE_NOUPPERCASE
+Hex numbers uses lowercase letters
+
+STYLE_READONLY
+Text is locked
+_____________________________________________________________________
+
+RAHexEd private messages:
+
+HEM_SETFONT
+wParam=nLineSpacing
+lParam=lpHEFONT
+
+HEM_GETFONT
+wParam=0
+lParam=lpHEFONT
+
+HEM_SETCOLOR
+wParam=0
+lParam=lpHECOLOR
+
+HEM_GETCOLOR
+wParam=0
+lParam=lpHECOLOR
+
+HEM_VCENTER
+wParam=0
+lParam=0
+
+HEM_REPAINT
+wParam=0
+lParam=0
+
+HEM_ANYBOOKMARKS
+wParam=0
+lParam=0
+
+HEM_TOGGLEBOOKMARK
+wParam=nLine
+lParam=0
+
+HEM_CLEARBOOKMARKS
+wParam=0
+lParam=0
+
+HEM_NEXTBOOKMARK
+wParam=0
+lParam=0
+
+HEM_PREVIOUSBOOKMARK
+wParam=0
+lParam=0
+
+HEM_SELBARWIDTH
+wParam=nWidth
+lParam=0
+
+HEM_LINENUMBERWIDTH
+wParam=nWidth
+lParam=0
+
+HEM_GETBYTE
+wParam=cp
+lParam=0
+
+HEM_SETBYTE
+wParam=cp
+lParam=byte
+_____________________________________________________________________
+
+RAHexEd edit messages:
+
+EM_STREAMIN
+wParam=SF_TEXT
+lParam=lpStream
+
+EM_STREAMOUT
+wParam=SF_TEXT
+lParam=lpStream
+
+EM_GETMODIFY
+wParam=0
+lParam=0
+
+EM_SETMODIFY
+wParam=TRUE/FALSE
+lParam=0
+
+EM_EXGETSEL
+wParam=0
+lParam=lpCHARRANGE
+
+EM_EXSETSEL
+wParam=0
+lParam=lpCHARRANGE
+
+EM_SCROLLCARET
+wParam=0
+lParam=0
+
+EM_GETSELTEXT
+wParam=0
+lParam=lpBuff
+
+EM_REPLACESEL
+wParam=Flags(fCanUndo(TRUE/FALSE)/FR_HEX)
+lParam=lpHexStr
+
+EM_FINDTEXTEX  
+wParam=Flags(FR_DOWN/FR_HEX)
+lParam=lpFINDTEXTEX
+
+EM_CANPASTE
+wParam=CF_TEXT
+lParam=0
+
+EM_CANREDO
+wParam=0
+lParam=0
+
+EM_REDO
+wParam=0
+lParam=0
+
+EM_CANUNDO
+wParam=0
+lParam=0
+
+EM_UNDO
+wParam=0
+lParam=0
+
+EM_EMPTYUNDOBUFFER
+wParam=0
+lParam=0
+
+EM_GETLINECOUNT
+wParam=0
+lParam=0
+
+EM_LINEINDEX
+wParam=nLine
+lParam=0
+
+WM_CLEAR
+wParam=0
+lParam=0
+
+WM_CUT
+wParam=0
+lParam=0
+
+WM_COPY
+wParam=0
+lParam=0
+
+WM_PASTE
+wParam=0
+lParam=0

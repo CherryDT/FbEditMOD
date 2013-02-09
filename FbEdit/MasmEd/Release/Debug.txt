@@ -1,0 +1,123 @@
+MasmEd source code debugger.
+
+DbgHelp.dll
+---------------------------------------------------------------------------------------------------
+NOTE:
+The debugger needs a recent version of dbghelp.dll to work.
+
+o Windows Vista:
+  - My Vista came with version 6.0.6001.18000. It works OK.
+o Windows XP:
+  - Download and install:
+    http://msdl.microsoft.com/download/symbols/debuggers/dbg_x86_6.11.1.404.msi
+    The only thing you need is DbgHelp.dll in:
+    C:\Program Files\Debugging Tools for Windows (x86)\srcsrv
+    Copy it to MasmEd root (C:\MasmEd).
+o Windows 2000:
+  - Not tested.
+o Windows 9x and Me:
+  - Not tested.
+
+How to make your program:
+---------------------------------------------------------------------------------------------------
+o Assemble with the /Zd and /Zi options.
+o Link with the /DEBUG option.
+
+How to debug:
+---------------------------------------------------------------------------------------------------
+NOTE:
+The debugger does not automatically open files if they only contain variable
+declarations (ie. no code producing lines). You must open these files before
+you start debugging. If not the variables will be unknown to the debugger. 
+
+o Set a breakpoint in your source using Make/Debug/Toggle Breakpoint
+o Select Make/Debug/Run
+  - You will get a warning on unhandled breakpoints if you set a breakpoint
+    on a line that does not produce any code.
+  - You will get an error if there are unsaved source files.
+  - You will get an error if any source files are newer than the exe.
+  - Execution will halt when a breakpoint is reached.
+    Output window will show some debug info.
+  - Use Step Into, Step Over, Run To Caret or Run to continue execution.
+  - Use Toggle Breakpoint to set a new breakpoint or to clear an existing
+    breakpoint.
+  - use Clear Breakpoints to clear all breakpoints.
+  - Use Break to break execution.
+  - Use Stop to end execution.
+  - Use Do Not Debug to select procs that you dont want to debug. Typically
+    you dont want to debug the WndProc and the messageloop (WinMain) in a GUI
+    application. Check the 'Debug only main thread' checkbox if you dont want
+    to debug threads.
+  - Multithreading is supported. Each thread gets to execute one line
+    at a time, very confusing. Consider using 'Debug only main thread'.
+
+Error messages:
+---------------------------------------------------------------------------------------------------
+o SymLoadModule failed.
+  - DbgHelp could not load the module.
+o SymInitialize failed.
+  - DbgHelp initialization failed.
+o Could not find DbgHelp.dll.
+  - See DbgHelp.dll above.
+o Could not find function xxx in DbgHelp.dll.
+  - DbgHelp.dll is too old. See DbgHelp.dll above.
+o DbgHelp.dll is to old. Get a newer version.
+  - See DbgHelp.dll above.
+o There are xx unhandled breakpoint(s).
+  - You have set breakpoint(s) on line(s) that does not produce any code.
+o There are xx unsaved file(s).
+  - Save the file(s) and rebuild your project.
+o xx source files are newer than the exe.
+  - Rebuild your project.
+o Could not open: xxx.exe
+  - Build your project.
+o No debug info found. Use the /Zd, /Zi and /DEBUG command line options.
+  - Select Debug from the combo and rebuild your project.
+o Could not evaluate expression: xxx
+  - A constants expression is too complex.
+o Could not evaluate array size: xxx
+  - You forgot to open a .inc file or the masmApiWord.api needs to be updated.
+o Could not find datatype: xxx
+  - You forgot to open a .inc file or the masmApiType.api needs to be updated.
+  - You might need to change your source (Example: TVITEM --> TV_ITEM).
+o WARNING! There was xx error(s) while parsing. Variables, parameters and locals are disabled.
+  - See above errors.
+o The symbol xxx was not found. Addrss: xx Size: xx
+  - You forgot to open a .inc file.
+  - For some unknown reason the parser did not recognize the variable or proc.
+o Not a code line.
+  - You attempted to set a breakpoint or run to caret on a line that does not
+    produce any code.
+
+Immediate window:
+---------------------------------------------------------------------------------------------------
+o Type help to get instructions on how to use.
+
+Immediate window error messages:
+---------------------------------------------------------------------------------------------------
+o Syntax error: xxx
+  - The command parser failed.
+o Variable not found: xxx
+  - The variable could not be found.
+    NOTE! Parameters and locals must be in current scope.
+o Index out of range: xxx
+  - The index is out of range. Indexes are zero based.
+o Division by zero.
+  - The calculation caused a division by zero.
+o Overflow.
+  - The calculation caused an overflow.
+o Unknown command.
+  - The command parser failed.
+o Only in debug mode.
+  - The command is only awailable in debug mode.
+
+Register window:
+---------------------------------------------------------------------------------------------------
+o Shows current register values.
+
+Watch window:
+---------------------------------------------------------------------------------------------------
+o Shows variables you choose to watch (max 8 variables).
+  - If a variable is not in the current scope you will get: Variable not found: xxx
+
+KetilO

@@ -1,0 +1,45 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=ResEd.chm
+Contents file=ResEd.hhc
+Default topic=Intro.htm
+Display compile progress=No
+Index file=ResEd.hhk
+Language=0x414 Norsk, bokmål (Norge)
+
+
+[FILES]
+Intro.htm
+Exports.htm
+Custcont.htm
+Behaviour.htm
+ResourceID.htm
+Custstyle.htm
+Paths.htm
+Restypes.htm
+EdtDialog.htm
+EdtMenu.htm
+EdtStyleManager.htm
+HelpMenu.htm
+ToolsMenu.htm
+EditAccel.htm
+EditVersion.htm
+EditString.htm
+EditManifest.htm
+MenuFile.htm
+MenuEdit.htm
+MenuFormat.htm
+MenuView.htm
+MenuProject.htm
+MenuOption.htm
+MenuTools.htm
+MenuHelp.htm
+EditToolbar.htm
+EditLanguage.htm
+EditInclude.htm
+EditResource.htm
+EditName.htm
+EditRCData.htm
+
+[INFOTYPES]
+

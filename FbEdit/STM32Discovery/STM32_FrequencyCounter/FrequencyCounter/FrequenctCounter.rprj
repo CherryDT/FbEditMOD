@@ -1,0 +1,4 @@
+
+<Project Header="Project 'FrequenctCounter'" Path=".\FrequenctCounter.rprj" Project="Yes" AsyncBuild="" OutputFile="" sate="96" ActiveApp="FrequenctCounter" >
+	<ApplicationBuild Header="FrequenctCounter" Extern=".\FrequenctCounter.rapp" Path=".\FrequenctCounter.rapp" AsyncBuild="" OutputFile=".\FrequenctCounter.elf" sate="96" />
+</Project>

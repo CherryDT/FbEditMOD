@@ -1,0 +1,4 @@
+LIBRARY raASCII.dll
+EXPORTS
+	AddinProc
+	InstallAddin

@@ -1,0 +1,6 @@
+#include "Res/SimCadSymDlg.rc"
+#include <Res\SimCadMnu.rc>
+#include <Res\SimCadDlg.rc>
+#include "Res/SimCadVer.rc"
+#include "Res/SimCadRes.rc"
+#include "Res/SimCadAcl.rc"

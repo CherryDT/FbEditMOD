@@ -1,0 +1,67 @@
+
+-------------------------------------------------------------------------------
+STM32 value line Discovery DDS Waveform Generator demo project.
+-------------------------------------------------------------------------------
+
+IMPORTANT NOTICE!
+-----------------
+The use of the evaluation board is restricted:
+"This device is not, and may not be, offered for sale or lease, or sold or
+leased or otherwise distributed".
+
+For more info see this license agreement:
+http://www.st.com/internet/com/LEGAL_RESOURCES/LEGAL_AGREEMENT/
+LICENSE_AGREEMENT/EvaluationProductLicenseAgreement.pdf
+
+-------------------------------------------------------------------------------
+Features:
+-------------------------------------------------------------------------------
+o DDS Waveform generator.
+  - 12 bit dac.
+  - 32 bit phase register gives 0.00163Hz resolution.
+  - 2048 word amplitude lookup table.
+  - Sine wave.
+  - Triangle wave.
+  - Square wave.
+  - Sawtooth wave.
+  - Reverse sawtooth wave.
+  - Variable amplitude and DC offset.
+  - Sweep generator.
+  	Variable step time, 1ms to 6.5s.
+  	Variable frequency steps, 1Hz to 9999Hz.
+  	Variable number of steps, 1 to 1535.
+  	Sweep up, down or up and down.
+  - Peak detect mode samles peak ampltude for each step.
+o High speed clock output.
+  - Variable from 0.02Hz to 28.0MHz
+  - Variable pulse width, 0% to 100%.
+o Frequency counter.
+  - Counts frequency up to 28MHz.
+  - 1Hz resolution.
+  - Can be disabled to minimize waveform distortion.
+o Digital voltmeter.
+  - 12 bit resolution.
+
+-------------------------------------------------------------------------------
+Port pins used:
+-------------------------------------------------------------------------------
+PA.02				ADC Channel 2 Input for DVM,
+PA.03				ADC Channel 3 Input for Peak Detector.
+PA.04				DAC Channel 1 output for DDS Waveform generator.
+PA.06				Sweep sync output (up or down sweep only).
+PA.07				TIM3 Input for frequency counter.
+PA.08				TIM1 PWM Output Channel 1, output for high speed clock.
+
+-------------------------------------------------------------------------------
+Port pins used by discovery board:
+-------------------------------------------------------------------------------
+PA.00				User button input.
+PA.13				TMS/SWDIO.
+PA.14				TCK/SWCLK.
+PB.02				BOOT1.
+PC.08				LED4 Output (Blue).
+PC.09				LED3 Output (Green).
+PC.14				OSC In.
+PC.15				OSC Out.
+PD.00				OSC In.
+PD.01				OSC Out.

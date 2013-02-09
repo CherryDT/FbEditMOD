@@ -1,0 +1,29 @@
+#define IDD_DLGOPTION 3000
+#define IDC_EDTTEXT 1003
+#define IDC_EDTBINARY 1004
+#define IDC_EDTBACKUP 1001
+#define IDC_UDNBACKUP 1002
+#define IDC_EDTMINOR 1005
+IDD_DLGOPTION DIALOGEX 6,6,196,201
+CAPTION "Template / Backup / Minor Files Options"
+FONT 8,"MS Sans Serif",400,0
+STYLE 0x10C80080
+EXSTYLE 0x00000001
+BEGIN
+  CONTROL "Template creation",-1,"Button",0x50000007,0,0,195,68,0x00000000
+  CONTROL "Template text files (note the use of dots):",-1,"Static",0x50000000,2,11,190,9,0x00000000
+  CONTROL "",IDC_EDTTEXT,"Edit",0x50010000,2,22,190,13,0x00000200
+  CONTROL "Template binary files (note the use of dots):",-1,"Static",0x50000000,2,40,190,9,0x00000000
+  CONTROL "",IDC_EDTBINARY,"Edit",0x50010000,2,51,190,13,0x00000200
+  CONTROL "Backup creation",-1,"Button",0x50000007,0,70,195,50,0x00000000
+  CONTROL "If there is a Bak folder in the path of the main file then backup files are created.",-1,"Static",0x50001001,2,81,190,17,0x00000000
+  CONTROL "Number of backups to keep:",-1,"Static",0x50000000,2,105,110,9,0x00000000
+  CONTROL "3",IDC_EDTBACKUP,"Edit",0x50010801,114,101,30,13,0x00000200
+  CONTROL "",IDC_UDNBACKUP,"msctls_updown32",0x50000016,134,101,10,11,0x00000000
+  CONTROL "Delete minor files",-1,"Button",0x50000007,0,121,194,57,0x00000000
+  CONTROL "If there is a session file then minor files can be deleted after a successful build.",-1,"Static",0x50001001,2,132,190,17,0x00000000
+  CONTROL "Files to delete (*.obj;*.res):",-1,"Static",0x50000000,2,153,160,9,0x00000000
+  CONTROL "",IDC_EDTMINOR,"Edit",0x58010000,2,162,190,13,0x00000200
+  CONTROL "OK",1,"Button",0x50010000,92,182,46,14,0x00000000
+  CONTROL "Cancel",2,"Button",0x50010000,146,182,46,14,0x00000000
+END

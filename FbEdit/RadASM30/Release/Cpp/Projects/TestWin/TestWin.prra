@@ -1,0 +1,21 @@
+[Version]
+Version=3000
+[Project]
+Assembler=Cpp
+Path=D:\RadASM30\Cpp\Projects\TestWin
+Group=2,-1,0,1,TestWin,-2,-1,1,Assembly,-3,-1,1,Include
+Open=0,2,1
+Api=
+F1=-3,0,1,66,66,1235,542,0,TestWin.h
+C1=0
+B1=
+M1=
+F2=-2,2,1,88,88,1235,542,7,TestWin.cpp
+C2=0
+B2=
+M2=
+[Make]
+Make=0
+0=Window Release,'/v "$R"',"$R.res",'/c /O1 /GA /GB /w /TC /nologo /Fo "$C"',"$C.obj",'/SUBSYSTEM:WINDOWS /RELEASE /VERSION:4.0 /OUT:$O @"$A\Cpp\GFL.txt" $C  $M $R',"$C.exe",'',
+Delete=0
+Run=0,'',''

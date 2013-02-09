@@ -1,0 +1,2 @@
+#include <Res\GridDemo2Dlg.rc>
+#include "Res/GridDemo2Ver.rc"

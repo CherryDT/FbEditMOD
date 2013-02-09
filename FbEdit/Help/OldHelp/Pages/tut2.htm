@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0044)http://members.a1.net/ranmasaotome/tut2.html -->
+<HTML><HEAD><TITLE>Tutorial 2</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<META content="MSHTML 6.00.6000.16525" name=GENERATOR></HEAD>
+<BODY bgColor=#a0b7cd>
+<P><FONT size=3>Ok now that we have created our first working window, how about 
+putting some controls<BR>To our lill dialog.<BR><BR>Note: textboxes are called 
+editboxes and labels are calles statics from now on like in MS VC++<BR>In this 
+tutorial we will transfer following Visual Basic into Windows API / 
+FreeBASIC<BR><BR><FONT color=#0000ff>If Text1.Text &lt;&gt; VBNullstring 
+then<BR>&nbsp;&nbsp;&nbsp; Text2.Text = Text1.Text&nbsp;<BR>&nbsp;&nbsp;&nbsp; 
+else Msgbox "You didnt enter any text!", vbinformation<BR>End 
+if</FONT></FONT></P>
+<P><FONT size=3>Easy right ? Yeah cause the compiler is doing all the dirty 
+Windows API work for you.<BR>This wont happen in C/C++ and for sure not in 
+FreeBASIC.<BR>And we going to look into some other simple stuff to aswell.<BR>Lets get 
+going.</FONT></P>
+<P><FONT size=3>Create a new project, and use this time <B>DialogAsMain.tpl 
+</B>as a template. Project name will be<BR>Editbox. This new template is already 
+an almost complete application with everything you need.<BR>All you need is to 
+place your controls and write the code for them, the rest is done by the 
+Editor.<BR>As a free bonus you already get a dropdown menu <U>Exit</U> and 
+<U>About.</U></FONT></P>
+<P><IMG height=465 alt="Wizard3.jpg (83158 Byte)" src="tut2_files/Wizard3.jpg" 
+width=300></P><FONT size=4>
+<P></FONT><FONT size=3>Place 2 editboxes to your dialog, some statics (if you 
+want) and 4 (Command-) Buttons.<BR>Name the two editboxes Text1 and Text2. If 
+you want you can set Text2 Locked to TRUE.<BR>Name the four buttons Command1 
+Command2 and Command3 Command4 from left to right.<BR>Name the Dialog and the 
+Buttons as seen on the picture below.</FONT></P>
+<FONT size=3>Also choose a nice icon for your program and store it in 
+your \res folder<BR>Dont forget to include it with the resource dialog. ( 
+Remember ? Tutorial 1 )<BR>Click Go for testing, you should have something like 
+this.</FONT></P>
+<DIV align=left>
+<TABLE height=38 width=713 border=1>
+  <TBODY>
+  <TR>
+    <TD width=713 height=38>NOTE: For example you place a STATIC on your 
+      dialog and add following text to your static:&nbsp; &gt;&gt; Press "enter" 
+      to continue. &lt;&lt; When trying to assemble&amp;link you will get an 
+      error, thats because you have to DOUBLE "" the quotes each time you use 
+      them on a static, the same is for the EDITBOX 
+caption.</TD></TR></TBODY></TABLE></DIV>
+<P><IMG height=212 alt="Dialog2.jpg (19174 Byte)" src="tut2_files/Dialog2.jpg" 
+width=299></P><FONT size=4>
+<P></FONT><FONT size=3>Once again FbEdit is doing lots of work for us, check 
+your Editbox.rc file and open it with Notepad.<BR>You see something like 
+this:<BR><BR><FONT color=#808080>
+#define IDD_DIALOG 1000<BR>
+#define Text1 1001<BR>
+#define Text2 1002<BR>
+#define Command1 1003<BR>
+#define Command2 1004<BR>
+#define Command3 1005<BR>
+#define Command4 1006<BR>
+#define IDR_MENU 10000<BR>
+#define IDM_FILE_EXIT 10001<BR>
+#define IDM_HELP_ABOUT 10101<BR>
+IDD_DIALOG DIALOGEX 6,6,194,102<BR>
+CAPTION "Editbox sample"<BR>
+FONT 8,"MS Sans Serif",0,0<BR>
+CLASS "DLGCLASS"<BR>
+MENU IDR_MENU<BR>
+STYLE 0x10CF0000<BR>
+BEGIN<BR>
+  CONTROL "",Text1,"Edit",0x50010000,2,1,138,13,0x00000200<BR>
+  CONTROL "",Text2,"Edit",0x50010000,2,22,138,13,0x00000200<BR>
+  CONTROL "&amp;Text",Command1,"Button",0x50010000,2,46,54,13<BR>
+  CONTROL "&amp;About",Command2,"Button",0x50010000,66,46,54,13<BR>
+  CONTROL "&amp;Exit",Command3,"Button",0x50010000,130,46,54,13<BR>
+  CONTROL "&amp;Macro",Command4,"Button",0x50010000,2,68,54,13<BR>
+END<BR>
+IDR_MENU MENU<BR>
+BEGIN<BR>
+  POPUP "&amp;File"<BR>
+  BEGIN<BR>
+    MENUITEM "&amp;Exit",IDM_FILE_EXIT<BR>
+  END<BR>
+  POPUP "&amp;Help"<BR>
+  BEGIN<BR>
+    MENUITEM "&amp;About",IDM_HELP_ABOUT<BR>
+  END<BR>
+END<BR>
+</FONT><BR><BR>Please 
+dont edit any of these, just look at them. (the dialog editor will overwrite any 
+changes.)<BR>I want to show you how FbEdit makes your programming life easier. 
+If you would use just<BR>a text editor you would have to 
+manually type everything up there<BR>each time you change something on your 
+dialog.</FONT></P>
+<P><FONT size=3>We continue with our example:<BR>The defining of editboxes and 
+buttons is done, now we have to give them unique ID`s.<BR>Open your Editbox.bi 
+file.<BR>Everything grey is what you should have already in your own file, whats 
+red is what you should<BR>Insert.</FONT></P>
+<P>&nbsp;</P>
+<P><STRONG><FONT color=#808080 size=3>
+#Define IDD_DIALOG 1000<BR><BR>
+</FONT></STRONG></P>
+<P><STRONG><FONT color=#ff0000 size=3>
+#Define Text1 1001<BR>
+#Define Text2 1002<BR>
+#Define Command1 1003<BR>
+#Define Command2 1004<BR>
+#Define Command3 1005<BR>
+#Define Command4 1006<BR><BR>
+</FONT></STRONG></P>
+<P><STRONG><FONT color=#808080 size=3>
+#Define IDM_MENU 10000<BR>
+#Define IDM_FILE_EXIT 10001<BR>
+#Define IDM_HELP_ABOUT 10101<BR><BR>
+
+Dim Shared hInstance As HMODULE<BR>
+Dim Shared CommandLine As ZString Ptr<BR>
+Dim Shared hWnd As HWND<BR>
+</FONT></STRONG>
+<STRONG><FONT color=#ff0000 size=3>
+Dim Shared hIcon As HICON<BR><BR>
+</FONT></STRONG>
+<STRONG><FONT color=#808080 size=3>
+Const ClassName="DLGCLASS"<BR>
+Const AppName="Dialog as main"<BR>
+Const AboutMsg=!"FbEdit Dialog as main\13\10Copyright © FbEdit 2007"<BR>
+</FONT></STRONG>
+<STRONG><FONT color=#ff0000 size=3>
+Const Warning="You didnt type any text"<BR>
+Const Copyright="This is my software"<BR>
+</FONT></STRONG></P>
+
+<FONT color=#000000 size=3>You can close your Editbox.bi 
+file now.<BR>Double click Editbox.bas. <BR>Code thats already there is in grey, 
+what you still have to add is in red.</FONT></P>
+
+<P><STRONG><FONT color=#808080 size=3>
+#Include Once "windows.bi"<BR>
+#Include Once "win/commctrl.bi"<BR>
+#Include Once "win/commdlg.bi"<BR>
+#Include Once "win/shellapi.bi"<BR>
+#Include "Editbox.bi"<BR>
+<BR>
+Function WndProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer<BR>
+</FONT></STRONG>
+<STRONG><FONT color=#ff0000 size=3>
+&nbsp;&nbsp;Dim buff As ZString*256<BR>
+<BR>
+</FONT></STRONG>
+<STRONG><FONT color=#808080 size=3>
+&nbsp;&nbsp;Select Case uMsg<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Case WM_INITDIALOG<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hWnd=hWin<BR>
+</FONT></STRONG>
+<STRONG><FONT color=#ff0000 size=3>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hIcon=LoadIcon(hInstance,Cast(ZString Ptr,500))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SendMessage(hWin,WM_SETICON,NULL,Cast(LPARAM,hIcon))<BR>
+</FONT></STRONG>
+<STRONG><FONT color=#808080 size=3>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Case WM_COMMAND<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select Case HiWord(wParam)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Case BN_CLICKED,1<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select Case LoWord(wParam)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Case IDM_FILE_EXIT<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SendMessage(hWin,WM_CLOSE,0,0)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Case IDM_HELP_ABOUT<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ShellAbout(hWin,@AppName,@AboutMsg,NULL)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<BR>
+</FONT></STRONG>
+<STRONG><FONT color=#ff0000 size=3>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Case Command1<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' first we check if the user has inserted any text<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' if so we copy it to the second textbox<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If GetWindowTextLength(GetDlgItem(hWin,Text1)) Then<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' ok here we get only if user has typed some text<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GetDlgItemText(hWin,Text1,@buff,SizeOf(buff))<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetDlgItemText(hWin,Text2,@buff)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Else<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' User didnt enter any text<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MessageBox(hWin,@Warning,@AppName,MB_ICONERROR)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EndIf<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Case Command2<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' Win API for a messagebox<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MessageBox(hWin,@AppName,@Copyright,MB_OK)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Case Command3<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' Windows API: Unload me.<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SendMessage(hWin,WM_CLOSE,0,0)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Case Command4<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MessageBox(hWin,"Hello, this is a test","Messagebox caption",MB_ICONINFORMATION)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<BR>
+</FONT></STRONG>
+<STRONG><FONT color=#808080 size=3>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;End Select<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;End Select<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Case WM_SIZE<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Case WM_CLOSE<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DestroyWindow(hWin)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Case WM_DESTROY<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PostQuitMessage(NULL)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Case Else<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return DefWindowProc(hWin,uMsg,wParam,lParam)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'<BR>
+&nbsp;&nbsp;End Select<BR>
+&nbsp;&nbsp;Return 0<BR>
+<BR>
+End Function<BR>
+<BR>
+Function WinMain(ByVal hInst As HINSTANCE,ByVal hPrevInst As HINSTANCE,ByVal CmdLine As ZString Ptr,ByVal CmdShow As Integer) As Integer<BR>
+&nbsp;&nbsp;Dim wc As WNDCLASSEX<BR>
+&nbsp;&nbsp;Dim msg As MSG<BR>
+<BR>
+&nbsp;&nbsp;' Setup and register class for dialog<BR>
+&nbsp;&nbsp;wc.cbSize=SizeOf(WNDCLASSEX)<BR>
+&nbsp;&nbsp;wc.style=CS_HREDRAW Or CS_VREDRAW<BR>
+&nbsp;&nbsp;wc.lpfnWndProc=@WndProc<BR>
+&nbsp;&nbsp;wc.cbClsExtra=0<BR>
+&nbsp;&nbsp;wc.cbWndExtra=DLGWINDOWEXTRA<BR>
+&nbsp;&nbsp;wc.hInstance=hInst<BR>
+&nbsp;&nbsp;wc.hbrBackground=Cast(HBRUSH,COLOR_BTNFACE+1)<BR>
+&nbsp;&nbsp;wc.lpszMenuName=Cast(ZString Ptr,IDM_MENU)<BR>
+&nbsp;&nbsp;wc.lpszClassName=@ClassName<BR>
+&nbsp;&nbsp;wc.hIcon=LoadIcon(NULL,IDI_APPLICATION)<BR>
+&nbsp;&nbsp;wc.hIconSm=wc.hIcon<BR>
+&nbsp;&nbsp;wc.hCursor=LoadCursor(NULL,IDC_ARROW)<BR>
+&nbsp;&nbsp;RegisterClassEx(@wc)<BR>
+&nbsp;&nbsp;' Create and show the dialog<BR>
+&nbsp;&nbsp;CreateDialogParam(hInstance,Cast(ZString Ptr,IDD_DIALOG),NULL,@WndProc,NULL)<BR>
+&nbsp;&nbsp;ShowWindow(hWnd,SW_SHOWNORMAL)<BR>
+&nbsp;&nbsp;UpdateWindow(hWnd)<BR>
+&nbsp;&nbsp;' Message loop<BR>
+&nbsp;&nbsp;Do While GetMessage(@msg,NULL,0,0)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;TranslateMessage(@msg)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;DispatchMessage(@msg)<BR>
+&nbsp;&nbsp;Loop<BR>
+&nbsp;&nbsp;Return msg.wParam<BR>
+<BR>
+End Function<BR>
+<BR>
+' Program start<BR>
+hInstance=GetModuleHandle(NULL)<BR>
+CommandLine=GetCommandLine<BR>
+InitCommonControls<BR>
+WinMain(hInstance,NULL,CommandLine,SW_SHOWDEFAULT)<BR>
+ExitProcess(0)<BR>
+<BR>
+End<BR><BR>
+</FONT></STRONG></P>
+
+<P>When you are done, hit go. You get something like this:</P>
+<P><IMG height=207 alt="Dialog3.jpg (25619 Byte)" src="tut2_files/Dialog3.jpg" 
+width=310></P>
+<P>We are done.<FONT size=4></P>
+<P></FONT><FONT size=3>You can get the example code <A 
+href="http://radasm.110mb.com/fbedit/tutorials/tutorial2.zip">here.</A></P></FONT>

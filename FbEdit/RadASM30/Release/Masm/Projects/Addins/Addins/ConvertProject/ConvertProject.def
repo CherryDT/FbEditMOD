@@ -1,0 +1,4 @@
+LIBRARY ConvertProject.dll
+EXPORTS
+	InstallAddin
+	AddinProc

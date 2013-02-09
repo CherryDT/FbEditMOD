@@ -1,0 +1,571 @@
+<!-- DWF2XML 2.00.01 - Raisonance Dwarf information extractor -->
+<aoffile Filename="FrequenctCounter" dwarf="1">
+ <modulelist>
+  <module Name="D:\STM32\Projects\FrequencyCounter\main.c" >
+   <type Family="Base" Name="long int" ID="37"/>
+   <type Family="Base" Name="short int" ID="44"/>
+   <type Family="Base" Name="signed char" ID="51"/>
+   <type Family="Base" Name="long unsigned int" ID="69"/>
+   <type Family="typedef" Name="u32" Line="39" ID="58" toTI="69"/>
+   <type Family="Base" Name="short unsigned int" ID="87"/>
+   <type Family="typedef" Name="u16" Line="40" ID="76" toTI="87"/>
+   <type Family="Base" Name="unsigned char" ID="104"/>
+   <type Family="typedef" Name="u8" Line="41" ID="94" toTI="104"/>
+   <type Family="typedef" Name="FunctionalState" Line="59" ID="163" toTI="142"/>
+   <type Family="typedef" Name="ErrorStatus" Line="62" ID="195" toTI="174"/>
+   <type Family="Base" Name="unsigned int" ID="206"/>
+   <type Family="ComponentList" Line="334" ID="213">
+    <Component Name="CRL" TI="222" Line="336" Offs="0"/>
+    <Component Name="CRH" TI="237" Line="337" Offs="4"/>
+    <Component Name="IDR" TI="252" Line="338" Offs="8"/>
+    <Component Name="ODR" TI="267" Line="339" Offs="12"/>
+    <Component Name="BSRR" TI="282" Line="340" Offs="16"/>
+    <Component Name="BRR" TI="297" Line="341" Offs="20"/>
+    <Component Name="LCKR" TI="312" Line="342" Offs="24"/>
+   </type>
+   <type Family="typedef" Name="GPIO_TypeDef" Line="343" ID="328" toTI="213"/>
+   <type Family="ComponentList" Line="523" ID="340">
+    <Component Name="CR1" TI="349" Line="525" Offs="0"/>
+    <Component Name="RESERVED0" TI="364" Line="526" Offs="2"/>
+    <Component Name="CR2" TI="379" Line="527" Offs="4"/>
+    <Component Name="RESERVED1" TI="394" Line="528" Offs="6"/>
+    <Component Name="SMCR" TI="409" Line="529" Offs="8"/>
+    <Component Name="RESERVED2" TI="424" Line="530" Offs="10"/>
+    <Component Name="DIER" TI="439" Line="531" Offs="12"/>
+    <Component Name="RESERVED3" TI="454" Line="532" Offs="14"/>
+    <Component Name="SR" TI="469" Line="533" Offs="16"/>
+    <Component Name="RESERVED4" TI="483" Line="534" Offs="18"/>
+    <Component Name="EGR" TI="498" Line="535" Offs="20"/>
+    <Component Name="RESERVED5" TI="513" Line="536" Offs="22"/>
+    <Component Name="CCMR1" TI="528" Line="537" Offs="24"/>
+    <Component Name="RESERVED6" TI="543" Line="538" Offs="26"/>
+    <Component Name="CCMR2" TI="558" Line="539" Offs="28"/>
+    <Component Name="RESERVED7" TI="573" Line="540" Offs="30"/>
+    <Component Name="CCER" TI="588" Line="541" Offs="32"/>
+    <Component Name="RESERVED8" TI="603" Line="542" Offs="34"/>
+    <Component Name="CNT" TI="618" Line="543" Offs="36"/>
+    <Component Name="RESERVED9" TI="633" Line="544" Offs="38"/>
+    <Component Name="PSC" TI="648" Line="545" Offs="40"/>
+    <Component Name="RESERVED10" TI="663" Line="546" Offs="42"/>
+    <Component Name="ARR" TI="678" Line="547" Offs="44"/>
+    <Component Name="RESERVED11" TI="693" Line="548" Offs="46"/>
+    <Component Name="RCR" TI="708" Line="549" Offs="48"/>
+    <Component Name="RESERVED12" TI="723" Line="550" Offs="50"/>
+    <Component Name="CCR1" TI="738" Line="551" Offs="52"/>
+    <Component Name="RESERVED13" TI="753" Line="552" Offs="54"/>
+    <Component Name="CCR2" TI="768" Line="553" Offs="56"/>
+    <Component Name="RESERVED14" TI="783" Line="554" Offs="58"/>
+    <Component Name="CCR3" TI="798" Line="555" Offs="60"/>
+    <Component Name="RESERVED15" TI="813" Line="556" Offs="62"/>
+    <Component Name="CCR4" TI="828" Line="557" Offs="64"/>
+    <Component Name="RESERVED16" TI="843" Line="558" Offs="66"/>
+    <Component Name="BDTR" TI="858" Line="559" Offs="68"/>
+    <Component Name="RESERVED17" TI="873" Line="560" Offs="70"/>
+    <Component Name="DCR" TI="888" Line="561" Offs="72"/>
+    <Component Name="RESERVED18" TI="903" Line="562" Offs="74"/>
+    <Component Name="DMAR" TI="918" Line="563" Offs="76"/>
+    <Component Name="RESERVED19" TI="933" Line="564" Offs="78"/>
+   </type>
+   <type Family="typedef" Name="TIM_TypeDef" Line="565" ID="949" toTI="340"/>
+   <type Family="typedef" Name="GPIOSpeed_TypeDef" Line="39" ID="988" toTI="961"/>
+   <type Family="typedef" Name="GPIOMode_TypeDef" Line="54" ID="1057" toTI="999"/>
+   <type Family="ComponentList" Line="62" ID="1068">
+    <Component Name="GPIO_Pin" TI="1076" Line="64" Offs="0"/>
+    <Component Name="GPIO_Speed" TI="1090" Line="65" Offs="2"/>
+    <Component Name="GPIO_Mode" TI="1104" Line="66" Offs="3"/>
+   </type>
+   <type Family="typedef" Name="GPIO_InitTypeDef" Line="67" ID="1119" toTI="1068"/>
+   <type Family="ComponentList" Line="26" ID="1130">
+    <Component Name="NVIC_IRQChannel" TI="1138" Line="28" Offs="0"/>
+    <Component Name="NVIC_IRQChannelPreemptionPriority" TI="1152" Line="29" Offs="1"/>
+    <Component Name="NVIC_IRQChannelSubPriority" TI="1166" Line="30" Offs="2"/>
+    <Component Name="NVIC_IRQChannelCmd" TI="1180" Line="31" Offs="3"/>
+   </type>
+   <type Family="typedef" Name="NVIC_InitTypeDef" Line="32" ID="1195" toTI="1130"/>
+   <type Family="ComponentList" Line="27" ID="1206">
+    <Component Name="TIM_Prescaler" TI="1214" Line="29" Offs="0"/>
+    <Component Name="TIM_CounterMode" TI="1228" Line="30" Offs="2"/>
+    <Component Name="TIM_Period" TI="1242" Line="31" Offs="4"/>
+    <Component Name="TIM_ClockDivision" TI="1256" Line="32" Offs="6"/>
+    <Component Name="TIM_RepetitionCounter" TI="1270" Line="33" Offs="8"/>
+   </type>
+   <type Family="typedef" Name="TIM_TimeBaseInitTypeDef" Line="34" ID="1285" toTI="1206"/>
+   <function Name="TIM2_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="69">
+   </function >
+   <function Name="TIM3_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="87">
+   </function >
+   <function Name="RCC_Configuration" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="103">
+   </function >
+   <function Name="GPIO_Configuration" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="149">
+    <variable Name="GPIO_InitStructure" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="151" Addr="0x34000004" TI="1119"/>
+   </function >
+   <function Name="TIM2_Configuration" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="166">
+    <variable Name="TIM_TimeBaseStructure" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="168" Addr="0x34000004" TI="1285"/>
+   </function >
+   <function Name="TIM3_Configuration" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="187">
+    <variable Name="TIM_TimeBaseStructure" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="189" Addr="0x34000004" TI="1285"/>
+   </function >
+   <function Name="NVIC_Configuration" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="208">
+    <variable Name="NVIC_InitStructure" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="210" Addr="0x34000004" TI="1195"/>
+   </function >
+   <type Family="Base" Name="int" ID="1544"/>
+   <function Name="main" TI="1544" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="39">
+   </function >
+   <variable Name="Frequency" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="17" Addr="0x2000000C" TI="111"/>
+   <variable Name="FrqPrevious" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="18" Addr="0x20000008" TI="111"/>
+   <variable Name="FrqThis" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="19" Addr="0x20000004" TI="111"/>
+   <variable Name="TIM2H" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="20" Addr="0x20000000" TI="116"/>
+   <variable Name="HSEStartUpStatus" FileName="D:\STM32\Projects\FrequencyCounter\main.c" Line="16" Addr="0x20000010" TI="195"/>
+  </module>
+  <module Name="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" >
+   <type Family="Base" Name="long int" ID="1688"/>
+   <type Family="Base" Name="short int" ID="1695"/>
+   <type Family="Base" Name="signed char" ID="1702"/>
+   <type Family="Base" Name="long unsigned int" ID="1709"/>
+   <type Family="Base" Name="short unsigned int" ID="1716"/>
+   <type Family="Base" Name="unsigned char" ID="1723"/>
+   <type Family="Base" Name="unsigned int" ID="1730"/>
+   <function Name="WWDG_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="151">
+   </function >
+   <function Name="PVD_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="162">
+   </function >
+   <function Name="TAMPER_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="173">
+   </function >
+   <function Name="RTC_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="184">
+   </function >
+   <function Name="FLASH_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="195">
+   </function >
+   <function Name="RCC_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="206">
+   </function >
+   <function Name="EXTI0_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="217">
+   </function >
+   <function Name="EXTI1_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="228">
+   </function >
+   <function Name="EXTI2_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="239">
+   </function >
+   <function Name="EXTI3_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="250">
+   </function >
+   <function Name="EXTI4_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="261">
+   </function >
+   <function Name="DMA1_Channel1_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="272">
+   </function >
+   <function Name="DMA1_Channel2_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="283">
+   </function >
+   <function Name="DMA1_Channel3_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="294">
+   </function >
+   <function Name="DMA1_Channel4_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="305">
+   </function >
+   <function Name="DMA1_Channel5_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="316">
+   </function >
+   <function Name="DMA1_Channel6_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="327">
+   </function >
+   <function Name="DMA1_Channel7_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="338">
+   </function >
+   <function Name="ADC1_2_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="349">
+   </function >
+   <function Name="EXTI9_5_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="406">
+   </function >
+   <function Name="TIM1_BRK_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="417">
+   </function >
+   <function Name="TIM1_UP_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="429">
+   </function >
+   <function Name="TIM1_TRG_COM_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="441">
+   </function >
+   <function Name="TIM1_CC_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="452">
+   </function >
+   <function Name="TIM4_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="485">
+   </function >
+   <function Name="I2C1_EV_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="496">
+   </function >
+   <function Name="I2C1_ER_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="507">
+   </function >
+   <function Name="I2C2_EV_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="518">
+   </function >
+   <function Name="I2C2_ER_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="529">
+   </function >
+   <function Name="SPI1_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="540">
+   </function >
+   <function Name="SPI2_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="551">
+   </function >
+   <function Name="USART1_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="562">
+   </function >
+   <function Name="USART2_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="573">
+   </function >
+   <function Name="USART3_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="584">
+   </function >
+   <function Name="EXTI15_10_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="595">
+   </function >
+   <function Name="RTCAlarm_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="606">
+   </function >
+   <function Name="USBWakeUp_IRQHandler" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_it.c" Line="617">
+   </function >
+  </module>
+  <module Name="D:\STM32\Projects\FrequencyCounter\stm32f10x_tim.c" >
+   <type Family="Base" Name="long int" ID="3163"/>
+   <type Family="Base" Name="short int" ID="3170"/>
+   <type Family="Base" Name="signed char" ID="3177"/>
+   <type Family="Base" Name="long unsigned int" ID="3195"/>
+   <type Family="typedef" Name="u32" Line="39" ID="3184" toTI="3195"/>
+   <type Family="Base" Name="short unsigned int" ID="3213"/>
+   <type Family="typedef" Name="u16" Line="40" ID="3202" toTI="3213"/>
+   <type Family="Base" Name="unsigned char" ID="3230"/>
+   <type Family="typedef" Name="u8" Line="41" ID="3220" toTI="3230"/>
+   <type Family="typedef" Name="vu32" Line="47" ID="3237" toTI="3248"/>
+   <type Family="typedef" Name="FlagStatus" Line="57" ID="3279" toTI="3258"/>
+   <type Family="typedef" Name="ITStatus" Line="57" ID="3290" toTI="3258"/>
+   <type Family="typedef" Name="FunctionalState" Line="59" ID="3322" toTI="3301"/>
+   <type Family="Base" Name="unsigned int" ID="3333"/>
+   <type Family="ComponentList" Line="523" ID="3340">
+    <Component Name="CR1" TI="3349" Line="525" Offs="0"/>
+    <Component Name="RESERVED0" TI="3364" Line="526" Offs="2"/>
+    <Component Name="CR2" TI="3379" Line="527" Offs="4"/>
+    <Component Name="RESERVED1" TI="3394" Line="528" Offs="6"/>
+    <Component Name="SMCR" TI="3409" Line="529" Offs="8"/>
+    <Component Name="RESERVED2" TI="3424" Line="530" Offs="10"/>
+    <Component Name="DIER" TI="3439" Line="531" Offs="12"/>
+    <Component Name="RESERVED3" TI="3454" Line="532" Offs="14"/>
+    <Component Name="SR" TI="3469" Line="533" Offs="16"/>
+    <Component Name="RESERVED4" TI="3483" Line="534" Offs="18"/>
+    <Component Name="EGR" TI="3498" Line="535" Offs="20"/>
+    <Component Name="RESERVED5" TI="3513" Line="536" Offs="22"/>
+    <Component Name="CCMR1" TI="3528" Line="537" Offs="24"/>
+    <Component Name="RESERVED6" TI="3543" Line="538" Offs="26"/>
+    <Component Name="CCMR2" TI="3558" Line="539" Offs="28"/>
+    <Component Name="RESERVED7" TI="3573" Line="540" Offs="30"/>
+    <Component Name="CCER" TI="3588" Line="541" Offs="32"/>
+    <Component Name="RESERVED8" TI="3603" Line="542" Offs="34"/>
+    <Component Name="CNT" TI="3618" Line="543" Offs="36"/>
+    <Component Name="RESERVED9" TI="3633" Line="544" Offs="38"/>
+    <Component Name="PSC" TI="3648" Line="545" Offs="40"/>
+    <Component Name="RESERVED10" TI="3663" Line="546" Offs="42"/>
+    <Component Name="ARR" TI="3678" Line="547" Offs="44"/>
+    <Component Name="RESERVED11" TI="3693" Line="548" Offs="46"/>
+    <Component Name="RCR" TI="3708" Line="549" Offs="48"/>
+    <Component Name="RESERVED12" TI="3723" Line="550" Offs="50"/>
+    <Component Name="CCR1" TI="3738" Line="551" Offs="52"/>
+    <Component Name="RESERVED13" TI="3753" Line="552" Offs="54"/>
+    <Component Name="CCR2" TI="3768" Line="553" Offs="56"/>
+    <Component Name="RESERVED14" TI="3783" Line="554" Offs="58"/>
+    <Component Name="CCR3" TI="3798" Line="555" Offs="60"/>
+    <Component Name="RESERVED15" TI="3813" Line="556" Offs="62"/>
+    <Component Name="CCR4" TI="3828" Line="557" Offs="64"/>
+    <Component Name="RESERVED16" TI="3843" Line="558" Offs="66"/>
+    <Component Name="BDTR" TI="3858" Line="559" Offs="68"/>
+    <Component Name="RESERVED17" TI="3873" Line="560" Offs="70"/>
+    <Component Name="DCR" TI="3888" Line="561" Offs="72"/>
+    <Component Name="RESERVED18" TI="3903" Line="562" Offs="74"/>
+    <Component Name="DMAR" TI="3918" Line="563" Offs="76"/>
+    <Component Name="RESERVED19" TI="3933" Line="564" Offs="78"/>
+   </type>
+   <type Family="typedef" Name="TIM_TypeDef" Line="565" ID="3949" toTI="3340"/>
+   <type Family="ComponentList" Line="27" ID="3961">
+    <Component Name="TIM_Prescaler" TI="3969" Line="29" Offs="0"/>
+    <Component Name="TIM_CounterMode" TI="3983" Line="30" Offs="2"/>
+    <Component Name="TIM_Period" TI="3997" Line="31" Offs="4"/>
+    <Component Name="TIM_ClockDivision" TI="4011" Line="32" Offs="6"/>
+    <Component Name="TIM_RepetitionCounter" TI="4025" Line="33" Offs="8"/>
+   </type>
+   <type Family="typedef" Name="TIM_TimeBaseInitTypeDef" Line="34" ID="4040" toTI="3961"/>
+   <type Family="ComponentList" Line="37" ID="4051">
+    <Component Name="TIM_OCMode" TI="4059" Line="39" Offs="0"/>
+    <Component Name="TIM_OutputState" TI="4073" Line="40" Offs="2"/>
+    <Component Name="TIM_OutputNState" TI="4087" Line="41" Offs="4"/>
+    <Component Name="TIM_Pulse" TI="4101" Line="42" Offs="6"/>
+    <Component Name="TIM_OCPolarity" TI="4115" Line="43" Offs="8"/>
+    <Component Name="TIM_OCNPolarity" TI="4129" Line="44" Offs="10"/>
+    <Component Name="TIM_OCIdleState" TI="4143" Line="45" Offs="12"/>
+    <Component Name="TIM_OCNIdleState" TI="4157" Line="46" Offs="14"/>
+   </type>
+   <type Family="typedef" Name="TIM_OCInitTypeDef" Line="47" ID="4172" toTI="4051"/>
+   <type Family="ComponentList" Line="50" ID="4183">
+    <Component Name="TIM_Channel" TI="4191" Line="52" Offs="0"/>
+    <Component Name="TIM_ICPolarity" TI="4205" Line="53" Offs="2"/>
+    <Component Name="TIM_ICSelection" TI="4219" Line="54" Offs="4"/>
+    <Component Name="TIM_ICPrescaler" TI="4233" Line="55" Offs="6"/>
+    <Component Name="TIM_ICFilter" TI="4247" Line="56" Offs="8"/>
+   </type>
+   <type Family="typedef" Name="TIM_ICInitTypeDef" Line="57" ID="4262" toTI="4183"/>
+   <type Family="ComponentList" Line="60" ID="4273">
+    <Component Name="TIM_OSSRState" TI="4281" Line="62" Offs="0"/>
+    <Component Name="TIM_OSSIState" TI="4295" Line="63" Offs="2"/>
+    <Component Name="TIM_LOCKLevel" TI="4309" Line="64" Offs="4"/>
+    <Component Name="TIM_DeadTime" TI="4323" Line="65" Offs="6"/>
+    <Component Name="TIM_Break" TI="4337" Line="66" Offs="8"/>
+    <Component Name="TIM_BreakPolarity" TI="4351" Line="67" Offs="10"/>
+    <Component Name="TIM_AutomaticOutput" TI="4365" Line="68" Offs="12"/>
+   </type>
+   <type Family="typedef" Name="TIM_BDTRInitTypeDef" Line="69" ID="4380" toTI="4273"/>
+   <type Family="Pointer" TI="4505" toTI="3949"/>
+   <function Name="TIM_TimeBaseInit" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_tim.c" Line="198">
+    <parameter Name="TIMx" TI="4505" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_tim.c" Line="198" Addr="0x0" Param="Yes"/>
+   <type Family="Pointer" TI="4733" toTI="4040"/>
+    <parameter Name="TIM_TimeBaseInitStruct" TI="4733" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_tim.c" Line="198" Addr="0x1" Param="Yes"/>
+   </function >
+   <type Family="Pointer" TI="4838" toTI="4172"/>
+   <type Family="Pointer" TI="5209" toTI="4380"/>
+   <type Family="Pointer" TI="5335" toTI="4262"/>
+   <function Name="TIM_Cmd" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_tim.c" Line="828">
+    <parameter Name="TIMx" TI="4505" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_tim.c" Line="828" Addr="0x0" Param="Yes"/>
+    <parameter Name="NewState" TI="3322" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_tim.c" Line="828" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="TIM_ITConfig" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_tim.c" Line="893">
+    <parameter Name="TIMx" TI="4505" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_tim.c" Line="893" Addr="0x0" Param="Yes"/>
+    <parameter Name="TIM_IT" TI="3202" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_tim.c" Line="893" Addr="0x1" Param="Yes"/>
+    <parameter Name="NewState" TI="3322" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_tim.c" Line="893" Addr="0x2" Param="Yes"/>
+   </function >
+   <function Name="TIM_InternalClockConfig" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_tim.c" Line="1016">
+    <parameter Name="TIMx" TI="4505" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_tim.c" Line="1016" Addr="0x0" Param="Yes"/>
+   </function >
+   <function Name="TIM_ClearITPendingBit" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_tim.c" Line="3021">
+    <parameter Name="TIMx" TI="4505" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_tim.c" Line="3021" Addr="0x0" Param="Yes"/>
+    <parameter Name="TIM_IT" TI="3202" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_tim.c" Line="3021" Addr="0x1" Param="Yes"/>
+   </function >
+  </module>
+  <module Name="D:\STM32\Projects\FrequencyCounter\stm32f10x_gpio.c" >
+   <type Family="Base" Name="long int" ID="10728"/>
+   <type Family="Base" Name="short int" ID="10735"/>
+   <type Family="Base" Name="signed char" ID="10742"/>
+   <type Family="Base" Name="long unsigned int" ID="10760"/>
+   <type Family="typedef" Name="u32" Line="39" ID="10749" toTI="10760"/>
+   <type Family="Base" Name="short unsigned int" ID="10778"/>
+   <type Family="typedef" Name="u16" Line="40" ID="10767" toTI="10778"/>
+   <type Family="Base" Name="unsigned char" ID="10795"/>
+   <type Family="typedef" Name="u8" Line="41" ID="10785" toTI="10795"/>
+   <type Family="typedef" Name="vu32" Line="47" ID="10802" toTI="10813"/>
+   <type Family="typedef" Name="FunctionalState" Line="59" ID="10839" toTI="10818"/>
+   <type Family="Base" Name="unsigned int" ID="10850"/>
+   <type Family="ComponentList" Line="334" ID="10857">
+    <Component Name="CRL" TI="10866" Line="336" Offs="0"/>
+    <Component Name="CRH" TI="10881" Line="337" Offs="4"/>
+    <Component Name="IDR" TI="10896" Line="338" Offs="8"/>
+    <Component Name="ODR" TI="10911" Line="339" Offs="12"/>
+    <Component Name="BSRR" TI="10926" Line="340" Offs="16"/>
+    <Component Name="BRR" TI="10941" Line="341" Offs="20"/>
+    <Component Name="LCKR" TI="10956" Line="342" Offs="24"/>
+   </type>
+   <type Family="typedef" Name="GPIO_TypeDef" Line="343" ID="10972" toTI="10857"/>
+   <type Family="ComponentList" Line="345" ID="10984">
+    <Component Name="EVCR" TI="10993" Line="347" Offs="0"/>
+    <Component Name="MAPR" TI="11008" Line="348" Offs="4"/>
+   <type Family="array" ID="11039" toTI="10760"/>
+    <Component Name="EXTICR" TI="11023" Line="349" Offs="8"/>
+   </type>
+   <type Family="typedef" Name="AFIO_TypeDef" Line="350" ID="11060" toTI="10984"/>
+   <type Family="typedef" Name="GPIOSpeed_TypeDef" Line="39" ID="11099" toTI="11072"/>
+   <type Family="typedef" Name="GPIOMode_TypeDef" Line="54" ID="11168" toTI="11110"/>
+   <type Family="ComponentList" Line="62" ID="11179">
+    <Component Name="GPIO_Pin" TI="11187" Line="64" Offs="0"/>
+    <Component Name="GPIO_Speed" TI="11201" Line="65" Offs="2"/>
+    <Component Name="GPIO_Mode" TI="11215" Line="66" Offs="3"/>
+   </type>
+   <type Family="typedef" Name="GPIO_InitTypeDef" Line="67" ID="11230" toTI="11179"/>
+   <type Family="typedef" Name="BitAction" Line="73" ID="11262" toTI="11241"/>
+   <type Family="Pointer" TI="11314" toTI="10972"/>
+   <function Name="GPIO_Init" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_gpio.c" Line="124">
+    <parameter Name="GPIOx" TI="11314" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_gpio.c" Line="124" Addr="0x0" Param="Yes"/>
+   <type Family="Pointer" TI="11483" toTI="11230"/>
+    <parameter Name="GPIO_InitStruct" TI="11483" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_gpio.c" Line="124" Addr="0x1" Param="Yes"/>
+    <variable Name="currentmode" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_gpio.c" Line="126" Addr="0x0" TI="10749"/>
+    <variable Name="currentpin" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_gpio.c" Line="126" Addr="0x0" TI="10749"/>
+    <variable Name="pinpos" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_gpio.c" Line="126" Addr="0x0" TI="10749"/>
+    <variable Name="pos" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_gpio.c" Line="126" Addr="0x0" TI="10749"/>
+    <variable Name="tmpreg" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_gpio.c" Line="127" Addr="0x0" TI="10749"/>
+    <variable Name="pinmask" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_gpio.c" Line="127" Addr="0x0" TI="10749"/>
+   </function >
+  </module>
+  <module Name="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" >
+   <type Family="Base" Name="long int" ID="12408"/>
+   <type Family="Base" Name="short int" ID="12415"/>
+   <type Family="Base" Name="signed char" ID="12422"/>
+   <type Family="Base" Name="long unsigned int" ID="12440"/>
+   <type Family="typedef" Name="u32" Line="39" ID="12429" toTI="12440"/>
+   <type Family="Base" Name="short unsigned int" ID="12458"/>
+   <type Family="typedef" Name="u16" Line="40" ID="12447" toTI="12458"/>
+   <type Family="Base" Name="unsigned char" ID="12475"/>
+   <type Family="typedef" Name="u8" Line="41" ID="12465" toTI="12475"/>
+   <type Family="typedef" Name="vu32" Line="47" ID="12482" toTI="12493"/>
+   <type Family="typedef" Name="vu8" Line="49" ID="12498" toTI="12509"/>
+   <type Family="typedef" Name="FlagStatus" Line="57" ID="12535" toTI="12514"/>
+   <type Family="typedef" Name="ITStatus" Line="57" ID="12546" toTI="12514"/>
+   <type Family="typedef" Name="FunctionalState" Line="59" ID="12578" toTI="12557"/>
+   <type Family="typedef" Name="ErrorStatus" Line="62" ID="12610" toTI="12589"/>
+   <type Family="Base" Name="unsigned int" ID="12621"/>
+   <type Family="ComponentList" Line="426" ID="12628">
+    <Component Name="CR" TI="12637" Line="428" Offs="0"/>
+    <Component Name="CFGR" TI="12651" Line="429" Offs="4"/>
+    <Component Name="CIR" TI="12666" Line="430" Offs="8"/>
+    <Component Name="APB2RSTR" TI="12681" Line="431" Offs="12"/>
+    <Component Name="APB1RSTR" TI="12696" Line="432" Offs="16"/>
+    <Component Name="AHBENR" TI="12711" Line="433" Offs="20"/>
+    <Component Name="APB2ENR" TI="12726" Line="434" Offs="24"/>
+    <Component Name="APB1ENR" TI="12741" Line="435" Offs="28"/>
+    <Component Name="BDCR" TI="12756" Line="436" Offs="32"/>
+    <Component Name="CSR" TI="12771" Line="437" Offs="36"/>
+   </type>
+   <type Family="typedef" Name="RCC_TypeDef" Line="438" ID="12787" toTI="12628"/>
+   <type Family="ComponentList" Line="25" ID="12799">
+    <Component Name="SYSCLK_Frequency" TI="12807" Line="27" Offs="0"/>
+    <Component Name="HCLK_Frequency" TI="12821" Line="28" Offs="4"/>
+    <Component Name="PCLK1_Frequency" TI="12835" Line="29" Offs="8"/>
+    <Component Name="PCLK2_Frequency" TI="12849" Line="30" Offs="12"/>
+    <Component Name="ADCCLK_Frequency" TI="12863" Line="31" Offs="16"/>
+   </type>
+   <type Family="typedef" Name="RCC_ClocksTypeDef" Line="32" ID="12878" toTI="12799"/>
+   <function Name="RCC_DeInit" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="124">
+   </function >
+   <function Name="RCC_HSEConfig" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="159">
+    <parameter Name="RCC_HSE" TI="12429" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="159" Addr="0x0" Param="Yes"/>
+   </function >
+   <function Name="RCC_PLLConfig" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="287">
+    <parameter Name="RCC_PLLSource" TI="12429" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="287" Addr="0x0" Param="Yes"/>
+    <parameter Name="RCC_PLLMul" TI="12429" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="287" Addr="0x1" Param="Yes"/>
+    <variable Name="tmpreg" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="289" Addr="0x0" TI="12429"/>
+   </function >
+   <function Name="RCC_PLLCmd" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="316">
+    <parameter Name="NewState" TI="12578" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="316" Addr="0x0" Param="Yes"/>
+   </function >
+   <function Name="RCC_SYSCLKConfig" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="335">
+    <parameter Name="RCC_SYSCLKSource" TI="12429" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="335" Addr="0x0" Param="Yes"/>
+    <variable Name="tmpreg" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="337" Addr="0x0" TI="12429"/>
+   </function >
+   <function Name="RCC_GetSYSCLKSource" TI="12465" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="365">
+   </function >
+   <function Name="RCC_HCLKConfig" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="388">
+    <parameter Name="RCC_SYSCLK" TI="12429" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="388" Addr="0x0" Param="Yes"/>
+    <variable Name="tmpreg" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="390" Addr="0x0" TI="12429"/>
+   </function >
+   <function Name="RCC_PCLK1Config" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="421">
+    <parameter Name="RCC_HCLK" TI="12429" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="421" Addr="0x0" Param="Yes"/>
+    <variable Name="tmpreg" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="423" Addr="0x0" TI="12429"/>
+   </function >
+   <function Name="RCC_PCLK2Config" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="454">
+    <parameter Name="RCC_HCLK" TI="12429" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="454" Addr="0x0" Param="Yes"/>
+    <variable Name="tmpreg" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="456" Addr="0x0" TI="12429"/>
+   </function >
+   <type Family="Pointer" TI="13816" toTI="12878"/>
+   <function Name="RCC_APB2PeriphClockCmd" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="801">
+    <parameter Name="RCC_APB2Periph" TI="12429" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="801" Addr="0x0" Param="Yes"/>
+    <parameter Name="NewState" TI="12578" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="801" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="RCC_APB1PeriphClockCmd" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="835">
+    <parameter Name="RCC_APB1Periph" TI="12429" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="835" Addr="0x0" Param="Yes"/>
+    <parameter Name="NewState" TI="12578" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="835" Addr="0x1" Param="Yes"/>
+   </function >
+   <function Name="RCC_GetFlagStatus" TI="12535" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="989">
+    <parameter Name="RCC_FLAG" TI="12465" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="989" Addr="0x0" Param="Yes"/>
+    <variable Name="tmp" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="991" Addr="0x0" TI="12429"/>
+    <variable Name="statusreg" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="992" Addr="0x0" TI="12429"/>
+    <variable Name="bitstatus" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="993" Addr="0x0" TI="12535"/>
+   </function >
+   <function Name="RCC_WaitForHSEStartUp" TI="12610" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="198">
+    <variable Name="StartUpCounter" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="200" Addr="0x34000004" TI="12493"/>
+    <variable Name="status" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="201" Addr="0x34000010" TI="12610"/>
+    <variable Name="HSEStatus" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="202" Addr="0x10" TI="12535"/>
+   </function >
+   <type Family="array" ID="14514" toTI="12475"/>
+   <variable Name="APBAHBPrescTable" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="111" Addr="0x0" TI="14547"/>
+   <type Family="array" ID="14552" toTI="12475"/>
+   <variable Name="ADCPrescTable" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_rcc.c" Line="112" Addr="0x0" TI="14585"/>
+  </module>
+  <module Name="D:\STM32\Projects\FrequencyCounter\stm32f10x_nvic.c" >
+   <type Family="Base" Name="long int" ID="14628"/>
+   <type Family="Base" Name="short int" ID="14635"/>
+   <type Family="Base" Name="signed char" ID="14642"/>
+   <type Family="Base" Name="long unsigned int" ID="14660"/>
+   <type Family="typedef" Name="u32" Line="39" ID="14649" toTI="14660"/>
+   <type Family="Base" Name="short unsigned int" ID="14678"/>
+   <type Family="typedef" Name="u16" Line="40" ID="14667" toTI="14678"/>
+   <type Family="Base" Name="unsigned char" ID="14695"/>
+   <type Family="typedef" Name="u8" Line="41" ID="14685" toTI="14695"/>
+   <type Family="typedef" Name="vu32" Line="47" ID="14702" toTI="14713"/>
+   <type Family="typedef" Name="ITStatus" Line="57" ID="14744" toTI="14723"/>
+   <type Family="typedef" Name="FunctionalState" Line="59" ID="14776" toTI="14755"/>
+   <type Family="Base" Name="unsigned int" ID="14787"/>
+   <type Family="ComponentList" Line="385" ID="14794">
+   <type Family="array" ID="14979" toTI="14660"/>
+    <Component Name="ISER" TI="14804" Line="387" Offs="0"/>
+   <type Family="array" ID="15000" toTI="14649"/>
+    <Component Name="RESERVED0" TI="14819" Line="388" Offs="8"/>
+    <Component Name="ICER" TI="14834" Line="389" Offs="128"/>
+    <Component Name="RSERVED1" TI="14850" Line="390" Offs="136"/>
+    <Component Name="ISPR" TI="14866" Line="391" Offs="256"/>
+    <Component Name="RESERVED2" TI="14882" Line="392" Offs="264"/>
+    <Component Name="ICPR" TI="14898" Line="393" Offs="384"/>
+    <Component Name="RESERVED3" TI="14914" Line="394" Offs="392"/>
+    <Component Name="IABR" TI="14930" Line="395" Offs="512"/>
+   <type Family="array" ID="15036" toTI="14649"/>
+    <Component Name="RESERVED4" TI="14946" Line="396" Offs="520"/>
+   <type Family="array" ID="15052" toTI="14660"/>
+    <Component Name="IPR" TI="14962" Line="397" Offs="768"/>
+   </type>
+   <type Family="typedef" Name="NVIC_TypeDef" Line="398" ID="15073" toTI="14794"/>
+   <type Family="ComponentList" Line="400" ID="15085">
+    <Component Name="CPUID" TI="15094" Line="402" Offs="0"/>
+    <Component Name="ICSR" TI="15109" Line="403" Offs="4"/>
+    <Component Name="VTOR" TI="15124" Line="404" Offs="8"/>
+    <Component Name="AIRCR" TI="15139" Line="405" Offs="12"/>
+    <Component Name="SCR" TI="15154" Line="406" Offs="16"/>
+    <Component Name="CCR" TI="15169" Line="407" Offs="20"/>
+   <type Family="array" ID="15305" toTI="14660"/>
+    <Component Name="SHPR" TI="15184" Line="408" Offs="24"/>
+    <Component Name="SHCSR" TI="15199" Line="409" Offs="36"/>
+    <Component Name="CFSR" TI="15214" Line="410" Offs="40"/>
+    <Component Name="HFSR" TI="15229" Line="411" Offs="44"/>
+    <Component Name="DFSR" TI="15244" Line="412" Offs="48"/>
+    <Component Name="MMFAR" TI="15259" Line="413" Offs="52"/>
+    <Component Name="BFAR" TI="15274" Line="414" Offs="56"/>
+    <Component Name="AFSR" TI="15289" Line="415" Offs="60"/>
+   </type>
+   <type Family="typedef" Name="SCB_TypeDef" Line="416" ID="15326" toTI="15085"/>
+   <type Family="ComponentList" Line="26" ID="15338">
+    <Component Name="NVIC_IRQChannel" TI="15346" Line="28" Offs="0"/>
+    <Component Name="NVIC_IRQChannelPreemptionPriority" TI="15360" Line="29" Offs="1"/>
+    <Component Name="NVIC_IRQChannelSubPriority" TI="15374" Line="30" Offs="2"/>
+    <Component Name="NVIC_IRQChannelCmd" TI="15388" Line="31" Offs="3"/>
+   </type>
+   <type Family="typedef" Name="NVIC_InitTypeDef" Line="32" ID="15403" toTI="15338"/>
+   <function Name="NVIC_Init" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_nvic.c" Line="116">
+   <type Family="Pointer" TI="15650" toTI="15403"/>
+    <parameter Name="NVIC_InitStruct" TI="15650" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_nvic.c" Line="116" Addr="0x0" Param="Yes"/>
+    <variable Name="tmppriority" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_nvic.c" Line="118" Addr="0x0" TI="14649"/>
+    <variable Name="tmpreg" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_nvic.c" Line="118" Addr="0x0" TI="14649"/>
+    <variable Name="tmpmask" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_nvic.c" Line="118" Addr="0x0" TI="14649"/>
+    <variable Name="tmppre" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_nvic.c" Line="119" Addr="0x0" TI="14649"/>
+    <variable Name="tmpsub" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_nvic.c" Line="119" Addr="0x0" TI="14649"/>
+   </function >
+   <function Name="NVIC_SetVectorTable" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_nvic.c" Line="393">
+    <parameter Name="NVIC_VectTab" TI="14649" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_nvic.c" Line="393" Addr="0x0" Param="Yes"/>
+    <parameter Name="Offset" TI="14649" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_nvic.c" Line="393" Addr="0x1" Param="Yes"/>
+   </function >
+  </module>
+  <module Name="D:\STM32\Projects\FrequencyCounter\stm32f10x_flash.c" >
+   <type Family="Base" Name="long int" ID="17032"/>
+   <type Family="Base" Name="short int" ID="17039"/>
+   <type Family="Base" Name="signed char" ID="17046"/>
+   <type Family="Base" Name="long unsigned int" ID="17064"/>
+   <type Family="typedef" Name="u32" Line="39" ID="17053" toTI="17064"/>
+   <type Family="Base" Name="short unsigned int" ID="17071"/>
+   <type Family="Base" Name="unsigned char" ID="17078"/>
+   <type Family="Base" Name="unsigned int" ID="17090"/>
+   <type Family="ComponentList" Line="268" ID="17097">
+    <Component Name="ACR" TI="17106" Line="270" Offs="0"/>
+    <Component Name="KEYR" TI="17121" Line="271" Offs="4"/>
+    <Component Name="OPTKEYR" TI="17136" Line="272" Offs="8"/>
+    <Component Name="SR" TI="17151" Line="273" Offs="12"/>
+    <Component Name="CR" TI="17165" Line="274" Offs="16"/>
+    <Component Name="AR" TI="17179" Line="275" Offs="20"/>
+    <Component Name="RESERVED" TI="17193" Line="276" Offs="24"/>
+    <Component Name="OBR" TI="17208" Line="277" Offs="28"/>
+    <Component Name="WRPR" TI="17223" Line="278" Offs="32"/>
+   </type>
+   <type Family="typedef" Name="FLASH_TypeDef" Line="279" ID="17239" toTI="17097"/>
+   <function Name="FLASH_SetLatency" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_flash.c" Line="86">
+    <parameter Name="FLASH_Latency" TI="17053" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_flash.c" Line="86" Addr="0x0" Param="Yes"/>
+   </function >
+   <function Name="FLASH_PrefetchBufferCmd" TI="0" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_flash.c" Line="126">
+    <parameter Name="FLASH_PrefetchBuffer" TI="17053" FileName="D:\STM32\Projects\FrequencyCounter\stm32f10x_flash.c" Line="126" Addr="0x0" Param="Yes"/>
+   </function >
+  </module>
+ </modulelist>
+</aoffile>
+

@@ -1,0 +1,27 @@
+[Version]
+Version=3000
+[Project]
+Assembler=masm
+Group=2,-1,0,1,Property,-2,-1,1,Assembly,-3,-1,1,Include,-4,-1,1,Misc,-5,-1,1,Resource
+F1=-2,2,1,22,22,600,400,386,Property.asm
+F2=-3,0,1,44,44,600,400,13,Property.inc
+F3=-5,2,4,-6,-25,1004,643,12,Property.rc
+C3=
+B3=
+M3=
+Path=C:\RadASM30
+Open=1,1,2,3
+Api=
+C1=0,0
+B1=
+M1=364
+C2=0
+B2=
+M2=
+[Make]
+Make=0
+0=Window Release,'/v "$R"',"$R.res",'/c /coff /Cp "$C"',"$C.obj",'/SUBSYSTEM:WINDOWS /RELEASE /VERSION:4.0 /OUT:$O $C $M $R',"$C.exe",'',
+1=Window Debug,'/v "$R"',"$R.res",'/c /coff /Cp /Zi /Zd "$C"',"$C.obj",'/SUBSYSTEM:WINDOWS /DEBUG /VERSION:4.0 /OUT:$O $C $M $R',"$C.exe",'',
+Delete=1
+IncBuild=0
+Run=0,'',''

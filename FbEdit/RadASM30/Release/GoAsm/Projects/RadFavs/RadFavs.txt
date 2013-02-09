@@ -1,0 +1,5 @@
+Well this a pretty straight forward addin.
+
+Use add favorite to add the current project to the favorites menu. Be sure to set the label.
+
+Use Manage Favorites to manage your favorites, you can change the label or change the position of the item from this dialog. To change the label enter a new label in the Label text box and press update. To change the order drag the label in the list box up or down. To delete the favorite right click on the item and select "Delete".

@@ -1,0 +1,201 @@
+<!-- DWF2XML 2.00.01 - Raisonance Dwarf information extractor -->
+<aoffile Header="DDSWaveform" Path="D:\STM32\Projects\DDSWaveform\DDSWaveform.elf">
+ <Def>
+  <Col Header="DeclFile" Desc="File"/>
+  <Col Header="Type" Desc="Type"/>
+  <Col Header="Header" Desc="Name"/>
+ </Def>
+ <type Header="u32" Icon="1" Type="type" Desc=": unsigned long" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="39" Pointer="No"/>
+ <type Header="u16" Icon="1" Type="type" Desc=": unsigned int" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="40" Pointer="No"/>
+ <type Header="u8" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="41" Pointer="No"/>
+ <type Header="FunctionalState" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="59" Pointer="No"/>
+ <type Header="ErrorStatus" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="62" Pointer="No"/>
+ <type Header="ADC_TypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_map.h" DeclLine="58" Pointer="No"/>
+ <type Header="DAC_TypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_map.h" DeclLine="232" Pointer="No"/>
+ <type Header="GPIO_TypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_map.h" DeclLine="343" Pointer="No"/>
+ <type Header="TIM_TypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_map.h" DeclLine="565" Pointer="No"/>
+ <type Header="ADC_InitTypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_adc.h" DeclLine="34" Pointer="No"/>
+ <type Header="GPIOSpeed_TypeDef" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_gpio.h" DeclLine="39" Pointer="No"/>
+ <type Header="GPIOMode_TypeDef" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_gpio.h" DeclLine="54" Pointer="No"/>
+ <type Header="GPIO_InitTypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_gpio.h" DeclLine="67" Pointer="No"/>
+ <type Header="NVIC_InitTypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_nvic.h" DeclLine="32" Pointer="No"/>
+ <type Header="TIM_TimeBaseInitTypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_tim.h" DeclLine="34" Pointer="No"/>
+ <type Header="TIM_OCInitTypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_tim.h" DeclLine="47" Pointer="No"/>
+ <type Header="STM32_FRQTypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="39" Pointer="No"/>
+ <type Header="STM32_CMNDTypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="59" Pointer="No"/>
+ <func Header="DAC_DDS_Configuration" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="172"/>
+ <func Header="DDS_WaveLoop" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="195"/>
+ <func Header="DDSWaveGenerator" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="213"/>
+ <func Header="DDSSweepWaveGenerator" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="234"/>
+ <func Header="TIM6_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="306"/>
+ <func Header="DDSSweepWaveGeneratorPeak" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="344"/>
+ <func Header="TIM7_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="413"/>
+ <func Header="TIM2_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="446"/>
+ <func Header="ADC_Startup" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="473"/>
+ <func Header="ADC_DVMConfiguration" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="508"/>
+ <func Header="RCC_Configuration" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="536"/>
+ <func Header="GPIO_Configuration" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="609"/>
+ <func Header="NVIC_Configuration" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="647"/>
+ <func Header="TIM1_Configuration" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="668"/>
+ <func Header="TIM2_Configuration" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="707"/>
+ <func Header="TIM3_Configuration" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="744"/>
+ <func Header="TIM4_Configuration" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="766"/>
+ <func Header="main" Icon="3" Type="func" Desc=":   long" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="91"/>
+ <variable Header="STM32_Command" Icon="2" Type="variable" Desc=":   struct " DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="63" Pointer="No"/>
+ <variable Header="HSEStartUpStatus" Icon="2" Type="variable" Desc=":   unsigned char" DeclFile="D:\STM32\Projects\DDSWaveform\main.c" DeclLine="65" Pointer="No"/>
+ <type Header="u32" Icon="1" Type="type" Desc=": unsigned long" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="39" Pointer="No"/>
+ <type Header="u16" Icon="1" Type="type" Desc=": unsigned int" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="40" Pointer="No"/>
+ <type Header="vu32" Icon="1" Type="type" Desc=": unsigned long" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="47" Pointer="No"/>
+ <type Header="FunctionalState" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="59" Pointer="No"/>
+ <type Header="DAC_TypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_map.h" DeclLine="232" Pointer="No"/>
+ <type Header="DAC_InitTypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_dac.h" DeclLine="32" Pointer="No"/>
+ <type Header="u32" Icon="1" Type="type" Desc=": unsigned long" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="39" Pointer="No"/>
+ <type Header="u16" Icon="1" Type="type" Desc=": unsigned int" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="40" Pointer="No"/>
+ <type Header="u8" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="41" Pointer="No"/>
+ <type Header="vu32" Icon="1" Type="type" Desc=": unsigned long" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="47" Pointer="No"/>
+ <type Header="FunctionalState" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="59" Pointer="No"/>
+ <type Header="GPIO_TypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_map.h" DeclLine="343" Pointer="No"/>
+ <type Header="AFIO_TypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_map.h" DeclLine="350" Pointer="No"/>
+ <type Header="GPIOSpeed_TypeDef" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_gpio.h" DeclLine="39" Pointer="No"/>
+ <type Header="GPIOMode_TypeDef" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_gpio.h" DeclLine="54" Pointer="No"/>
+ <type Header="GPIO_InitTypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_gpio.h" DeclLine="67" Pointer="No"/>
+ <type Header="BitAction" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_gpio.h" DeclLine="73" Pointer="No"/>
+ <func Header="GPIO_Init" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_gpio.c" DeclLine="124"/>
+ <func Header="GPIO_SetBits" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_gpio.c" DeclLine="333"/>
+ <func Header="WWDG_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="150"/>
+ <func Header="PVD_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="161"/>
+ <func Header="TAMPER_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="172"/>
+ <func Header="RTC_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="183"/>
+ <func Header="FLASH_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="194"/>
+ <func Header="RCC_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="205"/>
+ <func Header="EXTI0_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="216"/>
+ <func Header="EXTI1_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="227"/>
+ <func Header="EXTI2_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="238"/>
+ <func Header="EXTI3_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="249"/>
+ <func Header="EXTI4_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="260"/>
+ <func Header="DMA1_Channel1_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="271"/>
+ <func Header="DMA1_Channel2_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="282"/>
+ <func Header="DMA1_Channel3_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="293"/>
+ <func Header="DMA1_Channel4_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="304"/>
+ <func Header="DMA1_Channel5_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="315"/>
+ <func Header="DMA1_Channel6_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="326"/>
+ <func Header="DMA1_Channel7_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="337"/>
+ <func Header="ADC1_2_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="348"/>
+ <func Header="EXTI9_5_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="405"/>
+ <func Header="TIM1_BRK_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="416"/>
+ <func Header="TIM1_UP_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="428"/>
+ <func Header="TIM1_TRG_COM_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="440"/>
+ <func Header="TIM1_CC_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="451"/>
+ <func Header="TIM3_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="473"/>
+ <func Header="TIM4_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="484"/>
+ <func Header="I2C1_EV_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="495"/>
+ <func Header="I2C1_ER_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="506"/>
+ <func Header="I2C2_EV_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="517"/>
+ <func Header="I2C2_ER_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="528"/>
+ <func Header="SPI1_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="539"/>
+ <func Header="SPI2_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="550"/>
+ <func Header="USART1_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="561"/>
+ <func Header="USART2_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="572"/>
+ <func Header="USART3_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="583"/>
+ <func Header="EXTI15_10_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="594"/>
+ <func Header="RTCAlarm_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="605"/>
+ <func Header="USBWakeUp_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="616"/>
+ <func Header="TIM8_BRK_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="627"/>
+ <func Header="TIM8_UP_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="639"/>
+ <func Header="TIM8_TRG_COM_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="651"/>
+ <func Header="TIM8_CC_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="662"/>
+ <func Header="ADC3_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="673"/>
+ <func Header="FSMC_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="684"/>
+ <func Header="SDIO_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="695"/>
+ <func Header="TIM5_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="706"/>
+ <func Header="SPI3_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="717"/>
+ <func Header="UART4_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="728"/>
+ <func Header="UART5_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="739"/>
+ <func Header="DMA2_Channel1_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="772"/>
+ <func Header="DMA2_Channel2_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="783"/>
+ <func Header="DMA2_Channel3_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="794"/>
+ <func Header="DMA2_Channel4_5_IRQHandler" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_it.c" DeclLine="806"/>
+ <type Header="u32" Icon="1" Type="type" Desc=": unsigned long" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="39" Pointer="No"/>
+ <type Header="u16" Icon="1" Type="type" Desc=": unsigned int" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="40" Pointer="No"/>
+ <type Header="u8" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="41" Pointer="No"/>
+ <type Header="vu32" Icon="1" Type="type" Desc=": unsigned long" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="47" Pointer="No"/>
+ <type Header="ITStatus" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="57" Pointer="No"/>
+ <type Header="FunctionalState" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="59" Pointer="No"/>
+ <type Header="NVIC_TypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_map.h" DeclLine="398" Pointer="No"/>
+ <type Header="SCB_TypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_map.h" DeclLine="416" Pointer="No"/>
+ <type Header="NVIC_InitTypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_nvic.h" DeclLine="32" Pointer="No"/>
+ <func Header="NVIC_Init" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_nvic.c" DeclLine="116"/>
+ <func Header="NVIC_SetVectorTable" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_nvic.c" DeclLine="393"/>
+ <type Header="u32" Icon="1" Type="type" Desc=": unsigned long" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="39" Pointer="No"/>
+ <type Header="u16" Icon="1" Type="type" Desc=": unsigned int" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="40" Pointer="No"/>
+ <type Header="u8" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="41" Pointer="No"/>
+ <type Header="vu32" Icon="1" Type="type" Desc=": unsigned long" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="47" Pointer="No"/>
+ <type Header="vu8" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="49" Pointer="No"/>
+ <type Header="FlagStatus" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="57" Pointer="No"/>
+ <type Header="ITStatus" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="57" Pointer="No"/>
+ <type Header="FunctionalState" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="59" Pointer="No"/>
+ <type Header="ErrorStatus" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="62" Pointer="No"/>
+ <type Header="RCC_TypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_map.h" DeclLine="438" Pointer="No"/>
+ <type Header="RCC_ClocksTypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_rcc.h" DeclLine="32" Pointer="No"/>
+ <func Header="RCC_DeInit" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_rcc.c" DeclLine="124"/>
+ <func Header="RCC_HSEConfig" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_rcc.c" DeclLine="159"/>
+ <func Header="RCC_PLLConfig" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_rcc.c" DeclLine="287"/>
+ <func Header="RCC_PLLCmd" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_rcc.c" DeclLine="316"/>
+ <func Header="RCC_SYSCLKConfig" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_rcc.c" DeclLine="335"/>
+ <func Header="RCC_GetSYSCLKSource" Icon="3" Type="func" Desc=":   unsigned char" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_rcc.c" DeclLine="365"/>
+ <func Header="RCC_HCLKConfig" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_rcc.c" DeclLine="388"/>
+ <func Header="RCC_PCLK1Config" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_rcc.c" DeclLine="421"/>
+ <func Header="RCC_PCLK2Config" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_rcc.c" DeclLine="454"/>
+ <func Header="RCC_ADCCLKConfig" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_rcc.c" DeclLine="541"/>
+ <func Header="RCC_APB2PeriphClockCmd" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_rcc.c" DeclLine="801"/>
+ <func Header="RCC_APB1PeriphClockCmd" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_rcc.c" DeclLine="835"/>
+ <func Header="RCC_GetFlagStatus" Icon="3" Type="func" Desc=":   unsigned char" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_rcc.c" DeclLine="989"/>
+ <func Header="RCC_WaitForHSEStartUp" Icon="3" Type="func" Desc=":   unsigned char" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_rcc.c" DeclLine="198"/>
+ <variable Header="APBAHBPrescTable" Icon="2" Type="variable" Desc=":   unsigned char[16]" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_rcc.c" DeclLine="111" Pointer="No"/>
+ <variable Header="ADCPrescTable" Icon="2" Type="variable" Desc=":   unsigned char[4]" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_rcc.c" DeclLine="112" Pointer="No"/>
+ <type Header="u32" Icon="1" Type="type" Desc=": unsigned long" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="39" Pointer="No"/>
+ <type Header="u16" Icon="1" Type="type" Desc=": unsigned int" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="40" Pointer="No"/>
+ <type Header="u8" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="41" Pointer="No"/>
+ <type Header="vu32" Icon="1" Type="type" Desc=": unsigned long" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="47" Pointer="No"/>
+ <type Header="FlagStatus" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="57" Pointer="No"/>
+ <type Header="ITStatus" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="57" Pointer="No"/>
+ <type Header="FunctionalState" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="59" Pointer="No"/>
+ <type Header="TIM_TypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_map.h" DeclLine="565" Pointer="No"/>
+ <type Header="TIM_TimeBaseInitTypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_tim.h" DeclLine="34" Pointer="No"/>
+ <type Header="TIM_OCInitTypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_tim.h" DeclLine="47" Pointer="No"/>
+ <type Header="TIM_ICInitTypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_tim.h" DeclLine="57" Pointer="No"/>
+ <type Header="TIM_BDTRInitTypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_tim.h" DeclLine="69" Pointer="No"/>
+ <func Header="TIM_TimeBaseInit" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_tim.c" DeclLine="199"/>
+ <func Header="TIM_OC1Init" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_tim.c" DeclLine="238"/>
+ <func Header="TIM_Cmd" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_tim.c" DeclLine="829"/>
+ <func Header="TIM_CtrlPWMOutputs" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_tim.c" DeclLine="856"/>
+ <func Header="TIM_ITConfig" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_tim.c" DeclLine="894"/>
+ <func Header="TIM_InternalClockConfig" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_tim.c" DeclLine="1017"/>
+ <func Header="TIM_ARRPreloadConfig" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_tim.c" DeclLine="1539"/>
+ <func Header="TIM_OC1PreloadConfig" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_tim.c" DeclLine="1653"/>
+ <func Header="TIM_ClearITPendingBit" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_tim.c" DeclLine="3022"/>
+ <type Header="u32" Icon="1" Type="type" Desc=": unsigned long" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="39" Pointer="No"/>
+ <type Header="u16" Icon="1" Type="type" Desc=": unsigned int" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="40" Pointer="No"/>
+ <type Header="u8" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="41" Pointer="No"/>
+ <type Header="vu32" Icon="1" Type="type" Desc=": unsigned long" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="47" Pointer="No"/>
+ <type Header="FlagStatus" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="57" Pointer="No"/>
+ <type Header="ITStatus" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="57" Pointer="No"/>
+ <type Header="FunctionalState" Icon="1" Type="type" Desc=": unsigned char" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="59" Pointer="No"/>
+ <type Header="ADC_TypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_map.h" DeclLine="58" Pointer="No"/>
+ <type Header="ADC_InitTypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_adc.h" DeclLine="34" Pointer="No"/>
+ <func Header="ADC_Init" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_adc.c" DeclLine="174"/>
+ <func Header="ADC_Cmd" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_adc.c" DeclLine="266"/>
+ <func Header="ADC_ResetCalibration" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_adc.c" DeclLine="358"/>
+ <func Header="ADC_GetResetCalibrationStatus" Icon="3" Type="func" Desc=":   unsigned char" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_adc.c" DeclLine="374"/>
+ <func Header="ADC_StartCalibration" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_adc.c" DeclLine="404"/>
+ <func Header="ADC_GetCalibrationStatus" Icon="3" Type="func" Desc=":   unsigned char" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_adc.c" DeclLine="420"/>
+ <func Header="ADC_RegularChannelConfig" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_adc.c" DeclLine="602"/>
+ <func Header="ADC_AutoInjectedConvCmd" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_adc.c" DeclLine="760"/>
+ <func Header="ADC_InjectedChannelConfig" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_adc.c" DeclLine="994"/>
+ <func Header="ADC_InjectedSequencerLengthConfig" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_adc.c" DeclLine="1062"/>
+ <type Header="u32" Icon="1" Type="type" Desc=": unsigned long" DeclFile="D:\STM32\Inc\stm32f10x_type.h" DeclLine="39" Pointer="No"/>
+ <type Header="FLASH_TypeDef" Icon="1" Type="type" Desc=": struct " DeclFile="D:\STM32\Inc\stm32f10x_map.h" DeclLine="279" Pointer="No"/>
+ <func Header="FLASH_SetLatency" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_flash.c" DeclLine="86"/>
+ <func Header="FLASH_PrefetchBufferCmd" Icon="3" Type="func" Desc=":   void" DeclFile="D:\STM32\Projects\DDSWaveform\stm32f10x_flash.c" DeclLine="126"/>
+</aoffile>
+

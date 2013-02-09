@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0044)http://members.a1.net/ranmasaotome/tut5.html -->
+<HTML><HEAD><TITLE>Tutorial 5</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<META content="MSHTML 6.00.6000.16525" name=GENERATOR></HEAD>
+<BODY bgColor=#a0b7cd>
+<P>Have a look at our window from tutorial #3:</P>
+<P><IMG height=212 alt="Start.jpg (16969 Byte)" src="tut5_files/Start.jpg" 
+width=299></P><FONT size=4>
+<P></FONT><FONT size=3>Looks nice but empty. We have a working toolbar with 
+toolbar but no controls.<BR>Its time to add a Richedit control.<BR>Select the 
+Richedit control from the FbEdit toolbar on the left side and place it on your 
+window in the dialog editor.<BR>then click Go!<BR>You will see nothing, even if 
+FbEdit / FreeBASIC builds without any errors.<BR>Thats allright so, cause a Richedit 
+control must be initialised before it can be used (i mentioned this in tutorial #1 
+once)</FONT></P>
+<P><FONT size=3>&nbsp;First add:<BR><STRONG><FONT color=#ff0000>#Include Once "win/richedit.bi"
+</FONT></STRONG><BR>to your *.bas 
+file<BR><BR>in your *.bi file 
+add<BR><STRONG><FONT color=#ff0000>Dim Shared hRichEdDLL As HMODULE
+</FONT></STRONG><BR><BR>Now close your *.bi file and open your *.bas 
+file,<BR>under program start you see this:</FONT></P>
+<P><FONT size=3><BR><STRONG><FONT color=#808080>
+' Program start<BR>
+hInstance=GetModuleHandle(NULL)<BR>
+CommandLine=GetCommandLine<BR>
+InitCommonControls<BR>
+WinMain(hInstance,NULL,CommandLine,SW_SHOWDEFAULT)<BR>
+ExitProcess(0)<BR>
+</FONT></STRONG><BR><BR>replace it with this:</FONT></P>
+<P><FONT size=3><BR><STRONG><FONT color=#808080>
+' Program start<BR>
+hInstance=GetModuleHandle(NULL)<BR>
+CommandLine=GetCommandLine<BR>
+InitCommonControls<BR>
+<FONT color=#ff0000>' Load the RichEdit dll<BR>
+hRichEdDLL=LoadLibrary("riched20.dll")<BR></FONT>
+WinMain(hInstance,NULL,CommandLine,SW_SHOWDEFAULT)<BR>
+<FONT color=#ff0000>' Free the dll<BR>
+FreeLibrary(hRichEdDLL)<BR></FONT>
+ExitProcess(0)<BR>
+</FONT></STRONG><BR><BR>then click Go! again. Voilá your Richedit 
+is ready to go. (not really ready to edit but already showing)</FONT></P>
+<P><IMG height=212 alt="Richedit.jpg (22492 Byte)" src="tut5_files/Richedit.jpg" 
+width=299></P><BIG>
+<P></BIG>
+<P>We continue with our Tutorial:</P>
+<P><IMG height=361 alt="Properties3.jpg (49266 Byte)" 
+src="tut5_files/Properties3.jpg" width=183></P>
+<P>This is the properties for our placed Richeditor control.<BR>We have to 
+change a few things.<BR>You can leave NAME .</P>
+<P>You have to change ID to 2000. Cause the given 1002 is already used in our 
+toolbar.<BR>Change AUTOSCROLL to BOTH<BR>MULTILINE to TRUE<BR>SCROLLBAR to 
+BOTH<BR>You can play with the rest.</P>
+<P>here is the code for copy,cut and paste on your toolbar</P>
+<P><STRONG><FONT color=#ff0000> 
+Case IDC_CUT<BR>
+&nbsp;&nbsp;SendDlgItemMessage(hWin,IDC_RED1,WM_CUT,0,0)<BR>
+&nbsp;&nbsp;'<BR>
+Case IDC_COPY<BR>
+&nbsp;&nbsp;SendDlgItemMessage(hWin,IDC_RED1,WM_COPY,0,0)<BR>
+&nbsp;&nbsp;'<BR>
+Case IDC_PASTE<BR>
+&nbsp;&nbsp;SendDlgItemMessage(hWin,IDC_RED1,WM_PASTE,0,0)<BR>
+&nbsp;&nbsp;'<BR>
+Case IDC_UNDO<BR>
+&nbsp;&nbsp;SendDlgItemMessage(hWin,IDC_RED1,WM_UNDO,0,0)<BR>
+&nbsp;&nbsp;'<BR>
+Case IDC_REDO<BR>
+&nbsp;&nbsp;SendDlgItemMessage(hWin,IDC_RED1,EM_REDO,0,0)<BR>
+&nbsp;&nbsp;'<BR>
+</FONT></STRONG></P>
+<P>Now your editor has already some basic features. But its still a very long 
+way to go.<BR>I am pretty sure you want to have a right click feature in your 
+editor with a popup menu.<BR>Here is the code you have to place in your 
+WndProc.<BR>First the local variable</P>
+<P><STRONG><FONT color=#ff0000>Dim pt As POINT</FONT></STRONG></P>
+<P>then place following:</P>
+<P><STRONG><FONT color=#ff0000>
+Case WM_CONTEXTMENU<BR>
+&nbsp;&nbsp;If wParam=GetDlgItem(hWin,IDC_RED1) Then<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;pt.x=LoWord(lParam)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;pt.y=HiWord(lParam)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;TrackPopupMenu(GetSubMenu(GetMenu(hWin),0),TPM_LEFTALIGN or TPM_RIGHTBUTTON,pt.x,pt.y,0,hWin,0)<BR>
+&nbsp;&nbsp;EndIf<BR>
+&nbsp;&nbsp;'<BR>
+</FONT></STRONG></P>
+<P>then click go! and right click inside your editor. Its easy.</P>
+<P>Download this example from <A 
+href="http://radasm.110mb.com/fbedit/tutorials/tutorial5.zip">here.</A> 
+</P></BODY></HTML>

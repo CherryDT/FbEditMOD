@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0044)http://members.a1.net/ranmasaotome/tut1.html -->
+<HTML><HEAD><TITLE>Tutorial 1</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<META content="MSHTML 6.00.6000.16525" name=GENERATOR></HEAD>
+<BODY bgColor=#a0b7cd>When you start your FbEdit IDE the first time you might 
+find some colors very weird compared to your VB IDE.<BR>The first thing i did 
+(as a VB programmer ) was to change the color scheme.&nbsp; 
+<P><IMG height=644 alt="IDE.jpg (89999 Byte)" src="tut1_files/IDE.jpg" 
+width=830></P><FONT size=4>
+<P></FONT><FONT size=3>From the FbEdit IDE menu click <U>Options</U> then 
+click <U>Code Editor</U>. You will see this Dialog:</FONT></P>
+<P><IMG height=498 alt="ColorOpts.jpg (82941 Byte)" 
+src="tut1_files/ColorOpts.jpg" width=540></P><FONT size=4>
+<P></FONT><FONT size=3>The <U>Options</U> menu where you changed some 
+colors you can also change editor font, help menus and almost<BR>everything you need. 
+You can also change the gridsize in your dialog editor, so it looks as the<BR>VB 
+Dialog editor. See <U>Options / Dialog Editor</U>.<BR>None of these 
+changes are needed, we can start right away with our 1st application written 
+in<BR>FreeBasic and you should be finished in 30 
+seconds:<BR><BR><STRONG>FIRST STEP</STRONG>&nbsp;<BR>First click 
+<U>File</U> and then <U>New Project</U> or just hit 
+SHIFT+Ctrl+N.</FONT><FONT size=4>&nbsp;</FONT></P>
+<P><IMG height=434 alt="NewProject.jpg (51437 Byte)" 
+src="tut1_files/NewProject.jpg" width=211></P>
+<P>You will see this dialog:</P>
+<P><IMG height=465 alt="Wizard.jpg (77700 Byte)" src="tut1_files/Wizard.jpg" 
+width=300></P><FONT size=4>
+<P></FONT><FONT size=3>All you have to do is enter a program title (first textbox), then 
+<BR>add a description for your application (second textbox).<BR>The path where 
+FbEdit will save the wizard created files and folders (third textbox).<BR>
+You should also check the Folder Creation / Res to have a res folder created for you.<BR>
+As our template our choice will be </FONT><FONT size=4>DialogApp.tpl</FONT><FONT 
+size=3> (template tab)</FONT></P>
+<P><FONT size=3>Click<U> OK</U>
+<BR><BR>FbEdit creates some (actually alot) of files for you and 
+even two folders (the \res and the \bak folder)<BR>You can see the main files 
+in your project window.&nbsp;<BR>Under the project window you have the 
+property window.</FONT></P>
+<P><FONT size=3>Your FbEdit project window should look like 
+this:</FONT><BR><IMG height=484 alt="ProjectExplorer.jpg (42195 Byte)" 
+src="tut1_files/ProjectExplorer.jpg" width=206></P><FONT size=4>
+<P></FONT><FONT size=3>Now it s time to take a look at your FbEdit toolbar. You 
+should find a<BR>button called "Go" (tooltip)</FONT></P>
+<P><IMG height=63 alt="Go.jpg (10416 Byte)" src="tut1_files/Go.jpg" 
+width=101></P><FONT size=4>
+<P></FONT><FONT size=3>Click it to build your project.<BR>If you did everything 
+correct, you should see your first window popping up.<BR>In FreeBASIC, 
+without writing one line of code. Thats really RAD (rapid application 
+developement).</FONT></P>
+<P><IMG height=201 alt="Dialog.jpg (8567 Byte)" src="tut1_files/Dialog.jpg" 
+width=299></P>
+<P><FONT size=3>Now we have one empty ugly window.<BR>Without going to look at 
+FreeBASIC code or windows API itself you<BR>can already do lots of modifications 
+to this window thanks to the great FbEdit editor.<BR>Go ahead and open the 
+dialog editor. It s just like in VB.<BR>Except for some lill differences, but 
+you will find them out soon, they dont matter anyway.<BR>To open it simple 
+double click the Window.rc in your project window.</FONT></P>
+<P><FONT size=3>You can place buttons, textboxes, shapes on your form and as 
+soon<BR>you hit Go! your changed window will appear with your controls on 
+it.<BR>Of course they dont have any functions yet, and they are not even 
+initilized (like in VB)<BR>We do this in our second tutorial.<BR>Note: If you 
+place some CommonControls (example Richedit or DateTimePicker)<BR>to your 
+dialog, your program might wont appear anymore when you<BR>Hit Go! Even if FbEdit 
+doesnt give you any errors while compiling.<BR>We will deal with this later 
+(Tutorial #5), dont worry, everything is ok.<BR><BR>You can change the dialogs 
+caption and style, try to make it topmost -<BR>You do all this in the property 
+dialog of your window. Experiment a lill with the changes you<BR>can do. It s 
+quite alot.</FONT></P>
+<P><U>&nbsp;</P>
+<H4><SMALL>SECOND STEP&nbsp;</SMALL></U></H4>
+<P><FONT size=3>Our first task will be putting a pretty icon to our 
+window.<BR>Look for an icon and copy it to your project \res folder. (Remember: 
+FbEdit can create a \res folder for you.)<BR>FbEdit is doing lots of work again for 
+us so just sit back and relax.<BR>First select Window.rc file on file tab<BR>then click <U>Resource</U> and then 
+<U>Resources</U> from the FbEdit menu.<BR>You see a dialog like this 
+appear:</FONT></P>
+<P><IMG height=285 alt="Resource.jpg (20542 Byte)" src="tut1_files/Resource.jpg" 
+width=477></P><FONT size=4>
+<P></FONT><FONT size=3>Click <U>Add </U>buttton to add a new resource (our icon) 
+to our<BR>Project. We call this Icon IDC_ICON and give it the ID 500.<BR>Now 
+click the path button and look for the icon you copied into<BR>Your \res folder. 
+Choose this icon and click <U>Open</U>.<BR>You should have a result like 
+this. You can click <U>OK </U>to exit the resource dialog.</FONT><SMALL> 
+</SMALL></P>
+<P><IMG height=285 alt="Resource2.jpg (28636 Byte)" 
+src="tut1_files/Resource2.jpg" width=477></P><FONT size=4>
+<P></FONT><FONT size=3>Now we have to insert some code.<BR>But dont worry it s 
+not much. In your project browser you see the files<BR>Windows.bas and 
+Windows.bi<BR>We need to add two lines to the first one and 1 single line to 
+the second.<BR>First the Windows.bi file. Double click it to open it.<BR>You 
+should see something like this</FONT></P>
+<P><IMG height=600 alt="WinInc.jpg (197269 Byte)" src="tut1_files/WinInc.jpg" 
+width=800>
+<DL>
+  <DT><FONT size=3>We have to add a variable for our 
+  icon,</FONT><SMALL> </SMALL>
+  <DT><FONT size=3>we call this variable hIcon</FONT> 
+  <DD> 
+  <DT>
+  <DD> 
+  <DT><FONT size=3>so go ahead and type:</FONT><SMALL> 
+</SMALL></DT></DL><B><I><FONT color=#ff0000>
+<P><FONT size=3>Dim Shared hIcon As HICON</FONT></FONT><SMALL> </SMALL></I></B><FONT 
+color=#008000 size=3></FONT></P>
+<P><FONT size=3>Now your Windows.bi looks like this:</FONT></P>
+<P><IMG height=154 alt="WinInc2.jpg (35001 Byte)" src="tut1_files/WinInc2.jpg" 
+width=326></P>
+<P>Now double-click your Windows.bas file</P>
+<P><IMG height=600 alt="WinAsm.jpg (143371 Byte)" src="tut1_files/WinAsm.jpg" 
+width=800></P>
+<P><FONT size=3>Now we add 2 lines to our code, to get the icon actually showing 
+on our window.</FONT><SMALL> </SMALL>
+<DL>
+  <DT><FONT size=3>Just like in Visual Basics FORM LOAD in Windows API we use 
+  WM_INITDIALOG</FONT><SMALL> </SMALL>
+  <DT><FONT size=3>Here is where we have to write our lines:</FONT><SMALL> 
+  </SMALL></DT></DL>
+<P><FONT size=4>[code]</FONT></P>
+<P><FONT size=4><FONT color=#ff0000>&nbsp;&nbsp;&nbsp; hIcon=
+LoadIcon(hInstance,Cast(ZString Ptr,500)) </FONT><FONT color=#008000>' our first Win API loading 
+icon to our created window<BR></FONT><FONT color=#ff0000>&nbsp;&nbsp;&nbsp;
+</FONT><FONT color=#008000>
+<BR></FONT><FONT 
+color=#ff0000>&nbsp;&nbsp;&nbsp; SendMessage(hWin,WM_SETICON,NULL,Cast(LPARAM,hIcon)) 
+</FONT><FONT color=#008000>' our second WIN API sets the loaded icon to our 
+dialog&nbsp;</FONT></P>
+<P>[/code]</P>
+<P></FONT><FONT size=3>Looks like this:</FONT></P>
+<P><IMG height=206 alt="WinASM2.jpg (59543 Byte)" src="tut1_files/WinASM2.jpg" 
+width=582></P><FONT size=4>
+<P></FONT><FONT size=3>Hit Go once more to see the result (FbEdit autosaves your 
+project as soon you build)<BR>If you did any typos (hope not ) FbEdit will give 
+you errormessages in the output window at the bottom:<BR>Simply click bookmark to 
+jump to the line. FbEdit highlights the line where it finds an error.<BR>
+If you ve done all correct, 
+take a look at your first created FreeBASIC standalone .exe file.<BR>It s just 
+11kb big. (without icon propably just 7kb) This is really impossible to do in 
+VB.</FONT></P>
+<P>&nbsp;</P>
+<P><FONT size=3>You can download the example from <A 
+href="http://www.radasm.com/fbedit/tutorials/tutorial1.zip">here</A>.</FONT></P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P> </P></BODY></HTML>

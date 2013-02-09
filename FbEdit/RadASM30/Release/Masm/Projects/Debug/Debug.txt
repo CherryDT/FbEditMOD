@@ -1,0 +1,23 @@
+DESCRIPTION:
+By vkim.
+Modified to use RadASM output window by KetilO
+
+Debug is a debug tool for the MASM32/RadASM package. Do You use a
+message box for the debug purpose? If You do then You can also try
+debug. I think it's more comfortable than the message box.
+I like it and I hope You'll like it too. :)
+
+REQUIRMENTS
+
+1. Win9x, Win2k, WinNT
+2. MASM32 7
+3. RadASM 3.0.0.7
+
+INSTALLATION
+
+1. Copy debug.inc to \radasm30\masm\inc
+2. Copy debug.lib to \radasm30\masm\lib
+
+FEEDBACK
+
+mailto:vkim@aport2000.ru

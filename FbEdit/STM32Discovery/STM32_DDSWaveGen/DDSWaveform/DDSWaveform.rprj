@@ -1,0 +1,4 @@
+
+<Project Header="Project 'DDSWaveform'" Path=".\DDSWaveform.rprj" Project="Yes" AsyncBuild="" OutputFile="" sate="96" ActiveApp="DDSWaveform" >
+	<ApplicationBuild Header="DDSWaveform" Extern=".\DDSWaveform.rapp" Path=".\DDSWaveform.rapp" AsyncBuild="" OutputFile=".\DDSWaveform.elf" sate="98" />
+</Project>

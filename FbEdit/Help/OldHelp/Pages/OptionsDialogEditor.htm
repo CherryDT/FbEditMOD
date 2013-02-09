@@ -1,0 +1,123 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 10 (filtered)">
+<title>Options</title>
+
+<style>
+<!--
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+@page Section1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US>
+
+<div class=Section1>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 align=left
+ style='background:#FFFF99;border-collapse:collapse;margin-left:6.75pt;
+ margin-right:6.75pt'>
+ <tr style='height:24.25pt'>
+  <td width=899 valign=top style='width:674.6pt;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:24.25pt'>
+  <p class=MsoNormal><b><span style='font-size:18.0pt;color:blue'>Dialog Editor</span></b></p>
+  </td>
+ </tr>
+</table>
+
+<br><br><br>
+<p class=MsoNormal><b><span style='font-size:14.0pt;color:blue'>Exports</span></b></p>
+<p><img border="0" src="Options-filer/OptionsDialogEditor1.JPG" width="513" height="302"></p>
+<p class=MsoNormal>&nbsp;</p>
+&#9679; Name Export Format<br>
+FreeBASIC uses C defines.<br><br>
+&#9679; Name Export Output.<br>
+Normally select output.<br><br>
+&#9679; Default Export Filename.<br>
+Normally rsrc.bi<br><br>
+&#9679; Auto export when saved.<br>
+Normally unchecked.<br><br>
+
+<p class=MsoNormal><b><span style='font-size:14.0pt;color:blue'>Behaviour</span></b></p>
+<p><img border="0" src="Options-filer/OptionsDialogEditor3.JPG" width="513" height="302"></p>
+<p class=MsoNormal>&nbsp;</p>
+&#9679; Grid X-Size, Grid Y-Size<br>
+Sets the size of the grid.<br><br>
+&#9679; Grid color<br>
+Sets the color of the grid.<br><br>
+&#9679; Show grid<br>
+The grid will be visible.<br><br>
+&#9679; Snap To Grid<br>
+Controls will have size and position according to grid.<br><br>
+&#9679; Show Size/Pos<br>
+A tooltip will show size or position of control.<br><br>
+&#9679; Grid as lines<br>
+The grid will be shown as lines.<br><br>
+&#9679; Styles as hex<br>
+Styles will be saved as hex values in rc script.<br><br>
+&#9679; Size Dialog to Font<br>
+If you change the size of the font, the dialog and its controls will be resized.<br><br>
+&#9679; Simple Property<br>
+Only common properties will be shown. The style manager is used to set styles.<br><br>
+&#9679; Define IDC_STATIC<br>
+IDC_STATIC will be defined in the rc script.<br><br>
+
+<p class=MsoNormal><b><span style='font-size:14.0pt;color:blue'>Custom controls</span></b></p>
+<p><img border="0" src="Options-filer/OptionsDialogEditor2.JPG" width="513" height="302"></p>
+<p class=MsoNormal>&nbsp;</p>
+&#9679; Custom control<br>
+This field contains the filename of a RadASM compatible custom control or a quoted string.<br>
+Format RadASM control: filename.dll<br>
+Example1: RAEdit.dll<br>
+RadASM compatible code edit control.<br>
+Format quoted string: "[dll],class,name,[caption],tooltip,width,height,style,exstyle"<br>
+Example2: "Riched32.dll,richedit,IDC_RED,Text,RichEdit,100,100,503110C4,00000200"<br>
+Old rich edit control.<br>
+Example3: ",static,IDC_LINE,,Horizontal line,100,2,50000110,00000000"<br>
+Horizontal line.<br><br>
+&#9679; Style mask<br>
+This field contains the style mask. There can be max 3 masks.<br>
+Format: Mask1[,Mask2[,Mask3]]<br>
+Example: WS_,SS_<br><br>
+
+<p class=MsoNormal>&nbsp;<span style='font-size:16.0pt;color:blue'>Custom styles.</span></p>
+<p><img border="0" src="Options-filer/OptionsDialogEditor4.JPG" width="513" height="302"></p>
+Here you can add control styles that FbEdit normally does not support.<br>
+The Value and Mask must be entered as hex values.<br>
+Normally the Mask is zero or the same as the Value, but if the style is part of a group then the group value should be entered.<br><br>
+
+<p class=MsoNormal>&nbsp;<span style='font-size:16.0pt;color:blue'>Resource types.</span></p>
+<p><img border="0" src="Options-filer/OptionsDialogEditor5.JPG" width="513" height="302"></p>
+Here you can add resource types that are not initially supported by FbEdit.<br>
+You can also select an editor for existing resource types.<br>
+NOTE!<br>
+Some columns are read only for resource types that FbEdit initially supports.<br><br>
+<p class=MsoNormal>&#9679; Name column.</p>
+&nbsp;&nbsp;&nbsp;&nbsp;The resource name.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Example: MTTEXT<br><br>
+<p class=MsoNormal>&#9679; Value column.</p>
+&nbsp;&nbsp;&nbsp;&nbsp;Normally 0, if user defined a value can be set.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Example: 0<br><br>
+<p class=MsoNormal>&#9679; Files column.</p>
+&nbsp;&nbsp;&nbsp;&nbsp;Open files of type.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Example: Ini (*.ini)|*.ini|Text (*.txt)|*.txt|All (*.*)|*.*<br><br>
+<p class=MsoNormal>&#9679; Editor column.</p>
+&nbsp;&nbsp;&nbsp;&nbsp;Here you can specify an editor for the file.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Example: notepad.exe<br><br>
+
+</div>
+</body>
+</html>

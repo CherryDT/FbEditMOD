@@ -1,0 +1,3 @@
+#include "Res/GridDemoLibDlg.rc"
+#include "Res/GridDemoLibVer.rc"
+#include "Res/GridDemoLibRes.rc"

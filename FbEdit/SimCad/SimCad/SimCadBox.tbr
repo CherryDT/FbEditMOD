@@ -1,0 +1,16 @@
+[Tbr]
+Tbr=,0,1
+Bmp=C:\FbEdit\Projects\Applications\FbEdit\SimCad\SimCad\Res\SimCadBox.bmp,IDB_CADBOX,10
+Mnu=
+Size=16
+0=IDC_MOVE,0,3,0
+1=IDC_LINE,0,3,1
+2=IDC_RECT,0,3,2
+3=IDC_CIRCLE,0,3,3
+4=IDC_POLYLINE,0,3,4
+5=IDC_HTEXT,0,3,5
+6=IDC_VTEXT,0,3,6
+7=IDC_DIM,0,3,7
+8=-,0,0,0
+9=IDC_FLIP,0,0,8
+10=IDC_ROTATE,0,0,9

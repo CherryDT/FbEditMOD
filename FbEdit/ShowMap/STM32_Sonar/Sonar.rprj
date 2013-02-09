@@ -1,0 +1,4 @@
+
+<Project Header="Project 'Sonar'" Path=".\Sonar.rprj" Project="Yes" AsyncBuild="" OutputFile="" sate="96" ActiveApp="Sonar" >
+	<ApplicationBuild Header="Sonar" Extern=".\Sonar.rapp" Path=".\Sonar.rapp" AsyncBuild="" OutputFile=".\Sonar.elf" sate="98" />
+</Project>

@@ -1,0 +1,5 @@
+LIBRARY ..\Dll\RAResEd.dll
+EXPORTS
+	ResEdInstall
+	ResEdUninstall
+	GetDef

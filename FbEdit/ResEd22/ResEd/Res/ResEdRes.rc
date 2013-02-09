@@ -1,0 +1,6 @@
+#define IDB_TOOLBAR						100
+#define IDI_ICON						100
+#define MANIFEST 						24
+IDB_TOOLBAR				BITMAP    DISCARDABLE "Res/toolbar-new.bmp"
+IDI_ICON				ICON      DISCARDABLE "Res/ResEd.ico"
+1						MANIFEST  DISCARDABLE "Res/xptheme.xml"

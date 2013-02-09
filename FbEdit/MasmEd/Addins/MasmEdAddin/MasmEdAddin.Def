@@ -1,0 +1,4 @@
+LIBRARY MasmEdAddin
+EXPORTS
+	InstallAddin
+	AddinProc

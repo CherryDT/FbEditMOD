@@ -1,0 +1,5 @@
+#define IDB_TBRBMP						150
+#define IDB_MNUARROW					200
+IDB_TBRBMP				BITMAP    DISCARDABLE "Res/Toolbar.bmp"
+IDB_MNUARROW			BITMAP    DISCARDABLE "Res/MNUARROW.bmp"
+100						ICON      DISCARDABLE "Res/ResEd.ico"

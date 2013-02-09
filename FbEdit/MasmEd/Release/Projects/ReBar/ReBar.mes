@@ -1,0 +1,5 @@
+[Session]
+Folder=C:\MasmEd\Projects\ReBar
+Session=0,0,ReBar.Asm,0,ReBar.Inc,-1,ReBar.Rc
+MainFile=ReBar.Asm
+Build=0

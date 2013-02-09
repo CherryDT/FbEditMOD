@@ -1,0 +1,6 @@
+TODO
+-----------
+- Language translation not implemented.
+
+BUGS
+-----------

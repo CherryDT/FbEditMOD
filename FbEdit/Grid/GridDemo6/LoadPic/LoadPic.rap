@@ -1,0 +1,115 @@
+[Project]
+Assembler=masm
+Type=Win32 App
+Description=LoadPic
+Backup=$P\Bak\
+Group=1
+GroupExpand=1
+Debug=0
+
+[MakeDef]
+Menu=0,0,1,0,0,0,0,1
+1=4,O,$B\RC.EXE /v,1
+2=3,O,$B\ML.EXE /c /coff /Cp /nologo /I"$I",2
+3=..\image.lib,O,$B\LIB.EXE, *.obj /out:..\image.lib
+4=0,0,,5
+5=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
+6=*.obj,O,$B\ML.EXE /c /coff /Cp /nologo /I"$I",*.asm
+11=4,O,$B\RC.EXE /v,1
+12=3,O,$B\ML.EXE /c /coff /Cp /nologo /I"$I",2
+13=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /DEBUG /VERSION:4.0 /LIBPATH:"$L",3,4
+14=0,0,,5
+15=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
+16=*.obj,O,$B\ML.EXE /c /coff /Cp /nologo /I"$I",*.asm
+
+[MakeFiles]
+0=LoadPic.rap
+1=LoadPic.rc
+2=LoadPic.asm
+3=LoadPic.obj
+4=LoadPic.res
+5=LoadPic.exe
+6=LoadPic.def
+7=LoadPic.dll
+8=LoadPic.txt
+9=LoadPic.lib
+10=LoadPic.mak
+
+[BookMark]
+0=
+1=
+2=
+3=
+4=
+5=
+6=
+7=
+8=
+9=
+
+[Files]
+1001=BitmapFromFile.ASM
+1002=BitmapFromMemory.ASM
+1003=BitmapFromPicture.ASM
+1004=BitmapFromResource.ASM
+1=Image.inc
+2=ImageLib.doc
+
+[Size]
+1=0,0,641,394,95
+1004=0,0,767,555,2059
+1003=-4,-23,1009,912,1323
+1002=-4,-23,767,555,2434
+1001=-4,-23,767,555,2719
+[BreakPoint]
+0=
+[Group]
+Group=Added files,Assembly,Resources,Misc,Modules
+1001=5
+1002=5
+1003=5
+1004=5
+1=2
+2=4
+[Colref]
+0=00FFFFFF
+1=00FFFFFF
+2=00FFFFFF
+3=00FFFFFF
+4=00FFFFFF
+5=00FFFFFF
+6=00FFFFFF
+7=00FFFFFF
+[VersionControl]
+Settings=1279
+Milestones=129
+MilestoneEvery=10
+MilestoneEveryCurrent=0
+MilestoneOnBuild=0.0.0.0
+MilestoneOnTime=2
+MilestoneOnDate=0
+MilestoneOnDateWhen=1
+MilestoneOnDateStatus=0
+MilestoneOnDateDate=9
+MilestoneOnDateTimeYear=2004
+MilestoneOnDateTimeMonth=2
+MilestoneOnDateTimeDate=9
+MilestoneOnDateTimeHour=15
+MilestoneOnDateTimeMin=50
+MilestoneOnDateTimeSec=8
+MilestoneOnDateTimeStatus=0
+BackupLocation=C:\RadASM\Masm\Projects\VCBackups\
+CompressionLevel=0
+DefaultComment=Project $N, $Z, Backup Created On $D At $T.
+ExcludeExt1=\
+ExcludeExt2=\
+ExcludeExt3=\
+ExcludeExt4=\
+FileVerLength=4
+FileVer2Range=0
+FileVer3Range=0
+FileVer4Range=0
+ProductVerLength=4
+ProductVer2Range=0
+ProductVer3Range=0
+ProductVer4Range=0

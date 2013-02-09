@@ -1,0 +1,266 @@
+MasmEd
+
+1.2.0.0 - 2010.03.29
+--------------------
+o Added project handling.
+  - The project browser handles project groups and sub groups.
+    Easy drag and drop to move files or entire groups around.
+    Caret positions, bookmarks, breakpoints, collapsed states and current grouping
+    selection are saved.
+  - Create a project from existing sources just by opening the source
+    files and select Project / Create Project. If you also select a
+	main file then no questions will be asked.
+  - With a project created, MasmEd can comfortably handle large projects as there
+    is no need to have all source files open to get full code complete and debugging 
+	capabilities. In addition caret positions, bookmarks, breakpoints and collapsed
+    states are saved.
+o Added View / Next Tab (Ctrl+Tab)
+o Added View / Previous Tab (Ctrl+Shift+Tab)
+o Added Option / External Files. Lets you open files in external tools.
+
+1.1.0.3 - 2010.03.16
+--------------------
+o Added message sensitive tooltip and codecomplete on
+  SendMessage, PostMessage and SendDlgItemMessage api's.
+o Added window messages to auto case convert list.
+o Moved api files to Api sub folder.
+o Fixed bug that caused MasmEd to crash if you pressed enter or
+  Tab on an empty codecomplete list.
+o Fixed a resource editor parser bug. If a control had an help id and
+  no exstyle the parser would fail.
+
+1.1.0.2g - 2010.02.25
+---------------------
+o While debugging the debug menu is the code editors context menu.
+o Fixed a misalignment of text in the Fpu debug window.
+o Fixed a bug where clearing a breakpoint while debugging did not work.
+
+1.1.0.2f - 2010.02.16
+---------------------
+o Holding Ctrl key while clicking on expand / collapse bookmark will expand / collapse
+  all child blocks in the parent block.
+o The edit control now supports unlimitted line lenghts.
+o The debugger now has a FPU window showing fpu registers.
+o The debugger now has a MMX window showing xmm registers.
+o Fixed bug where make options did not uptate make selection combo.
+
+1.1.0.2e - 2010.02.08
+---------------------
+o You can now add or delete your own make commabds.
+
+1.1.0.2d - 2010.01.04
+---------------------
+o Fixed a parser bug that could cause MasmEd to hang.
+
+1.1.0.2c - 2009.12.28
+---------------------
+o Fixed a dialog editor bug that caused it imposible to
+  select controls on win95,98 and me.
+
+1.1.0.2b - 2009.12.23
+---------------------
+o Fixed bug where double clicking in code properties caused an error.
+o Fixed a bug in UpdateChecker addin. The version compare would show
+  that your version is the same as the one at Sourceforge.
+
+1.1.0.2 - 2009.12.16
+--------------------
+o Added Macro to code properties.
+o Defined $ as a character.
+o Added words in masmApiType.api to syntax highlighter Group#12.
+o Added Uppercase, Lowercase, Tab to Spaces and Spaces to Tab to Edit/Block/Convert menu.
+o Added Trim Trailing Spaces to Edit/Block menu.
+o Added UpdateChecker addin. It lets you check the version at Sourceforge, download and unzip MasmEd.zip.
+
+1.1.0.1 - 2009.11.19
+--------------------
+o Added Project addin.
+  - Create a new project. You can specify a template to have files created.
+  - Create a tempate from existing sources.
+  - Sniplet browser. Use it to copy often used code sniplets to your code.
+  - Automatic backup of files that are saved. Just create a Bak folder in the path of the main file.
+  - Automatic deletion of minor files after a successful build.
+
+1.1.0.0 - 2009.11.05
+--------------------
+o Added addin support. The architecture is similar to RadASM. Some useful addins are converted.
+o Added Addin Manager to Option menu.
+o Added TbrCreate addin. Helps you create toolbars.
+o Added raASCII addin. Shows an ascii table.
+o Added raBitMask addin. Lets you explore bits and bytes.
+o Added raGColor addin. Lets you choose colors.
+o Added more build options. Window (GUI), Console, Dll and Library build options.
+o Added 'Copy PROTO To Code' to property context menu.
+o Added 'Recent Files' to file menu.
+o Added 'Recent Sessions' to file menu.
+o File paths in session files are now relative to the session file.
+  This makes it easier to share session files with sources.
+  It is also possible to have session files with sources on a memory stick,
+  even if the drive letter changes on different computers.
+
+1.0.5.9b - 2009.10.20
+---------------------
+o Speed optimized the code parser. Editing large projects on older machines could be a little sluggish.
+o F2 - Goto Declare now finds proc parameters and local declarations.
+o Fixed a bug in F2 - Goto Declare. Finding global data declarations did not work.
+
+1.0.5.9 - 2009.10.16
+--------------------
+o Added 'Build' command to make menu.
+o The 'Link' toolbar button has been changed to 'Build'.
+o Added Goto Declare and Return to Edit menu.
+o The 'Edit/Next Error' and 'Edit/Clear Errors' menu now shows the correct accelerator 'F6'.
+o Resource editor id names are now validated.
+
+1.0.5.8 - 2009.09.28
+--------------------
+o Added auto case convert.
+  - Add words that you want to case convert to the masmApiWord.api file.
+o Added auto block complete.
+o Improved dialog editor control selection and moving with snap to grid.
+o Fixed menu editor bug if enter key was pressed.
+o Fixed dialog editor bug if a control was partially outside the tialog.
+
+1.0.5.7b - 2009.08.21
+---------------------
+o Fixed a bug where the codecomlete list wold get smaller and smeller for each time it is shown.
+o The resource editor work area scrollbars are now hidden when not needed.
+o Fixed bug where editing MANIFEST, TOOLBAR, RCDATA or custom resource could leave
+  garbage at the end.
+o Fixed bug where changing the manifest file name did not work.
+o Fixed a bug where the resource editor properties combo would be set to '#define' when names
+  are exported.
+
+1.0.5.7 - 2009.08.10
+--------------------
+o Added internal source code debugger. See Debug.txt for more info.
+o Added immediate window. Can be used for integer calculations.
+  While debugging you can inspect or set registers, variables or memory.
+o Added register and watch windows (shown while debugging).
+o Added Debug Assemble to Make Options.
+o Improved code parser.
+o Code complete window can now be resized.
+o Resource editor accelerator table and string table now has an edit combo in its name column.
+  The combo items are names from menues. This might save you some typing.
+o Added PBS_MARQUEE progress bar style to dialog editor.
+o Fixed bug with dialog editor custom styles.
+o Fixed bug with dialog editor duplicate #define
+o Fixed dialog editor bug with sizing while caption is changed.
+o Fixed resource editor bug with parsing versioninfo using { and } instead of BEGIN and END.
+
+1.0.5.6b - 2009.05.26
+---------------------
+o Fixed bug where MasmEd would fail if a previous opened file was removed. 
+
+1.0.5.6 - 2009.05.22
+--------------------
+o Added combo to select Release or Debug build.
+o Added Make Option to set Debug Link command.
+o Included RichEdit editor project.
+o Fixed bug with dialog editor Chinese font names.
+o Fixed bug with resource editor RCDATA / RT_RCDATA,MANIFEST and TOOLBAR. Linefeeds was missing.
+o Fixed bug with locals code complete list.
+
+1.0.5.5 - 2009.05.07
+--------------------
+o Added BS_SPLITBUTTON, BS_DEFSPLITBUTTON, BS_COMMANDLINK and BS_DEFCOMMANDLINK button styles.
+o Added TBS_REVERSED, TBS_DOWNISLEFT, TBS_NOTIFYBEFOREMOVE and TBS_TRANSPARENTBKGND trackbar styles.
+o Added language (if any) to resource editor project items.
+o Added SysLink control to resource editor.
+o Resource editor grids now resizes to window.
+o Fixed bug with parsing structures.
+o Fixed bug with parsing unions.
+
+1.0.5.4 - 2009.04.01
+--------------------
+o Added code properties list. Double click in list to jump to the declaration in your code.
+o Added auto code complete on procs and structures.
+o Added code complete list (Ctrl+Space). If you are in a proc then parameters and locals will be included in the list.
+o Added multiline tab select.
+o Added Style mask to Custom controls in dialog editor options.
+o Added Custom styles to dialog editor options.
+o Added Resource types to dialog editor options.
+o Added path options to set binary, include and library paths.
+o The current proc now shows in statusbar.
+o You can remove MasmEd from registry by typing the command line masmed /remove
+
+1.0.5.3 - 2009.02.04
+--------------------
+o Code editor now indicates lines that have changed. Yellow: Unsaved change. Green: Saved change.
+o You can close a tab by clicking the middle mouse button.
+o You can rearrange tab order by dragging a tab to a new position.
+o Added context menu to resource editor, tab tool, output and filebrowser.
+o MasmEd can handle unicode files. You can use the Save As to convert to / from unicode.
+  NOTE! The code editor does not handle unicode so convertion is done on load / save.
+        The WideCharToMultiByte api is used when loding a file and the MultiByteToWideChar api
+        is used when saving a file.
+
+1.0.5.2 - 2008.12.04
+--------------------
+o Updated resource editor to latest version.
+o You can now select a back color for comments, strings, operators and numbers & hex.
+o You can now select code complete and tooltip colors.
+o Added color themes.
+o Added bracket matching.
+
+1.0.5.1 - 2008.09.18
+--------------------
+o Variable speed selection scrolling by mouse.
+o Speed optimized block guiders. Could cause sluggish editing on large files
+  with many nested blocks.
+o Added direction All to find / replace.
+o Added All Open Files to find / replace.
+o Nicer looking toolbar.
+o Nicer looking menu.
+o Fixed bug with resource editor style manager. Could show unrelated / duplicated styles.
+o Fixed bug with resource editor menu editor. Did not handle quoted menu text correctly.
+
+1.0.5.0 - 2008.08.25
+--------------------
+o Updated all internal components to latest version.
+o You can open .rc and .bat files for text editing by holding Ctrl key.
+o File browser now remembers folder between sessions.
+o Updated file browser icons.
+o Added icons to tab select.
+O Tab will show asterix if a file is changed.
+o Added close button to tab select.
+o Added option to save and restore session.
+o Added option to show linenumbers.
+o Errors are now bookmarked.
+o Added Edit / Next Error and Edit / Clear Errors.
+o Fixed bug if any of the api files are missing.
+o Fixed bug with outdent and uncomment.
+
+1.0.4.9 - 2007.11.19
+--------------------
+o Fixed bug that caused crash on Vista.
+o Updated all internal components to latest version.
+
+1.0.4.6 - 2006.05.09
+--------------------
+o Made option, tools menu and help menu dialogs larger.
+o Made project path removal from filenames in resources and include files case insensitive.
+o Updated internal grid component.
+o It is now possible to manually edit filename in resource and include file grids.
+o Pushing OK while still in grid edit mode now updates data.
+o New Project now forces you to create a file since several functions are dependant on a project path.
+o Accelerator key INSERT returned wrong code.
+o Added build options.
+
+1.0.4.5 - 2006.04.23
+--------------------
+o Fixed bug where radasm custom controls on a dialog would trigger endless paint loop.
+o Added support for line continuations in strings in the dialog parser.
+o Added SS_CENTERIMAGE style to dialog parser and stylemanager.
+o Fixed a bug where copy and paste a groupbox or tabcontrol would create duplicate tabindexes
+  and MasmEd would crash after reporting the problem.
+o Fixed a paint bug in User Defined Control.
+
+1.0.4.4 - 2006.04.02
+--------------------
+o New style manager to set control styles.
+o Added Default to button text alignment.
+o Added function to set tabindexes.
+o Fixed a dialog edit fontsize bug.
+
+KetilO

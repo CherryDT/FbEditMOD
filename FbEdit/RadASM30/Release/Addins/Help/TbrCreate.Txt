@@ -1,0 +1,49 @@
+This addin creates toolbars.
+
+How to open toolbar creator:
+----------------------------
+Open or add a .tbr file to your project. This will open a toolbar creator window in RadASM.
+
+How to select a toolbar bitmap:
+-------------------------------
+1. Browse for the Bitmap File. Leave it blank if you are using the standard windows bitmap.
+2. Type in a Bitmap Name. Use IDB_STD_SMALL_COLOR for windows standard bitmap.
+3. Select the Button Size to fit the bitmap.
+
+How to set toolbar styles:
+--------------------------
+1. Select the Toolbar Styles.
+
+How to add or insert a button:
+-----------------------------
+1. Click Add Btn. or Ins. Btn.
+2. Type in a Button Name.
+3. Type in an ID. Set it to 0 if the ID is defined elsewhere in your code.
+4. Select an image for your button.
+5. Select Button Style (Check and / or Group).
+
+How to add or insert a separator:
+---------------------------------
+1. Click Add Sep. or Ins. Sep.
+2. Button Name should be a -. Set the ID to 0.
+
+How to delete a button or separator;
+------------------------------------
+1. Select the item you want to delete from the list.
+2. Click Delete.
+
+How to edit Button Name or ID:
+------------------------------
+1. Select the button from the list or click on the toolbar button.
+2. Change the name and / or the ID.
+
+How to export the generated code:
+---------------------------------
+1. Click on Export and the generated code will show in RadASM's Output window.
+   Currently only masm syntax is supported.
+
+How to save your toolbar:
+-------------------------
+1. Click on RadASM's save button.
+
+KetilO

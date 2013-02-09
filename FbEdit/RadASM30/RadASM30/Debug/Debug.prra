@@ -1,0 +1,46 @@
+[Version]
+Version=3000
+[Project]
+Assembler=masm
+Path=C:\Programme\FbEdit Test Environ\Projects\Applications\FbEdit\RadASM30\RadASM30\Debug
+Group=2,-1,0,1,RadASM debug library,-2,-1,1,Assembly,-3,-1,1,Include,-4,-1,1,Misc,-5,-1,1,Resource
+Open=1,5,6,3,1,2,4,7,8
+Api=
+F8=-2,0,1,88,88,1036,444,787,Misc.asm
+C8=0,0,0,0,0,0,0
+B8=
+M8=
+F7=-2,0,1,66,66,1036,444,0,Math.asm
+C7=0,0
+B7=
+M7=
+F4=-2,0,1,0,0,1036,444,0,Immediate.asm
+C4=0,0,0
+B4=
+M4=
+F2=-2,0,1,198,198,1036,444,498,DbgHelp.asm
+C2=0,0
+B2=
+M2=
+F1=-2,0,1,176,176,1036,444,63,Breakpoint.asm
+C1=0,0
+B1=
+M1=
+F3=-2,0,1,220,220,1036,444,638,Debug.asm
+C3=0,0,0
+B3=
+M3=
+F6=-3,0,1,44,44,1036,444,313,LibDebug.Inc
+C6=0
+B6=
+M6=
+F5=-2,2,1,22,22,1036,444,145,LibDebug.Asm
+C5=0,0
+B5=
+M5=
+[Make]
+Make=0
+0=Library,'',,'/c /coff /Cp "$C"',"$C.obj",'',,'/VERBOSE /SUBSYSTEM:WINDOWS /OUT:$O $C',"..\..\Lib\Debug.lib"
+Delete=1
+IncBuild=0
+Run=0,'',''

@@ -1,0 +1,55 @@
+FbEditMOD 1.0.7.8
+    
+    - all language files except NONE and german are currently broken
+      (ENG is broken please use NONE)
+      addins should be recompiled before usage (include files has changed)
+      packaged addins are ready to go
+        
+    - [Edit]->[Elevator] moves caret lines up / down until same indent is found 
+    
+    - [Edit]->[History Paste] shows the clipboard history
+        double clicking a pane will paste its content
+        contents are editable before pasting
+        use ESC to hide the window
+    
+    - [Edit]->[Backward]
+    - [Edit]->[Forward] 
+        caret movements to another line are logged
+        moving around in this queue is done by ALT+LEFT / ALT+RIGHT
+        scrolling line by line using UP / DOWN is not logged
+        
+    - [Tools]->[Code Sniplets]    
+        copying to clipboard instead into editor is now available
+        
+    - [Tools]->[Export properties]
+        actual scope is shown in the dialogbox
+        scope can changed using toolbar buttons in top of the property window
+    
+    - [Options]->[Code Editor]    
+        editors linespacing can changed by adding "Extra 1/4 LFs" to optimize
+        readability
+        0 to 8 quarter LFs are selectable (will also work for HexEdit)
+        color selection will also work for HexEdit
+     
+     - very important: fancy splash screen fade out
+     
+     - [Project]->[Project Options]->[Pre-Buildbatch | Post-Buildbatch]
+        Now we can execute a batch files before and after each compiler run
+        See example Projects\Samples\Pre_PostBuildBatch.fbp for details
+        If modules are compiled separatly, there are several environment variables updated
+        before launching each batch (so the batch aware, which run is coming up)
+        
+     - [Project]->[Project Options]->[Module Handling]     
+        if modules are compiled separatly, each module can have fbc commandline options for its own
+        (perhaps you wanna use -gen gcc -O 2 not generally)
+        Also you can translate several modules with other compilers (gcc, masm)
+         
+        
+                
+     
+     - [Options]->[Environment]
+        you can use   
+     
+     
+         
+        

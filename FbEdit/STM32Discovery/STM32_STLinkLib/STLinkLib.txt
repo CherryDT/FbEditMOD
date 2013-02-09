@@ -1,0 +1,12 @@
+STLink
+------
+Unfortunatly STLink documentation is scarce.
+Sources for a linux STLink can be found here: https://github.com/whitequark/stlink
+
+This made it possible for me to create a library that makes it easy to connect
+to the STM32 Discovery board and read or write internal ram. This is great when
+using the STM32 Discovery as a thin server and my PC as a fat client.
+
+The library needs STLinkUSBDriver.dll to work.
+
+KetilO 

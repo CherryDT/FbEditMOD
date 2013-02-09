@@ -1,0 +1,17 @@
+
+Setup:
+
+To find the value of the Calibration Capacitor you need a capacitor of a known value
+and follow these steps:
+
+1. Turn on the LC Meter / Frequency Counter and let it warm up for half an hour.
+2. Connect the test leads.
+3. Enter calibration mode and write down the first (F1) and second (F2) frequency cotnts.
+4. Connect the known capasitor. I am using a 2700pF 1% capacitor
+5. Enter calibration mode and write down the first (F3) frequency cotnt.
+6. Use the formula to calculate the Calibration Capacitor.
+   Ccal=Cx/((((F1/F3)^2)-1)/(((F1/F2)^2)-1))
+7. Enter the value of the Calibration Capacitor and rebuild project.
+8. Reprogram the AT89S52.
+
+KetilO

@@ -1,0 +1,7 @@
+LIBRARY FbEdit.dll
+;EXPORTS
+;	SetHiliteWords
+;	GetCharTabPtr
+;	GetCharTabVal
+;	SetCharTabVal
+;	SetBlockDef
