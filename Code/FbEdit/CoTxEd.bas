@@ -31,16 +31,16 @@ Dim Shared lpOldCCProc        As WNDPROC
 
 Dim Shared lstpos             As LASTPOS
 Dim Shared szCaseConvert      As ZString * 32
-Dim Shared szIndent(40)       As ZString * 32
-Dim Shared autofmt(40)        As AUTOFORMAT
+Dim Shared szIndent(MAXBLOCKDEFS)       As ZString * 32
+Dim Shared autofmt(MAXBLOCKDEFS)        As AUTOFORMAT
 
 ' Code blocks
 Dim Shared blk                As RABLOCKDEF
-Dim Shared szSt(40)           As ZString * 32
-Dim Shared szEn(40)           As ZString * 32
+Dim Shared szSt(MAXBLOCKDEFS)           As ZString * 32
+Dim Shared szEn(MAXBLOCKDEFS)           As ZString * 32
 Dim Shared szNot1             As ZString * 32
 Dim Shared szNot2             As ZString * 32
-Dim Shared BD(40)             As RABLOCKDEF
+Dim Shared BD(MAXBLOCKDEFS)             As RABLOCKDEF
 
 Dim Shared prechrg            As CHARRANGE
 Dim Shared mdn                As Integer
@@ -638,7 +638,7 @@ Sub FormatIndent(ByVal hWin As HWND)
 		If fAsm Then
 			wp=fAsm
 		EndIf
-		While wp<32
+		While wp<(MAXBLOCKDEFS-2)
 			If szIndent(wp)<>szNULL Then
 				If SendMessage(hWin,REM_ISLINE,ln,Cast(LPARAM,@szIndent(wp)))>=0 Then
 					If UCase(szIndent(wp))="ASM" Then
@@ -665,7 +665,7 @@ Sub FormatIndent(ByVal hWin As HWND)
 			EndIf
 			wp=wp+1
 		Wend
-		If wp=32 Then
+		If wp=(MAXBLOCKDEFS-2) Then
 			lz=SendMessage(hWin,EM_LINEINDEX,ln,0)
 			If SendMessage(hWin,REM_ISCHARPOS,lz,0)<>1 Then
 				SetIndent(hWin,ln,@buff)
@@ -726,7 +726,7 @@ Function AutoFormatLine(ByVal hWin As HWND,ByVal lpchrg As CHARRANGE Ptr) As Int
 			ln=SendMessage(hWin,EM_LINEFROMCHAR,chrg.cpMin,0)
 		EndIf
 		wp=0
-		While wp<40
+		While wp<(MAXBLOCKDEFS)
 			If szIndent(wp)<>szNULL Then
 				If SendMessage(hWin,REM_ISLINE,ln,Cast(LPARAM,@szIndent(wp)))>=0 Then
 					' Get current indent
@@ -1265,7 +1265,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 							ln=SendMessage(hPar,REM_GETLINEBEGIN,ln,0)
 							If SendMessage(hPar,REM_GETBOOKMARK,ln,0)=BMT_COLLAPSE Then
 								wp=0
-								While wp<40
+								While wp<(MAXBLOCKDEFS-2)
 									If SendMessage(hPar,REM_ISLINE,ln,Cast(LPARAM,@szSt(wp)))>=0 Then
 										lx=ln+1
 										lz=0
@@ -1746,11 +1746,11 @@ End Function
 Function CreateTxtEd (Byref sFile As zString) As HWND
 
 	Dim hTmp    As HWND         = Any 
-    Dim i       As Integer      = Any 
+	Dim i       As Integer      = Any 
 	Dim buffer  As ZString * 64
 
 	Const Style As DWORD        = WS_CHILD                Or WS_VISIBLE        Or WS_CLIPCHILDREN   Or _ 
-	    		                  WS_CLIPSIBLINGS         Or STYLE_SCROLLTIP   Or STYLE_DRAGDROP    Or _
+	    		                      WS_CLIPSIBLINGS         Or STYLE_SCROLLTIP   Or STYLE_DRAGDROP    Or _
 	      	                      STYLE_AUTOSIZELINENUM   Or STYLE_NOHILITE    Or STYLE_NOCOLLAPSE  Or _
 	                              STYLE_NODIVIDERLINE
 	
@@ -1761,7 +1761,7 @@ Function CreateTxtEd (Byref sFile As zString) As HWND
     	UpdateEditOptions hTmp
     
    		SendMessage hTmp, REM_SETWORDGROUP, 0, 15
-		SendMessage hTmp, REM_SETSTYLEEX, STILEEX_LINECHANGED Or STILEEX_STRINGMODEFB, 0
+			SendMessage hTmp, REM_SETSTYLEEX, STILEEX_LINECHANGED Or STILEEX_STRINGMODEFB, 0
     	SendMessage hTmp, WM_SETTEXT, 0, Cast (LPARAM, @"")
     	SendMessage hTmp, EM_SETMODIFY, FALSE, 0
 
@@ -1775,7 +1775,7 @@ Function CreateTxtEd (Byref sFile As zString) As HWND
     	lpOldCoTxEdProc = Cast (WNDPROC, SendMessage (hTmp, REM_SUBCLASS, 0, Cast (LPARAM, @CoTxEdProc)))
     	CallAddins ah.hwnd, AIM_CREATEEDIT, Cast (WPARAM, hTmp), 0, HOOK_CREATEEDIT
 		
-		If edtopt.linenumbers Then
+			If edtopt.linenumbers Then
     		SendDlgItemMessage hTmp, -2, BM_CLICK, 0, 0
     	EndIf
     EndIf

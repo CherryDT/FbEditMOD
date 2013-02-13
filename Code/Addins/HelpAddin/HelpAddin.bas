@@ -4,6 +4,7 @@
 #Include "..\..\FbEdit\Inc\Addins.bi"
 
 #Include "HelpAddin.bi"
+Declare Function ReadIniValue(INIpath As String, KEY As String, Variable As String) As String
 
 ' Returns info on what messages the addin hooks into (in an ADDINHOOKS type).
 Function InstallDll Cdecl Alias "InstallDll" (ByVal hWin As HWND,ByVal hInst As HINSTANCE) As ADDINHOOKS Ptr Export
@@ -21,6 +22,20 @@ Function InstallDll Cdecl Alias "InstallDll" (ByVal hWin As HWND,ByVal hInst As 
 	hooks.hook2=0
 	hooks.hook3=0
 	hooks.hook4=0
+	'read keywords into string
+	fbwords = ReadIniValue(lpdata->IniFile,"EDIT", "c0")
+	fbwords &= ReadIniValue(lpdata->IniFile,"EDIT", "c1")
+	fbwords &= ReadIniValue(lpdata->IniFile,"EDIT", "c2")
+	fbwords &= ReadIniValue(lpdata->IniFile,"EDIT", "c3")
+	fbwords &= ReadIniValue(lpdata->IniFile,"EDIT", "c4")
+	fbwords &= ReadIniValue(lpdata->IniFile,"EDIT", "c5")
+	fbwords &= ReadIniValue(lpdata->IniFile,"EDIT", "c6")
+	fbwords &= ReadIniValue(lpdata->IniFile,"EDIT", "c7")
+	fbwords &= ReadIniValue(lpdata->IniFile,"EDIT", "c8")
+	fbwords &= ReadIniValue(lpdata->IniFile,"EDIT", "c9")
+	fbwords &= ReadIniValue(lpdata->IniFile,"EDIT", "c10")
+	fbwords &= ReadIniValue(lpdata->IniFile,"EDIT", "c11")
+	fbwords &= ReadIniValue(lpdata->IniFile,"EDIT", "c12")
 	Return @hooks
 
 End Function
@@ -39,7 +54,7 @@ Function DllFunction Cdecl Alias "DllFunction" (ByVal hWin As HWND,ByVal uMsg As
 					' Get word under caret.
 					SendMessage(lpHandles->hred,REM_GETWORD,SizeOf(wrd),Cast(LPARAM,@wrd))
 					' Is word in the fb keyword list?
-					If InStr(fbwords," " & LCase(wrd) & " ") Then
+					if instr(lcase(fbwords)," " & lcase(wrd) & " ") then
 						' Show fb.chm
 						SendMessage(lpHandles->hwnd,WM_COMMAND,IDM_HELPCTRLF1,0)
 						' Prevent FbEdit from showing Win32.hlp
@@ -53,3 +68,36 @@ Function DllFunction Cdecl Alias "DllFunction" (ByVal hWin As HWND,ByVal uMsg As
 
 End Function
 
+Function ReadIniValue(INIpath As String, KEY As String, Variable As String) As String
+	Dim FileNum				As Integer
+	Dim Temp					As String
+	Dim LcaseTemp			As String
+	Dim ReadyToRead		As Integer
+	Dim ret					As String
+   
+	'Assign variables
+	FileNum = FreeFile
+	ReadIniValue = ""
+	KEY = "[" & LCase$(KEY) & "]"
+	Variable = LCase$(Variable)
+   
+	'Load from the file
+	Open INIpath For Input As FileNum
+	While Not EOF(FileNum)
+		Line Input #FileNum, Temp
+		LcaseTemp = LCase$(Temp)
+		If InStr(LcaseTemp, "[") <> 0 Then ReadyToRead = 0
+		If LcaseTemp = KEY Then ReadyToRead = 1
+		If InStr(LcaseTemp, "[") = 0 And ReadyToRead = 1 Then
+			If InStr(LcaseTemp, Variable & "=") = 1 Then
+				ret = Mid$(Temp, 1 + Len(Variable & "="))
+				If Left(ret,1) = !"\"" Then ret = Right(ret, Len(ret)-1)
+				If Right(ret,1) = !"\"" Then ret = Left(ret, Len(ret)-1)
+				Close FileNum
+				Return ret
+			End If
+		End If
+	Wend
+	Close FileNum
+	Return ret
+End Function
