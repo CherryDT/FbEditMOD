@@ -1,5 +1,0 @@
-LIBRARY AsmVars
-EXPORTS
-	InstallDll
-	DllProc
-	GetOptions

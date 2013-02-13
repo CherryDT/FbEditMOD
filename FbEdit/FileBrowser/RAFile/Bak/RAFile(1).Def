@@ -1,4 +1,0 @@
-LIBRARY RAFile.dll
-EXPORTS
-	GetDef
-	GetDefEx

@@ -1,0 +1,7 @@
+.obj
+.exe
+.dll
+.undo
+bak\
+tmp
+temp

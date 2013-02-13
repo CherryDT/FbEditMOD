@@ -1,4 +1,0 @@
-LIBRARY ToolWin.dll
-EXPORTS
-	InstallDll
-	DllProc

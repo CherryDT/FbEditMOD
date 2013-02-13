@@ -1,2 +1,0 @@
-#define IDB_TOOLBAR						100
-IDB_TOOLBAR				BITMAP   DISCARDABLE "Res/ToolBar.bmp"

@@ -1,5 +1,0 @@
-LIBRARY ProcDump.dll
-EXPORTS
-	GetOptions
-	DllProc
-	InstallDll

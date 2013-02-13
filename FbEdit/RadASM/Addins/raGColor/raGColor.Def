@@ -1,4 +1,0 @@
-LIBRARY raGColor
-EXPORTS
-DllProc
-InstallDll

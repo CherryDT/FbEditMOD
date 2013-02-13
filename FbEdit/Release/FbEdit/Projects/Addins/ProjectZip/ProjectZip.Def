@@ -1,4 +1,0 @@
-LIBRARY ProjectZip.dll
-EXPORTS
-	InstallDll
-	DllFunction

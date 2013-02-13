@@ -1,4 +1,0 @@
-LIBRARY raBitMask
-EXPORTS
-DllProc
-InstallDll

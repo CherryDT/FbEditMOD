@@ -1,4 +1,0 @@
-LIBRARY StyleMana.dll
-EXPORTS
-	DllProc
-	InstallDll

@@ -1,4 +1,0 @@
-LIBRARY Unreferenced
-EXPORTS
-	InstallAddin
-	AddinProc

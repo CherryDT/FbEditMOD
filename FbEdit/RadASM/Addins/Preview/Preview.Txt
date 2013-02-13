@@ -1,1 +1,0 @@
-This addin lets you preview RadASM dialogs.

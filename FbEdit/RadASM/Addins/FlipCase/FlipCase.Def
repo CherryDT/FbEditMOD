@@ -1,5 +1,0 @@
-LIBRARY FlipCase.dll
-EXPORTS
-	InstallDll
-	DllProc
-	GetOptions

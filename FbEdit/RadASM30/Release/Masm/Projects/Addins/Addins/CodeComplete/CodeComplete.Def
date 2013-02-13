@@ -1,4 +1,0 @@
-LIBRARY CodeComplete.dll
-EXPORTS
-	InstallAddin
-	AddinProc

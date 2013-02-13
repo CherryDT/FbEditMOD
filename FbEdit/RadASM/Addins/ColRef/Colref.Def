@@ -1,5 +1,0 @@
-LIBRARY Colref.dll
-EXPORTS
-	DllProc
-	InstallDll
-	GetOptions

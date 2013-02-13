@@ -1,2 +1,0 @@
-#define IDB_CADBOX						100
-IDB_CADBOX				BITMAP   DISCARDABLE "Res/SimCadBox.bmp"

@@ -1,3 +1,0 @@
-LIBRARY CodeTemplates.dll
-EXPORTS InstallDll
-EXPORTS DllProc

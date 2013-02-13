@@ -1,5 +1,0 @@
-LIBRARY MakeDef.dll
-EXPORTS
-	InstallDll
-	DllProc
-	GetOptions

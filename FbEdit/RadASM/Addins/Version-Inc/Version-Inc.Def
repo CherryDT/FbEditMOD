@@ -1,5 +1,0 @@
-LIBRARY Version-Inc
-EXPORTS
-InstallDll
-DllProc
-GetOptions

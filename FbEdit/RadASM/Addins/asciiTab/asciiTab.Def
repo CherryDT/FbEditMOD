@@ -1,5 +1,0 @@
-LIBRARY asciiTab
-EXPORTS
-DllProc
-InstallDll
-GetOptions

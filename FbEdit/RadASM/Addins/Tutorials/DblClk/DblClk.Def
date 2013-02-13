@@ -1,5 +1,0 @@
-LIBRARY DblClk.dll
-EXPORTS
-	DllProc
-	InstallDll
-	GetOptions

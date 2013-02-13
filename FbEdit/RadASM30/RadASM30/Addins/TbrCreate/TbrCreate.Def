@@ -1,4 +1,0 @@
-LIBRARY TbrCreate
-EXPORTS
-	InstallAddin
-	AddinProc

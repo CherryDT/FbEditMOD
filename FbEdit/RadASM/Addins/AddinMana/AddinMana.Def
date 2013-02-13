@@ -1,5 +1,0 @@
-LIBRARY AddinMana.dll
-EXPORTS
-	InstallDll
-	DllProc
-	GetOptions

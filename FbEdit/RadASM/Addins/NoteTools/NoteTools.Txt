@@ -1,2 +1,0 @@
-
-This project template for RadASM AddIns is a get-you-starter to make the grunt work easier to manage.

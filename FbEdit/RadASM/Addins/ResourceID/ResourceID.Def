@@ -1,4 +1,0 @@
-LIBRARY ResourceID.dll
-EXPORTS
-	DllProc
-	InstallDll

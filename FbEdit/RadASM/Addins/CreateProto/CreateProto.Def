@@ -1,5 +1,0 @@
-LIBRARY CreateProto.dll
-EXPORTS
-	DllEntry
-	DllProc
-	InstallDll

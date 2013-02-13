@@ -1,7 +1,0 @@
-S2
-BLOCKRANGE,lnMin:DWORD,clMin:DWORD,lnMax:DWORD,clMax:DWORD
-LINERANGE,lnMin:DWORD,lnMax:DWORD
-RABLOCKDEF,lpszStart:DWORD,lpszEnd:DWORD,lpszNot1:DWORD,lpszNot2:DWORD,flag:DWORD
-RACOLOR,bckcol:DWORD,txtcol:DWORD,selbckcol:DWORD,seltxtcol:DWORD,cmntcol:DWORD,strcol:DWORD,oprcol:DWORD,hicol1:DWORD,hicol2:DWORD,hicol3:DWORD,selbarbck:DWORD,selbarpen:DWORD,lnrcol:DWORD,numcol:DWORD,cmntback:DWORD,strback:DWORD,numback:DWORD,oprback:DWORD,changed:DWORD,changesaved:DWORD
-RAFONT,hFont:HFONT,hIFont:HFONT,hLnrFont:HFONT
-RASELCHANGE,nmhdr:NMHDR,chrg:CHARRANGE,seltyp:Word,Line:DWORD,cpLine:DWORD,lpLine:DWORD,nlines:DWORD,nhidden:DWORD,fchanged:DWORD,npage:DWORD,nWordGroup:DWORD

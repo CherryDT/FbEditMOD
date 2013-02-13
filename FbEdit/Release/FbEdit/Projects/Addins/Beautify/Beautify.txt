@@ -1,2 +1,0 @@
-This addin uses porfirio's toolbar bitmap to make FbEdit look a lot nicer.
-It also makes the menu look cool.

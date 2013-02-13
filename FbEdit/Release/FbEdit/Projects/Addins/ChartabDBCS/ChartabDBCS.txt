@@ -1,3 +1,0 @@
-Defines characters 81H to FFH as characters
-if a DBCS font is selected.
-

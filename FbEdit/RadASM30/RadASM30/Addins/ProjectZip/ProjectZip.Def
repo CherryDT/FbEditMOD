@@ -1,4 +1,0 @@
-LIBRARY ProjectZip.dll
-EXPORTS
-	InstallAddin
-	AddinProc

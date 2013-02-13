@@ -1,5 +1,0 @@
-LIBRARY ReallyRad
-EXPORTS
-InstallDll
-DllProc
-GetOptions

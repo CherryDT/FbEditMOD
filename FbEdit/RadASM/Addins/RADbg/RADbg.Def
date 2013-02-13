@@ -1,5 +1,0 @@
-LIBRARY RADbg
-EXPORTS
-InstallDll
-DllProc
-GetOptions

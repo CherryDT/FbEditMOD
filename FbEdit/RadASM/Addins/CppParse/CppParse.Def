@@ -1,5 +1,0 @@
-LIBRARY CppParse.dll
-EXPORTS
-	FindInFile
-	InstallDll
-	ParseFile

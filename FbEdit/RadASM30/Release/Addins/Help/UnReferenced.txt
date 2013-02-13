@@ -1,1 +1,0 @@
-This addin finds unreferenced global and local variables.

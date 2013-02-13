@@ -1,4 +1,0 @@
-
-
-Declare Sub SplashScreen ()	
-

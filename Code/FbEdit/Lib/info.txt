@@ -1,0 +1,29 @@
+
+HtmlHelp
+=========
+
+Download htmlhelp.exe from:
+http://www.microsoft.com/en-us/download/details.aspx?id=21138
+
+Extract and rename "htmlhelp.lib" to "libHtmlHelp.a"
+
+
+Tre (regex)
+============
+
+Build the included (slightly modified) Tre 0.8.0 source using Makefile.
+
+Mods from original Tre:
+ - removed autotools, added custom makefile
+ - removed "tre_" prefix for some functions (see tre-config.h) to be compatible
+   with old lib and freebasic headers
+
+
+ShowVars
+=========
+see /Addins/FbShowVars
+
+
+FBEdit
+=======
+see /FbEditDLL
