@@ -6,12 +6,12 @@
 
 '/
 
-#Include "fbshowvars.bi"
+#Include "Src\FbShowVars.bi"
 
-#Include "addinfunc.bas"
-#Include "functions.bas"
-#Include "callbacks.bas"
-#Include "misc.bas"
+#Include "Src\AddinFunc.bas"
+#Include "Src\Functions.bas"
+#Include "Src\Callbacks.bas"
+#Include "Src\Misc.bas"
 
 ' Returns info on what messages the addin hooks into (in an ADDINHOOKS type).
 Function InstallDll Cdecl Alias "InstallDll" ( ByVal hWin As HWND, ByVal hInst As HINSTANCE ) As ADDINHOOKS ptr Export

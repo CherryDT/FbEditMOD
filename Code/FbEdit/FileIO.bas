@@ -9,6 +9,7 @@
 #Include Once "Inc\Addins.bi"
 #Include Once "Inc\EditorOpt.bi"
 #Include Once "Inc\FbEdit.bi"
+#Include Once "Inc\GUIHandling.bi"
 #Include Once "Inc\Misc.bi"
 #Include Once "Inc\Project.bi"
 #Include Once "Inc\Property.bi"
@@ -175,14 +176,19 @@ End Sub
 
 Sub ReadTheFile (ByVal hWin As HWND, ByVal lpFile As ZString Ptr)
 	
-	Dim hFile      As HANDLE  = Any 
-    Dim EditorMode As Integer = Any 
+	Dim hFile      As HANDLE        = Any 
+    Dim EditorMode As Integer       = Any 
+    Dim Text       As ZString * 512 = Any 
 
     If hWin Then                                                                ' MOD 1.3.2012   add 
     	EditorMode = GetWindowLong (hWin, GWL_ID) 
     	hFile = CreateFile (lpFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0)
     	
-    	If hFile <> INVALID_HANDLE_VALUE Then
+    	If hFile = INVALID_HANDLE_VALUE Then
+	        Text = "File: " + *lpFile
+            TextToOutput "*** no file access ***", &hFFFFFFFF
+            TextToOutput Text     
+    	Else 	
     		Select Case EditorMode
     		Case IDC_RESED
                 ReadResEdFile hWin, hFile, lpFile

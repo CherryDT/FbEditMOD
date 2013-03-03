@@ -66,7 +66,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=9
+MilestoneOnDateDate=24
 MilestoneOnDateTimeYear=2006
 MilestoneOnDateTimeMonth=6
 MilestoneOnDateTimeDate=23
@@ -123,7 +123,7 @@ ProductVer4Range=0
 5=
 3=
 [PTimer]
-PTimer=2415519
+PTimer=2440682
 [Find]
 1="PRM_ADDPROPERTYFILE"
 2="PRM_MEMSEARCH"

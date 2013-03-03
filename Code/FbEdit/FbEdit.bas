@@ -561,7 +561,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			' Project browser
 			ah.hprj=GetDlgItem(hWin,IDC_TRVPRJ)
 			lpOldProjectProc=Cast(Any Ptr,SetWindowLong(ah.hprj,GWL_WNDPROC,Cast(Integer,@ProjectProc)))
-			' Create the imagelist
+			' Create the imagelist (file icons)
 			ah.himl=ImageList_Create(16,16,ILC_MASK Or ILC_COLOR8,16,0)
 			hBmp=LoadBitmap(hInstance,Cast(ZString Ptr,IDB_FILES))
 			ImageList_AddMasked(ah.himl,hBmp,&HFF00FF)
@@ -571,13 +571,17 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			' Setup filebrowser
 			ah.hfib=GetDlgItem(hWin,IDC_FILEBROWSER)
 			lpOldFileBrowserProc = Cast (WNDPROC, SetWindowLong (ah.hfib, GWL_WNDPROC, Cast (LONG, @FileBrowserProc)))
-			SendMessage(ah.hfib,FBM_SETPATH,FALSE,Cast(Integer,@ad.DefProjectPath))
+			If DirExists (ad.DefProjectPath) Then
+			    SendMessage ah.hfib, FBM_SETPATH, FALSE, Cast (LPARAM, @ad.DefProjectPath)
+			Else 
+			    SendMessage ah.hfib, FBM_SETPATH, FALSE, Cast (LPARAM, @ad.AppPath)
+			EndIf 
 			SendMessage(ah.hfib,FBM_SETFILTERSTRING,FALSE,Cast(Integer,StrPtr(".bas.bi.rc.txt.fbp.")))
 			SendMessage(ah.hfib,FBM_SETFILTER,TRUE,TRUE)
 			buff=GetInternalString(IS_RAFILE1)
-			SendMessage(ah.hfib,FBM_SETTOOLTIP,1,Cast(LPARAM,@buff))
+			SendMessage(ah.hfib,FBM_SETTOOLTIP,1,Cast(LPARAM,@buff))    ' button: one folder up
 			buff=GetInternalString(IS_RAFILE2)
-			SendMessage(ah.hfib,FBM_SETTOOLTIP,2,Cast(LPARAM,@buff))
+			SendMessage(ah.hfib,FBM_SETTOOLTIP,2,Cast(LPARAM,@buff))    ' button: file filter on/off
 			' Property definitions
 			ah.hpr=GetDlgItem(hWin,IDC_PROPERTY)
 			SendMessage(ah.hPr,PRM_SETLANGUAGE,nFREEBASIC,0)
@@ -2925,9 +2929,10 @@ Function WinMain(ByVal hInst As HINSTANCE,ByVal hPrevInst As HINSTANCE,ByVal lpC
 	PathRenameExtension ad.IniFile, ".ini" 
 	CheckIniFile  
 	
-	' FbEdit development, use main ini file
+	' FbEdit development: adjust application path
+	'                     use another ini file
 	#If __FB_DEBUG__
-    	GetPrivateProfileString "Win", "AppPath", NULL, @buff, MAX_PATH, @ad.IniFile
+    	GetPrivateProfileString "Win", "AppPath", NULL, @buff, MAX_PATH, @ad.IniFile    ' no regular ini file member
     	If IsZStrNotEmpty (buff) Then
     		ad.AppPath = buff
     		ad.IniFile = ad.AppPath + "\FbEdit.ini"

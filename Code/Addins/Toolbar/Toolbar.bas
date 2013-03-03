@@ -1,10 +1,22 @@
-#include once "windows.bi"
+#Include once "windows.bi"
 #include once "win/commctrl.bi"
 #include once "win/commdlg.bi"
 
 #include "..\..\FbEdit\Inc\Addins.bi"
 
 #include "Toolbar.bi"
+
+Function FileExists (ByVal pSpec As ZString Ptr) As BOOL
+    
+    Dim FileAttr As DWORD = Any 
+    
+    FileAttr = GetFileAttributes (pSpec)
+    
+    If FileAttr = INVALID_FILE_ATTRIBUTES Then Return FALSE  
+    If FileAttr And FILE_ATTRIBUTE_DIRECTORY Then Return FALSE
+    Return TRUE
+
+End Function
 
 sub ShowToolbar(byval hWin as HWND)
 	dim hTbr as HWND
@@ -238,7 +250,8 @@ end sub
 
 function ToolbarProc(byval hWin as HWND,byval uMsg as UINT,byval wParam as WPARAM,byval lParam as LPARAM) as integer
 	dim rect as RECT
-	dim buff as zstring*260
+	dim buff as ZString * 512
+	dim ErrTxt as ZString * 512
 	dim hFile as HANDLE
 	dim hMem as HGLOBAL
 	dim nSize as integer
@@ -295,6 +308,14 @@ function ToolbarProc(byval hWin as HWND,byval uMsg as UINT,byval wParam as WPARA
 			endif
 			SendDlgItemMessage(hWin,IDC_UDNSIZE,UDM_SETRANGE,0,&H00100030)				' Set range
 			SendDlgItemMessage(hWin,IDC_UDNSIZE,UDM_SETPOS,0,lpTBR->nBtnSize)			' Set default value
+
+			If FileExists (lpTBR->szBmpFile) = FALSE Then
+    			GetWindowText hWin, @buff, SizeOf (buff)
+			    buff += " - " + "Warning"
+			    ErrTxt = "Bitmap file not found" + CRLF + lpTBR->szBmpFile 
+			    MessageBox hWin, @ErrTxt, @buff, MB_ICONHAND Or MB_OK  
+			EndIf 
+
 			SetDlgItemText(hWin,IDC_EDTBMPFILE,@lpTBR->szBmpFile)
 			SetImageList(hWin)
 			i=0

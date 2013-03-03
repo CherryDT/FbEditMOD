@@ -107,34 +107,33 @@ Sub SbarTimerProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal idEvent As UINT
     Static OldLastLine As Integer        = -1 
     Static OldCaretPos As Integer        = -1
     
-
-	If EditInfo.AlphaEd Then
-		If     nLastLine <> OldLastLine _
-		OrElse nCaretPos <> OldCaretPos Then
+    	
+	If     nLastLine <> OldLastLine _
+	OrElse nCaretPos <> OldCaretPos Then
+	    If EditInfo.AlphaEd Then	    
 		    wsprintf @OutBuffer, @"Line: %d    Pos: %d", nLastLine + 1, nCaretPos + 1
 	        SendMessage ah.hsbr, SB_SETTEXT, 0, Cast (LPARAM, @OutBuffer)
 	        OldLastLine = nLastLine
 	        OldCaretPos = nCaretPos
 	    EndIf 
-	EndIf
 	
-    If EditInfo.CodeEd Then
-    	isinp.nLine    = nLastLine
-    	isinp.lpszType = @"p"
-    	isinp.nOwner   = Cast (Integer, ah.hred)
-
-    	pInBuffer = Cast (ZString Ptr, SendMessage (ah.hpr, PRM_ISINPROC, 0, Cast (LPARAM, @isinp)))
+        If EditInfo.CodeEd Then
+        	isinp.nLine    = nLastLine
+        	isinp.lpszType = @"p"
+        	isinp.nOwner   = Cast (Integer, ah.hred)
     
-    	If pInBuffer Then
-            FormatFunctionName *pInBuffer, OutBuffer 
-    	Else
-    		SetZStrEmpty (OutBuffer) 
-    	EndIf
-    Else
-        SetZStrEmpty (OutBuffer)
-    EndIf
-    SendMessage ah.hsbr, SB_SETTEXT, 5, Cast (LPARAM, @OutBuffer)
-
+        	pInBuffer = Cast (ZString Ptr, SendMessage (ah.hpr, PRM_ISINPROC, 0, Cast (LPARAM, @isinp)))
+        
+        	If pInBuffer Then
+                FormatFunctionName *pInBuffer, OutBuffer 
+        	Else
+        		SetZStrEmpty (OutBuffer) 
+        	EndIf
+        Else
+            SetZStrEmpty (OutBuffer)
+        EndIf
+        SendMessage ah.hsbr, SB_SETTEXT, 5, Cast (LPARAM, @OutBuffer)
+    EndIf 
 
 End Sub
 

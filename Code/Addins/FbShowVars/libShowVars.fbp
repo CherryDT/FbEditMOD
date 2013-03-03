@@ -1,0 +1,32 @@
+[Project]
+Version=3
+Api=fb (FreeBASIC),win (Windows),sv (Showvars)
+Description=ShowVars, Helper Library
+Grouping=2
+AddMainFiles=1
+ResExport=
+AddModuleFiles=1
+CompileIfNewer=0
+IncVersion=0
+RunCmd=0
+[Make]
+Module=Module Build,fbc -c
+Recompile=2
+Current=1
+1=Win LIB,fbc -v -lib
+Output=libShowVars.a
+Run=
+Delete=
+PreBuildBatch=
+PostBuildBatch=
+[File]
+1=Src\ShowVars.bas
+Main=1
+[FileInfo]
+1=0,59,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+[TabOrder]
+TabOrder=1
+CurrentTab=1
+[BreakPoint]
+1=
+

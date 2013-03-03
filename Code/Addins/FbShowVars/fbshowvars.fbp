@@ -1,7 +1,7 @@
 [Project]
 Version=3
 Api=fb (FreeBASIC),win (Windows)
-Description=Mini Debug
+Description=Mini Debug (FBE Addin DLL)
 Grouping=2
 AddMainFiles=1
 ResExport=
@@ -11,35 +11,38 @@ IncVersion=0
 RunCmd=0
 [Make]
 Module=Module Build,fbc -c
-Recompile=0
+Recompile=2
 Current=1
-1=Windows dll,fbc -s gui -dll -export -w all -v -p "./lib"
-Output=fbshowvars.dll
+1=Windows dll,fbc -s gui -dll -export -w all -v
+Output=FbShowVars.dll
 Run=
-Delete=
+Delete=*.dll.a
+PreBuildBatch=
+PostBuildBatch=
 [File]
-1=addin.bas
-2=addinfunc.bas
-3=callbacks.bas
-4=functions.bas
-5=fbshowvars.bi
-6=fbshowvars.txt
-7=..\..\fbedit\inc\addins.bi
-8=..\..\fbedit\inc\raedit.bi
-9=misc.bas
-10=rsrc.rc
+1=Src\Addin.bas
+2=Src\AddinFunc.bas
+3=Src\Callbacks.bas
+4=Src\Functions.bas
+5=Src\FbShowVars.bi
+6=FbShowVars.txt
+7=..\..\FbEdit\Inc\Addins.bi
+8=..\..\FbEdit\Inc\RAEdit.bi
+9=Src\Misc.bas
+10=Src\FbShowVars.rc
 MainRC=10
+Main=1
 [FileInfo]
-1=0,98,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1=0,10,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 2=0,53,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 3=0,33,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-4=0,308,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-5=0,123,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4=0,413,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5=0,6,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 6=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 7=0,11,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 8=0,218,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 9=0,9,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-10=0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+10=0,157,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 [BreakPoint]
 3=
 5=
@@ -52,3 +55,4 @@ MainRC=10
 10=
 [TabOrder]
 TabOrder=1,2,3,4,5,7,9,8,10
+CurrentTab=5

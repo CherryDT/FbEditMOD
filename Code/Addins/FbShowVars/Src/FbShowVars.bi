@@ -1,11 +1,12 @@
 
 #Include Once "windows.bi"
-#Include Once "win/richedit.bi"
-#Include Once "win/commctrl.bi"
+#Include Once "win\richedit.bi"
+#Include Once "win\commctrl.bi"
 
-#Include "disasm.bi"
-#Include "..\..\fbedit\inc\raedit.bi"
-#Include "..\..\fbedit\inc\addins.bi"
+#LibPath "..\..\..\Redist\DisAsm\Lib"
+#Include "..\..\..\Redist\DisAsm\Inc\disasm.bi"
+#Include "..\..\Fbedit\Inc\RAEdit.bi"
+#Include "..\..\Fbedit\Inc\Addins.bi"
 
 '( tab ) for select: + 1300
 Const TAB_0				= 0				'output

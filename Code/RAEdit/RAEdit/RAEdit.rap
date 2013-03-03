@@ -102,7 +102,7 @@ CompanyName=
 8=IDB_LOCK,107,0,Res\Lock.bmp
 
 [Size]
-1=0,0,0,0,550
+1=0,0,0,0,1282
 16=0,0,810,411,37926
 22=0,0,0,0,3994
 23=0,0,0,0,30414
@@ -190,7 +190,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=13
+MilestoneOnDateDate=21
 MilestoneOnDateTimeYear=2006
 MilestoneOnDateTimeMonth=8
 MilestoneOnDateTimeDate=27
@@ -252,7 +252,7 @@ Group=Assembly,Resources,Misc
 3=
 
 [PTimer]
-PTimer=1077733881
+PTimer=1079904370
 
 [RADebugBP]
 16=

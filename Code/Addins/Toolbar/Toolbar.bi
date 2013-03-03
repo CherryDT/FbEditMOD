@@ -67,3 +67,4 @@ dim SHARED hWnd        As HWND
 Const szNULL=!"\0"
 Const BMPFilterString="Bitmap (*.bmp)" & szNULL & "*.bmp" & szNULL & szNULL
 Const szSTD="IDB_STD_SMALL_COLOR"
+Const CRLF = !"\13\10"

@@ -101,6 +101,9 @@
     
     - Split-Editor-Mode AND BLK-Mode: Cursor hinterlässt beim Fensterwechsel Caretreste
     
+
+    - ResEd verwechselt WorkingDir mit .rc-Pfad
+
     
-    
-    
+    - Projectfile Error: project file not found
+

@@ -18,12 +18,15 @@ Run=
 2=ToolbarTest.Bi
 3=ToolbarTest.Rc
 4=ToolbarTest.tbr
+Main=1
+MainRC=3
 [FileInfo]
-1=0,23,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1=0,42,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 2=0,8,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 3=0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 [TabOrder]
 TabOrder=1,2,3
+CurrentTab=3
 [BreakPoint]
 1=
 2=

@@ -4,28 +4,45 @@
 '' compile with fbc -lib
 ''
 
+#Include Once "windows.bi"
+
 Type MYDEBUGINF
-	_Line		As Integer
-	_Func		As ZString * 32
-	_Path		As ZString * 260
-	_File		As ZString * 260
-	dLabel	    As ZString * 32
-	dString	    As ZString * 128
-	dInteger	As Integer
-	dFloat	    As Double
-	iUpd		As Integer
+	_Line		    As Integer
+	_Func		    As ZString * 32
+	_Path		    As ZString * 260
+	_File		    As ZString * 260
+	dLabel	        As ZString * 32
+	dString	        As ZString * 128
+	dInteger	    As Integer
+	dFloat	        As Double
+	iUpd		    As Integer
 End Type
 
 Type MYDEBUGMEM
-	_Line				As Integer
-	_Func				As ZString * 32
-	_Path				As ZString * 260
-	_File				As ZString * 260
-	dLabel			    As ZString * 32
-	dAddress			As Any ptr
-	iUpd				As Integer
-	iData ( 8192 )	    As UByte				'max 512 lines ( 8kb )
+	_Line			As Integer
+	_Func			As ZString * 32
+	_Path			As ZString * 260
+	_File			As ZString * 260
+	dLabel			As ZString * 32
+	dAddress		As Any ptr
+	iUpd			As Integer
+	iData ( 8192 )	As UByte	    	'max 512 lines ( 8kb )
 End Type
+
+'( messages )
+Const DBG_VAR			= WM_USER+1000	'add/update ( typ ).	wParam=( typ ), 	lParam=pointer MYDEBUGINF struct
+Const DBG_LOG			= WM_USER+1001	'add logs ( typ ).	    wParam=( typ ), 	lParam=pointer MYDEBUGINF struct
+Const DBG_MEM			= WM_USER+1002	'add/update memory.	    wParam=nlines, 	    lParam=pointer MYDEBUGMEM struct
+Const DBG_DIS			= WM_USER+1003	'add disassembler.	    wParam=lenght,		lParam=pointer MYDEBUGMEM struct
+
+Const DBG_SELECT		= WM_USER+1004	'Select tab.	    	wParam=( tab+1300 ),lParam=0
+Const DBG_CLEAR	        = WM_USER+1005	'Clear tab.		        wParam=( clear ),	lParam=0
+Const DBG_STATE	    	= WM_USER+1006	'show/hide window.	    wParam=TRUE/FALSE,  lParam=0
+
+'( typ )
+Const TYP_INTEGER		= 0
+Const TYP_DOUBLE		= 1
+Const TYP_STRING		= 2
 
 Dim Shared As UInteger __spos, __epos
 Dim Shared As HWND fbedit
@@ -40,7 +57,7 @@ cds_dm.cbData = SizeOf ( dm )
 cds_dm.lpData = @dm
 fbedit = FindWindow( "MAINFBEDIT", 0 )
 
-Sub _DebugVar( ByRef Var_label As String, ByVal Var_value As Integer, ByVal dLine As Integer, ByRef dFunc As String, ByRef dPath As String, ByRef dFile As String )
+Sub _DebugVar OverLoad ( ByRef Var_label As String, ByVal Var_value As Integer, ByVal dLine As Integer, ByRef dFunc As String, ByRef dPath As String, ByRef dFile As String )
 	Dim As HWND windbg
 	windbg = FindWindow( 0, "ShowVars" )
 	If windbg = 0 Then windbg = FindWindowEx( fbedit, 0, 0, "ShowVars" )
@@ -54,7 +71,7 @@ Sub _DebugVar( ByRef Var_label As String, ByVal Var_value As Integer, ByVal dLin
 	SendMessage( windbg, WM_COPYDATA, TYP_INTEGER, Cast( LPARAM, @cds_di ) )
 End Sub
 
-Sub _DebugVar( ByRef Var_label As String, ByVal Var_value As Double, ByVal dLine As Integer, ByRef dFunc As String, ByRef dPath As String, ByRef dFile As String )
+Sub _DebugVar OverLoad ( ByRef Var_label As String, ByVal Var_value As Double, ByVal dLine As Integer, ByRef dFunc As String, ByRef dPath As String, ByRef dFile As String )
 	Dim As HWND windbg
 	windbg = FindWindow( 0, "ShowVars" )
 	If windbg = 0 Then windbg = FindWindowEx( fbedit, 0, 0, "ShowVars" )
@@ -68,7 +85,7 @@ Sub _DebugVar( ByRef Var_label As String, ByVal Var_value As Double, ByVal dLine
 	SendMessage( windbg, WM_COPYDATA, TYP_DOUBLE, Cast( LPARAM, @cds_di ) )
 End Sub
 
-Sub _DebugVar( ByRef Var_label As String, ByRef Var_value As String, ByVal dLine As Integer, ByRef dFunc As String, ByRef dPath As String, ByRef dFile As String )
+Sub _DebugVar OverLoad ( ByRef Var_label As String, ByRef Var_value As String, ByVal dLine As Integer, ByRef dFunc As String, ByRef dPath As String, ByRef dFile As String )
 	Dim As HWND windbg
 	windbg = FindWindow( 0, "ShowVars" )
 	If windbg = 0 Then windbg = FindWindowEx( fbedit, 0, 0, "ShowVars" )
@@ -82,7 +99,7 @@ Sub _DebugVar( ByRef Var_label As String, ByRef Var_value As String, ByVal dLine
 	SendMessage( windbg, WM_COPYDATA, TYP_STRING, Cast( LPARAM, @cds_di ) )
 End Sub
 
-Sub _DebugLog( ByVal Var_value As Integer, ByVal dLine As Integer, ByRef dFunc As String, ByRef dPath As String, ByRef dFile As String )
+Sub _DebugLog OverLoad ( ByVal Var_value As Integer, ByVal dLine As Integer, ByRef dFunc As String, ByRef dPath As String, ByRef dFile As String )
 	Dim As HWND windbg
 	windbg = FindWindow( 0, "ShowVars" )
 	If windbg = 0 Then windbg = FindWindowEx( fbedit, 0, 0, "ShowVars" )
@@ -95,7 +112,7 @@ Sub _DebugLog( ByVal Var_value As Integer, ByVal dLine As Integer, ByRef dFunc A
 	SendMessage( windbg, WM_COPYDATA, TYP_INTEGER, Cast( LPARAM, @cds_di ) )
 End Sub
 
-Sub _DebugLog( ByVal Var_value As Double, ByVal dLine As Integer, ByRef dFunc As String, ByRef dPath As String, ByRef dFile As String )
+Sub _DebugLog OverLoad ( ByVal Var_value As Double, ByVal dLine As Integer, ByRef dFunc As String, ByRef dPath As String, ByRef dFile As String )
 	Dim As HWND windbg
 	windbg = FindWindow( 0, "ShowVars" )
 	If windbg = 0 Then windbg = FindWindowEx( fbedit, 0, 0, "ShowVars" )
@@ -108,7 +125,7 @@ Sub _DebugLog( ByVal Var_value As Double, ByVal dLine As Integer, ByRef dFunc As
 	SendMessage( windbg, WM_COPYDATA, TYP_DOUBLE, Cast( LPARAM, @cds_di ) )
 End Sub
 
-Sub _DebugLog( ByRef Var_value As String, ByVal dLine As Integer, ByRef dFunc As String, ByRef dPath As String, ByRef dFile As String )
+Sub _DebugLog OverLoad ( ByRef Var_value As String, ByVal dLine As Integer, ByRef dFunc As String, ByRef dPath As String, ByRef dFile As String )
 	Dim As HWND windbg
 	windbg = FindWindow( 0, "ShowVars" )
 	If windbg = 0 Then windbg = FindWindowEx( fbedit, 0, 0, "ShowVars" )
