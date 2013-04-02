@@ -113,6 +113,10 @@ Sub ReadResEdFile (ByVal hWin As HWND, ByVal hFile As HANDLE, ByVal lpFilename A
     Cast (ZString Ptr, hMem)[nSize] = 0                             ' append NULL          
 	SendMessage ah.hraresed, PRO_OPEN, Cast (WPARAM, lpFilename), Cast (LPARAM, hMem)
     
+    If fProject Then
+        SendMessage ah.hraresed, PRO_SETNAME, Cast (WPARAM, lpFilename), Cast (LPARAM, @ad.ProjectPath)
+    EndIf
+
 End Sub
 
 Sub ReadCodeEdFile (ByVal hWin As HWND, ByVal hFile As HANDLE, ByVal lpFilename As ZString Ptr)
@@ -185,7 +189,7 @@ Sub ReadTheFile (ByVal hWin As HWND, ByVal lpFile As ZString Ptr)
     	hFile = CreateFile (lpFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0)
     	
     	If hFile = INVALID_HANDLE_VALUE Then
-	        Text = "File: " + *lpFile
+	        Text = "reading: " + *lpFile
             TextToOutput "*** no file access ***", &hFFFFFFFF
             TextToOutput Text     
     	Else 	
@@ -237,6 +241,7 @@ Sub BackupFile(Byref szFileName As zString,ByVal nBackup As Integer)
 End Sub
 
 Sub WriteTheFile(ByVal hWin As HWND,Byref szFileName As zString)
+	
 	Dim editstream As EDITSTREAM
 	Dim hFile As HANDLE
 	Dim hMem As HGLOBAL
@@ -245,14 +250,19 @@ Sub WriteTheFile(ByVal hWin As HWND,Byref szFileName As zString)
 	Dim hREd As HWND
 	Dim tci As TCITEM
 	Dim i As Integer
-
+    Dim Text       As ZString * 512 = Any
 
 	If fProject=TRUE And edtopt.backup<>0 Then
 		BackupFile(szFileName,1)
 	EndIf
 	'fChangeNotification=10
 	hFile=CreateFile(szFileName,GENERIC_WRITE,FILE_SHARE_READ,NULL,CREATE_ALWAYS,FILE_ATTRIBUTE_NORMAL,0)
-	If hFile<>INVALID_HANDLE_VALUE Then
+	'Print "hFile=INVALID_HANDLE_VALUE;"; HFILE=INVALID_HANDLE_VALUE
+	If hFile = INVALID_HANDLE_VALUE Then
+        Text = "writing: " + szFileName
+        TextToOutput "*** no file access ***", &hFFFFFFFF
+        TextToOutput Text     
+	Else
 		If hWin=ah.hres Then
 			hMem=MyGlobalAlloc(GMEM_FIXED,256*1024)
 		    Cast (ZString Ptr, hMem)[0] = 0                              ' set content length zero          

@@ -22,10 +22,10 @@ PostBuildBatch=
 2=Console EXE Debug OFF,fbc -v -s console -w all
 [File]
 1=Src\Sample2.bas
-2=ShowVars.bi
+2=Build\ShowVars.bi
 Main=1
 [FileInfo]
-1=0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1=0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 2=0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 [TabOrder]
 TabOrder=1,2

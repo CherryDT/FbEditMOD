@@ -21,6 +21,7 @@
 #Include Once "Inc\Misc.bi"
 #Include Once "Inc\Project.bi"
 #Include Once "Inc\Property.bi"
+#Include Once "Inc\Resource.bi"
 #Include Once "Inc\SpecHandling.bi"
 '#Include Once "Inc\Statusbar.bi"
 #Include Once "Inc\ZStringHandling.bi"
@@ -405,12 +406,12 @@ Function WantToSaveTab (ByVal TabID As Integer) As BOOLEAN     ' MOD 9.2.2012 AD
 		If pTABMEM->filestate Then
 			Select Case  MessageBox(ah.hwnd,GetInternalString(IS_WANT_TO_SAVE_CHANGES),@szAppName,MB_YESNOCANCEL + MB_ICONQUESTION)
 				Case IDYES                                         ' MOD 1.2.2012    MessageBox(hWin,GetInter...
-					If Left (pTABMEM->filename, 10) = "(Untitled)" Then
-						Return SaveTabAs () Xor TRUE              ' MOD 2.1.2012   SaveFileAs(hWin)
-					Else
+					'If Left (pTABMEM->filename, 10) = "(Untitled)" Then
+					'	Return SaveTabAs () Xor TRUE              ' MOD 2.1.2012   SaveFileAs(hWin)
+					'Else
 						WriteTheFile (pTABMEM->hedit, pTABMEM->filename)
 					    Return FALSE 
-					EndIf
+					'EndIf
 					'
 				Case IDCANCEL
 					Return TRUE
@@ -1091,10 +1092,12 @@ End Sub
 Sub OpenAFile (ByVal OpenMode As FileOpenMode)         ' MOD 1.2.2012 OpenAFile(ByVal hWin As HWND,ByVal fHex As Boolean)
 
 	Dim ofn     As OPENFILENAME
-	Dim Buffer  As ZString * 32 * 1024 
+	Dim Buffer  As ZString * 32 * 1024
 	Dim SubStr1 As ZString * MAX_PATH 
 	Dim SubStrN As ZString * MAX_PATH 
 	Dim Idx     As Integer = Any 
+	
+	
 	
 	With ofn
     	.lStructSize     = SizeOf (OPENFILENAME)
@@ -1194,6 +1197,10 @@ Function UnicodeProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam as WPARA
 				fUnicode=IsDlgButtonChecked(hWin,IDC_CHKUNICODE)
 			EndIf
 			'
+	    'Case WM_SIZE
+	    '    Print "WM_SIZE"
+	    '    Return TRUE 
+	
 	End Select
 	Return FALSE
 
@@ -1218,7 +1225,7 @@ Function SaveTabAs() As BOOLEAN    ' MOD 1.2.2012    SaveFileAs(ByVal hWin As HW
 	ofn.nMaxFile=260
 	ofn.lpstrDefExt=StrPtr("bas")
 	ofn.lpstrFilter=StrPtr(ALLFilterString)                         
-	ofn.Flags=OFN_EXPLORER Or OFN_HIDEREADONLY Or OFN_PATHMUSTEXIST Or OFN_OVERWRITEPROMPT Or OFN_ENABLETEMPLATE Or OFN_ENABLEHOOK
+	ofn.Flags=OFN_EXPLORER Or OFN_HIDEREADONLY Or OFN_PATHMUSTEXIST Or OFN_OVERWRITEPROMPT Or OFN_ENABLETEMPLATE Or OFN_ENABLEHOOK Or OFN_ENABLESIZING
 	ofn.lpTemplateName=Cast(ZString Ptr,IDD_DLGSAVEUNICODE)
 	ofn.lpfnHook=Cast(Any Ptr,@UnicodeProc)
 	fUnicode=SendMessage(ah.hred,REM_GETUNICODE,0,0)
@@ -1354,25 +1361,25 @@ Function SaveSelectionDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam
 						ElseIf id=TRUE Then
 							id=SendDlgItemMessage(hWin,IDC_LSTFILES,LB_GETITEMDATA,i,0)
 							SendMessage(ah.htabtool,TCM_GETITEM,id,Cast(Integer,@tci))
-						If Left(pTABMEM->filename,10)="(Untitled)" Then
-								hOld=ah.hred
-								ah.hred=pTABMEM->hedit
-								ad.filename=pTABMEM->filename
-								SendMessage(ah.hwnd,WM_SIZE,SIZE_RESTORED,0)
-								If ah.hred<>hOld Then
-									ShowWindow(ah.hred,SW_SHOW)
-									ShowWindow(hOld,SW_HIDE)
-								EndIf
-								SendMessage(ah.htabtool,TCM_SETCURFOCUS,id,0)
-								SendMessage(ah.htabtool,TCM_SETCURSEL,id,0)
-								SetWinCaption
-						        If SaveTabAs()=FALSE Then            ' MOD 2.1.2012   SaveFileAs(hWin)
-									EndDialog(hWin,1)
-									Return TRUE
-								EndIf
-							Else
+    						'If Left(pTABMEM->filename,10)="(Untitled)" Then
+							'	hOld=ah.hred
+							'	ah.hred=pTABMEM->hedit
+							'	ad.filename=pTABMEM->filename
+							'	SendMessage(ah.hwnd,WM_SIZE,SIZE_RESTORED,0)
+							'	If ah.hred<>hOld Then
+							'		ShowWindow(ah.hred,SW_SHOW)
+							'		ShowWindow(hOld,SW_HIDE)
+							'	EndIf
+							'	SendMessage(ah.htabtool,TCM_SETCURFOCUS,id,0)
+							'	SendMessage(ah.htabtool,TCM_SETCURSEL,id,0)
+							'	SetWinCaption
+						    '    If SaveTabAs()=FALSE Then            ' MOD 2.1.2012   SaveFileAs(hWin)
+							'		EndDialog(hWin,1)
+							'		Return TRUE
+							'	EndIf
+							'Else
 								WriteTheFile(pTABMEM->hedit,pTABMEM->filename)
-							EndIf
+							'EndIf
 						EndIf
 						i=i+1
 					Wend
@@ -1651,24 +1658,24 @@ Function SaveAllTabs () As BOOL                            ' MOD 2.1.2012   (ByV
 	Do
 		If SendMessage(ah.htabtool,TCM_GETITEM,i,Cast(Integer,@tci)) Then
 			If GetModifyFlag (pTABMEM->hedit) Then
-				If Left(pTABMEM->filename,10)="(Untitled)" Then
-					hOld=ah.hred
-					ah.hred=pTABMEM->hedit
-					ad.filename=pTABMEM->filename
-					SendMessage(ah.hwnd,WM_SIZE,SIZE_RESTORED,0)          ' MOD 2.1.2012   SendMessage(hWin,WM_SIZE,0,0)   
-					If ah.hred<>hOld Then
-						ShowWindow(ah.hred,SW_SHOW)
-						ShowWindow(hOld,SW_HIDE)
-					EndIf
-            		SendMessage(ah.htabtool,TCM_SETCURFOCUS,i,0)
-					SendMessage(ah.htabtool,TCM_SETCURSEL,i,0)
-					SetWinCaption
-					If SaveTabAs()=FALSE Then                ' MOD 2.1.2012   SaveFileAs(hWin)
-						NotSaved = TRUE 
-					EndIf
-				Else
+				'If Left(pTABMEM->filename,10)="(Untitled)" Then
+				'	hOld=ah.hred
+				'	ah.hred=pTABMEM->hedit
+				'	ad.filename=pTABMEM->filename
+				'	SendMessage(ah.hwnd,WM_SIZE,SIZE_RESTORED,0)          ' MOD 2.1.2012   SendMessage(hWin,WM_SIZE,0,0)   
+				'	If ah.hred<>hOld Then
+				'		ShowWindow(ah.hred,SW_SHOW)
+				'		ShowWindow(hOld,SW_HIDE)
+				'	EndIf
+            	'	SendMessage(ah.htabtool,TCM_SETCURFOCUS,i,0)
+				'	SendMessage(ah.htabtool,TCM_SETCURSEL,i,0)
+				'	SetWinCaption
+				'	If SaveTabAs()=FALSE Then                ' MOD 2.1.2012   SaveFileAs(hWin)
+				'		NotSaved = TRUE 
+				'	EndIf
+				'Else
 					WriteTheFile(pTABMEM->hedit,pTABMEM->filename)
-				EndIf
+				'EndIf
 			EndIf
 		Else
 			Exit Do

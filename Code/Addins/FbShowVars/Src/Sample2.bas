@@ -1,6 +1,6 @@
 
 #Include Once "windows.bi"
-#Include Once "..\ShowVars.bi"
+#Include Once "Src\ShowVars.bi"
 
 Declare Function WinMain ( ByVal hInstance As HINSTANCE, ByVal hPrevInstance As HINSTANCE, ByRef szCmdLine As String, ByVal iCmdShow As Integer ) As Integer
 Declare Function WndProc ( ByVal hWnd As HWND, ByVal wMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM ) As LRESULT

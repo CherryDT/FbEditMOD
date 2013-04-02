@@ -9,6 +9,7 @@
 #Include Once "Inc\FbEdit.bi"
 #Include Once "Inc\GUIHandling.bi"
 #Include Once "Inc\Language.bi"
+#Include Once "Inc\Resource.bi"
 #Include Once "Inc\ZStringHandling.bi"
 
 #Include Once "Inc\Export.bi"

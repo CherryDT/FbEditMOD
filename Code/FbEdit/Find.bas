@@ -19,6 +19,7 @@
 #Include Once "Inc\LineQueue.bi"
 #Include Once "Inc\Misc.bi"
 #Include Once "Inc\Project.bi"
+#Include Once "Inc\Resource.bi"
 #Include Once "Inc\SpecHandling.bi"
 #Include Once "Inc\TabTool.bi"
 #Include Once "Inc\ZStringHandling.bi"

@@ -1,3 +1,0 @@
-LIBRARY ..\RAProperty.dll
-EXPORTS
-	GetDefEx

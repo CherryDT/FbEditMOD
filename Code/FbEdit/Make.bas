@@ -16,6 +16,7 @@
 #Include Once "Inc\IniFile.bi"
 #Include Once "Inc\Misc.bi"
 #Include Once "Inc\Project.bi"
+#Include Once "Inc\Resource.bi"
 #Include Once "Inc\SpecHandling.bi"
 #Include Once "Inc\Statusbar.bi"
 #Include Once "Inc\TabTool.bi"

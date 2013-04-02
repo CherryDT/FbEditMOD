@@ -6,6 +6,8 @@
 
 #Include Once "Inc\Addins.bi"
 #Include Once "Inc\FbEdit.bi"
+#Include Once "Inc\Resource.bi"
+
 
 
 ' Toolbar bitmap 

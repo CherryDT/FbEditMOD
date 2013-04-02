@@ -193,7 +193,7 @@ End Type
 #Define PRO_DELITEM					PRO_BASE+8		' 0,0
 #Define PRO_CANUNDO					PRO_BASE+9		' 0,0
 #Define PRO_UNDODELETED				PRO_BASE+10		' 0,0
-#Define PRO_SETNAME					PRO_BASE+11		' lpszName:ZString Ptr,lpszPath:ZString Ptr
+#Define PRO_SETNAME					PRO_BASE+11		' lpszName:ZString Ptr (title treeview), lpszPath:ZString Ptr (project path)
 #Define PRO_SHOWNAMES				PRO_BASE+12		' 0,hOut:HWND|HWND     returns handle of new dialog
 #Define PRO_SETEXPORT				PRO_BASE+13		' nType:Integer,lpszDefaultFileName:ZString Ptr
 #Define PRO_EXPORTNAMES				PRO_BASE+14		' 0,hOut:HWND

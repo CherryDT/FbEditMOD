@@ -13,6 +13,7 @@
 #Include Once "Inc\FbEdit.bi"
 #Include Once "Inc\GenericOpt.bi"
 #Include Once "Inc\Project.bi"
+#Include Once "Inc\Resource.bi"
 #Include Once "Inc\SpecHandling.bi"
 #Include Once "Inc\Statusbar.bi"
 #Include Once "Inc\TabTool.bi"
@@ -158,10 +159,10 @@ Function ImmediateProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As 
 			EndIf
 
 	    Case WM_SETFOCUS
-			Print "ImmedProc: SETFOCUS"
+			'Print "ImmedProc: SETFOCUS"
 		
 		Case WM_KILLFOCUS
-			Print "ImmedProc: KILLFOCUS"
+			'Print "ImmedProc: KILLFOCUS"
 			'SendMessage ah.hwnd, FBE_CHILDLOOSINGFOCUS, 0, Cast (LPARAM, GetParent (hWin))     ' notify: window is loosing focus
             SbarClear
 

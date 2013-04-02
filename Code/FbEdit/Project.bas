@@ -17,6 +17,7 @@
 #Include Once "Inc\Make.bi"
 #Include Once "Inc\Misc.bi"
 #Include Once "Inc\Property.bi"
+#Include Once "Inc\Resource.bi"
 #Include Once "Inc\SpecHandling.bi"
 #Include Once "Inc\TabTool.bi" 
 #Include Once "Inc\ZStringHandling.bi"

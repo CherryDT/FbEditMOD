@@ -54,6 +54,7 @@
 #Include Once "Inc\Property.bi"
 #Include Once "Inc\ResEd.bi"
 #Include Once "Inc\ResEdOpt.bi"
+#Include Once "Inc\Resource.bi"
 #Include Once "Inc\SpecHandling.bi"
 #Include Once "Inc\Splash.bi"
 #Include Once "Inc\Statusbar.bi"
@@ -357,10 +358,11 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 	Dim hTVItem As HTREEITEM 
 	Dim pt As Point
 	Dim hebm As HEBMK
-    Dim pZStr  As ZString Ptr = Any 
-    Dim pBuffB As ZString Ptr = Any 
+    Dim pZStr    As ZString Ptr        = Any 
+    Dim pBuffB   As ZString Ptr        = Any 
+    Dim FileSpec As ZString * MAX_PATH = Any   
 
-    Static mnuid As Integer = 21000
+    Static mnuid As Integer            = 21000
     Static fQR   As BOOLEAN 
     Static nSize As Integer
     Static hVCur As HCURSOR
@@ -442,7 +444,18 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			Next 
 			
 			GetPrivateProfilePath "Win"        , "Path"         , @ad.IniFile, @szLastDir        , GPP_MustExist
+			
 			GetPrivateProfilePath "EnvironPath", "PROJECTS_PATH", @ad.IniFile, @ad.DefProjectPath, GPP_MustExist
+			If DirExists (@ad.DefProjectPath) = FALSE Then
+			    ad.DefProjectPath = ad.AppPath + $"\Project"
+			    If DirExists (@ad.DefProjectPath) = FALSE Then
+			        ad.DefProjectPath = ad.AppPath
+			    EndIf
+                buff = "Replacement: " + ad.DefProjectPath
+                TextToOutput "*** defaulting project path ***", MB_ICONHAND 
+                TextToOutput buff     
+			EndIf
+			
 			GetPrivateProfilePath "EnvironPath", "FBC_PATH"     , @ad.IniFile, @ad.fbcPath       , GPP_MustExist
 			GetPrivateProfilePath "EnvironPath", "FBCINC_PATH"  , @ad.IniFile, @ad.FbcIncPath    , GPP_MustExist
 			GetPrivateProfilePath "EnvironPath", "FBCLIB_PATH"  , @ad.IniFile, @ad.FbcLibPath    , GPP_MustExist
@@ -568,6 +581,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			DeleteObject(hBmp)
 			SendMessage(ah.hprj,TVM_SETIMAGELIST,TVSIL_NORMAL,Cast(Integer,ah.himl))
 			SendMessage(ah.htabtool,TCM_SETIMAGELIST,0,Cast(Integer,ah.himl))
+			
 			' Setup filebrowser
 			ah.hfib=GetDlgItem(hWin,IDC_FILEBROWSER)
 			lpOldFileBrowserProc = Cast (WNDPROC, SetWindowLong (ah.hfib, GWL_WNDPROC, Cast (LONG, @FileBrowserProc)))
@@ -582,6 +596,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			SendMessage(ah.hfib,FBM_SETTOOLTIP,1,Cast(LPARAM,@buff))    ' button: one folder up
 			buff=GetInternalString(IS_RAFILE2)
 			SendMessage(ah.hfib,FBM_SETTOOLTIP,2,Cast(LPARAM,@buff))    ' button: file filter on/off
+			
 			' Property definitions
 			ah.hpr=GetDlgItem(hWin,IDC_PROPERTY)
 			SendMessage(ah.hPr,PRM_SETLANGUAGE,nFREEBASIC,0)
@@ -676,16 +691,16 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			MakeSubMenu IDM_TOOLS, IDM_TOOLS_USER_1, IDM_TOOLS_USER_LAST, "Tools"    ' MOD SetToolMenu(hWin)
        		MakeSubMenu IDM_HELP,  IDM_HELP_USER_1,  IDM_HELP_USER_LAST,  "Help"     ' MOD SetHelpMenu(hWin)
 			' Syntax hiliting
-			SetHiliteWords(ah.hwnd)
+			SetHiliteWords ah.hwnd
 			' Add api files
-			GetPrivateProfileString(StrPtr("Api"),StrPtr("Api"),NULL,@ApiFiles,SizeOf(ApiFiles),@ad.IniFile)
-			GetPrivateProfileString(StrPtr("Api"),StrPtr("DefApi"),NULL,@DefApiFiles,SizeOf(DefApiFiles),@ad.IniFile)
+			GetPrivateProfileString @"Api", @"Api"   , NULL, @ApiFiles   , SizeOf (ApiFiles)   , @ad.IniFile
+			GetPrivateProfileString @"Api", @"DefApi", NULL, @DefApiFiles, SizeOf (DefApiFiles), @ad.IniFile
 			LoadApiFiles
-			SetHiliteWordsFromApi(ah.hwnd)
+			SetHiliteWordsFromApi ah.hwnd
 			SetTimer hWin, IDT_GENERAL, 200, Cast (TIMERPROC, @TimerAProc)
 			SetWinCaption
-			hVCur=LoadCursor(hInstance,Cast(ZString Ptr,IDC_VSPLIT))
-			hHCur=LoadCursor(hInstance,Cast(ZString Ptr,IDC_HSPLIT))
+			hVCur = LoadCursor (hInstance, MAKEINTRESOURCE (IDC_VSPLIT))
+			hHCur = LoadCursor (hInstance, MAKEINTRESOURCE (IDC_HSPLIT))
 			MakeMenuMruProjects
 			MakeMenuMruFiles
 			fTimer=1
@@ -797,18 +812,32 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 							fTimer = 1
 							'
 						Case IDM_FILE_NEW
-							hCtl=CreateCodeEd("(Untitled).bas")
-							AddTab(hCtl,"(Untitled).bas",ATM_FOREGROUND)   ' MOD 2.2.2012    AddTab(hCtl,"(Untitled).bas",FALSE)
-							fTimer = 1
+                            i = 0
+                            Do
+                               i += 1
+                               buff = $"%TEMP%\(Untitled)"+ Str (i) + ".bas"
+                               ExpandEnvironmentStrings @buff, @FileSpec, SizeOf (FileSpec)
+                            Loop While FileExists (FileSpec)
+                            OpenTheFile FileSpec, FOM_STD
+							'hCtl=CreateCodeEd("(Untitled).bas")
+							'AddTab(hCtl,"(Untitled).bas",ATM_FOREGROUND)   ' MOD 2.2.2012    AddTab(hCtl,"(Untitled).bas",FALSE)
+							'fTimer = 1
 							'
 						Case IDM_FILE_NEW_RESOURCE
+                            i = 0
+                            Do
+                               i += 1
+                               buff = $"%TEMP%\(Untitled)"+ Str (i) + ".rc"
+                               ExpandEnvironmentStrings @buff, @FileSpec, SizeOf (FileSpec)
+                            Loop While FileExists (FileSpec)
+                            OpenTheFile FileSpec, FOM_STD
 							                                        ' MOD 2.2.2012    ad.filename="(Untitled).rc"
-							hMem=MyGlobalAlloc(GMEM_FIXED Or GMEM_ZEROINIT,4096)
-							'GlobalLock(hMem)                       ' MOD 3.2.2012    FixedMem Lockcount always zero
-							SendMessage(ah.hraresed,PRO_OPEN,Cast(Integer,@"(Untitled).rc"),Cast(Integer,hMem))
-							                                        ' MOD 2.2.2012    ah.hred=ah.hres
-							AddTab(ah.hres,"(Untitled).rc",ATM_FOREGROUND) ' MOD 2.2.2012    AddTab(ah.hred,ad.filename,FALSE)
-							fTimer = 1
+							'hMem=MyGlobalAlloc(GMEM_FIXED Or GMEM_ZEROINIT,4096)
+							''GlobalLock(hMem)                       ' MOD 3.2.2012    FixedMem Lockcount always zero
+							'SendMessage(ah.hraresed,PRO_OPEN,Cast(Integer,@"(Untitled).rc"),Cast(Integer,hMem))
+							'                                        ' MOD 2.2.2012    ah.hred=ah.hres
+							'AddTab(ah.hres,"(Untitled).rc",ATM_FOREGROUND) ' MOD 2.2.2012    AddTab(ah.hred,ad.filename,FALSE)
+							'fTimer = 1
 							'
 						Case IDM_FILE_OPEN_STD
 							'buff=OpenInclude
@@ -873,11 +902,11 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
                             
 					    Case IDM_FILE_SAVE							
 							SetFocus(ah.hred)
-							If Left(ad.filename,10)="(Untitled)" Then
-								SaveTabAs()                    ' MOD 2.1.2012   SaveFileAs(hWin)
-							Else
+							'If Left(ad.filename,10)="(Untitled)" Then
+							'	SaveTabAs()                    ' MOD 2.1.2012   SaveFileAs(hWin)
+							'Else
 								WriteTheFile(ah.hred,ad.filename)
-							EndIf
+							'EndIf
 							UpdateAllTabs (4)                  ' update dirty bit
 							
 						Case IDM_FILE_SAVEALL
@@ -2826,7 +2855,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 						nSize=0
 					EndIf
 				Else
-					SetCursor(LoadCursor(0,IDC_ARROW))
+					SetCursor (LoadCursor (NULL, IDC_ARROW))
 				EndIf
 			EndIf
 			If uMsg=WM_MOUSEMOVE Then

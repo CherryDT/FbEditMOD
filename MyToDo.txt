@@ -102,8 +102,12 @@
     - Split-Editor-Mode AND BLK-Mode: Cursor hinterlässt beim Fensterwechsel Caretreste
     
 
-    - ResEd verwechselt WorkingDir mit .rc-Pfad
-
-    
     - Projectfile Error: project file not found
 
+
+    - inclib autocomplete entfernt lib-prefix nicht
+
+
+    - build-options: exe-find-button kombiniert pfade falsch
+                     startet suche nicht falls pfad nicht existiert
+                     handled den parameteranteil des kommandos nicht

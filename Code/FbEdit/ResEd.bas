@@ -11,6 +11,7 @@
 #Include Once "Inc\GUIHandling.bi"
 #Include Once "Inc\IniFile.bi"
 #Include Once "Inc\ResEdOpt.bi"
+#Include Once "Inc\Resource.bi"
 #Include Once "Inc\Statusbar.bi"
 #Include Once "Inc\ZStringHandling.bi"
 

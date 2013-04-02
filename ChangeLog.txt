@@ -82,6 +82,23 @@ FbEditMOD 1.0.7.8
         the column sizes are stored in fbedit.ini, so they are not lost
         
      - Statusbar section 2 (LOCK/UNLOCK), 3 (LIN/BLK) and 4 (INS/OVR) is clickable   
-        
+
+     - Toolbar addin
+        an error message is created, if the corresponding .bmp-file was not found
+
+     - VKDebug
+        a FbEdit version of VKDebug dumps directly to FbEdits output window
+        now masm32/JWasm non-natives have some low level debugging support
+        for details see Projects\Samples\MixedLanguage\
+
+     - ResEd
+        filespecs pointing to include or resource files are stored with relative pathes
+        .rc-file relocation is easier to do now
+
+     - (Untitled).bas / (Untitled).rc
+        a full qualified path %TEMP%\(Untitled).bas[.rc] is assigned on creation
+        so path aware autocompletes should work before saving
+
+     -
       *** incomplete ***                                                                  
                                                               

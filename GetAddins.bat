@@ -32,8 +32,8 @@ Copy Code\Addins\TortoiseSVN\TortoiseSVN.txt %outd%\Addins\Help\
 Copy "Code\Addins\Base Calc\Base Calc.dll" %outd%\Addins\
 Copy "Code\Addins\Base Calc\Base Calc.txt" %outd%\Addins\Help\
 
-Copy Code\Addins\fbShowVars\fbShowVars.dll %outd%\Addins\
-Copy Code\Addins\fbShowVars\fbShowVars.txt %outd%\Addins\Help\
+Copy Code\Addins\FbShowVars\Build\FbShowVars.dll %outd%\Addins\
+Copy Code\Addins\FbShowVars\FbShowVars.txt %outd%\Addins\Help\
 
 Copy Code\Addins\Toolbar\Toolbar.dll %outd%\Addins\
 Copy Code\Addins\Toolbar\Toolbar.txt %outd%\Addins\Help\

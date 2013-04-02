@@ -191,7 +191,7 @@ Sub MoveList()
     Dim Hreq       As Integer = Any 
     Dim ItemRect   As RECT    = Any
     Dim ItemCount  As Long    = Any 
-    Dim Boarder    As Integer = Any 
+    Dim Border     As Integer = Any 
     Dim CellHeight As Long    = Any            ' Editor: Textheight + Extra Linespacing
     Dim hEDSplitt  As HWND    = Any 
     
@@ -199,7 +199,7 @@ Sub MoveList()
     #Define EDHeight      EDRect.bottom
 
     hEDSplitt  = GetFocus ()
-    Boarder    = 2 * GetSystemMetrics (SM_CYFIXEDFRAME)
+    Border     = 2 * GetSystemMetrics (SM_CYSIZEFRAME)
     CellHeight = SendMessage (ah.hred, REM_GETCELLHEIGHT, 0, 0)
     
     GetClientRect hEDSplitt, @EDRect
@@ -211,7 +211,7 @@ Sub MoveList()
 
 	SendMessage ah.hcc, CCM_GETITEMRECT, 0, Cast (LPARAM, @ItemRECT)
 	ItemCount = SendMessage (ah.hcc, CCM_GETCOUNT, 0, 0)
-	Hreq      = ItemCount * ItemHeight + Boarder
+	Hreq      = ItemCount * ItemHeight + Border
 	
 	If EDHeight - (CaretPos.y + CellHeight) > Hreq Then       ' enough space below: SET BELOW
 	    CCRect.top = CaretPos.y + CellHeight
@@ -222,19 +222,19 @@ Sub MoveList()
 	            CCRect.top = CaretPos.y - Hreq 
                 CCRect.bottom = Hreq 
             Else                                              ' not enough space above: FIT ABOVE
-	            Hreq = (CaretPos.y \ ItemHeight) * ItemHeight + Boarder
+	            Hreq = (CaretPos.y \ ItemHeight) * ItemHeight + Border
                 CCRect.top = CaretPos.y - Hreq
                 CCRect.bottom = Hreq
 	        EndIf
 	    Else	                                              ' space above is smaller: FIT BELOW
             CCRect.top = CaretPos.y + CellHeight
-	        CCRect.bottom = ((EDHeight - CaretPos.y - CellHeight) \ ItemHeight) * ItemHeight + Boarder
+	        CCRect.bottom = ((EDHeight - CaretPos.y - CellHeight) \ ItemHeight) * ItemHeight + Border
 	    EndIf
 	EndIf
 
 	CCRect.left = CaretPos.x 
 	If edtopt.autowidth Then
-		CCRect.right = SendMessage (ah.hcc, CCM_GETMAXWIDTH, 0, 0) + Boarder + 5   ' 5 = some space behind the last char
+		CCRect.right = SendMessage (ah.hcc, CCM_GETMAXWIDTH, 0, 0) + Border + 5   ' 5 = some space behind the last char
 	    If CCRect.right < 100 Then
 			CCRect.right = 100
 		EndIf
@@ -428,14 +428,14 @@ Sub GetStructItemsFromNamespace(ByVal lpsz As ZString Ptr)
 		x=InStr(*lret,".")
 		lret=lret+x
 		ntype=SendMessage(ah.hpr,PRM_FINDGETTYPE,0,0)
-		Select Case Chr(ntype)
-			Case "p"
+		Select Case ntype
+			Case Asc("p")
 				ntype=1
-			Case "c","e"
+			Case Asc("c"), Asc("e")
 				ntype=3
-			Case "s"
+			Case Asc("s")
 				ntype=5
-			Case "d"
+			Case Asc("d")
 				ntype=14
 			Case Else
 				ntype=0

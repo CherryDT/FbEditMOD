@@ -9,6 +9,7 @@
 #Include Once "Inc\Environment.bi"
 #Include Once "Inc\FbEdit.bi"
 #Include Once "Inc\GUIHandling.bi"
+#Include Once "Inc\Resource.bi"
 #Include Once "Inc\SpecHandling.bi"
 #Include Once "Inc\ZStringHandling.bi"
 
@@ -78,7 +79,7 @@ Const szSecBlock=			!"[Block]\13\10"_
 								!"7=constructor $,End Constructor,,,6\13\10"_
 								!"8=destructor $,End Destructor,,,6\13\10"_
 								!"9=property $,End Property,,,6\13\10"_
-								!"10=enum,End Enum,,,4\13\10"_
+								!"10=enum $,End Enum,,,4\13\10"_
 								!"11=#macro $,#EndMacro,,,6\13\10"_
 								!"12=select case !end select,End Select,case,,0\13\10"_
 								!"13=if $! then,EndIf|End If,elseif,else,0\13\10"_

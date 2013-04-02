@@ -22,7 +22,6 @@ Type CaretHistory
         Declare Sub      GoForward  ()
         Declare Sub      GoCurrent  ()
         Declare Sub      Enqueue  (ByVal hWin As HWND, ByVal cp As Integer)           ' append after current
-        Declare Sub      Requeue  (ByVal hWin As HWND, ByVal cp As Integer)           ' overwrite current
         Declare Sub      Shift    (ByVal hWin As HWND, ByVal Position As Integer, ByVal Offset As Integer)
 
         Declare Constructor

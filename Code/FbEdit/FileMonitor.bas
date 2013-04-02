@@ -6,6 +6,7 @@
     #Include Once "Inc\FbEdit.bi"
     #Include Once "Inc\FileIO.bi"
     #Include Once "Inc\Language.bi"
+    #Include Once "Inc\Resource.bi"
     #Include Once "Inc\SpecHandling.bi"
     #Include Once "Inc\TabTool.bi"
 

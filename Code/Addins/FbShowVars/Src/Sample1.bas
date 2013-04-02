@@ -1,5 +1,5 @@
 
-#Include Once "..\ShowVars.bi"
+#Include Once "Src\ShowVars.bi"
 
 #Define ALLTABS CLR_0 Or CLR_1 Or CLR_2 Or CLR_3 Or CLR_4 Or CLR_5 Or CLR_6
 
