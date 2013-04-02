@@ -1,9 +1,0 @@
-LIBRARY ..\RAEdit.dll
-EXPORTS
-	GetDef
-	SetHiliteWords
-	GetCharTabPtr
-	GetCharTabVal
-	SetCharTabVal
-	GetDefEx
-	SetBlockDef
