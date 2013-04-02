@@ -1,6 +1,0 @@
-#define IDB_BMP							100
-#define IDC_SPLICURV					150
-#define IDC_SPLICURH					151
-IDB_BMP					BITMAP    DISCARDABLE "Res/ToolBox.bmp"
-IDC_SPLICURV			CURSOR    DISCARDABLE "Res/SplitV.cur"
-IDC_SPLICURH			CURSOR    DISCARDABLE "Res/SplitH.cur"
