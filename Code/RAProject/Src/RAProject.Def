@@ -1,0 +1,3 @@
+LIBRARY RAProject.dll
+EXPORTS
+	GetDef

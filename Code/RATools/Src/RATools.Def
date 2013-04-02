@@ -1,0 +1,4 @@
+LIBRARY RATools.dll
+EXPORTS
+	GetDef
+	GetDefEx

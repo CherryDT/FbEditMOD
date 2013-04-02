@@ -1,0 +1,3 @@
+#include "Res/RAFileRes.rc"
+#include "Res/RAFileStr.rc"
+#include "Res/RAFileVer.rc"
