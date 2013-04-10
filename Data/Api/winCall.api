@@ -805,7 +805,9 @@ CreateDC,lpszDriver:LPCTSTR,lpszDevice:LPCTSTR,lpszOutput:LPCTSTR,*lpInitData:DE
 CreateDesktop,lpszDesktop:LPCTSTR,lpszDevice:LPCTSTR,pDevmode:LPDEVMODE,dwFlags:DWORD,dwDesiredAccess:ACCESS_MASK,lpsa:LPSECURITY_ATTRIBUTES|HDESK
 CreateDesktopEx,lpszDesktop:LPCTSTR,lpszDevice:LPCTSTR,pDevmode:LPDEVMODE,dwFlags:DWORD,dwDesiredAccess:ACCESS_MASK,lpsa:LPSECURITY_ATTRIBUTES,ulHeapSize:ULONG,pvoid:PVOID|HDESK
 CreateDeviceLinkProfile,pahProfiles:PHPROFILE,nProfiles:DWORD,padwIntent:PDWORD,nIntents:DWORD,dwFlags:DWORD,pProfileData:PBYTE Ptr,indexPreferredCMM:DWORD|BOOL
-CreateDialogIndirectParam(hInstance:HINSTANCE,lpTemplate:LPCDLGTEMPLATE,hWndParent:HWND,lpDialogFunc:DLGPROC,lParamInit:LPARAM|HWND
+CreateDialog,hInstance:HINSTANCE,lpTemplateName:LPCTSTR,hWndParent:HWND,lpDialogFunc:DLGPROC
+CreateDialogIndirect,hInstance:HINSTANCE,lpTemplate:LPCDLGTEMPLATE,hWndParent:HWND,lpDialogFunc:DLGPROC
+CreateDialogIndirectParam,hInstance:HINSTANCE,lpTemplate:LPCDLGTEMPLATE,hWndParent:HWND,lpDialogFunc:DLGPROC,lParamInit:LPARAM|HWND
 CreateDialogParam,hInstance:HINSTANCE,lpTemplateName:LPCTSTR,hWndParent:HWND,lpDialogFunc:DLGPROC,dwInitParam:LPARAM|HWND
 CreateDIBitmap,hdc:HDC,*lpbmih:BITMAPINFOHEADER,fdwInit:DWORD,*lpbInit:VOID,*lpbmi:BITMAPINFO,fuUsage:UINT|HBITMAP
 CreateDIBPatternBrush,hglbDIBPacked:HGLOBAL,fuColorSpec:UINT|HBRUSH

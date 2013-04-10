@@ -1,5 +1,8 @@
 DebugAsm,label
+DebugBreakPoint
+DebugCall,function
 DebugClear,tabs
+DebugClr,tab
 DebugHide
 DebugLog,[[integer][float][string]]
 DebugMem,label,address,nlines
@@ -7,5 +10,6 @@ DebugSelect,tab
 DebugState,state
 DebugShow
 DebugVar,label,[[integer][float][string]]
+DebugPrint, expression
 Mark1
 Mark2
