@@ -8,4 +8,4 @@ call GetIncludeFiles.bat
 call GetDataFiles.bat
 call GetProjectSamples.bat
 
-copy WhatsNew.txt .\Build\
+copy ChangeLog.txt .\Build\

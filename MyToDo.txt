@@ -96,9 +96,6 @@
     - openproject: EditorTabs im BG-Mode öffnen
            
            
-    - Optionen->CodeEditor->OutpFont auswählen 
-    
-    
     - Split-Editor-Mode AND BLK-Mode: Cursor hinterlässt beim Fensterwechsel Caretreste
     
 

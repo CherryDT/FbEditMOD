@@ -1,18 +1,46 @@
 @echo off
 
-Set outd=.\Build\
+set outd=.\Build\
 
-Copy Code\FbEditDLL\Dll\FbEdit.dll %outd%
+echo .
+echo *** exhibit DLLs ***
 
-Copy Code\RACodeComplete\Dll\RACodeComplete.dll %outd%
-Copy Code\RAFile\Dll\RAFile.dll %outd%
-Copy Code\RAGrid\Dll\RAGrid.dll %outd%
-Copy Code\RAProperty\Dll\RAProperty.dll %outd%
-Copy Code\RAResEd\Dll\RAResEd.dll %outd%
-Copy Code\RAEdit\Dll\RAEdit.dll %outd%
-Copy Code\RAHexEd\Dll\RAHexEd.dll %outd%
-Copy Code\Other\SpreadSheet\SprSht.dll %outd%
+xcopy Code\FbEditDLL\Build\FbEdit.dll                   %outd%   /d /y || goto ERR_Exit
 
-Copy Code\Samples\CustCtrl\FBEPictView\FBEPictView.dll %outd%
-Copy Code\Samples\CustCtrl\FBEVideo\FBEVideo.dll %outd%
-Copy Code\Samples\CustCtrl\FBEWeb\FBEWeb.dll %outd%
+xcopy Code\RACodeComplete\Build\RACodeComplete.dll      %outd%   /d /y || goto ERR_Exit
+xcopy Code\RAFile\Build\RAFile.dll                      %outd%   /d /y || goto ERR_Exit
+xcopy Code\RAGrid\Build\RAGrid.dll                      %outd%   /d /y || goto ERR_Exit
+xcopy Code\RAProperty\Build\RAProperty.dll              %outd%   /d /y || goto ERR_Exit
+xcopy Code\RAProject\Build\RAProject.dll                %outd%   /d /y || goto ERR_Exit
+::xcopy Code\RAResEd\Build\RAResEd.dll                    %outd%   /d /y || goto ERR_Exit
+xcopy Code\RAEdit\Build\RAEdit.dll                      %outd%   /d /y || goto ERR_Exit
+xcopy Code\RAHexEd\Build\RAHexEd.dll                    %outd%   /d /y || goto ERR_Exit
+xcopy Code\Other\SpreadSheet\SprSht.dll                 %outd%   /d /y || goto ERR_Exit
+
+xcopy Code\Samples\CustCtrl\FBEPictView\FBEPictView.dll %outd%   /d /y || goto ERR_Exit
+xcopy Code\Samples\CustCtrl\FBEVideo\FBEVideo.dll       %outd%   /d /y || goto ERR_Exit
+xcopy Code\Samples\CustCtrl\FBEWeb\FBEWeb.dll           %outd%   /d /y || goto ERR_Exit
+
+
+
+:OK_Exit
+echo .
+echo ------------------------
+echo --- OK - Batch ready ---
+echo ------------------------
+echo .
+echo .
+echo .
+pause
+exit 0
+
+:ERR_Exit
+echo .
+echo ********************************
+echo *** ERROR - Batch terminated ***
+echo ********************************
+echo .
+echo .
+echo .
+pause
+exit 1

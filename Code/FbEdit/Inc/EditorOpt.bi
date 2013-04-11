@@ -74,9 +74,11 @@ Const szBracketMatch As String = "({[,)}],_"        ' Bracket matching
 #Define IDC_STCCODEFONT						4022
 #Define IDC_STCLNRFONT						4023
 #Define IDC_STCTOOLSFONT					4065
+#Define IDC_STCOUTPFONT                     4070
 #Define IDC_BTNCODEFONT						4024
 #Define IDC_BTNLNRFONT						4025
 #Define IDC_BTNTOOLSFONT					4066
+#Define IDC_BTNOUTPFONT 					4071
 #Define IDC_CHKHILITECMNT					4026
 #Define IDC_CHKSINGLEINSTANCE				4031
 #Define IDC_CBOTHEME						4007

@@ -1,3 +1,4 @@
+
 FbEditMOD 1.0.7.8
     
     - all language files except NONE and german are currently broken
@@ -102,8 +103,10 @@ FbEditMOD 1.0.7.8
      - Autocomplete #inclib "...
         entities prefix (lib) is removed
 
-
-
+     - [Options]->[Code Editor]
+        output window's font is selectable
+        output, immediate, register, fpu, mmx window are effected immediately
+        showvars window needs an restart of FbEdit
 
       *** incomplete ***                                                                  
                                                               
