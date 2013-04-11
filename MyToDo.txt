@@ -105,9 +105,12 @@
     - Projectfile Error: project file not found
 
 
-    - inclib autocomplete entfernt lib-prefix nicht
-
-
     - build-options: exe-find-button kombiniert pfade falsch
                      startet suche nicht falls pfad nicht existiert
                      handled den parameteranteil des kommandos nicht
+
+     - Contextmenu file/project-browser:
+            [Open Extern] hinzufügen
+
+
+

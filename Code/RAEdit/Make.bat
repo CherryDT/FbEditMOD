@@ -42,6 +42,11 @@ xcopy Src\RAEdit.inc Build /d /y || goto ERR_Exit
 
 
 echo .
+echo *** exhibit DOC ***
+xcopy RAEdit.txt Build /d /y || goto ERR_Exit
+
+
+echo .
 echo *** cleanup ***
 del RAEdit.obj || goto ERR_Exit
 del RAEdit.res || goto ERR_Exit

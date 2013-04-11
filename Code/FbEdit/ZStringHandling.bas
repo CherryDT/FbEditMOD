@@ -1,5 +1,7 @@
 
 
+' module compile with: -gen gcc -O2
+
 #Include Once "windows.bi"
 
 

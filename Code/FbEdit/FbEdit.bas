@@ -361,6 +361,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
     Dim pZStr    As ZString Ptr        = Any 
     Dim pBuffB   As ZString Ptr        = Any 
     Dim FileSpec As ZString * MAX_PATH = Any   
+  	Dim hFile    As HANDLE             = Any 
 
     Static mnuid As Integer            = 21000
     Static fQR   As BOOLEAN 
@@ -814,10 +815,15 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 						Case IDM_FILE_NEW
                             i = 0
                             Do
-                               i += 1
-                               buff = $"%TEMP%\(Untitled)"+ Str (i) + ".bas"
-                               ExpandEnvironmentStrings @buff, @FileSpec, SizeOf (FileSpec)
-                            Loop While FileExists (FileSpec)
+                                i += 1
+                                buff = $"%TEMP%\(Untitled)"+ Str (i) + ".bas"
+                                ExpandEnvironmentStrings @buff, @FileSpec, SizeOf (FileSpec)
+                                hFile = CreateFile (@FileSpec, GENERIC_WRITE, NULL, NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL)
+                        	    If hFile <> INVALID_HANDLE_VALUE Then
+		                            CloseHandle hFile 
+		                            Exit Do
+                        	    EndIf
+                        	Loop
                             OpenTheFile FileSpec, FOM_STD
 							'hCtl=CreateCodeEd("(Untitled).bas")
 							'AddTab(hCtl,"(Untitled).bas",ATM_FOREGROUND)   ' MOD 2.2.2012    AddTab(hCtl,"(Untitled).bas",FALSE)
@@ -826,10 +832,15 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 						Case IDM_FILE_NEW_RESOURCE
                             i = 0
                             Do
-                               i += 1
-                               buff = $"%TEMP%\(Untitled)"+ Str (i) + ".rc"
-                               ExpandEnvironmentStrings @buff, @FileSpec, SizeOf (FileSpec)
-                            Loop While FileExists (FileSpec)
+                                i += 1
+                                buff = $"%TEMP%\(Untitled)"+ Str (i) + ".rc"
+                                ExpandEnvironmentStrings @buff, @FileSpec, SizeOf (FileSpec)
+                                hFile = CreateFile (@FileSpec, GENERIC_WRITE, NULL, NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL)
+                        	    If hFile <> INVALID_HANDLE_VALUE Then
+		                            CloseHandle hFile 
+		                            Exit Do
+                        	    EndIf
+                        	Loop
                             OpenTheFile FileSpec, FOM_STD
 							                                        ' MOD 2.2.2012    ad.filename="(Untitled).rc"
 							'hMem=MyGlobalAlloc(GMEM_FIXED Or GMEM_ZEROINIT,4096)
@@ -841,7 +852,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 							'
 						Case IDM_FILE_OPEN_STD
 							'buff=OpenInclude
-							GetIncludeSpec @buff                    ' check cursor position for an valid spec
+							GetIncludeSpec @buff                        ' check cursor position for an valid spec
 							If IsZStrNotEmpty (buff) Then
 								OpenTheFile buff, FOM_STD
 							Else
@@ -851,38 +862,32 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 							fTimer = 1
 							'
 						Case IDM_FILE_OPEN_HEX
-							OpenAFile(FOM_HEX)                         ' MOD 2.1.2012   OpenAFile(hWin,TRUE)
+							OpenAFile FOM_HEX                           ' MOD 2.1.2012   OpenAFile(hWin,TRUE)
 							fTimer = 1
 							'
 						Case IDM_FILE_OPEN_TXT
-							OpenAFile(FOM_TXT)                         ' MOD 2.1.2012   OpenAFile(hWin,TRUE)
+							OpenAFile FOM_TXT                           ' MOD 2.1.2012   OpenAFile(hWin,TRUE)
 							fTimer = 1
 							'
     					Case IDM_FIB_OPEN_STD
     					    SendMessage ah.hfib, FBM_GETSELECTED, 0, Cast (LPARAM, @buff)
-    					    If GetFileAttributes (@buff) And FILE_ATTRIBUTE_DIRECTORY Then
-    					        ' is DIR, dont load
-    					    Else
+    					    If FileExists (@buff) Then
     					        OpenTheFile buff, FOM_STD
     					        fTimer = 1    
     					    EndIf
     				
     					Case IDM_FIB_OPEN_HEX
        					    SendMessage ah.hfib, FBM_GETSELECTED, 0, Cast (LPARAM, @buff)
-    					    If GetFileAttributes (@buff) And FILE_ATTRIBUTE_DIRECTORY Then
-    					        ' is DIR, dont load
-    					    Else
+    					    If FileExists (@buff) Then
     					        OpenTheFile buff, FOM_HEX
     					        fTimer = 1    
     					    EndIf
     
     					Case IDM_FIB_OPEN_TXT
     					    SendMessage ah.hfib, FBM_GETSELECTED, 0, Cast (LPARAM, @buff)
-    					    If GetFileAttributes (@buff) And FILE_ATTRIBUTE_DIRECTORY Then
-    					        ' is DIR, dont load
-    					    Else
-    					        OpenTheFile buff, FOM_TXT    
-    					        fTimer = 1
+       					    If FileExists (@buff) Then
+    					        OpenTheFile buff, FOM_TXT
+    					        fTimer = 1    
     					    EndIf
 					    
 					    Case IDM_PROJECT_FILE_OPEN_STD
@@ -1661,13 +1666,13 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 							SendMessage(hWin,WM_SIZE,SIZE_RESTORED,0)
 							'
 						Case IDM_PROJECT_ADDNEWFILE
-							AddNewProjectFile()
+							AddNewProjectFile
 							'
 						Case IDM_PROJECT_ADDNEWMODULE
 							AddNewProjectModule
 							'
 						Case IDM_PROJECT_ADDEXISTINGFILE
-							AddExistingProjectFile()
+							AddExistingProjectFile
 							'
 						Case IDM_PROJECT_ADDEXISTINGMODULE
 							AddExistingProjectModule

@@ -10,14 +10,14 @@ Enum FBEFileType
 End Enum
 
 
-Declare Function GetFileName (ByRef Buff As ZString) As ZString Ptr   ' MOD 22.1.2012 String -> Zstring Ptr
-Declare Function RemoveFileExt (Byref sFile As zString) As ZString Ptr
-Declare Function GetFileExt (ByRef sFile As ZString) As ZString ptr
-Declare Sub GetFilePath (ByRef sFile As ZString)
+Declare Function GetFileName (ByVal pFileSpec As ZString Ptr) As ZString Ptr   ' MOD 22.1.2012 String -> Zstring Ptr
+Declare Function RemoveFileExt (ByVal pFileSpec As ZString Ptr) As ZString Ptr
+Declare Function GetFileExt (ByVal pFileSpec As ZString Ptr) As ZString Ptr 
+Declare Sub GetFilePath (ByVal pFileSpec As ZString Ptr)
 'Declare Sub FixPath (Byref Path As ZString)
-Declare Function GetFileBaseName (ByRef FileSpec As ZString) As ZString Ptr
-Declare Function GetFBEFileType (Byref FileSpec As ZString) As FBEFileType
-Declare Sub BuildDirList (ByVal lpDir As ZString Ptr,ByVal lpSub As ZString Ptr,ByVal nType As Integer)
+Declare Function GetFileBaseName (ByVal pFileSpec As ZString Ptr) As ZString Ptr
+Declare Function GetFBEFileType (ByVal pFileSpec As ZString Ptr) As FBEFileType
+Declare Sub BuildDirList (ByVal lpDir As ZString Ptr, ByVal lpSub As ZString Ptr, ByVal nType As Integer)
 Declare Sub GetIncludeSpec (ByVal pIncludeSpec As ZString Ptr)
 Declare Sub GetLastWriteTime (ByVal pFileSpec As ZString Ptr, ByVal pFileTime As FILETIME Ptr)
 
@@ -26,7 +26,7 @@ Declare Function FileExists (ByVal pSpec As ZString Ptr) As BOOL
 Declare Function DirExists (ByVal pSpec As ZString Ptr) As BOOL
 
 
-Extern DirList      As string
+Extern DirList      As String 
 Extern DirListLCase As String 
 
 

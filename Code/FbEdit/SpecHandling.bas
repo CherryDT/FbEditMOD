@@ -1,6 +1,9 @@
 
 #Include Once "windows.bi"
 
+#Include Once "..\..\Redist\Masm32Lib\Build\Masm32.bi"
+#LibPath "..\..\Redist\Masm32Lib\Build"
+
 #Include Once "Inc\RAEdit.bi"
 
 #Include Once "Inc\Addins.bi"
@@ -93,11 +96,11 @@ Dim Shared DirListLCase As String
 '
 'End Sub
 
-Sub GetFilePath (ByRef sFile As ZString)
+Sub GetFilePath (ByVal pFileSpec As ZString Ptr)
 	
 	' MOD 22.1.2012
 	
-	PathRemoveFileSpec @sFile
+	PathRemoveFileSpec pFileSpec
 	
 	'Dim x As Integer
     '
@@ -112,11 +115,11 @@ Sub GetFilePath (ByRef sFile As ZString)
 
 End Sub
 
-Function GetFileExt(ByRef sFile As ZString) As ZString ptr
+Function GetFileExt (ByVal pSpec As ZString Ptr) As ZString Ptr 
 
     ' MOD 11.1.2012
 
-	Return PathFindExtension (@sFile)
+	Return PathFindExtension (pSpec)
 
 	'Const ASCII_Point     As Integer = Asc(".")
 	'Const ASCII_Colon     As Integer = Asc(":")
@@ -137,11 +140,11 @@ Function GetFileExt(ByRef sFile As ZString) As ZString ptr
 
 End Function
 
-Function RemoveFileExt (Byref sFile As zString) As ZString Ptr
+Function RemoveFileExt (ByVal pFileSpec As ZString Ptr) As ZString Ptr
 
-    Dim    x        As Integer = lstrlen (@sFile)
+    Dim    x        As Integer = lstrlen (pFileSpec)
     Static SpecCopy As ZString * MAX_PATH
-    SpecCopy = sFile
+    SpecCopy = *pFileSpec
     
 	Do While x
 
@@ -171,9 +174,9 @@ Function RemoveFileExt (Byref sFile As zString) As ZString Ptr
 
 End Function
 
-Function GetFileName (ByRef Buff As ZString) As ZString Ptr   ' MOD 22.1.2012 String -> Zstring Ptr
-                                                              ' fExt = FALSE -> Call GetFileBaseName  
-    Return PathFindFileName (@Buff)
+Function GetFileName (ByVal pFileSpec As ZString Ptr) As ZString Ptr   ' MOD 22.1.2012 String -> Zstring Ptr
+                                                                       ' fExt = FALSE -> Call GetFileBaseName  
+    Return PathFindFileName (pFileSpec)
     
     '=================================
     ' MOD 22.1.2012
@@ -204,11 +207,11 @@ Function GetFileName (ByRef Buff As ZString) As ZString Ptr   ' MOD 22.1.2012 St
     
 End Function
 
-Function GetFileBaseName (ByRef FileSpec As ZString) As ZString Ptr
+Function GetFileBaseName (ByVal pFileSpec As ZString Ptr) As ZString Ptr
     
     Static Buffer As ZString * MAX_PATH = Any
     
-    Buffer = *PathFindFileName (@FileSpec)
+    Buffer = *PathFindFileName (pFileSpec)
     
     PathRemoveExtension @Buffer
     
@@ -216,13 +219,13 @@ Function GetFileBaseName (ByRef FileSpec As ZString) As ZString Ptr
 
 End Function
 
-Function GetFBEFileType (Byref FileSpec As ZString) As FBEFileType
+Function GetFBEFileType (ByVal pFileSpec As ZString Ptr) As FBEFileType
 	
 	' MOD 11.1.2012
 	'sCodeFiles is LCASE p.def. - forced on file I/O
 	
 	Dim i       As Integer            = Any
-	Dim FileExt As ZString * MAX_PATH = *PathFindExtension (@FileSpec)
+	Dim FileExt As ZString * MAX_PATH = *PathFindExtension (pFileSpec)
 		
 	If FileExt[0] = 0 Then Return FBFT_UNKOWN
 	CharLower FileExt
@@ -253,73 +256,54 @@ Function GetFBEFileType (Byref FileSpec As ZString) As FBEFileType
 
 End Function
 
-Sub BuildDirList(ByVal lpDir As ZString Ptr,ByVal lpSub As ZString Ptr,ByVal nType As Integer)
-	Dim wfd As WIN32_FIND_DATA
-	Dim hwfd As HANDLE
-	Dim buffer As ZString*260
-	Dim subdir As ZString*260
-	Dim l As Integer
-	Dim ls As Integer
+Sub BuildDirList (ByVal lpDir As ZString Ptr, ByVal lpSub As ZString Ptr, ByVal nType As Integer)
+	
+	Dim wfd        As WIN32_FIND_DATA
+	Dim hwfd       As HANDLE             = Any 
+	Dim l          As Integer            = Any
+	Dim Pattern    As ZString * MAX_PATH = Any  
+	Dim NewPattern As ZString * MAX_PATH = Any
+    Dim NewSubDir  As ZString * MAX_PATH = Any 
 
-	lstrcpy(@buffer,lpDir)
-	lstrcpy(@subdir,lpSub)
-	lstrcat(@buffer,"\*")
+    Pattern = *lpDir + $"\*" 
+	hwfd = FindFirstFile (@Pattern, @wfd)
 	
-	'Print "buffer:*";buffer;"*"
-	'Print "subdir:*";subdir;"*"
-	
-	hwfd=FindFirstFile(@buffer,@wfd)
-	
-	If hwfd<>INVALID_HANDLE_VALUE Then
-		While TRUE
+	If hwfd <> INVALID_HANDLE_VALUE Then
+		Do
 			If wfd.dwFileAttributes And FILE_ATTRIBUTE_DIRECTORY Then
-				lstrcpy(@s,@wfd.cFileName)
-				If Asc(s)<>Asc(".") Then
-					buffer[Len(buffer)-1]=0
-					l=Len(buffer)
-					lstrcat(@buffer,@wfd.cFileName)
-					ls=Len(subdir)
-					lstrcat(@subdir,@wfd.cFileName)
-					lstrcat(@subdir,"\")                         ' MOD 25.2.2012
-					BuildDirList(@buffer,@subdir,nType)
-					buffer[l]=0
-					lstrcat(@buffer,"*")
-					subdir[ls]=0
+				If wfd.cFileName[0] <> Asc (".") Then
+					NewSubDir  = *lpSub + wfd.cFileName + $"\"
+					NewPattern = *lpDir + $"\" + wfd.cFileName
+					BuildDirList NewPattern, NewSubDir, nType
 				EndIf
 			Else
-				If ntype<8 Then
+				If ntype < 8 Then
 					If lpSub Then
-						lstrcpy(@s,lpSub)
-						lstrcat(@s,@wfd.cFileName)
+						DirList += Str (nType) + "," + *lpSub + wfd.cFileName + "#"
 					Else
-						lstrcpy(@s,@wfd.cFileName)
+						DirList += Str (nType) + "," + wfd.cFileName + "#"
 					EndIf
-					
-			       '===================		
-				   'MOD 4.Jan.2012
-					DirList += Str (nType) + "," + s + "#"       'preserve case
-				   'dirlist+=Str(nType)+","+LCase(s)+"#"
-			       '===================					
 				Else
-					lstrcpy(@s,@wfd.cFileName)
-			       '===================		
-				   'MOD 4.Jan.2012
-				   's=LCase(s)                                   'preserve case
-				    If LCase (Right (s, 2)) = ".a" Then
-			       '===================
-						s[Len (s) - 2] = 0
-						If LCase (Right (s, 4)) = ".dll" Then
-							s[Len (s) - 4] = 0
-						EndIf
-						DirList+=Str(nType And 7)+","+s+"#"
+					l = lstrlen (@wfd.cFileName)
+					If l > 2 Then
+					    If lstrcmpi (@wfd.cFileName[l - 2], @".a") = 0 Then
+					        wfd.cFileName[l - 2] = 0
+					        l -= 2
+					        If l > 4 Then
+					            If lstrcmpi (@wfd.cFileName[l - 4], @".dll") = 0 Then
+					                wfd.cFileName[l - 4] = 0
+					            EndIf
+					        EndIf    
+					        If szCmpi (@wfd.cFileName, @"lib", 3) = 0 Then
+					            DirList += Str (nType And 7) + "," + *@wfd.cFileName[3] + "#"    
+					        EndIf
+					    EndIf
 					EndIf
 				EndIf
 			EndIf
-			If FindNextFile(hwfd,@wfd)=FALSE Then
-				Exit While
-			EndIf
-		Wend
-		FindClose(hwfd)
+		Loop While FindNextFile (hwfd, @wfd)
+		
+		FindClose hwfd
 	EndIf
 
 End Sub

@@ -28,7 +28,7 @@ FbEditMOD 1.0.7.8
         scope can changed using toolbar buttons in top of the property window
     
     - [Options]->[Code Editor]    
-        editors linespacing can changed by adding "Extra 1/4 LFs" to optimize
+        editors linespacing can be changed by adding "Extra 1/4 LFs" to optimize
         readability
         0 to 8 quarter LFs are selectable (will also work for HexEdit)
         color selection will also work for HexEdit
@@ -99,6 +99,11 @@ FbEditMOD 1.0.7.8
         a full qualified path %TEMP%\(Untitled).bas[.rc] is assigned on creation
         so path aware autocompletes should work before saving
 
-     -
+     - Autocomplete #inclib "...
+        entities prefix (lib) is removed
+
+
+
+
       *** incomplete ***                                                                  
                                                               

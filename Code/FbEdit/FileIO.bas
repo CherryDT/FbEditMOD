@@ -190,7 +190,7 @@ Sub ReadTheFile (ByVal hWin As HWND, ByVal lpFile As ZString Ptr)
     	
     	If hFile = INVALID_HANDLE_VALUE Then
 	        Text = "reading: " + *lpFile
-            TextToOutput "*** no file access ***", &hFFFFFFFF
+            TextToOutput "*** file not accessible ***", &hFFFFFFFF
             TextToOutput Text     
     	Else 	
     		Select Case EditorMode
@@ -260,7 +260,7 @@ Sub WriteTheFile(ByVal hWin As HWND,Byref szFileName As zString)
 	'Print "hFile=INVALID_HANDLE_VALUE;"; HFILE=INVALID_HANDLE_VALUE
 	If hFile = INVALID_HANDLE_VALUE Then
         Text = "writing: " + szFileName
-        TextToOutput "*** no file access ***", &hFFFFFFFF
+        TextToOutput "*** file not accessible ***", &hFFFFFFFF
         TextToOutput Text     
 	Else
 		If hWin=ah.hres Then

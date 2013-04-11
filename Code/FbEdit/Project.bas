@@ -1133,7 +1133,7 @@ Sub AddProjectFile(Byref sFile As ZString,ByVal fModule As Boolean)
 
 	Do
 		nInx += 1                                       'MOD 6.1.2012    sItem=szNULL
-		GetPrivateProfileString(StrPtr("File"),Str(nInx),NULL,@sItem,SizeOf(sItem),@ad.ProjectFile)
+		GetPrivateProfileString @"File", Str (nInx), NULL, @sItem, SizeOf (sItem), @ad.ProjectFile
 	   	                                                'MOD 6.1.2012   If Len(sItem) Then nInx+=1 Else Exit While
 	Loop while IsZStrNotEmpty (sItem)
 	
