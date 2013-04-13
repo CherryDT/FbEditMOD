@@ -493,9 +493,11 @@ Lang=Deutsch (German), By B.Wiegmann / U. Richter
 10191=HEX
 10192=STD
 10193=TXT
+1ß194=Extern
 10241=Öffnen STD
 10242=Öffnen HEX
 10243=Öffnen TXT
+10244=Öffnen Extern
 10110=Projekt Optionen
 ;Ausgabe
 10092=Verstecken

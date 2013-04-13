@@ -108,5 +108,11 @@ FbEditMOD 1.0.7.8
         output, immediate, register, fpu, mmx window are effected immediately
         showvars window needs an restart of FbEdit
 
+     - Project explorer / file browser context menu
+        there is a [Open Extern] button to launch the selected file/folder by your
+        systems standard application
+
+
+
       *** incomplete ***                                                                  
                                                               

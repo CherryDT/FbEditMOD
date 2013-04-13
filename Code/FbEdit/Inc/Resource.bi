@@ -149,6 +149,7 @@
 #Define IDM_PROJECT_FILE_OPEN_TXT           10193
 #Define IDM_PROJECT_FILE_OPEN_STD           10192
 #Define IDM_PROJECT_FILE_OPEN_HEX           10191
+#Define IDM_PROJECT_FILE_OPEN_EXTERN        10194
 
 #Define IDM_RESOURCE						10121
 #Define IDM_RESOURCE_DIALOG				    10122
@@ -232,6 +233,7 @@
 #Define IDM_FIB_OPEN_STD                    10241 
 #Define IDM_FIB_OPEN_HEX                    10242
 #Define IDM_FIB_OPEN_TXT                    10243
+#Define IDM_FIB_OPEN_EXTERN                 10244
 
 #Define IDR_CONTEXTMENU						20000
 

@@ -373,6 +373,8 @@ Sub AutoBrace(ByVal hWin As HWND,ByVal nChr As Integer)
 			i=Asc("}")
 		Case Asc("[")
 			i=Asc("]")
+	    Case Asc(!"\"")
+		    i=Asc(!"\"")	
 	End Select
 	SendMessage(hWin,EM_EXGETSEL,0,Cast(Integer,@chrg))
 	SendMessage(hWin,WM_CHAR,i,0)
@@ -933,7 +935,10 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 					Select Case i
 						Case 0		' Normal
 							If edtopt.autobrace then
-								If wParam=Asc("(") Or wParam=Asc("{") Or wParam=Asc("[") Then
+								If     wParam=Asc("(") _
+								OrElse wParam=Asc("{") _
+								OrElse wParam=Asc("[") _
+								OrElse wParam=Asc(!"\"") Then
 									' Auto brace
 									lret=CallWindowProc(lpOldCoTxEdProc,hWin,uMsg,wParam,lParam)
 									TestCaseConvert(hPar,wParam)

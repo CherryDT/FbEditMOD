@@ -1,4 +1,8 @@
 
+Enum FileOpenExternMode
+    FOEM_ONLYALLOWED
+    FOEM_EVERY
+End Enum
 
 Enum SaveAllMode
     SAM_ALLFILES = 0
@@ -49,6 +53,7 @@ Declare Function SaveSelectionDlgProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByV
 
 Declare Function CountCodeEdTabs () As Integer
 Declare Sub OpenTheFile (Byref FileSpec As ZString, ByVal OpenMode As FileOpenMode)
+Declare Function OpenFileExtern (ByRef FileSpec As ZString, ByVal OpenMode As FileOpenExternMode) As BOOLEAN
 Declare Sub OpenAFile (ByVal OpenMode As FileOpenMode)                ' MOD 1.2.2012 OpenAFile(ByVal hWin As HWND,ByVal fHex As Boolean)
 Declare Sub OpenAProject ()                                           ' MOD 1.2.2012    OpenAProject(ByVal hWin As HWND) As Boolean
 

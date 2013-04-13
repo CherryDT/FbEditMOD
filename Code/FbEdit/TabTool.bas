@@ -864,31 +864,44 @@ Sub SetFileInfo (ByVal hWin As HWND, ByVal pFileSpec As ZString Ptr)
 
 End Sub
 
-Function OpenFileExtern (ByRef FileSpec As ZString) As BOOLEAN
+Function OpenFileExtern (ByRef FileSpec As ZString, ByVal OpenMode As FileOpenExternMode) As BOOLEAN
         
     Dim sType     As String
     Dim sItem     As ZString * 512
     Dim pErrText  As ZString Ptr   = Any 
     Dim ExitCode  As Integer       = Any 
     
-    sType = *GetFileExt (FileSpec)
-		
-	If Len (sType) Then
-	    sType += "."
-		GetPrivateProfileString @"Open", @"Extern", NULL, @sItem, SizeOf (sItem), @ad.IniFile
-		
-		If      IsZStrNotEmpty (sItem) _
-		AndAlso InStr (sItem, sType) Then
-			UpdateEnvironment
-			buff = QUOTE + FileSpec + QUOTE
-			TextToOutput "SHELLEXECUTE: " + buff
-			ExitCode = CInt (ShellExecute (ah.hwnd, @"open", @buff, NULL, NULL, SW_SHOWDEFAULT))
-		Else
-		    Return FALSE         ' not allowed for ShellExecute by FbEdit.ini (no ErrText)
-		EndIf     
-    Else 
-	    ExitCode = SE_ERR_ASSOCINCOMPLETE
-	EndIf
+    If IsZStrEmpty2 (FileSpec) Then
+        ExitCode = SE_ERR_ASSOCINCOMPLETE
+    Else    
+        Select Case OpenMode
+        Case FOEM_ONLYALLOWED
+            sType = *GetFileExt (FileSpec)
+        		
+        	If Len (sType) Then
+        	    sType += "."
+        		GetPrivateProfileString @"Open", @"Extern", NULL, @sItem, SizeOf (sItem), @ad.IniFile
+        		
+        		If      IsZStrNotEmpty (sItem) _
+        		AndAlso InStr (sItem, sType) Then
+        			UpdateEnvironment
+        			buff = QUOTE + FileSpec + QUOTE
+        			TextToOutput "SHELLEXECUTE: " + buff
+        			ExitCode = CInt (ShellExecute (ah.hwnd, @"open", @buff, NULL, NULL, SW_SHOWDEFAULT))
+        		Else
+        		    Return FALSE         ' not allowed for ShellExecute by FbEdit.ini (no ErrText)
+        		EndIf     
+            Else 
+        	    ExitCode = SE_ERR_ASSOCINCOMPLETE
+        	EndIf
+    
+        Case FOEM_EVERY    
+    		UpdateEnvironment
+    		buff = QUOTE + FileSpec + QUOTE
+    		TextToOutput "SHELLEXECUTE: " + buff
+    		ExitCode = CInt (ShellExecute (ah.hwnd, @"open", @buff, NULL, NULL, SW_SHOWDEFAULT))
+        End Select
+    EndIf
     
     Select Case ExitCode
     Case 0                      :  pErrText = @"The operating system is out of memory or resources" 
@@ -1056,7 +1069,7 @@ Sub OpenTheFile (Byref FileSpec As ZString, ByVal OpenMode As FileOpenMode)
 	    Case Else                                          ' no one of: .fbp, .rc, .bas, .bi
 			AddMruFile (FileSpec)
             
-            If OpenFileExtern (FileSpec) Then 
+            If OpenFileExtern (FileSpec, FOEM_ONLYALLOWED) Then 
                 Exit Sub
             EndIf
 
@@ -1096,8 +1109,6 @@ Sub OpenAFile (ByVal OpenMode As FileOpenMode)         ' MOD 1.2.2012 OpenAFile(
 	Dim SubStr1 As ZString * MAX_PATH 
 	Dim SubStrN As ZString * MAX_PATH 
 	Dim Idx     As Integer = Any 
-	
-	
 	
 	With ofn
     	.lStructSize     = SizeOf (OPENFILENAME)

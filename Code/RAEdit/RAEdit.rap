@@ -104,12 +104,12 @@ CompanyName=
 
 [Size]
 1=0,0,0,0,228
-16=0,0,810,411,38515
+16=0,0,810,411,24745
 22=0,0,0,0,3994
-23=0,0,0,0,30414
+23=0,0,0,0,30301
 24=0,0,0,0,3976
 19=0,0,0,0,5931
-2=0,0,0,0,1448
+2=0,0,0,0,7563
 9=0,0,0,0,9672
 10=0,0,0,0,25254
 11=0,0,0,0,2215
@@ -140,19 +140,19 @@ CompanyName=
 0=
 
 [Find]
-1="WM_PAINT"
-2="STYLE_AUTOSIZELINENUM"
-3="RAEditPaint"
-4="print"
-5="REM_SETTOOLTIP"
-6="EM_SETMODIFY"
-7="REM_SETCHANGEDSTATE"
-8="CreateCaret"
-9="MOD"
-10="setcaret"
+1="streamin"
+2=".EDIT.funicode"
+3="rem_getunicode"
+4="WM_PAINT"
+5="STYLE_AUTOSIZELINENUM"
+6="RAEditPaint"
+7="print"
+8="REM_SETTOOLTIP"
+9="EM_SETMODIFY"
+10="REM_SETCHANGEDSTATE"
 
 [AutoLoad]
-AutoLoad=16,12,13,19,15,2,23,3,10,24,22,11,9,21,18,20,1,4
+AutoLoad=16,12,13,19,15,2,23,3,10,24,22,11,9,21,20,1,4
 
 [Version-Inc]
 Options=52
@@ -191,7 +191,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=16
+MilestoneOnDateDate=13
 MilestoneOnDateTimeYear=2006
 MilestoneOnDateTimeMonth=8
 MilestoneOnDateTimeDate=27
@@ -253,7 +253,7 @@ Group=Assembly,Resources,Misc
 3=
 
 [PTimer]
-PTimer=1083019538
+PTimer=1084552919
 
 [RADebugBP]
 16=

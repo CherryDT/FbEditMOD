@@ -570,7 +570,8 @@ Sub EnableMenu ()
 
 	'IDM_FIB_OPEN_STD                   
 	'IDM_FIB_OPEN_HEX                   
-	'IDM_FIB_OPEN_TXT                   
+	'IDM_FIB_OPEN_TXT
+	'IDM_FIB_OPEN_EXTERN                 
     
     'accelerator only
 	'IDM_HELPF1							

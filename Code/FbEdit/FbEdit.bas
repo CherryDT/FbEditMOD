@@ -889,6 +889,10 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
     					        OpenTheFile buff, FOM_TXT
     					        fTimer = 1    
     					    EndIf
+	                    
+	                    Case  IDM_FIB_OPEN_EXTERN				    
+					        SendMessage ah.hfib, FBM_GETSELECTED, 0, Cast (LPARAM, @buff)
+					        OpenFileExtern buff, FOEM_EVERY
 					    
 					    Case IDM_PROJECT_FILE_OPEN_STD
 					        GetTrvSelItemData sFile, 0, 0, PT_ABSOLUTE
@@ -904,7 +908,11 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 					        GetTrvSelItemData sFile, 0, 0, PT_ABSOLUTE
 					        OpenTheFile sFile, FOM_TXT
                             fTimer = 1
-                            
+
+					    Case IDM_PROJECT_FILE_OPEN_EXTERN
+                            GetTrvSelItemData sFile, 0, 0, PT_ABSOLUTE
+                            OpenFileExtern sFile, FOEM_EVERY
+                 
 					    Case IDM_FILE_SAVE							
 							SetFocus(ah.hred)
 							'If Left(ad.filename,10)="(Untitled)" Then

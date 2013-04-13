@@ -261,12 +261,10 @@ Sub BuildDirList (ByVal lpDir As ZString Ptr, ByVal lpSub As ZString Ptr, ByVal 
 	Dim wfd        As WIN32_FIND_DATA
 	Dim hwfd       As HANDLE             = Any 
 	Dim l          As Integer            = Any
-	Dim Pattern    As ZString * MAX_PATH = Any  
 	Dim NewPattern As ZString * MAX_PATH = Any
     Dim NewSubDir  As ZString * MAX_PATH = Any 
 
-    Pattern = *lpDir + $"\*" 
-	hwfd = FindFirstFile (@Pattern, @wfd)
+	hwfd = FindFirstFile (*lpDir + $"\*", @wfd)
 	
 	If hwfd <> INVALID_HANDLE_VALUE Then
 		Do
