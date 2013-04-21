@@ -37,19 +37,23 @@ FbEditMOD 1.0.7.8
      - very important: fancy splash screen fade out
      
      - [Project]->[Project Options]->[Pre-Buildbatch | Post-Buildbatch]
-        Now we can execute a batch files before and after each compiler run
-        See example Projects\Samples\Pre_PostBuildBatch\Pre_PostBuildBatch.fbp for details
-        If modules are compiled separatly, there are several environment variables updated
-        before launching each batch (so the batch aware, which run is coming up)
+        Now we can execute a batch file before and after each compiler run
+        See example Projects\Samples\Pre_PostBuildBatch\Pre_PostBuildBatch.fbp
+        for details
+        If modules are compiled separatly, there are several environment variables
+        updated before launching each batch
+        (so the batch aware, which run is coming up)
         
      - [Project]->[Project Options]->[Module Handling]     
-        if modules are compiled separatly, each module can have fbc commandline options for its own
+        if modules are compiled separatly, each module can have fbc commandline
+        options for its own
         (perhaps you wanna use -gen gcc -O 2 not generally)
         Also you can translate several modules with other compilers (gcc, masm)
         See example Projects\Samples\MixedLanguage\MixLang_Demo.fbp for details
      
      - [Options]->[Environment]
-        you can use nested expressions, they are resolved up to 5 levels, forwarding allowed
+        you can use nested expressions, they are resolved up to 5 levels,
+        forwarding allowed
         e.g. greeting=%var1%, %var2%
              var1=hello
              var2=%target%
@@ -61,8 +65,10 @@ FbEditMOD 1.0.7.8
      - [Edit]->[Find]
         Regex is available now
         A nice help button shortcuts into FbEdit.chm
-        Also there is a small library tool to collect your heavily used regular expressions
-        Now we can search all bi-files in fbc's include path looking for an definition or whatever
+        Also there is a small library tool to collect your heavily used
+        regular expressions
+        Now we can search all bi-files in fbc's include path looking for an
+        definition or whatever
         Find setting are stored in FbEdit.ini now, so they are not lost
         All the nice buttons are context sensitive enabled/disabled
         
@@ -73,13 +79,17 @@ FbEditMOD 1.0.7.8
         The primary .rc-file has to include its childs via:   #include "second.rc"
                                                               #include "third.rc"
                                                               ...
-        At the same time only one .rc-file can be opened in graphics mode, all the others are switched
-        to text mode automatically                                                      
-        
-        now there is a "Scripts" section. Batch files inside can be started by doubleclick                                                      
+        At the same time only one .rc-file can be opened in graphics mode,
+        all the others are switched to text mode automatically
+        Doubleclicking a .rc-files in project explorer can be used to regain
+        graphics mode
+
+        now there is a "Scripts" section. Batch files inside can be started by
+        doubleclick                                                      
                                                                 
      - Output window has a new selector
-        please click the vertical label on the left side of the output window to show/hide the selector
+        please click the vertical label on the left side of the output window to
+        show/hide the selector
         the column sizes are stored in fbedit.ini, so they are not lost
         
      - Statusbar section 2 (LOCK/UNLOCK), 3 (LIN/BLK) and 4 (INS/OVR) is clickable   
@@ -93,7 +103,8 @@ FbEditMOD 1.0.7.8
         for details see Projects\Samples\MixedLanguage\
 
      - ResEd
-        filespecs pointing to include or resource files are stored with relative pathes
+        filespecs pointing to include or resource files are stored with
+        relative pathes
         .rc-file relocation is easier to do now
 
      - (Untitled).bas / (Untitled).rc
@@ -112,7 +123,10 @@ FbEditMOD 1.0.7.8
         there is a [Open Extern] button to launch the selected file/folder by your
         systems standard application
 
+     - [Options]->[Code Editor]    
+        there is a [Show Splash] checkbox
 
-
+                
+                
       *** incomplete ***                                                                  
                                                               

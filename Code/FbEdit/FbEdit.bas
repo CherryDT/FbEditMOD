@@ -3048,7 +3048,11 @@ Function WinMain(ByVal hInst As HINSTANCE,ByVal hPrevInst As HINSTANCE,ByVal lpC
 
     ' CBH_Dialog  (ClipBoardHistory)
 	CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLG_CBH), ah.hwnd, @CBHDlgProc)
-	ThreadCall SplashScreen 
+
+	If GetPrivateProfileInt ("Win", "Splash", 1, @ad.IniFile) Then
+	    ThreadCall SplashScreen 
+	EndIf
+
 	FileMonitorStart
 	
 	DoCommandLine

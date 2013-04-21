@@ -589,8 +589,9 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 	edtopt.tooltip=IsDlgButtonChecked(hWin,IDC_CHKTOOLTIP)
 	edtopt.smartmath=IsDlgButtonChecked(hWin,IDC_CHKSMARTMATHS)
 	'================ MOD
-	SaveToIni(StrPtr("Edit"),StrPtr("EditOpt"),"444444444444444444444",@edtopt,FALSE)
-	SaveToIni(StrPtr("Win"),StrPtr("Winpos"),"444444444444444",@wpos,FALSE)
+	SaveToIni @"Edit", @"EditOpt", "444444444444444444444", @edtopt, FALSE
+	SaveToIni @"Win",  @"Winpos",  "444444444444444",       @wpos,   FALSE
+	WritePrivateProfileString "Win", "Splash", Str (IsDlgButtonChecked (hWin, IDC_CHKSHOWSPLASH)), @ad.IniFile
 	' Save theme
 	sItem=String(32,0)
 	WritePrivateProfileSection(StrPtr("Theme"),@sItem,@ad.IniFile)
@@ -900,6 +901,7 @@ Function KeyWordsDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As
 			CheckDlgButton(hWin,IDC_CHKCLOSEONLOCKS,edtopt.closeonlocks)
 			CheckDlgButton(hWin,IDC_CHKTOOLTIP,edtopt.tooltip)
 			CheckDlgButton(hWin,IDC_CHKSMARTMATHS,edtopt.smartmath)
+			CheckDlgButton(hWin,IDC_CHKSHOWSPLASH, GetPrivateProfileInt ("Win", "Splash", 1, @ad.IniFile))
 			' Fonts
 			GetObject(ah.rafnt.hFont,SizeOf(LOGFONT),@lfnt)
 			hCFont=CreateFontIndirect(@lfnt)
@@ -1055,82 +1057,13 @@ Function KeyWordsDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As
 							EnableDlgItem(hWin,IDC_BTNHOLD,nInx)
 							EnableWindow(hBtnApply,TRUE)
 							'
-						Case IDC_CHKITALIC
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKBOLD
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKRCFILE
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKASM
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKEXPAND
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKAUTOINDENT
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKHILITELINE
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKHILITECMNT
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKLINENUMBERS
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKSINGLEINSTANCE
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKBRACEMATCH
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKAUTOBRACE
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_RBNCASENONE
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_RBNCASEMIXED
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_RBNCASELOWER
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_RBNCASEUPPER
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKAUTOBLOCK
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKAUTOFORMAT
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKCODECOMPLETE
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKSAVE
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKAUTOLOAD
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKAUTOWIDTH
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKAUTOINCLUDE
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKTOOLTIP
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKCLOSEONLOCKS
-							EnableWindow(hBtnApply,TRUE)
-							'
-						Case IDC_CHKSMARTMATHS
+					    Case IDC_CHKITALIC,         IDC_CHKBOLD,         IDC_CHKRCFILE,     IDC_CHKASM, _
+							 IDC_CHKAUTOINDENT,     IDC_CHKHILITELINE,   IDC_CHKHILITECMNT, IDC_CHKLINENUMBERS, _
+							 IDC_CHKSINGLEINSTANCE, IDC_CHKBRACEMATCH,   IDC_CHKAUTOBRACE,  IDC_RBNCASENONE, _
+                             IDC_RBNCASEMIXED,      IDC_RBNCASELOWER,    IDC_RBNCASEUPPER,  IDC_CHKAUTOBLOCK, _
+                             IDC_CHKAUTOFORMAT,     IDC_CHKCODECOMPLETE, IDC_CHKSAVE,       IDC_CHKAUTOLOAD, _
+                             IDC_CHKAUTOWIDTH,      IDC_CHKAUTOINCLUDE,  IDC_CHKTOOLTIP,    IDC_CHKCLOSEONLOCKS, _
+                             IDC_CHKSHOWSPLASH,     IDC_CHKSMARTMATHS,   IDC_CHKEXPAND
 							EnableWindow(hBtnApply,TRUE)
 							'
 						Case IDC_CHKCOLORBOLD

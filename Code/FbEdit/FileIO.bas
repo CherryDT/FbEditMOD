@@ -189,7 +189,7 @@ Sub ReadTheFile (ByVal hWin As HWND, ByVal lpFile As ZString Ptr)
         hFile = CreateFile (lpFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0)
 
         If hFile = INVALID_HANDLE_VALUE Then
-            Text = "reading: " + *lpFile
+            Text = "try to read: " + *lpFile
             TextToOutput "*** file not accessible ***", &hFFFFFFFF
             TextToOutput Text
         Else

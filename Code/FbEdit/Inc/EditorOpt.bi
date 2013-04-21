@@ -99,7 +99,8 @@ Const szBracketMatch As String = "({[,)}],_"        ' Bracket matching
 #Define IDC_CHKAUTOWIDTH					4045
 #Define IDC_CHKAUTOINCLUDE					4046
 #Define IDC_CHKTOOLTIP						4048
-#define IDC_CHKCLOSEONLOCKS	     			4047
+#Define IDC_CHKCLOSEONLOCKS	     			4047
+#Define IDC_CHKSHOWSPLASH                   4072
 #Define IDC_CHKSMARTMATHS					4049
 #Define IDC_RBNCASENONE						4040
 #Define IDC_RBNCASEMIXED					4041
