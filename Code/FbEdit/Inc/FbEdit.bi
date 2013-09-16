@@ -20,18 +20,18 @@ Const COLON      As String = ":"
 
 
 ' Filter string for GetOpenFileName
-Const ALLFilterString = "Code Files (*.bas, *.bi, *.rc)"        & szNULL & "*.bas;*.bi;*.rc"         & szNULL & _
-                        "Text Files (*.txt)"                    & szNULL & "*.txt"                   & szNULL & _
-                        "All Files (*.*)"                       & szNULL & "*.*"                     & szNULL & szNULL
-Const MODFilterString = "Code File (*.bas)"                     & szNULL & "*.bas"                   & szNULL & szNULL
-Const DLLFilterString = "Custom controls (*.dll)"               & szNULL & "*.dll"                   & szNULL & szNULL
-Const PRJFilterString = "FreeBASIC Projects (*.fbp)"            & szNULL & "*.fbp"                   & szNULL & _
-                        "All Files (*.*)"                       & szNULL & "*.*"                     & szNULL & szNULL
-Const EXEFilterString = "Commands (*.com, *.exe, *.cmd, *.bat)" & szNULL & "*.com;*.exe;*.cmd;*.bat" & szNULL & _
-                        "All Files (*.*)"                       & szNULL & "*.*"                     & szNULL & szNULL
-Const HLPFilterString = "Help (*.hlp, *.chm)"                   & szNULL & "*.hlp;*.chm"             & szNULL & _
-                        "All Files (*.*)"                       & szNULL & "*.*"                     & szNULL & szNULL
-Const TPLFilterString = "Template (*.tpl)"                      & szNULL & "*.tpl"                   & szNULL & szNULL
+Const ALLFilterString = "Code Files (*.bas, *.bi, *.rc)"        + szNULL + "*.bas;*.bi;*.rc"         + szNULL + _
+                        "Text Files (*.txt)"                    + szNULL + "*.txt"                   + szNULL + _
+                        "All Files (*.*)"                       + szNULL + "*.*"                     + szNULL
+Const MODFilterString = "Code File (*.bas)"                     + szNULL + "*.bas"                   + szNULL
+Const DLLFilterString = "Custom controls (*.dll)"               + szNULL + "*.dll"                   + szNULL
+Const PRJFilterString = "FreeBASIC Projects (*.fbp)"            + szNULL + "*.fbp"                   + szNULL + _
+                        "All Files (*.*)"                       + szNULL + "*.*"                     + szNULL
+Const EXEFilterString = "Commands (*.com, *.exe, *.cmd, *.bat)" + szNULL + "*.com;*.exe;*.cmd;*.bat" + szNULL + _
+                        "All Files (*.*)"                       + szNULL + "*.*"                     + szNULL
+Const HLPFilterString = "Help (*.hlp, *.chm)"                   + szNULL + "*.hlp;*.chm"             + szNULL + _
+                        "All Files (*.*)"                       + szNULL + "*.*"                     + szNULL
+Const TPLFilterString = "Template (*.tpl)"                      + szNULL + "*.tpl"                   + szNULL
 
 
 Common Shared hInstance           As HINSTANCE

@@ -31,17 +31,17 @@ End Type
 
 
 Declare Function GetProjectFileName (ByVal nInx As Integer, ByVal PathMode As PathType) As ZString Ptr
-Declare Sub UpdateProjectFileName (Byref sOldFile As zString,Byref sNewFile As ZString)
+Declare Sub UpdateProjectFileName (Byref sOldFile As ZString, ByRef sNewFile As ZString)
 Declare Function GetProjectMainResource () As String
 Declare Function CountProjectResource () As Integer
 Declare Function GetFileImg (ByRef sFileSpec As ZString, ByVal FileID As Integer) As Integer
-Declare Function GetFileID (Byref sFile As zString) As Integer
+Declare Function GetFileID (Byref sFile As ZString) As Integer
 Declare Function MakeProjectFileName (Byref FileSpec As Const ZString) As String  
 Declare Function RemoveProjectPath (ByRef sFile As ZString) As ZString Ptr     ' MOD 7.1.2012 ByVal -> ByRef
 Declare Function CloseProject () As Integer
 Declare Function OpenProject () As Integer
 
-Declare Sub AddAProjectFile (Byref sFile As zString, ByVal fModule As Boolean,ByVal fCreate As Boolean)
+Declare Sub AddAProjectFile (Byref sFile As ZString, ByVal fModule As Boolean,ByVal fCreate As Boolean)
 Declare Sub AddExistingProjectFile()
 Declare Sub AddExistingProjectModule()
 Declare Sub AddNewProjectModule()
@@ -50,7 +50,7 @@ Declare Sub RemoveProjectFile (ByVal FileID As Integer, ByVal hTVItem As HTREEIT
 Declare Sub SetAsMainFile (ByVal FileID As Integer)
 Declare Sub ToggleProjectFile (ByRef OldFileID As Integer)
 
-Declare Sub InsertInclude (ByRef FileSpec As String, ByVal IncMode As IncludeMode)
+Declare Sub InsertInclude (ByRef FileSpec As ZString, ByVal IncMode As IncludeMode)
 
 Declare Sub WriteProjectFileInfo (ByVal hWin As HWND, ByVal nInx As Integer, ByVal fProjectClose As BOOLEAN)
 Declare Sub ReadProjectFileInfo (ByVal nInx As Integer, ByVal lpPFI As PFI Ptr)
@@ -58,7 +58,7 @@ Declare Sub SetProjectFileInfo (ByVal hWin As HWND,ByVal lpPFI As PFI Ptr)
 
 Declare Sub RefreshProjectTree
 Declare Sub SelectTrvItem (Byref sFile As ZString)
-Declare Function GetTrvSelItemData (ByRef FileSpec As String, ByRef FileID As Integer, ByRef hTVItem As HTREEITEM, ByVal PathMode As PathType) As BOOLEAN 
+Declare Function GetTrvSelItemData (ByRef FileSpec As ZString, ByRef FileID As Integer, ByRef hTVItem As HTREEITEM, ByVal PathMode As PathType) As BOOLEAN 
 
 Declare Function ProjectProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer
 Declare Function NewProjectDlgProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer

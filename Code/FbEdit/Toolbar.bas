@@ -14,7 +14,7 @@
 #Define IDB_TBRBMP							100
 
 ' ToolBar
-Sub DoToolbar (ByVal hTbr As HWND)
+Sub DoToolbar (ByVal hTbr As HWND, ByVal DebugExtension As Integer)
 	
 	dim tbab as TBADDBITMAP
 	
@@ -64,11 +64,11 @@ Sub DoToolbar (ByVal hTbr As HWND)
 	SendMessage(hTbr,TB_ADDBITMAP,33,Cast(LPARAM,@tbab))
 	
 	'Set toolbar buttons
-	#Ifdef __FB_DEBUG__
+	If DebugExtension Then
 	    SendMessage(hTbr,TB_ADDBUTTONS,37,Cast(LPARAM,@tbrbtn1))
-    #Else
+    Else
         SendMessage(hTbr,TB_ADDBUTTONS,36,Cast(LPARAM,@tbrbtn1))
-    #EndIf
+    EndIf
 end sub
 
 'Sub DoToolbar(ByVal hTbr As HWND,ByVal hInst As HINSTANCE)

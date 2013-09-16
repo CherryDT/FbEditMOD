@@ -2,6 +2,7 @@
 #Include Once "windows.bi"
 #Include Once "Inc\RAEdit.bi"
 
+#Include Once "Inc\Addins.bi"
 #Include Once "Inc\TabTool.bi"
 
 

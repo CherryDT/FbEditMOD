@@ -200,44 +200,41 @@ Function ProcessQuickRun(ByVal Param As ZString Ptr) As Integer
 	Dim lret As Integer
 	Dim i As Integer
 	Dim buff As ZString*MAX_PATH
-    Dim ErrMsg As ZString * 256
+    'Dim ErrMsg As ZString * 256
 
 	buff=szQuickRun
 	sat.nLength=SizeOf(SECURITY_ATTRIBUTES)
 	sat.lpSecurityDescriptor=NULL
 	sat.bInheritHandle=TRUE
 	makeinf.uExit=10
-	If CreatePipe(@makeinf.hrd,@makeinf.hwr,@sat,NULL)=NULL Then
+	If CreatePipe (@makeinf.hrd, @makeinf.hwr, @sat, NULL) = FALSE Then
 		' CreatePipe failed
-        FormatMessage FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError, NULL, @ErrMsg, SizeOf (ErrMsg), NULL
 		TextToOutput "*** CreatePipe failed ***", MB_ICONERROR
-		TextToOutput ErrMsg
-		'MessageBox(NULL,StrPtr("CreatePipe failed"),@szAppName,MB_OK Or MB_ICONERROR)
+		TextToOutput OTT_WINLASTERROR
 	Else
 		startupinfo.cb=SizeOf(STARTUPINFO)
 		GetStartupInfo(@startupinfo)
 		startupinfo.hStdOutput=makeinf.hwr
 		startupinfo.hStdError=makeinf.hwr
-		' Create process
 		startupinfo.dwFlags=STARTF_USESHOWWINDOW
 		startupinfo.wShowWindow=SW_SHOWNORMAL
-		If CreateProcess(NULL,@buff,NULL,NULL,FALSE,NULL,NULL,NULL,@startupinfo,@makeinf.pInfo)=0 Then
+		
+		' Create process
+		If CreateProcess (NULL, @buff, NULL, NULL, FALSE, NULL, NULL, NULL, @startupinfo, @makeinf.pInfo) = FALSE Then
 			' CreateProcess failed
-            FormatMessage FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError, NULL, @ErrMsg, SizeOf (ErrMsg), NULL
-			CloseHandle(makeinf.hrd)
-			CloseHandle(makeinf.hwr)
 			TextToOutput "*** CreateProcess failed ***", MB_ICONERROR
 			TextToOutput "command line: " + buff
-			TextToOutput ErrMsg
-			'MessageBox NULL, !"CreateProcess failed:\13" + buff, @szAppName, MB_OK Or MB_ICONERROR
+			TextToOutput OTT_WINLASTERROR
+			CloseHandle makeinf.hrd
+			CloseHandle makeinf.hwr
 		Else
-			WaitForSingleObject(makeinf.pInfo.hProcess,INFINITE)
-			GetExitCodeProcess(makeinf.pInfo.hProcess,@makeinf.uExit)
-			CloseHandle(makeinf.hwr)
-			CloseHandle(makeinf.hrd)
-			CloseHandle(makeinf.pInfo.hThread)
-			makeinf.pInfo.hThread=0
-			CloseHandle(makeinf.pInfo.hProcess)
+			WaitForSingleObject makeinf.pInfo.hProcess, INFINITE
+			GetExitCodeProcess makeinf.pInfo.hProcess, @makeinf.uExit
+			CloseHandle makeinf.hwr
+			CloseHandle makeinf.hrd
+			CloseHandle makeinf.pInfo.hThread
+			makeinf.pInfo.hThread = 0
+			CloseHandle makeinf.pInfo.hProcess
 			makeinf.pInfo.hProcess=0
 		EndIf
 	EndIf
@@ -278,35 +275,53 @@ Sub KillQuickRun ()
 
 End Sub
 
-Function MakeRun(Byref sFile As zString,ByVal fDebug As Boolean) As Integer
+Sub MakeRun (ByRef FileSpec As ZString)
 	
-	Dim fval         As ZString Ptr
-    Dim DebuggerSpec As ZString * MAX_PATH
+    Dim ExeSpec   As ZString * MAX_PATH + 2     ' quoted FileSpec
+    Dim ParamLine As ZString * 32768
     
-	GetFullPathName @sFile, MAX_PATH, @buff, @fval
-    PathRenameExtension buff, ".exe"
-    buff= QUOTE + buff + QUOTE                     ' MOD 22.1.2012
-	
-	If fDebug Then
-	    DebuggerSpec = ad.smakerundebug
-	    ExpandStrByEnviron DebuggerSpec
-		buff = DebuggerSpec + " " + buff           ' debugger.exe + debuggee
-	EndIf
-	
-	If IsZStrNotEmpty (ad.smakerun) Then
-		buff += " " + ad.smakerun                  ' debuggee commandline parameters
-	EndIf
-	
-	If fRunCmd AndAlso fDebug = 0 Then
-		buff = "/k " + buff
-		TextToOutput !"execute:\13cmd.exe " + buff + !"\13"
-		ShellExecute ah.hwnd, NULL, "cmd.exe", @buff, NULL, SW_SHOWNORMAL
-	Else
-		TextToOutput !"execute:\13" + buff + !"\13"
-		MakeRun = WinExec (@buff, SW_SHOWNORMAL)
-	EndIf
+    If IsZStrNotEmpty (FileSpec) Then
+	    GetFullPathName @FileSpec, MAX_PATH, @ExeSpec, NULL
+        PathRenameExtension @ExeSpec, @".exe"
+        ExeSpec = QUOTE + ExeSpec + QUOTE            
+    	
+    	If fRunCmd Then
+    		ParamLine = "/k " + ExeSpec + " " + ad.smakerun
+    		ShellExecuteUI NULL, NULL, @"cmd.exe", @ParamLine, NULL, SW_SHOWNORMAL
+    	Else
+    		ShellExecuteUI NULL, NULL, @ExeSpec, @ad.smakerun, NULL, SW_SHOWNORMAL
+    	EndIf
+    Else
+        TextToOutput @"*** error execute ***", MB_ICONHAND
+        TextToOutput @"empty filespec" 
+    EndIf
+End Sub
 
-End Function
+Sub MakeRunDebug (ByRef DebuggeeSpec As ZString)
+	
+	Dim DebuggerSpec As ZString * MAX_PATH
+    Dim ParamLine    As ZString * 32768
+    
+    If IsZStrNotEmpty (DebuggeeSpec) Then
+	    GetFullPathName @DebuggeeSpec, MAX_PATH, @ParamLine, NULL
+        PathRenameExtension @ParamLine, @".exe"
+        ParamLine = QUOTE + ParamLine + QUOTE + " " + ad.smakerun   ' debuggee + commandline parameters
+    
+        If IsZStrNotEmpty (ad.smakerundebug) Then
+            DebuggerSpec = ad.smakerundebug
+            ExpandStrByEnviron DebuggerSpec
+            DebuggerSpec = QUOTE + DebuggerSpec + QUOTE         ' "debugger.exe"
+           
+            ShellExecuteUI NULL, NULL, @DebuggerSpec, @ParamLine, NULL, SW_SHOWNORMAL
+        Else
+            TextToOutput @"*** error execute ***", MB_ICONHAND
+            TextToOutput @"empty debugger spec" 
+        EndIf     
+    Else
+        TextToOutput @"*** error execute ***", MB_ICONHAND
+        TextToOutput @"empty debuggee spec" 
+    EndIf
+End Sub
 
 Function ProcessBuild(ByVal pCmdLine As ZString Ptr) As Integer
 
@@ -316,63 +331,45 @@ Function ProcessBuild(ByVal pCmdLine As ZString Ptr) As Integer
 	Dim hrd         As HANDLE
 	Dim hwr         As HANDLE
 	Dim BytesRead   As DWORD        = Any 
-	Dim lret        As Integer      = Any 
+	Dim Success     As BOOL         = Any 
 	Dim buffer      As ZString * 4096
-	Dim ErrMsg      As ZString * 256
+	'Dim ErrMsg      As ZString * 256
 	Dim n           As Integer      = Any 
 	Dim rd          As UByte        = Any 
     Dim ExitCode    As DWORD 
     
-	'SendMessage ah.hout, EM_EXSETSEL, 0, Cast (LPARAM, @Type<CHARRANGE>(-1, -1))
-	
-	sat.nLength=SizeOf(SECURITY_ATTRIBUTES)
-	sat.lpSecurityDescriptor=NULL
-	sat.bInheritHandle=TRUE
-	lret=CreatePipe(@hrd,@hwr,@sat,NULL)
-	If lret=0 Then
-		' CreatePipe failed
-        FormatMessage FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError, NULL, @ErrMsg, SizeOf (ErrMsg), NULL
-		'SetCursor(LoadCursor(0,IDC_ARROW))
+	sat.nLength              = SizeOf (SECURITY_ATTRIBUTES)
+	sat.lpSecurityDescriptor = NULL
+	sat.bInheritHandle       = TRUE
+
+	Success = CreatePipe (@hrd, @hwr, @sat, NULL)
+	If Success = FALSE Then
 		TextToOutput "*** CreatePipe failed ***", MB_ICONERROR
-		TextToOutput ErrMsg
+		TextToOutput OTT_WINLASTERROR
 		Return CREATE_PIPE_FAILED
-		'MessageBox(ah.hwnd,StrPtr("CreatePipeError"),@szAppName,MB_ICONERROR+MB_OK)
 	Else
-		startupinfo.cb=SizeOf(STARTUPINFO)
-		GetStartupInfo(@startupinfo)
-		startupinfo.hStdOutput=hwr
-		startupinfo.hStdError=hwr
-		startupinfo.dwFlags=STARTF_USESHOWWINDOW+STARTF_USESTDHANDLES
-		startupinfo.wShowWindow=SW_HIDE
-		' Create process
-		'SetCursor LoadCursor (NULL, IDC_WAIT)
-		lret=CreateProcess(NULL,pCmdLine,NULL,NULL,TRUE,NULL,NULL,NULL,@startupinfo,@pinfo)
-		If lret=0 Then
-			' CreateProcess failed
-            FormatMessage FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError, NULL, @ErrMsg, SizeOf (ErrMsg), NULL
-			CloseHandle(hrd)
-			CloseHandle(hwr)
-			'SetCursor(LoadCursor(0,IDC_ARROW))
+		startupinfo.cb          = SizeOf(STARTUPINFO)
+		GetStartupInfo @STARTUPINFO
+		startupinfo.hStdOutput  = hwr
+		startupinfo.hStdError   = hwr
+		startupinfo.dwFlags     = STARTF_USESHOWWINDOW Or STARTF_USESTDHANDLES
+		startupinfo.wShowWindow = SW_HIDE
+
+		Success = CreateProcess (NULL, pCmdLine, NULL, NULL, TRUE, NULL, NULL, NULL, @startupinfo, @pinfo)
+		If Success = FALSE Then
 			TextToOutput "*** CreateProcess failed ***", MB_ICONERROR
 			TextToOutput "command line: " + *pCmdLine
-			TextToOutput ErrMsg
+			TextToOutput OTT_WINLASTERROR
+			CloseHandle hrd
+			CloseHandle hwr
             Return CREATE_PROCESS_FAILED			
-			'MessageBox ah.hwnd, !"CreateProcess failed:\13" + buff, @szAppName, MB_ICONERROR Or MB_OK
 		Else
-			CloseHandle(hwr)
+			CloseHandle hwr
 			TextToOutput *pCmdLine, BMT_GO, 0
-			
-			'SetFocus(ah.hout)
-			'SendMessage(ah.hout,EM_REPLACESEL,FALSE,Cast(LPARAM,@buff))
-			'SendMessage(ah.hout,EM_REPLACESEL,FALSE,Cast(LPARAM,@CR))
-			'lret=SendMessage(ah.hout,EM_GETLINECOUNT,0,0)-1
-			'SendMessage(ah.hout,REM_SETBOOKMARK,lret,BMT_GO)
-			'SendMessage(ah.hout,REM_SETBMID,lret,0)
-			'SendMessage(ah.hout,REM_REPAINT,0,TRUE)
 			
 			n = 0
 			Do
-				lret = ReadFile (hrd, @rd, 1, @BytesRead, NULL)
+				Success = ReadFile (hrd, @rd, 1, @BytesRead, NULL)
 				Select Case rd
 				Case 0, 10       ' LF
 					buffer[n] = NULL 
@@ -384,12 +381,12 @@ Function ProcessBuild(ByVal pCmdLine As ZString Ptr) As Integer
 					buffer[n] = rd
 					n += 1
 				End Select
-			Loop While lret
+			Loop While Success
 
             GetExitCodeProcess pinfo.hProcess, @ExitCode 
-			CloseHandle(pinfo.hProcess)
-			CloseHandle(pinfo.hThread)
-			CloseHandle(hrd)
+			CloseHandle pinfo.hProcess
+			CloseHandle pinfo.hThread
+			CloseHandle hrd
 			Return ExitCode
 		EndIf
 	EndIf
@@ -655,6 +652,8 @@ Function MakeBuild(Byref sMakeOpt As zString, ByRef sFile As zString, ByRef CCLN
 			OrElse InStr (buffer, "cannot find") _
 			OrElse InStr (buffer, "cannot open output file") _
 			OrElse Left  (buffer, 6) = "Error!" _                         ' error message from GoRC
+			OrElse Left  (buffer, 20) = "compiling rc failed:" _          ' error message from Windres
+			OrElse Left  (buffer, 19) = "compiling C failed:" _           ' error message from gcc
 			OrElse InStr (buffer, "undefined reference to") Then
 				SendMessage ah.hout, REM_SETBOOKMARK, i, BMT_ERROR
 				SendMessage ah.hout, REM_SETBMID, i, 0
@@ -805,13 +804,13 @@ Sub IsNewer (Byref sFile As zString, ByVal fInc As Integer, ByRef ft1 As FILETIM
 		ElseIf fInc Then
 			' Check #Include and #Inclib
 			nSize = GetFileSize (hFile, NULL)
-			hMem = MyGlobalAlloc (GMEM_FIXED, nSize + 1)                     ' + pending NULL
+			hMem = GlobalAllocUI (GMEM_FIXED, nSize + 1)                     ' + pending NULL
 		    ReadFile hFile, hMem, nSize, @BytesRead, NULL
 		    CloseHandle hFile
 		    Cast (ZString Ptr, hMem)[nSize] = 0                              ' append NULL          
 
 			If *Cast (WORD Ptr, hMem) = &HFEFF Then 		                ' Unicode
-				hMem1 = MyGlobalAlloc (GMEM_FIXED, nSize + 1)
+				hMem1 = GlobalAllocUI (GMEM_FIXED, nSize + 1)
 				If hMem1 Then
 				    WideCharToMultiByte CP_ACP, 0, hMem, -1, hMem1, nSize, NULL, NULL
 				    GlobalFree hMem
@@ -1066,7 +1065,7 @@ Exit_Compile:
 	If fBuildErr Then
 	    TextToOutput "*** terminated ***"
 	EndIf
-	HLineToOutput
+	TextToOutput OTT_HLINE
 	
 	If fBuildErr = 0 AndAlso OutputVisible = 0 Then
 		nHideOut=15

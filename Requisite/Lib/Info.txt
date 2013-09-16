@@ -1,0 +1,10 @@
+
+
+    Folder Content
+
+
+    - third party libraries
+            please copy to fbc's lib search path
+            if needed rename the old ones to prevent overwriting
+
+

@@ -4,6 +4,12 @@
 #Include Once "Inc\RAEdit.bi"
 
 
+Enum OutputTextTemplate
+    OTT_WINLASTERROR = 1
+    OTT_HLINE
+End Enum
+
+
 Declare Sub BrowseForFolder (ByVal hWin As HWND,ByVal nID As Integer)
 Declare Function BrowseForFolderCallBack (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal lParam As LPARAM,ByVal lpData As Integer) As Integer
 
@@ -14,10 +20,10 @@ Declare Function FileBrowserProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal 
 Declare Sub ShowOutput (ByVal bShow As Boolean)
 Declare Sub ShowImmediate (ByVal bShow As Boolean)
 
-Declare Sub HLineToOutput ()
 Declare Sub TextToOutput OverLoad (Byval pText As ZString Ptr)
 Declare Sub TextToOutput OverLoad (Byval pText As ZString Ptr, ByVal SoundNo As UINT)
 Declare Sub TextToOutput OverLoad (Byval pText As ZString Ptr, ByVal BookMarkType As BookMarkTypes, ByVal BookMarkID As Integer)
+Declare Sub TextToOutput Overload (ByVal StdMsg As OutputTextTemplate)
 
 Declare Sub ListAllBookmarks ()
 Declare Sub SetFullScreen (ByVal hWin As HWND)
@@ -35,6 +41,7 @@ Declare Sub AddMruFile (Byref sFile As ZString)
 Declare Sub MakeSubMenu (ByVal SubMenuID As UINT, ByVal FirstID As UINT, ByVal LastID As UINT, ByRef IniSection As ZString Ptr)
 Declare Sub MakeMenuMruProjects ()
 Declare Sub MakeMenuMruFiles ()		
+Declare Sub MakeMenuCustomFilter ()
 
 
 Extern lpOldOutputProc      As WNDPROC

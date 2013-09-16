@@ -116,6 +116,9 @@
 #Define IDM_FORMAT_RENUM					10082
 #Define IDM_FORMAT_CASECONVERT			    10083
 #Define IDM_FORMAT_INDENT					10084
+#Define IDM_FORMAT_CUSTOMFILTER             10043
+#Define IDM_FORMAT_CUSTOMFILTER_1           16001
+#Define IDM_FORMAT_CUSTOMFILTER_LAST        16020
 
 #Define IDM_VIEW							10091
 #Define IDM_VIEW_OUTPUT						10092
@@ -198,7 +201,7 @@
 #Define IDM_HELP_USER_1                     12001
 #Define IDM_HELP_USER_LAST                  12020
 
-#Define IDM_DEBUG_TESTSTART                 IDR_MENU + 4096   ' last entry
+#Define IDM_DEBUG_TESTSTART                 10112
 
 
 ' Context menu

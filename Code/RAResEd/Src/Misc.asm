@@ -464,10 +464,13 @@ SaveHexVal proc pVal:DWORD,fComma:DWORD
 
 	push	esi
 	push	edi
-	mov		al,'0'
-	stosb
-	mov		al,'x'
-	stosb
+	;mov		al,'0'
+	;stosb
+	;mov		al,'x'
+	;stosb
+	mov ax, 'x0'            ; *** MOD
+	stosw
+	
 	mov		eax,pVal
 	invoke hexEax
 	invoke strcpy,edi,addr strHex

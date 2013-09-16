@@ -50,61 +50,6 @@ Dim Shared szTheme(15)   As ZString * 32
 Const sColors="Back,Text,Selected back,Selected text,Comments,Strings,Operators,Comments back,Active line back,Indent markers,Selection bar,Selection bar pen,Line numbers,Numbers & hex,Line changed,Saved line change,Tools Back,Tools Text,Dialog Back,Dialog Text,CodeComplete Back,CodeComplete Text,CodeTip Back,CodeTip Text,CodeTip Api,CodeTip Sel,Properties parameters"
 
 
-Sub AddApiFile(Byref sFile As zString,ByVal nType As Integer)
-	Dim sItem As ZString*260
-	Dim x As Integer
-	Dim sApi As String
-	Dim sApiItem As String
-
-	GetPrivateProfileString(StrPtr("Api"),@sFile,NULL,@sItem,SizeOf(sItem),@ad.IniFile)
-	Do While IsZStrNotEmpty (sItem)
-		x=InStr(sItem,",")
-		If x Then
-			buff=Left(sItem,x-1)
-			sItem=Mid(sItem,x+1)
-		Else
-			buff=sItem
-			SetZStrEmpty (sItem)             'MOD 26.1.2012 
-		EndIf
-		If fProject Then
-			sApi=ProjectApiFiles
-		Else
-			sApi=DefApiFiles
-		EndIf
-		While Len(sApi)
-			sApiItem=GetTextItem(sApi)
-			x=InStr(sApiItem," ")
-			If x Then
-				sApiItem=Left(sApiItem,x-1)
-			EndIf
-			If Left(buff,Len(sApiItem))=sApiItem Then
-				buff=ad.AppPath & "\Api\" & buff
-				SendMessage(ah.hpr,PRM_ADDPROPERTYFILE,nType,Cast(Integer,@buff))
-				Exit While
-			EndIf
-		Wend
-	Loop
-
-End Sub
-
-Sub LoadApiFiles
-
-	SendMessage ah.hpr, PRM_CLEARWORDLIST, 0, 0
-	
-	AddApiFile "Case"  , Asc ("C") + 2 * 256
-	AddApiFile "Call"  , Asc ("P") + 3 * 256 
-	AddApiFile "Const" , Asc ("A") + 2 * 256 
-	AddApiFile "Struct", Asc ("S") + 2 * 256 
-	AddApiFile "Word"  , Asc ("W") + 2 * 256 
-	AddApiFile "Type"  , Asc ("T") + 2 * 256 
-	AddApiFile "Desc"  , Asc ("D") + 2 * 256 
-	AddApiFile "Msg"   , Asc ("M") + 3 * 256 
-	AddApiFile "Enum"  , Asc ("E") + 2 * 256 
-    
-    POL_Changed = TRUE
-    
-End Sub
-
 Sub SetToolsColors ()
 	Dim racol As RACOLOR
 	Dim rescol As RARESEDCOLOR
@@ -508,7 +453,7 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 	edtfnt.weight     = lfnt.lfWeight
 	edtfnt.italics    = lfnt.lfItalic
 	*edtfnt.szFont    = lfnt.lfFaceName
-    SaveToIni @"Edit", @"EditFont", "44044", @edtfnt, FALSE
+    SaveToIni @"Edit", @"EditFont", "54044", @edtfnt, FALSE
 			
 	lfnt.lfItalic     = TRUE
 	DeleteObject ah.rafnt.hIFont
@@ -522,7 +467,7 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 	lnrfnt.weight     = lfnt.lfWeight
 	lnrfnt.italics    = lfnt.lfItalic
 	*lnrfnt.szFont    = lfnt.lfFaceName
-	SaveToIni @"Edit", @"LnrFont", "44044", @lnrfnt, FALSE
+	SaveToIni @"Edit", @"LnrFont", "54044", @lnrfnt, FALSE
 	
 	GetObject hTFont, SizeOf (LOGFONT), @lfnt
 	ah.hToolFont      = CreateFontIndirect (@lfnt)
@@ -531,7 +476,7 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 	toolfnt.weight    = lfnt.lfWeight
 	toolfnt.italics   = lfnt.lfItalic
 	*toolfnt.szFont   = lfnt.lfFaceName
-	SaveToIni @"Edit", @"ToolFont", "44044", @toolfnt, FALSE
+	SaveToIni @"Edit", @"ToolFont", "54044", @toolfnt, FALSE
 
 	GetObject hOFont, SizeOf (LOGFONT), @lfnt
 	ah.hOutFont       = CreateFontIndirect (@lfnt)
@@ -540,7 +485,7 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 	outpfnt.weight    = lfnt.lfWeight
 	outpfnt.italics   = lfnt.lfItalic
 	*outpfnt.szFont   = lfnt.lfFaceName
-	SaveToIni @"Edit", @"OutpFont", "44044", @outpfnt, FALSE
+	SaveToIni @"Edit", @"OutpFont", "54044", @outpfnt, FALSE
 		
 	SendMessage(ah.hcc,WM_SETFONT,Cast(Integer,ah.hToolFont),0)
 	SendMessage(ah.htt,WM_SETFONT,Cast(Integer,ah.hToolFont),0)

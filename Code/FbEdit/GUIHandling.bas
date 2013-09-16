@@ -26,8 +26,8 @@ Dim Shared lpOldOutputProc        As WNDPROC
 Dim Shared lpOldImmediateProc     As WNDPROC
 Dim Shared lpOldFileBrowserProc   As WNDPROC  
                                   
-Dim Shared MruProject(3)          As ZString * 260
-Dim Shared MruFile(8)             As ZString * 260
+Dim Shared MruProject(IDM_FILE_MRUPROJECT_LAST - IDM_FILE_MRUPROJECT_1) As ZString * MAX_PATH 
+Dim Shared MruFile   (IDM_FILE_MRUFILE_LAST    - IDM_FILE_MRUFILE_1)    As ZString * MAX_PATH 
                                   
 Dim Shared ttmsg                  As MESSAGE                 ' Tooltip
 Dim Shared ttpos                  As Integer
@@ -237,12 +237,6 @@ Sub ShowImmediate(ByVal bShow As Boolean)
 
 End Sub
 
-Sub HLineToOutput ()
-
-	TextToOutput String (80, Asc ("="))
-  
-End Sub
-
 Sub TextToOutput OverLoad (Byval pText As ZString Ptr)
     
     If (wpos.fview And VIEW_OUTPUT) = 0 Then                              ' show if hidden
@@ -273,6 +267,20 @@ Sub TextToOutput OverLoad (Byval pText As ZString Ptr, ByVal BookMarkType As Boo
 	SendMessage ah.hout, REM_SETBOOKMARK, LastLine, BookMarkType
 	SendMessage ah.hout, REM_SETBMID, LastLine, BookMarkID
 
+End Sub
+
+Sub TextToOutput Overload (ByVal StdMsg As OutputTextTemplate)
+    
+    Dim ErrText As ZString * 512 = Any 
+    
+    Select Case StdMsg
+    Case OTT_HLINE
+        TextToOutput String (80, Asc ("="))
+    Case OTT_WINLASTERROR
+        FormatMessage FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError, NULL, @ErrText, SizeOf (ErrText), NULL
+		TextToOutput ErrText
+    End Select
+    
 End Sub
 
 Sub ListAllBookmarks ()
@@ -320,7 +328,7 @@ Sub ListAllBookmarks ()
 			EndIf			
         	TabID += 1
 		Else
-		    HLineToOutput
+		    TextToOutput OTT_HLINE
 	        Exit Sub 
 		EndIf
 	Loop
@@ -415,16 +423,16 @@ End Function
 Sub SetWinCaption ()
 
 	If ah.hred Then
-		If fProject Then
-			SetWindowText(ah.hwnd,"FbEditMOD - " & ProjectDescription & " - ["& ad.filename & "]")
+    	If fProject Then
+			SetWindowText ah.hwnd, "FbEditMOD - " + ProjectDescription + " - " + *PathFindFileName (@ad.filename) + " - [" + ad.filename + "]"
 		Else
-			SetWindowText(ah.hwnd,"FbEditMOD - " & ad.filename)
+			SetWindowText ah.hwnd, "FbEditMOD - " + *PathFindFileName (@ad.filename) + " - [" + ad.filename + "]"
 		EndIf
 	Else
 		If fProject Then
-			SetWindowText(ah.hwnd,"FbEditMOD - " & ProjectDescription)
+			SetWindowText ah.hwnd, "FbEditMOD - " + ProjectDescription
 		Else
-			SetWindowText(ah.hwnd,"FbEditMOD")
+			SetWindowText ah.hwnd, "FbEditMOD"
 		EndIf
 	EndIf
 
@@ -487,6 +495,52 @@ Sub MakeSubMenu (ByVal SubMenuID As UINT, ByVal FirstID As UINT, ByVal LastID As
 	Next 
 
 End Sub
+
+
+Sub MakeMenuCustomFilter ()
+	
+	Dim wfd        As WIN32_FIND_DATA    = Any 
+	Dim hwfd       As HANDLE             = Any 
+	Dim SearchSpec As ZString * MAX_PATH = Any 
+    Dim Success    As BOOL               = Any 
+   	Dim i          As Integer            = Any
+   	Dim mii        As MENUITEMINFO       
+    
+
+	SearchSpec = ad.AppPath + $"\CustomFilter\*.exe"
+    i          = IDM_FORMAT_CUSTOMFILTER_1
+    
+    With mii
+        .cbSize = SizeOf (MENUITEMINFO)
+        .fMask  = MIIM_SUBMENU
+    End With
+  	GetMenuItemInfo ah.hmenu, IDM_FORMAT_CUSTOMFILTER, FALSE, @mii
+
+	hwfd = FindFirstFile (@SearchSpec, @wfd)
+	If hwfd <> INVALID_HANDLE_VALUE Then
+		Do 
+ 			If wfd.dwFileAttributes And FILE_ATTRIBUTE_DIRECTORY Then
+				                                                           ' skip directories
+ 			Else                                                           ' add to menu
+		        If i = IDM_FORMAT_CUSTOMFILTER_1 Then
+		            DeleteMenu mii.hSubMenu, i, MF_BYCOMMAND               ' delete dummy entry first
+		        EndIf
+
+            	AppendMenu mii.hSubMenu, MF_STRING, i, wfd.cFileName
+   				
+   				If i = IDM_FORMAT_CUSTOMFILTER_LAST Then
+   				    Exit Do
+   				Else
+   				    i += 1    
+   				EndIf
+ 			EndIf
+
+			Success = FindNextFile (hwfd, @wfd)
+		Loop While Success
+		FindClose hwfd
+	EndIf
+End Sub
+
 
 Sub MakeMenuMruProjects ()
 	
@@ -556,14 +610,14 @@ Sub MakeMenuMruFiles ()
 	Dim sFile As ZString * 260
 	Dim i     As Integer      = Any
 	Dim j     As Integer      = Any
-	Dim mii   As MENUITEMINFO = Any 
+	Dim mii   As MENUITEMINFO
 
 	mii.cbSize = SizeOf (MENUITEMINFO)
 	mii.fMask  = MIIM_SUBMENU
 	GetMenuItemInfo ah.hmenu, IDM_FILE_RECENTFILE, FALSE, @mii
 	
-	For i = 0 To 8
-		DeleteMenu mii.hSubMenu, IDM_FILE_MRUFILE_1 + i, MF_BYCOMMAND
+	For i = IDM_FILE_MRUFILE_1 To IDM_FILE_MRUFILE_LAST
+		DeleteMenu mii.hSubMenu, i, MF_BYCOMMAND
 	Next
 	
 	j = 0
@@ -589,50 +643,44 @@ Sub MakeMenuMruFiles ()
 
 End Sub
 
-Sub AddMruFile(Byref sFile As ZString)
+Sub AddMruFile (ByRef sFile As ZString)
 
-	Dim sItem As ZString*260
 	Dim i As Integer = Any 
-	Dim x As Integer = Any 
+	Dim n As Integer = Any 
 	Dim mii As MENUITEMINFO
 
 	If fProject Then
 		If GetFileID (sFile) Then
-			Exit Sub
+			Exit Sub                                       ' dont add file, if belonging to current project
 		EndIf
 	EndIf
 
-	mii.cbSize=SizeOf(MENUITEMINFO)
-	mii.fMask=MIIM_SUBMENU
-	GetMenuItemInfo(ah.hmenu,IDM_FILE_RECENTFILE,FALSE,@mii)
+	mii.cbSize = SizeOf (MENUITEMINFO)
+	mii.fMask  = MIIM_SUBMENU
+	GetMenuItemInfo ah.hmenu, IDM_FILE_RECENTFILE, FALSE, @mii
 
-	For i=0 To 8
-		'x=InStr(MruFile(i),",")
-		'sItem=Mid(MruFile(i),x+1)
-		If lstrcmpi(MruFile(i),sFile)=0 Then
-			For x=i To 7
-				MruFile(x)=MruFile(x+1)
+	For i = 0 To 8                                         ' remove dup from new item
+		If lstrcmpi (MruFile(i), sFile) = 0 Then
+			For n = i To 7
+				MruFile(n) = MruFile(n + 1)                ' by moving following items one place downwards  
 			Next 
-			SetZStrEmpty (MruFile(8))                      'MOD 26.1.2012 
+			SetZStrEmpty (MruFile(8))                      ' free last item
+			Exit For 
 		EndIf
 	Next 
 	
-	For i=8 To 1 Step -1
-		MruFile(i)=MruFile(i-1)
+	For i = 8 To 1 Step -1                                 ' move all items one place upwards
+		MruFile(i) = MruFile(i - 1)
 	Next
-	
 	MruFile(0) = sFile
-	'MruFile(0) = *GetFileName (sFile) & "," & sFile        ' MOD 22.1.2012
-	For i=0 To 8
-		DeleteMenu(mii.hSubMenu,IDM_FILE_MRUFILE_1+i,MF_BYCOMMAND)
-		WritePrivateProfileString(StrPtr("MruFile"),Str(i+1),@MruFile(i),@ad.IniFile)
-		If IsZStrNotEmpty (MruFile (i)) then
+
+	For i = 0 To 8
+		DeleteMenu mii.hSubMenu, IDM_FILE_MRUFILE_1 + i, MF_BYCOMMAND
+		WritePrivateProfileString @"MruFile", Str(i + 1), @MruFile(i), @ad.IniFile
+		If IsZStrNotEmpty (MruFile(i)) Then 
 			AppendMenu mii.hSubMenu, MF_STRING, IDM_FILE_MRUFILE_1 + i, "&" + Str (i + 1) + " " + *GetFileName (MruFile(i))
 		EndIf 
-		'x=InStr(MruFile(i-1),",")
-		'If x Then
-		'	AppendMenu(mii.hSubMenu,MF_STRING,15000+i,"&" & Str(i) & " " & Left(MruFile(i-1),x-1))
-		'EndIf
 	Next 
-	CallAddins(ah.hwnd,AIM_MENUREFRESH,0,0,HOOK_MENUREFRESH)
+	
+	CallAddins ah.hwnd, AIM_MENUREFRESH, 0,0, HOOK_MENUREFRESH
 End Sub

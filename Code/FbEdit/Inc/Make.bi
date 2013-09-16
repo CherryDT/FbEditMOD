@@ -21,7 +21,8 @@ Declare Sub GetMakeOption()
 Declare Function GetErrLine (Byref ErrMsgLine As zString, ByVal fQuickRun As Boolean) As Integer
 
 Declare Function MakeBuild (Byref sMakeOpt As ZString, ByRef sFile As zString, ByRef CCLName As ZString, ByVal fOnlyThisModule As Boolean,ByVal fNoClear As Boolean,ByVal fQuickRun As Boolean) As Integer
-Declare Function MakeRun (Byref sFile As zString, ByVal fDebug As Boolean) As Integer
+Declare Sub MakeRun (ByRef sFile As ZString)
+Declare Sub MakeRunDebug (ByRef sFile As ZString)
 Declare Function Compile (Byref sMake As zString) As Integer
 Declare Function CompileModules () As Integer
 

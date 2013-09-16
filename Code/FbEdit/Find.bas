@@ -546,8 +546,7 @@ Sub InitFindRange
 	        f.listidx = 0
 	        
 	    Case FM_RANGE_SELECTION			' Current selection
-			SendMessage(ah.hred,EM_EXGETSEL,0,Cast(Integer,@f.chrgrange))
-			'
+			SendMessage ah.hred, EM_EXGETSEL, 0, Cast (LPARAM, @f.chrgrange)
 	End Select
 End Sub
 
@@ -623,7 +622,7 @@ Function FindInFile(ByVal hWin As HWND,ByVal frType As Integer) As Integer
 	
 	    Case FM_ENGINE_REGEX
 	    	'nlen = SendMessage (hWin, WM_GETTEXTLENGTH, 0, 0)  
-	    	'hMem = MyGlobalAlloc (GMEM_FIXED, nlen + 1)
+	    	'hMem = GlobalAllocUI (GMEM_FIXED, nlen + 1)
 	    	hMem = GetFileMem (hWin)
 	    	If hMem Then
 	        	'SendMessage hWin, WM_GETTEXT, nlen + 1, Cast (LPARAM, hMem)
@@ -965,7 +964,7 @@ TryAgain:
 		EndIf
 		
 		' MOD 20.2.2012
-		If f.flogfind Then HLineToOutput
+		If f.flogfind Then TextToOutput OTT_HLINE
 	    If findvisible Then
        	    SetFindMsg buff, IDI_ASTERISK
             MessageBeep MB_ICONASTERISK
@@ -1139,13 +1138,13 @@ Sub FindAllOutside
     Loop
 
     If f.Busy Then
-        HLineToOutput
+        TextToOutput OTT_HLINE
     	buff = GetInternalString (IS_COMPILER_INCPATH_SEARCHED)
         SetFindMsg buff, IDI_ASTERISK
         MessageBeep MB_ICONASTERISK
     Else
         TextToOutput "cancelled"
-        HLineToOutput
+        TextToOutput OTT_HLINE
 		buff = GetInternalString (IS_SEARCH_CANCELLED)
         SetFindMsg buff, IDI_EXCLAMATION        
         MessageBeep MB_ICONEXCLAMATION
@@ -1169,7 +1168,8 @@ Sub FindAllInside
         DoEvents NULL
         If f.Busy = FALSE Then
    		    TextToOutput "cancelled"
-   		    HLineToOutput
+   		    TextToOutput OTT_HLINE
+   		    TextToOutput OTT_HLINE
     	    SendDlgItemMessage ah.hfind, IDC_IMG_FINDMSG, STM_SETICON, Cast (WPARAM, LoadIcon (NULL, IDI_EXCLAMATION)), 0
     		buff = GetInternalString (IS_SEARCH_CANCELLED)
     		SendDlgItemMessage ah.hfind, IDC_TXT_FINDMSG, WM_SETTEXT, 0, Cast (LPARAM, @buff)		
@@ -1388,7 +1388,7 @@ Function FindDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
                             If IsZStrNotEmpty (buff) Then
                                 x = InStr (buff, ",")    
                                 SendDlgItemMessage hWin, IDC_FINDTEXT, WM_SETTEXT, 0, Cast (LPARAM, @buff[x])
-                                f.findbuff = *@buff[x]
+                                f.findbuff = (@buff)[x]            'WATCH
                                 ResetFind  
                             EndIf 
                         EndIf

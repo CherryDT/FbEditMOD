@@ -32,6 +32,7 @@
 #Include Once "Inc\CBH_Dialog.bi"
 #Include Once "Inc\CodeComplete.bi"
 #Include Once "Inc\CreateTemplate.bi"
+#Include Once "Inc\CustomFilter.bi"
 #Include Once "Inc\DebugOpt.bi"
 #Include Once "Inc\CoTxEd.bi"
 #Include Once "Inc\EditorOpt.bi"
@@ -351,7 +352,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 	Dim sItem As ZString*260
 	Dim hMem As HGLOBAL
 	Dim lpCOPYDATASTRUCT As COPYDATASTRUCT Ptr
-	Dim sFile As String
+	Dim sFile As ZString * MAX_PATH 
 	Dim FileID As Integer = Any 
 	Dim TabId  As Integer = Any 
 	Dim hMnu   As HMENU   = Any 
@@ -378,7 +379,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			ah.hsbr        = GetDlgItem (hWin, IDC_STATUSBAR)          ' Statusbar
 			
 			' Set close button image
-            hBmp = LoadImage (hInstance, MAKEINTRESOURCE (IDB_CLOSE), IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS)
+            hBmp = LoadImage (hInstance, MAKEINTRESOURCE (IDB_CLOSE), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR)    ' LR_LOADMAP3DCOLORS)
 			SendDlgItemMessage hWin, IDM_FILE_CLOSE, BM_SETIMAGE, IMAGE_BITMAP, Cast (LPARAM, hBmp)
             'DeleteObject hBmp
 			' Get from ini
@@ -402,7 +403,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			' Get handle of ToolBar control
 			ad.tbwt=694
 			ah.htoolbar=GetDlgItem(hWin,IDC_TOOLBAR)
-			DoToolbar ah.htoolbar
+			DoToolbar ah.htoolbar, __FB_DEBUG__
 
 			SbarInit
 
@@ -558,9 +559,9 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 				SendMessage(ah.hout,REM_BRACKETMATCH,0,Cast(Integer,StrPtr("")))
 			EndIf
 			' Menus
-			ah.hmenu=GetMenu(hWin)
-			ah.hcontextmenu=LoadMenu(hInstance,Cast(ZString Ptr,IDR_CONTEXTMENU))
-			GetPrivateProfileString(StrPtr("Language"),StrPtr("Language"),NULL,@Language,SizeOf(Language),@ad.IniFile)
+			ah.hmenu = GetMenu (hWin)
+			ah.hcontextmenu = LoadMenu (hInstance, MAKEINTRESOURCE (IDR_CONTEXTMENU))
+			GetPrivateProfileString @"Language", @"Language", NULL, @Language, SizeOf (Language), @ad.IniFile
 			If IsZStrNotEmpty (Language) Then GetLanguageFile
 			
 			' Project tab
@@ -630,6 +631,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			SendMessage ah.hregister, WM_SETFONT, Cast (WPARAM, ah.hOutFont ), FALSE
 			SendMessage ah.hfpu,      WM_SETFONT, Cast (WPARAM, ah.hOutFont ), FALSE
 			SendMessage ah.hmmx,      WM_SETFONT, Cast (WPARAM, ah.hOutFont ), FALSE
+			
 			' Printer
 			LoadFromIni "Printer", "Page", "4444444", @ppage, FALSE
 			GetLocaleInfo(GetUserDefaultLCID,LOCALE_IMEASURE,@buff,SizeOf(buff))
@@ -644,6 +646,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			psd.rtMargin.top    = ppage.margin.top
 			psd.rtMargin.right  = ppage.margin.right
 			psd.rtMargin.bottom = ppage.margin.bottom
+			
 			' Position and size main window
 			SetWindowPos(hWin,NULL,wpos.x,wpos.y,wpos.wt,wpos.ht,SWP_NOZORDER)
 			If wpos.fmax Then
@@ -704,6 +707,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			hHCur = LoadCursor (hInstance, MAKEINTRESOURCE (IDC_HSPLIT))
 			MakeMenuMruProjects
 			MakeMenuMruFiles
+			MakeMenuCustomFilter
 			fTimer=1
 			LoadAddins
 			ShowWindow(ah.htabtool,SW_HIDE)
@@ -791,17 +795,35 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			id=LoWord(wParam)
 			Select Case HiWord(wParam)
 				Case BN_CLICKED, 1
-					Select Case As const id
+					Select Case id
                         #If __FB_DEBUG__
 				        Case IDM_DEBUG_TESTSTART
 				            ' test stuff only
 				            Print "IDM_DEBUG_TESTSTART:"
-
-
+                            'CustomFilterStartUp
+                            'hMem = GetFileMemSelected (ah.hred)
+                            'If hMem Then
+                            '    Print "*"; 
+                            '    i = 0
+                            '    Do
+                            '        Select Case Cast(UByte Ptr, hMem)[i]
+                            '        Case 0
+                            '            Exit Do
+                            '        Case 13
+                            '            Print
+                            '            i += 1
+                            '        Case Else
+                            '            Print Chr (Cast (UByte Ptr, hMem)[i]);
+                            '            i += 1
+                            '        End Select
+                            '    Loop While i < 200
+                            '    Print "*"
+                            '    GlobalFree (hMem)
+                            'endif    
 						#EndIf
 
 						Case IDM_FILE_NEWPROJECT
-							DialogBox(hInstance,Cast(ZString Ptr,IDD_NEWPROJECT),GetOwner,@NewProjectDlgProc)
+							DialogBox (hInstance, MAKEINTRESOURCE (IDD_NEWPROJECT), GetOwner, @NewProjectDlgProc)
 							fTimer = 1
 							'
 						Case IDM_FILE_OPENPROJECT
@@ -843,7 +865,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
                         	Loop
                             OpenTheFile FileSpec, FOM_STD
 							                                        ' MOD 2.2.2012    ad.filename="(Untitled).rc"
-							'hMem=MyGlobalAlloc(GMEM_FIXED Or GMEM_ZEROINIT,4096)
+							'hMem=GlobalAllocUI(GMEM_FIXED Or GMEM_ZEROINIT,4096)
 							''GlobalLock(hMem)                       ' MOD 3.2.2012    FixedMem Lockcount always zero
 							'SendMessage(ah.hraresed,PRO_OPEN,Cast(Integer,@"(Untitled).rc"),Cast(Integer,hMem))
 							'                                        ' MOD 2.2.2012    ah.hred=ah.hres
@@ -856,7 +878,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 							If IsZStrNotEmpty (buff) Then
 								OpenTheFile buff, FOM_STD
 							Else
-					            TextToOutput "*** no valid spec found at caret ***", &hFFFFFFFF
+					            TextToOutput "*** no valid spec found for preset ***", &hFFFFFFFF
 								OpenAFile FOM_STD                       ' MOD 2.1.2012   OpenAFile(hWin,FALSE)
 							EndIf
 							fTimer = 1
@@ -869,6 +891,15 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 							OpenAFile FOM_TXT                           ' MOD 2.1.2012   OpenAFile(hWin,TRUE)
 							fTimer = 1
 							'
+					    Case IDM_FILE_MRUFILE_1 To IDM_FILE_MRUFILE_LAST
+							' Mru file
+							sItem = MruFile(id - IDM_FILE_MRUFILE_1)     ' local copy needed, because OpenTheFile modifies MruFile(), (shared)
+							OpenTheFile sItem, FOM_STD
+							'x=InStr(MruFile(id-15001),",")
+							'If x Then
+							'	OpenTheFile(Mid(MruFile(id-15001),x+1),FOM_STD)
+							'EndIf
+
     					Case IDM_FIB_OPEN_STD
     					    SendMessage ah.hfib, FBM_GETSELECTED, 0, Cast (LPARAM, @buff)
     					    If FileExists (@buff) Then
@@ -892,7 +923,9 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 	                    
 	                    Case  IDM_FIB_OPEN_EXTERN				    
 					        SendMessage ah.hfib, FBM_GETSELECTED, 0, Cast (LPARAM, @buff)
-					        OpenFileExtern buff, FOEM_EVERY
+					        If IsZStrNotEmpty (buff) Then
+					            OpenFileExtern buff, FOEM_EVERY
+					        EndIf     
 					    
 					    Case IDM_PROJECT_FILE_OPEN_STD
 					        GetTrvSelItemData sFile, 0, 0, PT_ABSOLUTE
@@ -987,6 +1020,25 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 						Case IDM_FILE_EXIT
 							SendMessage(hWin,WM_CLOSE,0,0)
 							'
+					    Case IDM_FILE_MRUPROJECT_1 To IDM_FILE_MRUPROJECT_LAST
+							' Mru project
+							x = InStr (MruProject(id - IDM_FILE_MRUPROJECT_1), ",")
+							If x Then
+								sItem = Mid (MruProject(id - IDM_FILE_MRUPROJECT_1), x + 1)
+								OpenTheFile sItem, FOM_STD
+								'If fProject Then
+								'	If CloseProject=FALSE Then
+								'		Return TRUE
+								'	EndIf
+								'Else
+								'	If CloseAllTabs(FALSE,0)=TRUE Then      ' MOD 1.2.2012 removed hWin
+								'		Return TRUE
+								'	EndIf
+								'EndIf
+								'ad.ProjectFile=Mid(MruProject(id-14001),x+1)
+								'OpenProject
+							EndIf
+
 						Case IDM_EDIT_UNDO
 							SendMessage(ah.hred,EM_UNDO,0,0)
 							'
@@ -1527,6 +1579,18 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 								FormatIndent(ah.hred)
 							EndIf
 							'
+						Case IDM_FORMAT_CUSTOMFILTER_1 To IDM_FORMAT_CUSTOMFILTER_LAST	
+						   	Dim mii As MENUITEMINFO 
+                            With mii
+                                .cbSize     = SizeOf (MENUITEMINFO)
+                                .fMask      = MIIM_STRING
+                                .dwTypeData = @sFile
+                                .cch        = SizeOf (sFile)
+                            End With
+                          	GetMenuItemInfo ah.hmenu, id, FALSE, @mii
+	                        CustomFilterStartUp @sFile
+
+	                         					
 						Case IDM_VIEW_OUTPUT
 							wpos.fview=wpos.fview Xor VIEW_OUTPUT
 							SendMessage(hWin,WM_SIZE,SIZE_RESTORED,0)
@@ -1802,7 +1866,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 							Else
 							    sFile = ad.filename
 							EndIf
-							MakeRun sFile, FALSE
+							MakeRun sFile
 							'
 						Case IDM_MAKE_RUNDEBUG
 							fQR = FALSE
@@ -1813,13 +1877,13 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 							Else
 							    sFile = ad.filename
 							EndIf
-							MakeRun sFile, TRUE 
+							MakeRunDebug sFile
 							'
 						Case IDM_MAKE_MODULE
 							fQR=FALSE
 							TextToOutput !"compiling modules:\13"
 							CompileModules                                             ' usually called by Function: Compile (), which doing the log
-    						HLineToOutput
+    						TextToOutput OTT_HLINE
 							'
 						Case IDM_MAKE_QUICKRUN
 							KillQuickRun
@@ -1859,7 +1923,42 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 						Case IDM_TOOLS_EXPORT
 							DialogBox(hInstance,Cast(ZString Ptr,IDD_DLGEXPORT),hWin,@ExportDlgProc)
 							'
-						Case IDM_OPTIONS_LANGUAGE
+					    Case IDM_TOOLS_USER_1 To IDM_TOOLS_USER_LAST
+							' Tools menu
+							UpdateEnvironment
+							GetPrivateProfileString(StrPtr("Tools"),Str(id-IDM_TOOLS_USER_1+1),NULL,@buff,GOD_EntrySize,@ad.IniFile)
+							If IsZStrNotEmpty (buff) Then
+                               	Dim SInfo  As STARTUPINFO
+                            	Dim PInfo  As PROCESS_INFORMATION
+								SplitStr buff, Asc (","), pBuffB 
+								ExpandStrByEnviron *pBuffB
+                            	CreateProcess NULL, pBuffB, NULL, NULL, FALSE, CREATE_NEW_CONSOLE, NULL, NULL, @SInfo, @PInfo
+                            	CloseHandle PInfo.hProcess
+                            	CloseHandle PInfo.hThread
+								'FixPath(buff)
+								'If buff[0] = Asc ("\") Then         ' MOD 27.1.2012   
+								'	buff=Left(ad.AppPath,2) & buff
+								'EndIf
+								'If Right(buff,2)=" $" Then          
+								'	buff[Len(buff)-2]=NULL
+								'	ShellExecute(hWin,NULL,@buff,@ad.filename,NULL,SW_SHOWNORMAL)
+								'ElseIf buff[0] = Asc ("$") Then     ' MOD 27.1.2012    
+								'	GetCurrentDirectory(260,@buff)
+								'	lstrcat(@buff,StrPtr("\"))
+								'	ShellExecute(hWin,StrPtr("explore"),@buff,NULL,NULL,SW_SHOWNORMAL)
+								'Else
+								'	If InStr(buff,"""") Then
+								'		s=Mid(buff,InStr(buff,""""))
+								'		s=Mid(s,2)
+								'		s=Left(s,Len(s)-1)
+								'		buff=Trim(Left(buff,InStr(buff,"""")-1))
+								'		ShellExecute(hWin,NULL,@buff,@s,NULL,SW_SHOWNORMAL)
+								'	Else
+								'		ShellExecute(hWin,NULL,@buff,NULL,NULL,SW_SHOWNORMAL)
+								'	EndIf
+								'EndIf
+							EndIf
+					    Case IDM_OPTIONS_LANGUAGE
 							DialogBox(hInstance,Cast(ZString Ptr,IDD_DLGLANGUAGE),hWin,@LanguageDlgProc)
 							'
 						Case IDM_OPTIONS_CODE
@@ -1905,6 +2004,26 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 							DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLGABOUT), hWin, @AboutDlgProc)
 							SetFocus(ah.hred)
 							'
+					    Case IDM_HELP_USER_1 To IDM_HELP_USER_LAST
+							' Help menu
+							UpdateEnvironment
+							GetPrivateProfileString(StrPtr("Help"),Str(id-IDM_HELP_USER_1+1),NULL,@buff,GOD_EntrySize,@ad.IniFile)
+							If IsZStrNotEmpty (buff) Then
+                               	Dim SInfo  As STARTUPINFO
+                            	Dim PInfo  As PROCESS_INFORMATION
+								SplitStr buff, Asc (","), pBuffB 
+								ExpandStrByEnviron *pBuffB
+                            	CreateProcess NULL, pBuffB, NULL, NULL, FALSE, CREATE_NEW_CONSOLE, NULL, NULL, @SInfo, @PInfo
+                            	CloseHandle PInfo.hProcess
+                            	CloseHandle PInfo.hThread
+								'buff=Mid(buff,InStr(buff,",")+1)
+								'FixPath(buff)
+								'If buff[0] = Asc ("\") Then             ' MOD 27.1.2012   
+								'	buff=Left(ad.AppPath,2) & buff
+								'EndIf
+								'ShellExecute(hWin,NULL,@buff,NULL,NULL,SW_SHOWNORMAL)
+							EndIf
+
 					    Case IDM_HELPF1, IDM_HELPCTRLF1
 					        If id = IDM_HELPF1 Then 
 					            pZStr = @"F1"
@@ -2063,113 +2182,30 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 						Case IDM_PROPERTY_HILIGHT_UPDATE
 							PropertyHL(TRUE)
 							'
-						Case Else
-							If id=IDC_CBOBUILD Then
-								id=SendMessage(ah.hcbobuild,CB_GETCURSEL,0,0)
-								If fProject Then
-									WritePrivateProfileString(StrPtr("Make"),StrPtr("Current"),Str(id+1),@ad.ProjectFile)
-								Else
-									WritePrivateProfileString(StrPtr("Make"),StrPtr("Current"),Str(id+1),@ad.IniFile)
-								EndIf
-								GetMakeOption
-								'
-							ElseIf id=&HFFFD Then
-								' Expand button clicked
-								SendMessage(ah.hred,REM_EXPANDALL,0,0)
-								SendMessage(ah.hred,EM_SCROLLCARET,0,0)
-								SendMessage(ah.hred,REM_REPAINT,0,0)
-								'
-							ElseIf id=&HFFFC Then
-								' Collapse button clicked
-								SendMessage(ah.hred,REM_COLLAPSEALL,0,0)
-								SendMessage(ah.hred,EM_SCROLLCARET,0,0)
-								SendMessage(ah.hred,REM_REPAINT,0,0)
-								'
-							ElseIf id>=IDM_TOOLS_USER_1 AndAlso id<=IDM_TOOLS_USER_LAST Then
-								' Tools menu
-								UpdateEnvironment
-								GetPrivateProfileString(StrPtr("Tools"),Str(id-IDM_TOOLS_USER_1+1),NULL,@buff,GOD_EntrySize,@ad.IniFile)
-								If IsZStrNotEmpty (buff) Then
-                                   	Dim SInfo  As STARTUPINFO
-                                	Dim PInfo  As PROCESS_INFORMATION
-									SplitStr buff, Asc (","), pBuffB 
-									ExpandStrByEnviron *pBuffB
-                                	CreateProcess NULL, pBuffB, NULL, NULL, FALSE, CREATE_NEW_CONSOLE, NULL, NULL, @SInfo, @PInfo
-                                	CloseHandle PInfo.hProcess
-                                	CloseHandle PInfo.hThread
-									'FixPath(buff)
-									'If buff[0] = Asc ("\") Then         ' MOD 27.1.2012   
-									'	buff=Left(ad.AppPath,2) & buff
-									'EndIf
-									'If Right(buff,2)=" $" Then          
-									'	buff[Len(buff)-2]=NULL
-									'	ShellExecute(hWin,NULL,@buff,@ad.filename,NULL,SW_SHOWNORMAL)
-									'ElseIf buff[0] = Asc ("$") Then     ' MOD 27.1.2012    
-									'	GetCurrentDirectory(260,@buff)
-									'	lstrcat(@buff,StrPtr("\"))
-									'	ShellExecute(hWin,StrPtr("explore"),@buff,NULL,NULL,SW_SHOWNORMAL)
-									'Else
-									'	If InStr(buff,"""") Then
-									'		s=Mid(buff,InStr(buff,""""))
-									'		s=Mid(s,2)
-									'		s=Left(s,Len(s)-1)
-									'		buff=Trim(Left(buff,InStr(buff,"""")-1))
-									'		ShellExecute(hWin,NULL,@buff,@s,NULL,SW_SHOWNORMAL)
-									'	Else
-									'		ShellExecute(hWin,NULL,@buff,NULL,NULL,SW_SHOWNORMAL)
-									'	EndIf
-									'EndIf
-								EndIf
-							ElseIf id>=IDM_HELP_USER_1 AndAlso id<=IDM_HELP_USER_LAST Then
-								' Help menu
-								UpdateEnvironment
-								GetPrivateProfileString(StrPtr("Help"),Str(id-IDM_HELP_USER_1+1),NULL,@buff,GOD_EntrySize,@ad.IniFile)
-								If IsZStrNotEmpty (buff) Then
-                                   	Dim SInfo  As STARTUPINFO
-                                	Dim PInfo  As PROCESS_INFORMATION
-									SplitStr buff, Asc (","), pBuffB 
-									ExpandStrByEnviron *pBuffB
-                                	CreateProcess NULL, pBuffB, NULL, NULL, FALSE, CREATE_NEW_CONSOLE, NULL, NULL, @SInfo, @PInfo
-                                	CloseHandle PInfo.hProcess
-                                	CloseHandle PInfo.hThread
-									'buff=Mid(buff,InStr(buff,",")+1)
-									'FixPath(buff)
-									'If buff[0] = Asc ("\") Then             ' MOD 27.1.2012   
-									'	buff=Left(ad.AppPath,2) & buff
-									'EndIf
-									'ShellExecute(hWin,NULL,@buff,NULL,NULL,SW_SHOWNORMAL)
-								EndIf
-							ElseIf id>=IDM_FILE_MRUPROJECT_1 Andalso id<=IDM_FILE_MRUPROJECT_LAST Then
-								' Mru project
-								x = InStr (MruProject(id - IDM_FILE_MRUPROJECT_1), ",")
-								If x Then
-									sItem = Mid (MruProject(id - IDM_FILE_MRUPROJECT_1), x + 1)
-									OpenTheFile sItem, FOM_STD
-									'If fProject Then
-									'	If CloseProject=FALSE Then
-									'		Return TRUE
-									'	EndIf
-									'Else
-    								'	If CloseAllTabs(FALSE,0)=TRUE Then      ' MOD 1.2.2012 removed hWin
-									'		Return TRUE
-									'	EndIf
-									'EndIf
-									'ad.ProjectFile=Mid(MruProject(id-14001),x+1)
-									'OpenProject
-								EndIf
-							ElseIf id>=IDM_FILE_MRUFILE_1 Andalso id<=IDM_FILE_MRUFILE_LAST Then
-								' Mru file
-								sItem = MruFile(id - IDM_FILE_MRUFILE_1)     ' local copy needed, because OpenTheFile modifies MruFile(), (shared)
-								OpenTheFile sItem, FOM_STD
-								'x=InStr(MruFile(id-15001),",")
-								'If x Then
-								'	OpenTheFile(Mid(MruFile(id-15001),x+1),FOM_STD)
-								'EndIf
-							ElseIf id>=22000 And id<=22032 Then
-								' Custom resource
-								SendMessage(ah.hraresed,PRO_ADDITEM,id-22000+32,TRUE)
+					    Case IDC_CBOBUILD
+							id = SendMessage (ah.hcbobuild, CB_GETCURSEL, 0, 0)
+							If fProject Then
+							    pZStr = @ad.ProjectFile
+							Else
+								pZStr = @ad.IniFile
 							EndIf
+							WritePrivateProfileString @"Make", @"Current", Str(id + 1), pZStr
+							GetMakeOption
+						Case &HFFFD 
+							' Expand button clicked
+							SendMessage(ah.hred,REM_EXPANDALL,0,0)
+							SendMessage(ah.hred,EM_SCROLLCARET,0,0)
+							SendMessage(ah.hred,REM_REPAINT,0,0)
 							'
+						Case &HFFFC 
+							' Collapse button clicked
+							SendMessage(ah.hred,REM_COLLAPSEALL,0,0)
+							SendMessage(ah.hred,EM_SCROLLCARET,0,0)
+							SendMessage(ah.hred,REM_REPAINT,0,0)
+							'
+						Case 22000 To 22032
+							' Custom resource
+							SendMessage(ah.hraresed,PRO_ADDITEM,id-22000+32,TRUE)
 					End Select
 					'
 			End Select
@@ -2603,9 +2639,8 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
     					EndIf
     					RefreshProjectTree
     				Else
-    			        FormatMessage FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError, NULL, @sItem, SizeOf (sItem), NULL
                 		TextToOutput "*** rename failed ***", MB_ICONHAND 
-                		TextToOutput sItem
+                		TextToOutput OTT_WINLASTERROR
     				EndIf
 				EndIf
 				#Undef pNMTVDISPINFO
@@ -3050,7 +3085,8 @@ Function WinMain(ByVal hInst As HINSTANCE,ByVal hPrevInst As HINSTANCE,ByVal lpC
 	CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLG_CBH), ah.hwnd, @CBHDlgProc)
 
 	If GetPrivateProfileInt ("Win", "Splash", 1, @ad.IniFile) Then
-	    ThreadCall SplashScreen 
+	    CreateThread NULL, 0, Cast(LPTHREAD_START_ROUTINE, @SplashScreen), 0, 0, NULL
+	    'ThreadCreate @SplashScreen 
 	EndIf
 
 	FileMonitorStart

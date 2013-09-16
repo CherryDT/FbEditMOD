@@ -2,7 +2,8 @@
 
 #Include Once "win\commdlg.bi"
 
-Declare Function MyGlobalAlloc (ByVal nType As UINT,ByVal nSize As DWORD) As HGLOBAL
+Declare Function GlobalAllocUI (ByVal nType As UINT,ByVal nSize As DWORD) As HGLOBAL
+Declare Function ShellExecuteUI (ByVal hWindow As HWND, ByVal pOperation As ZString Ptr, ByVal pFileSpec As ZString Ptr, ByVal pParameters As ZString Ptr, ByVal pWorkDir As ZString Ptr, ByVal ShowCmd As Integer) As BOOL
 Declare Sub SearchRegEx (ByRef StartIdx As Integer, ByVal pSearchData As ZString Ptr, ByVal pSearchExpr As ZString Ptr, ByVal SubMatchNo As Integer, ByRef Found As String, ByRef pErrText As ZString Ptr)  	
 Declare Function GetTextItem (ByRef sText As String) As String
 

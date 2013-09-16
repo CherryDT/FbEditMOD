@@ -7,9 +7,11 @@
 #Include Once "Inc\Addins.bi"
 #Include Once "Inc\FbEdit.bi"
 #Include Once "Inc\FileIO.bi"
+#Include Once "Inc\Misc.bi"
 #Include Once "Inc\Project.bi"
 #Include Once "Inc\SpecHandling.bi"
 #Include Once "Inc\TabTool.bi"
+#Include Once "Inc\ZStringHandling.bi"
 
 #Include Once "Inc\Property.bi"
 #Include Once "Inc\showvars.bi"
@@ -236,4 +238,59 @@ End Sub
 '    SendMessage(ah.hpr,PRM_REFRESHLIST,0,0)
 '
 'End Sub
+
+Sub AddApiFile(Byref sFile As zString,ByVal nType As Integer)
+	Dim sItem As ZString*260
+	Dim x As Integer
+	Dim sApi As String
+	Dim sApiItem As String
+
+	GetPrivateProfileString(StrPtr("Api"),@sFile,NULL,@sItem,SizeOf(sItem),@ad.IniFile)
+	Do While IsZStrNotEmpty (sItem)
+		x=InStr(sItem,",")
+		If x Then
+			buff=Left(sItem,x-1)
+			sItem=Mid(sItem,x+1)
+		Else
+			buff=sItem
+			SetZStrEmpty (sItem)             'MOD 26.1.2012 
+		EndIf
+		If fProject Then
+			sApi=ProjectApiFiles
+		Else
+			sApi=DefApiFiles
+		EndIf
+		While Len(sApi)
+			sApiItem=GetTextItem(sApi)
+			x=InStr(sApiItem," ")
+			If x Then
+				sApiItem=Left(sApiItem,x-1)
+			EndIf
+			If Left(buff,Len(sApiItem))=sApiItem Then
+				buff=ad.AppPath & "\Api\" & buff
+				SendMessage(ah.hpr,PRM_ADDPROPERTYFILE,nType,Cast(Integer,@buff))
+				Exit While
+			EndIf
+		Wend
+	Loop
+
+End Sub
+
+Sub LoadApiFiles
+
+	SendMessage ah.hpr, PRM_CLEARWORDLIST, 0, 0
+	
+	AddApiFile "Case"  , Asc ("C") + 2 * 256
+	AddApiFile "Call"  , Asc ("P") + 3 * 256 
+	AddApiFile "Const" , Asc ("A") + 2 * 256 
+	AddApiFile "Struct", Asc ("S") + 2 * 256 
+	AddApiFile "Word"  , Asc ("W") + 2 * 256 
+	AddApiFile "Type"  , Asc ("T") + 2 * 256 
+	AddApiFile "Desc"  , Asc ("D") + 2 * 256 
+	AddApiFile "Msg"   , Asc ("M") + 3 * 256 
+	AddApiFile "Enum"  , Asc ("E") + 2 * 256 
+    
+    POL_Changed = TRUE
+    
+End Sub
 

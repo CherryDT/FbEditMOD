@@ -164,10 +164,8 @@ MnuSaveItemEx proc uses ebx,lpItem:DWORD,fPopUp:DWORD
 
 	invoke SaveStr,edi,lpItem
 	add		edi,eax
-	mov		al,' '
-	stosb
-	mov		al,22h
-	stosb
+	mov		ax,'" '
+	stosw
 	.if byte ptr (MNUITEM ptr [esi]).itemcaption!='-'
 		invoke SaveText,edi,addr (MNUITEM ptr [esi]).itemcaption
 		add		edi,eax
@@ -180,7 +178,7 @@ MnuSaveItemEx proc uses ebx,lpItem:DWORD,fPopUp:DWORD
 		invoke MnuSaveAccel,val,edi
 		add		edi,eax
 	.endif
-	mov		al,22h
+	mov		al,'"'
 	stosb
 	mov		ebx,edi
 	mov		al,','
@@ -188,10 +186,10 @@ MnuSaveItemEx proc uses ebx,lpItem:DWORD,fPopUp:DWORD
 	mov		al,(MNUITEM ptr [esi]).itemname
 	.if !al
 		m2m		val,(MNUITEM ptr [esi]).itemid
-		.if val!=0 && val!=-1
+		;.if val!=0 && val!=-1                         ; *** MOD output val=0 needed for windres
 			invoke SaveVal,val,FALSE
 			mov		ebx,edi
-		.endif
+		;.endif
 	.else
 		invoke SaveStr,edi,addr (MNUITEM ptr [esi]).itemname
 		add		edi,eax
@@ -364,7 +362,7 @@ MnuSaveItem proc uses ebx,lpItem:DWORD,fPopUp:DWORD
 		invoke SaveStr,edi,offset szSEPARATOR
 		add		edi,eax
 	.else
-		mov		al,22h
+		mov		al,'"'
 		stosb
 		invoke SaveText,edi,addr (MNUITEM ptr [esi]).itemcaption
 		add		edi,eax
@@ -376,7 +374,7 @@ MnuSaveItem proc uses ebx,lpItem:DWORD,fPopUp:DWORD
 			invoke MnuSaveAccel,val,edi
 			add		edi,eax
 		.endif
-		mov		al,22h
+		mov		al,'"'
 		stosb
 		.if !fPopUp
 			mov		ebx,edi
@@ -385,10 +383,10 @@ MnuSaveItem proc uses ebx,lpItem:DWORD,fPopUp:DWORD
 			mov		al,(MNUITEM ptr [esi]).itemname
 			.if !al
 				m2m		val,(MNUITEM ptr [esi]).itemid
-				.if val!=0 && val!=-1
+				;.if val!=0 && val!=-1                          ; *** MOD output val=0 needed for windres
 					invoke SaveVal,val,FALSE
 					mov		ebx,edi
-				.endif
+				;.endif
 			.else
 				invoke SaveStr,edi,addr (MNUITEM ptr [esi]).itemname
 				add		edi,eax

@@ -5,7 +5,7 @@ Description=File Browser custom control
 Backup=$P\Bak\
 Group=1
 GroupExpand=1
-Debug=0
+Debug=1
 Res.rc=1
 Ver.rc=1
 
@@ -100,8 +100,8 @@ Group=Added files,Assembly,Resources,Misc,Modules
 
 [Size]
 2=0,0,672,551,323
-6=0,0,672,551,78
-1=13,41,809,677,16
+6=0,0,672,551,602
+1=13,41,809,677,7958
 4=0,0,572,537,8
 7=176,155,672,551,2484
 3=0,0,0,0,16
@@ -116,7 +116,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=15
+MilestoneOnDateDate=27
 MilestoneOnDateTimeYear=2004
 MilestoneOnDateTimeMonth=12
 MilestoneOnDateTimeDate=11
@@ -166,16 +166,16 @@ BackupLocation=C:\RadASM\Masm\Projects\VCBackups\
 0=
 
 [Find]
-1="FBM_SETPATH"
-2="*** MOD"
-3="VK_SPACE"
-4="'.'"
-5="ntimer"
-6="STATUS_WAIT_0"
-7="WAIT_OBJECT_0"
-8="TTN_N"
-9="CreateWindow"
-10="szTTFont"
+1="MOD"
+2="FBM_GETSELECTED"
+3="FBM_SETPATH"
+4="*** MOD"
+5="VK_SPACE"
+6="'.'"
+7="ntimer"
+8="STATUS_WAIT_0"
+9="WAIT_OBJECT_0"
+10="TTN_N"
 [Collapse]
 7=
 1=,,
@@ -184,7 +184,7 @@ BackupLocation=C:\RadASM\Masm\Projects\VCBackups\
 6=
 3=
 [PTimer]
-PTimer=54556937
+PTimer=61215512
 [Exports]
 1=GetDef
 2=GetDefEx

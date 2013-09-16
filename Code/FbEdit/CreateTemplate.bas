@@ -39,10 +39,10 @@ Sub AddTemplateFile(ByVal lpFile As ZString Ptr,ByVal hFile As HANDLE)
 	hSrc=CreateFile(@szBuff,GENERIC_READ,FILE_SHARE_READ,NULL,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,0)
 	If hSrc<>INVALID_HANDLE_VALUE Then
 		nSize=GetFileSize(hSrc,@n)
-		hMem=MyGlobalAlloc(GMEM_FIXED Or GMEM_ZEROINIT,nSize+3)
+		hMem=GlobalAllocUI(GMEM_FIXED Or GMEM_ZEROINIT,nSize+3)
 		ReadFile(hSrc,hMem,nSize,@n,NULL)
 		CloseHandle(hSrc)
-		szExt=GetFileExt(szBuff) & "."
+		szExt=PathFindExtension(szBuff) & "."
 		GetPrivateProfileString(StrPtr("Template"),StrPtr("txtfiles"),StrPtr(".bas.bi.rc.txt.xml."),@szTxt,SizeOf(szTxt),@ad.IniFile)
 		GetPrivateProfileString(StrPtr("Template"),StrPtr("binfiles"),StrPtr(".bmp.jpg.ico.cur."),@szBin,SizeOf(szBin),@ad.IniFile)
 		If InStr(UCase(szTxt),UCase(szExt)) Then

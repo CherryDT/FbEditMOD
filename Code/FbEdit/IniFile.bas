@@ -182,7 +182,7 @@ Const szSecApi=			    !"[Api]\13\10"_
 								!"Msg=winMsg.api,raeMsg.api,rapMsg.api,raccMsg.api,rafMsg.api,rahMsg.api,ragMsg.api,rarMsg.api,sprMsg.api\13\10"_
 								!"Enum=fmodEnum.api,raeEnum.api,rapEnum.api\13\10"
 Const szSecDebug=			!"[Debug]\13\10"_
-								!"Debug=$A\\FBdebugger\\FBdebugger.exe\13\10"
+								!"Debug=%ProgramFiles(x86)%\\FBdebugger\\FBdebugger.exe\13\10"
 Const szSecTemplate=		!"[Template]\13\10"_
 								!"txtfiles=.bas.bi.rc.txt.xml.\13\10"_
 								!"binfiles=.bmp.jpg.ico.cur.\13\10"
@@ -222,49 +222,116 @@ Sub IniKeyNotFoundMsg (ByVal pSectionName As ZString Ptr, ByVal pKeyName As ZStr
     
 End Sub
 
-Sub SaveToIni(ByVal lpszApp As ZString Ptr,ByVal lpszKey As ZString Ptr,Byref lpszTypes As ZString,ByVal lpDta As Any Ptr,ByVal fProject As Boolean)
-	Dim value As ZString*4096
-	Dim i As Integer = Any
-	Dim ofs As Integer
-	'Dim tmp As ZString*260                          ' MOD 25.1.2012
-	Dim v As Integer = Any 
-	Dim p As ZString Ptr
- 
-	For i=0 To lstrlen(lpszTypes)-1
-		v=0
-		Select Case lpszTypes[i]                     ' MOD 25.1.2012  Case lpszTypes[i]-48
-		Case Asc ("0")                               ' MOD 25.1.2012  Case 0
-				' String
-				RtlMoveMemory(@p,lpDta+ofs,4)
-				value=value & ","
-				lstrcat(@value,p)
-				ofs=ofs+4
-		    Case Asc ("1")                           ' MOD 25.1.2012  Case 1
-				' Byte
-				RtlMoveMemory(@v,lpDta+ofs,1)
-				ofs=ofs+1
-				value=value & "," & Str(v)
-		    Case Asc ("2")                           ' MOD 25.1.2012  Case 2
-				' Word
-				RtlMoveMemory(@v,lpDta+ofs,2)
-				ofs=ofs+2
-				value=value & "," & Str(v)
-			Case Asc ("4")                           ' MOD 25.1.2012  Case 4
-				' DWord
-				RtlMoveMemory(@v,lpDta+ofs,4)
-				ofs=ofs+4
-				value=value & "," & Str(v)
+Sub SaveToIni (ByVal pSection As ZString Ptr, ByVal pKey As ZString Ptr, ByRef Types As ZString, ByVal pStruct As Any Ptr, ByVal fProject As Boolean)
+	
+	Dim value   As ZString * 4096
+	Dim buffer  As ZString * 256
+	Dim i       As Integer        = Any
+	Dim ofs     As Integer        = Any 
+    Dim pAppend As ZString Ptr    = Any 
+    
+    ofs = 0
+    i = 0 
+	Do	
+		Select Case Types[i] 
+		Case Asc ("4")                           			' DWORD (32bit unsigned)
+	        buffer = Str (*Cast (DWORD Ptr, pStruct + ofs))
+		    pAppend = @buffer
+		    ofs += SizeOf (DWORD)
+
+		Case Asc ("5")                           			' Long (32bit signed)
+	        buffer = Str (*Cast (Long Ptr, pStruct + ofs))
+		    pAppend = @buffer
+		    ofs += SizeOf (Long)
+
+		Case Asc ("0")                               	    ' *(ZString Ptr)
+            pAppend = *Cast (ZString Ptr Ptr, pStruct + ofs)
+			ofs += SizeOf (ZString Ptr)
+	    
+	    Case Asc ("1")                                      ' Byte
+			buffer = Str (*Cast (Byte Ptr, pStruct + ofs))
+		    pAppend = @buffer
+			ofs += SizeOf (Byte)                            ' caution: needs udt field = 1
+		    			
+		Case Asc ("2")                                      ' Word
+			buffer = Str (*Cast (WORD Ptr, pStruct + ofs))
+		    pAppend = @buffer
+			ofs += SizeOf (WORD)
+		
+		Case 0                                              ' end of format string
+		    Exit Do
+		
+		Case Else
+		    Exit Do                                         ' error in format string
+		    
 		End Select
-	Next 
-	value=Mid(value,2)
+
+        If IsZStrEmpty (value) Then
+  			lstrcat @value, pAppend
+        Else
+            ZStrCat @value, SizeOf (value), 2, @",", pAppend
+        EndIf
+
+	    i += 1
+	Loop 
 	
 	If fProject Then
-		WritePrivateProfileString lpszApp, lpszKey, @value, @ad.ProjectFile   ' MOD 25.1.2012  tmp=ad.ProjectFile
+		WritePrivateProfileString pSection, pKey, @value, @ad.ProjectFile
 	Else
-		WritePrivateProfileString lpszApp, lpszKey, @value, @ad.IniFile       ' MOD 25.1.2012  tmp=ad.IniFile
+		WritePrivateProfileString pSection, pKey, @value, @ad.IniFile
 	EndIf
-	                                                                          ' MOD 25.1.2012  WritePrivateProfileString(lpszApp,lpszKey,@value,@tmp)
+	                                                                
 End Sub
+
+'Sub SaveToIni(ByVal lpszApp As ZString Ptr,ByVal lpszKey As ZString Ptr,Byref lpszTypes As ZString,ByVal lpDta As Any Ptr,ByVal fProject As Boolean)
+'	Dim value As ZString*4096
+'	Dim i As Integer = Any
+'	Dim ofs As Integer
+'	'Dim tmp As ZString*260                          ' MOD 25.1.2012
+'	Dim v As Integer = Any 
+'	Dim p As ZString Ptr
+'	
+'	i = 0
+'	Do	
+'		v = 0
+'		Select Case lpszTypes[i]                 ' MOD 25.1.2012  Case lpszTypes[i]-48
+'		Case 0
+'		    Exit Do
+'		Case Asc ("0")                           ' MOD 25.1.2012  Case 0
+'			' String
+'			RtlMoveMemory(@p,lpDta+ofs,4)
+'			value=value & ","
+'			lstrcat(@value,p)
+'			ofs=ofs+4
+'	    Case Asc ("1")                           ' MOD 25.1.2012  Case 1
+'			' Byte
+'			RtlMoveMemory(@v,lpDta+ofs,1)
+'			ofs=ofs+1
+'			value=value & "," & Str(v)
+'	    Case Asc ("2")                           ' MOD 25.1.2012  Case 2
+'			' Word
+'			RtlMoveMemory(@v,lpDta+ofs,2)
+'			ofs=ofs+2
+'			value=value & "," & Str(v)
+'		Case Asc ("4")                           ' MOD 25.1.2012  Case 4
+'			' DWord
+'			'RtlMoveMemory(@v,lpDta+ofs,4)
+'			
+'			value=value & "," & Str (*Cast (DWORD Ptr, lpDta + ofs))
+'			ofs += 4
+'		End Select
+'        i += 1    
+'	Loop
+'
+'	value=Mid(value,2)
+'	
+'	If fProject Then
+'		WritePrivateProfileString lpszApp, lpszKey, @value, @ad.ProjectFile   ' MOD 25.1.2012  tmp=ad.ProjectFile
+'	Else
+'		WritePrivateProfileString lpszApp, lpszKey, @value, @ad.IniFile       ' MOD 25.1.2012  tmp=ad.IniFile
+'	EndIf
+'	                                                                          ' MOD 25.1.2012  WritePrivateProfileString(lpszApp,lpszKey,@value,@tmp)
+'End Sub
 
 Function LoadFromIni(ByVal lpszApp As ZString Ptr,ByVal lpszKey As ZString Ptr,Byref szTypes As zString,ByVal lpDta As Any Ptr,ByVal fProject As Boolean) As Boolean
 	Dim i As Integer = any
@@ -309,8 +376,8 @@ Function LoadFromIni(ByVal lpszApp As ZString Ptr,ByVal lpszKey As ZString Ptr,B
 						RtlMoveMemory(lpDta+ofs,@v,2)
 					EndIf
 					ofs=ofs+2
-				Case 4
-					' DWord
+			    Case 4, 5
+					' DWORD, Long
 					If IsZStrNotEmpty (szDta) Then
 						v=Val(szDta)
 						RtlMoveMemory(lpDta+ofs,@v,4)

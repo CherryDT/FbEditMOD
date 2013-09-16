@@ -560,8 +560,8 @@ Sub AddTab(ByVal hEdt As HWND, ByRef lpFileName As ZString, ByVal AddMode As Add
 	'Loop
     '========================
     If hEdt Then
-    	pTABMEM=MyGlobalAlloc(GMEM_FIXED Or GMEM_ZEROINIT,SizeOf(TABMEM))
-    	'tci.lParam=MyGlobalAlloc(GMEM_FIXED Or GMEM_ZEROINIT,SizeOf(TABMEM))
+    	pTABMEM=GlobalAllocUI(GMEM_FIXED Or GMEM_ZEROINIT,SizeOf(TABMEM))
+    	'tci.lParam=GlobalAllocUI(GMEM_FIXED Or GMEM_ZEROINIT,SizeOf(TABMEM))
     	pTABMEM->hedit=hEdt
     	pTABMEM->filename=lpFileName
     	If fProject Then
@@ -864,102 +864,34 @@ Sub SetFileInfo (ByVal hWin As HWND, ByVal pFileSpec As ZString Ptr)
 
 End Sub
 
-Function OpenFileExtern (ByRef FileSpec As ZString, ByVal OpenMode As FileOpenExternMode) As BOOLEAN
+Function OpenFileExtern (ByRef FileSpec As ZString, ByVal OpenMode As FileOpenExternMode) As BOOL
         
-    Dim sType     As String
-    Dim sItem     As ZString * 512
-    Dim pErrText  As ZString Ptr   = Any 
-    Dim ExitCode  As Integer       = Any 
+    Dim FileExt    As ZString * MAX_PATH 
+    Dim QuotedSpec As ZString * MAX_PATH + 2
+    Dim sItem      As ZString * 512
+    Dim pErrText   As ZString Ptr            = Any 
+    Dim ExitCode   As Integer                = Any 
     
-    If IsZStrEmpty2 (FileSpec) Then
-        ExitCode = SE_ERR_ASSOCINCOMPLETE
-    Else    
-        Select Case OpenMode
-        Case FOEM_ONLYALLOWED
-            sType = *GetFileExt (FileSpec)
-        		
-        	If Len (sType) Then
-        	    sType += "."
-        		GetPrivateProfileString @"Open", @"Extern", NULL, @sItem, SizeOf (sItem), @ad.IniFile
-        		
-        		If      IsZStrNotEmpty (sItem) _
-        		AndAlso InStr (sItem, sType) Then
-        			UpdateEnvironment
-        			buff = QUOTE + FileSpec + QUOTE
-        			TextToOutput "SHELLEXECUTE: " + buff
-        			ExitCode = CInt (ShellExecute (ah.hwnd, @"open", @buff, NULL, NULL, SW_SHOWDEFAULT))
-        		Else
-        		    Return FALSE         ' not allowed for ShellExecute by FbEdit.ini (no ErrText)
-        		EndIf     
-            Else 
-        	    ExitCode = SE_ERR_ASSOCINCOMPLETE
-        	EndIf
-    
-        Case FOEM_EVERY    
-    		UpdateEnvironment
-    		buff = QUOTE + FileSpec + QUOTE
-    		TextToOutput "SHELLEXECUTE: " + buff
-    		ExitCode = CInt (ShellExecute (ah.hwnd, @"open", @buff, NULL, NULL, SW_SHOWDEFAULT))
-        End Select
+    If IsZStrEmpty (Filespec) Then
+        TextToOutput @"*** error SHELLEXECUTE: empty filespec ***", MB_ICONHAND
+        Return FALSE     
     EndIf
     
-    Select Case ExitCode
-    Case 0                      :  pErrText = @"The operating system is out of memory or resources" 
-    Case ERROR_FILE_NOT_FOUND   :  pErrText = @"The specified file was not found" 
-    Case ERROR_PATH_NOT_FOUND   :  pErrText = @"The specified path was not found" 
-    Case ERROR_BAD_FORMAT       :  pErrText = @"The .exe file is invalid (non-Microsoft Win32 .exe or error in .exe image)" 
-    Case SE_ERR_ACCESSDENIED    :  pErrText = @"The operating system denied access to the specified file" 
-    Case SE_ERR_ASSOCINCOMPLETE :  pErrText = @"The file name association is incomplete or invalid" 
-    Case SE_ERR_DDEBUSY         :  pErrText = @"The Dynamic Data Exchange (DDE) transaction could not be completed because other DDE transactions were being processed" 
-    Case SE_ERR_DDEFAIL         :  pErrText = @"The DDE transaction failed" 
-    Case SE_ERR_DDETIMEOUT      :  pErrText = @"The DDE transaction could not be completed because the request timed out" 
-    Case SE_ERR_DLLNOTFOUND     :  pErrText = @"The specified DLL was not found" 
-    Case SE_ERR_FNF             :  pErrText = @"The specified file was not found" 
-    Case SE_ERR_NOASSOC         :  pErrText = @"There is no application associated with the given file name extension" 
-    Case SE_ERR_OOM             :  pErrText = @"There was not enough memory to complete the operation" 
-    Case SE_ERR_PNF             :  pErrText = @"The specified path was not found" 
-    Case SE_ERR_SHARE           :  pErrText = @"A sharing violation occurred" 
-    End Select
-    
-    If ExitCode > 32 Then
-        Return TRUE 
-    Else
-        TextToOutput @"*** error SHELLEXECUTE ***", MB_ICONHAND
-        TextToOutput pErrText 
-        Return FALSE 
-    EndIf
+    If OpenMode = FOEM_ONLYALLOWED Then
+        FileExt = *PathFindExtension (FileSpec)
+    		
+    	If IsZStrNotEmpty (FileExt) Then
+    		GetPrivateProfileString @"Open", @"Extern", NULL, @sItem, SizeOf (sItem), @ad.IniFile
+    		
+    		If InStr (sItem, FileExt + ".") = 0 Then
+    		    Return FALSE         ' not allowed for ShellExecute by FbEdit.ini (no ErrText)
+    		EndIf     
+    	EndIf
+    EndIf 
+        
+	QuotedSpec = QUOTE + FileSpec + QUOTE
+	Return ShellExecuteUI (ah.hwnd, @"open", @QuotedSpec, NULL, NULL, SW_SHOWDEFAULT)
 
-    
-    'Dim sType     As String
-    'Dim nInx      As Integer        = Any 
-    'Dim sItem     As ZString * 260
-    'Dim pFileName As ZString Ptr    = Any                      ' MOD 2.3.2012 add
-    '
-	'sType = *GetFileExt (FileSpec)
-
-	'If Len (sType) Then
-	'    sType += "."
-	'Else
-	'    sType= ".."
-	'EndIf
-
-	'nInx=1
-	'Do
-	'	GetPrivateProfileString(StrPtr("Open"),Str(nInx),NULL,@sItem,SizeOf(sItem),@ad.IniFile)
-	'	If IsZStrNotEmpty (sItem) Then
-	'		If InStr(sItem,sType) Then
-	'			pFileName = @sItem + InStr (sItem, ",")        ' MOD 2.3.2012 add
-	'			'sItem=Mid(sItem,InStr(sItem,",")+1)
-	'			buff = QUOTE + FileSpec + QUOTE
-	'			ShellExecute (ah.hwnd,NULL,pFileName,@buff,0,SW_SHOWDEFAULT)
-	'			Return TRUE 
-	'		EndIf
-	'	Else
-	'		Return FALSE 
-	'	EndIf
-	'	nInx=nInx+1
-	'Loop
-    
 End Function
 
 Sub OpenTheFile (Byref FileSpec As ZString, ByVal OpenMode As FileOpenMode)
@@ -971,7 +903,7 @@ Sub OpenTheFile (Byref FileSpec As ZString, ByVal OpenMode As FileOpenMode)
     Dim FileType    As Integer = Any
     Dim hEditor     As HWND    = Any
     
-    If IsZStrEmpty2 (FileSpec) Then Exit Sub 
+    If IsZStrEmpty (FileSpec) Then Exit Sub 
 	If CallAddins (ah.hwnd, AIM_FILEOPEN, 0, Cast (LPARAM, @FileSpec), HOOK_FILEOPEN) Then Exit Sub
 	
 	GetTabIDBySpec FileSpec, TabID, TabMode                ' zerobased
@@ -1148,7 +1080,7 @@ End Sub
 '	Dim s As ZString*260
 '	Dim hTmp As HWND
 '
-'	hMem=MyGlobalAlloc(GMEM_FIXED Or GMEM_ZEROINIT,32*1024)
+'	hMem=GlobalAllocUI(GMEM_FIXED Or GMEM_ZEROINIT,32*1024)
 '	ofn.lStructSize=SizeOf(OPENFILENAME)
 '	ofn.hwndOwner=GetOwner
 '	ofn.hInstance=hInstance

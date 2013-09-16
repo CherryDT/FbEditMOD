@@ -2804,15 +2804,17 @@ GetCtrl:
 	.endw
 	lea		esi,[esi-sizeof DIALOG]
 	.while esi>edi
-		invoke GetCtrlID,esi
-		.if eax
-			invoke GetDlgItem,des.hdlg,eax
-			mov		ebx,eax
-		.else
-			mov		ebx,des.hdlg
+		.if [esi].DIALOG.hwnd!=-1
+			invoke GetCtrlID,esi
+			.if eax
+				invoke GetDlgItem,des.hdlg,eax
+				mov		ebx,eax
+			.else
+				mov		ebx,des.hdlg
+			.endif
+			call	IsInWindow
+			.break .if eax
 		.endif
-		call	IsInWindow
-		.break .if eax
 		lea		esi,[esi-sizeof DIALOG]
 	.endw
 	pop		edi

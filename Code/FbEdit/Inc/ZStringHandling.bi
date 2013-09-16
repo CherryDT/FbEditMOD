@@ -13,6 +13,8 @@ Declare Sub GetLineFromChar (ByRef Source As ZString, ByVal CharPos As Integer, 
 Declare Sub ZStrReplaceChar (ByVal lpszStr As UByte Ptr, ByVal nByte As UByte, Byval nReplace As UByte)
 Declare Sub TrimWhiteSpace (ByRef Work As ZString)
 Declare Function InZStr (ByRef i As Integer, ByRef Source As ZString, ByRef Find As ZString) As Integer 
+Declare Sub ZStrCat Cdecl (ByVal pTarget As ZString Ptr, ByVal TargetSize As Integer, ByVal ArgCount As Integer, ByVal pFirst As ZString Ptr, ...)
+
 
 Declare Sub FormatFunctionName (ByRef FuncDescIn As ZString, ByRef FuncDescOut As ZString)
 

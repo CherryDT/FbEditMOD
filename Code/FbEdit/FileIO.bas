@@ -52,14 +52,14 @@ Function GetFileMem OverLoad (Byref sFile As String) As HGLOBAL
         hFile = CreateFile (StrPtr(sFile), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0)
         If hFile <> INVALID_HANDLE_VALUE Then
             nlen = GetFileSize (hFile, NULL)
-            hMem = MyGlobalAlloc (GMEM_FIXED, nlen + 1)            ' + pending NULL
+            hMem = GlobalAllocUI (GMEM_FIXED, nlen + 1)            ' + pending NULL
             If hMem Then
                 ReadFile hFile, hMem, nlen, @BytesRead, NULL
                 CloseHandle hFile
                 Cast (ZString Ptr, hMem)[nlen] = 0                 ' append NULL
 
                 If *Cast (WORD Ptr, hMem) = &HFEFF Then            ' Unicode
-                    hMem1 = MyGlobalAlloc (GMEM_FIXED, nlen + 1)
+                    hMem1 = GlobalAllocUI (GMEM_FIXED, nlen + 1)
                     If hMem1 Then
                         WideCharToMultiByte CP_ACP, 0, hMem, -1, hMem1, nlen, NULL, NULL
                         GlobalFree hMem
@@ -89,11 +89,42 @@ Function GetFileMem OverLoad (Byval hEdit As HWND) As HGLOBAL
 
     If hEdit Then
         nlen = SendMessage (hEdit, WM_GETTEXTLENGTH, 0, 0)
-        hMem = MyGlobalAlloc (GMEM_FIXED, nlen + 1)                            ' + pending NULL
+        hMem = GlobalAllocUI (GMEM_FIXED, nlen + 1)                             ' + pending NULL
 
         If hMem Then
             SendMessage hEdit, WM_GETTEXT, nlen + 1, Cast (LPARAM, hMem)       ' buffer size incl. terminating NULL
         EndIf
+        Return hMem
+    Else
+        Return 0
+    EndIf
+
+End Function
+
+Function GetFileMemSelected (Byval hEdit As HWND) As HGLOBAL
+
+    Dim hMem As HGLOBAL   = Any
+   	Dim chrg As CHARRANGE = Any
+
+
+    If hEdit Then
+        
+       	SendMessage hEdit, EM_EXGETSEL, 0, Cast (LPARAM, @chrg)
+        
+        'Print "cpMin:"; chrg.cpmin 
+        'Print "cpMax:"; chrg.cpmax       
+               
+        If      chrg.cpMin = 0 _
+        AndAlso chrg.cpMax = -1 Then                                           ' full range
+            hMem = GetFileMem (hEdit)
+
+        Else 
+			hMem = GlobalAllocUI (GMEM_FIXED, chrg.cpMax - chrg.cpMin + 1)      ' + pending NULL
+			If hMem Then
+			    SendMessage hEdit, EM_GETSELTEXT, 0, Cast (LPARAM, hMem)
+			EndIf 
+        EndIf
+
         Return hMem
     Else
         Return 0
@@ -108,7 +139,7 @@ Sub ReadResEdFile (ByVal hWin As HWND, ByVal hFile As HANDLE, ByVal lpFilename A
     Dim hMem      As HGLOBAL = Any
 
     nSize = GetFileSize (hFile, NULL)
-    hMem = MyGlobalAlloc (GMEM_FIXED, nSize + 1)                    ' + pending NULL
+    hMem = GlobalAllocUI (GMEM_FIXED, nSize + 1)                     ' + pending NULL
     ReadFile hFile, hMem, nSize, @BytesRead, NULL
     Cast (ZString Ptr, hMem)[nSize] = 0                             ' append NULL
     SendMessage ah.hraresed, PRO_OPEN, Cast (WPARAM, lpFilename), Cast (LPARAM, hMem)
@@ -264,7 +295,7 @@ Sub WriteTheFile(ByVal hWin As HWND,Byref szFileName As zString)
         TextToOutput Text
     Else
         If hWin=ah.hres Then
-            hMem=MyGlobalAlloc(GMEM_FIXED,256*1024)
+            hMem=GlobalAllocUI(GMEM_FIXED,256*1024)
             Cast (ZString Ptr, hMem)[0] = 0                              ' set content length zero
             SendMessage(ah.hraresed,PRO_EXPORT,0,Cast(LPARAM,hMem))
             nSize = lstrlen (Cast (ZString Ptr, hMem))                   ' MOD 11.3.2012    nSize=Len(*Cast(ZString Ptr,hMem))

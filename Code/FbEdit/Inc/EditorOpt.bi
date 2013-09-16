@@ -2,8 +2,6 @@
 
 Declare Sub SetHiliteWords (ByVal hWin As HWND)
 Declare Sub SetHiliteWordsFromApi (ByVal hWin As HWND)
-Declare Sub AddApiFile (Byref sFile As zString, ByVal nType As Integer)
-Declare Sub LoadApiFiles ()
 Declare Sub SetToolsColors ()
 Declare Sub PropertyHL (ByVal bUpdate As Integer)
 Declare Sub UpdateEditOptions (ByVal hEditor As HWND)

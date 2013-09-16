@@ -697,20 +697,28 @@ ResourceEditProc proc uses esi,hWin:HWND,uMsg:UINT,wParam:WPARAM,lParam:LPARAM
 				add		eax,offset rarstype
 				lea		eax,[eax].RARSTYPE.szedit
 				.if byte ptr [eax]
-					push	eax
+					;push	eax                             *** MOD
 					invoke SendMessage,hGrd,GM_GETCURROW,0,0
 					mov		ecx,eax
 					shl		ecx,16
 					or		ecx,3
 					invoke SendMessage,hGrd,GM_GETCELLDATA,ecx,addr buffer1
-					mov		al,buffer[1]
-					.if al!=':'
-						invoke strcpy,addr buffer,addr szProjectPath
-						invoke strcat,addr buffer,addr szBS
+				
+					;mov		al,buffer[1]                *** MOD
+					;.if al!=':'
+					;	invoke strcpy,addr buffer,addr szProjectPath
+					;	invoke strcat,addr buffer,addr szBS
+					;.endif
+					;invoke strcat,addr buffer,addr buffer1
+
+					.if byte ptr [buffer1]                ; *** MOD
+						invoke PathCombine,addr buffer, offset szProjectPath, addr buffer1   ; *** MOD
+					.else
+						mov		buffer,0
 					.endif
-					invoke strcat,addr buffer,addr buffer1
-					pop		edx
-					invoke ShellExecute,hWin,NULL,edx,addr buffer,NULL,SW_SHOWNORMAL
+					
+					;pop		edx                         *** MOD
+					invoke ShellExecute,hWin,NULL,addr buffer,NULL,NULL,SW_SHOWNORMAL
 				.endif
 			.endif
 		.endif

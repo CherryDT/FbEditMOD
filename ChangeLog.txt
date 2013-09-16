@@ -126,7 +126,24 @@ FbEditMOD 1.0.7.8
      - [Options]->[Code Editor]    
         there is a [Show Splash] checkbox
 
-                
+     - ResEd
+        MENUITEM exports MenuItemId explicitly (i.e. as 0 if empty)
+        needed for windres (FreeBASIC MinGW edition)
+
+      - windres (FreeBASIC MinGW edition) build errors are recognized
+
+      - [Format]->[Custom Filter]
+        Custom Filters are simple console programs written in Freebasic or something else,
+        compiled to exes and located to ...\FbEdit\CustomFilter\
+        where they can be found by FbEdit
+        The submenu is updated only on FbEdit's startup
+        A Custom Filter reads his STDIN, modifies the read data and send it back by STDOUT
+        An example can be found at ...\FbEdit\CustomFilter\
+        FbEdit pipes only selected text to STDIN, so selection has to done before using an
+        sub menu entry
+
+
+
                 
       *** incomplete ***                                                                  
                                                               

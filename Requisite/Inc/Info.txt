@@ -1,0 +1,10 @@
+
+
+    Folder Content
+
+
+    - extended win32 SDK include files
+            please copy to fbc's include search path
+            if needed rename the old ones to prevent overwriting
+
+

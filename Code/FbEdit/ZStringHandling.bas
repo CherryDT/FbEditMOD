@@ -560,3 +560,38 @@ Sub FormatFunctionName (ByRef FuncDescIn As ZString, ByRef FuncDescOut As ZStrin
     FuncDescOut[n] = 0                            ' terminate zstring
 
 End Sub 
+
+Sub ZStrCat Cdecl (ByVal pTarget As ZString Ptr, ByVal TargetSize As Integer, ByVal ArgCount As Integer, ByVal pFirst As ZString Ptr, ...)
+
+    Dim n        As Integer     = Any
+    Dim i        As Integer     = Any
+    Dim k        As Integer     = Any 
+    Dim pZString As ZString Ptr = Any 
+    
+   
+    n = lstrlen (pTarget)
+    For k = 0 To ArgCount - 1
+        pZString = (@pFirst)[k]
+    
+        If pZString Then                              ' skip null pointers
+            i = 0
+            Do
+               If n = TargetSize Then
+                    (*pTarget)[n] = 0                 ' prevent buffer overrun
+                    Exit Sub  
+                EndIf
+ 
+                Select Case (*pZString)[i]
+                Case 0
+                    (*pTarget)[n] = 0
+                    Exit Do 
+                Case Else    
+                    (*pTarget)[n] = (*pZString)[i]
+                    n += 1
+                    i += 1
+                End Select 
+            Loop
+        EndIf
+    Next 
+    
+End Sub     

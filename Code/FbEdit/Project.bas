@@ -332,7 +332,7 @@ Function GetFamilyName (ByRef sFile As ZString) As String
     
 End Function
 
-Function GetTrvSelItemData (ByRef FileSpec As String, ByRef FileID As Integer, ByRef hTVItem As HTREEITEM, ByVal PathMode As PathType) As BOOLEAN 
+Function GetTrvSelItemData (ByRef FileSpec As ZString, ByRef FileID As Integer, ByRef hTVItem As HTREEITEM, ByVal PathMode As PathType) As BOOLEAN 
     
     ' FileSpec [out]
     ' FileID   [out]
@@ -353,8 +353,10 @@ Function GetTrvSelItemData (ByRef FileSpec As String, ByRef FileID As Integer, B
 		    tvi.Mask       = TVIF_TEXT Or TVIF_PARAM
 			tvi.pszText    = @buffer
 			tvi.cchTextMax = SizeOf (buffer)
-		EndIf 
+	    EndIf 
+	    
 		SendMessage ah.hprj, TVM_GETITEM, 0, Cast (LPARAM, @tvi)
+	    
 	    If tvi.lParam Then
             Select Case PathMode
             Case PT_RELATIVE 
@@ -370,7 +372,7 @@ Function GetTrvSelItemData (ByRef FileSpec As String, ByRef FileID As Integer, B
 	EndIf
    
     'hTVItem = 0
-    FileSpec = ""
+    SetZStrEmpty (FileSpec)
     FileID = 0
     Return FALSE 
 
@@ -1428,7 +1430,7 @@ Sub RemoveProjectFile (ByVal FileID As Integer, ByVal hTVItem As HTREEITEM, ByVa
 	'EndIf
 End Sub
 
-Sub InsertInclude (ByRef FileSpec As String, ByVal IncMode As IncludeMode)
+Sub InsertInclude (ByRef FileSpec As ZString, ByVal IncMode As IncludeMode)
    
    'Dim tvi As TV_ITEM                                MOD 11.2.2012                   123456789012345678  
 	Dim buffer As ZString * MAX_PATH + 18 = Any     ' MOD 1.3.2012  surrounding text  #Include Once "" + CR + NULL  
@@ -2729,7 +2731,7 @@ Function ProjectProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 					If (GetFileAttributes(sFile) And FILE_ATTRIBUTE_DIRECTORY)=0 Then
 						If fProject Then
 						    If      fCtrl _ 
-						    AndAlso lstrcmpi (GetFileExt (sFile), @".bas") = 0 Then
+						    AndAlso lstrcmpi (PathFindExtension (sFile), @".bas") = 0 Then
 								AddProjectFile sFile, TRUE        ' add as module
 							Else
 								AddProjectFile sFile, FALSE       ' add as assembly

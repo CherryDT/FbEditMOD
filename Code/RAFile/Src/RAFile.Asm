@@ -10,6 +10,7 @@ option proc:private
 
 include Data.inc
 include RAFile.inc
+include ..\VKDebug\Build\VKDebug.inc
 
 .code
 
@@ -355,16 +356,24 @@ GetSelected proc hFileTrv:HWND,lpFile:DWORD
 		mov		tvi.pszText,eax
 		mov		tvi.cchTextMax,sizeof buffer
 		invoke SendMessage,hFileTrv,TVM_GETITEM,0,addr tvi
+		;PrintString buffer			                       ; selected item
 		invoke SendMessage,hFileTrv,TVM_GETNEXTITEM,TVGN_ROOT,0
 		mov		tvi.hItem,eax
 		mov		eax,lpFile
 		mov		tvi.pszText,eax
 		mov		tvi.cchTextMax,MAX_PATH
 		invoke SendMessage,hFileTrv,TVM_GETITEM,0,addr tvi
+		;PrintStringByAddr lpFile                          ; root item
 		pop		eax
-		.if eax!=tvi.hItem
-			invoke lstrcat,lpFile,offset szBackSlash
-			invoke lstrcat,lpFile,addr buffer
+		.if eax!=tvi.hItem                                 ; *** MOD
+			.if byte ptr buffer[1] == ":"                  ; is drive letter ?
+				invoke lstrcpy,lpFile,addr buffer          ; selected = another root
+			.else
+				invoke lstrcat,lpFile,offset szBackSlash   ; merge: root + \ + selected
+				invoke lstrcat,lpFile,addr buffer
+			.endif
+		;else
+		                                                   ; selected = root		
 		.endif
 	.endif
 	ret

@@ -26,29 +26,29 @@
 #Include Once "Inc\showvars.bi"
 
 
-Dim Shared lpOldCoTxEdProc    As WNDPROC
-Dim Shared lpOldParCoTxEdProc As WNDPROC
-Dim Shared lpOldCCProc        As WNDPROC 
+Dim Shared lpOldCoTxEdProc          As WNDPROC
+Dim Shared lpOldParCoTxEdProc       As WNDPROC
+Dim Shared lpOldCCProc              As WNDPROC 
 
-Dim Shared lstpos             As LASTPOS
-Dim Shared szCaseConvert      As ZString * 32
-Dim Shared szIndent(MAXBLOCKDEFS)       As ZString * 32
-Dim Shared autofmt(MAXBLOCKDEFS)        As AUTOFORMAT
+Dim Shared lstpos                   As LASTPOS
+Dim Shared szCaseConvert            As ZString * 32
+Dim Shared szIndent(MAXBLOCKDEFS)   As ZString * 32
+Dim Shared autofmt(MAXBLOCKDEFS)    As AUTOFORMAT
 
 ' Code blocks
-Dim Shared blk                As RABLOCKDEF
-Dim Shared szSt(MAXBLOCKDEFS)           As ZString * 32
-Dim Shared szEn(MAXBLOCKDEFS)           As ZString * 32
-Dim Shared szNot1             As ZString * 32
-Dim Shared szNot2             As ZString * 32
-Dim Shared BD(MAXBLOCKDEFS)             As RABLOCKDEF
+Dim Shared blk                      As RABLOCKDEF
+Dim Shared szSt(MAXBLOCKDEFS)       As ZString * 32
+Dim Shared szEn(MAXBLOCKDEFS)       As ZString * 32
+Dim Shared szNot1                   As ZString * 32
+Dim Shared szNot2                   As ZString * 32
+Dim Shared BD(MAXBLOCKDEFS)         As RABLOCKDEF
 
-Dim Shared prechrg            As CHARRANGE
-Dim Shared mdn                As Integer
+Dim Shared prechrg                  As CHARRANGE
+Dim Shared mdn                      As Integer
 
-Dim Shared EditInfo           As EditorTypeInfo
+Dim Shared EditInfo                 As EditorTypeInfo
 
-#Define IDT_MOUSE_CLK_TIMER     100
+#Define IDT_MOUSE_CLK_TIMER         100
 
 
 Sub GetLineByNo (ByVal hWin As HWND, ByVal LineNo As Integer, Byval pBuff As ZString Ptr)
@@ -1697,10 +1697,10 @@ Sub SetEditorTypeInfo (ByVal hWin As HWND)
     If hWin Then
         EditorMode = GetWindowLong (hWin, GWL_ID)   
 
-		EditInfo.ResEd   = (EditorMode =  IDC_RESED)
-		EditInfo.CodeEd  = (EditorMode =  IDC_CODEED)
-		EditInfo.HexEd   = (EditorMode =  IDC_HEXED)
-		EditInfo.TextEd  = (EditorMode =  IDC_TEXTED)
+		EditInfo.ResEd   = (EditorMode = IDC_RESED)
+		EditInfo.CodeEd  = (EditorMode = IDC_CODEED)
+		EditInfo.HexEd   = (EditorMode = IDC_HEXED)
+		EditInfo.TextEd  = (EditorMode = IDC_TEXTED)
 		EditInfo.CoTxEd  = EditInfo.CodeEd Orelse EditInfo.TextEd
 		EditInfo.AlphaEd = Not (EditInfo.ResEd)
     Else

@@ -289,9 +289,9 @@ Function TabOpt4Proc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 				LoadFromIni "CustStyle", Str (nInx), "044", @fbcust, FALSE
 				If IsZStrNotEmpty (buff) Then
 					row(0)=@buff
-					buff[100]=Hex(fbcust.nValue,8)
+					(@buff)[100]=Hex(fbcust.nValue,8)         ' WATCH
 					row(1)=@buff[100]
-					buff[150]=Hex(fbcust.nMask,8)
+					(@buff)[150]=Hex(fbcust.nMask,8)
 					row(2)=@buff[150]
 					SendMessage(hGrd,GM_ADDROW,0,Cast(LPARAM,@row(0)))
 				EndIf

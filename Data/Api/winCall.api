@@ -2128,11 +2128,11 @@ LookupIconIdFromDirectoryEx,presbits:PBYTE,fIcon:BOOL,cxDesired:Integer,cyDesire
 LowLevelKeyboardProc,nCode:Integer,wParam:WPARAM,lParam:LPARAM|LRESULT
 LowLevelMouseProc,nCode:Integer,wParam:WPARAM,lParam:LPARAM|LRESULT
 LPtoDP,hdc:HDC,lpPoints:LPPOINT,nCount:Integer|BOOL
-lstrcat,lpString1:LPTSTR,lpString2:LPTSTR|LPTSTR
-lstrcmp,lpString1:LPCTSTR,lpString2:LPCTSTR|Integer
-lstrcmpi,lpString1:LPCTSTR,lpString2:LPCTSTR|Integer
-lstrcpy,lpString1:LPTSTR,lpString2:LPTSTR|LPTSTR
-lstrcpyn,lpString1:LPTSTR,lpString2:LPCTSTR,iMaxLength:Integer|LPTSTR
+lstrcat,lpStringDest:LPTSTR,lpStringSrc:LPTSTR|LPTSTR
+lstrcmp,lpStringBase:LPCTSTR,lpStringSearch:LPCTSTR|Integer
+lstrcmpi,lpStringBase:LPCTSTR,lpStringSearch:LPCTSTR|Integer
+lstrcpy,lpStringDest:LPTSTR,lpStringSrc:LPTSTR|LPTSTR
+lstrcpyn,lpStringDest:LPTSTR,lpStringSrc:LPCTSTR,iMaxLength:Integer|LPTSTR
 lstrlen,lpString:LPCTSTR|Integer
 LZClose,hFile:Integer
 LZCopy,hfSource:Integer,hfDest:Integer|LONG

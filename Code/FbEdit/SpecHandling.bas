@@ -115,11 +115,11 @@ Sub GetFilePath (ByVal pFileSpec As ZString Ptr)
 
 End Sub
 
-Function GetFileExt (ByVal pSpec As ZString Ptr) As ZString Ptr 
+'Function GetFileExt (ByVal pSpec As ZString Ptr) As ZString Ptr 
 
     ' MOD 11.1.2012
 
-	Return PathFindExtension (pSpec)
+	'Return PathFindExtension (pSpec)
 
 	'Const ASCII_Point     As Integer = Asc(".")
 	'Const ASCII_Colon     As Integer = Asc(":")
@@ -138,7 +138,7 @@ Function GetFileExt (ByVal pSpec As ZString Ptr) As ZString Ptr
 	'	x -= 1
 	'Wend
 
-End Function
+'End Function
 
 Function RemoveFileExt (ByVal pFileSpec As ZString Ptr) As ZString Ptr
 
@@ -293,7 +293,7 @@ Sub BuildDirList (ByVal lpDir As ZString Ptr, ByVal lpSub As ZString Ptr, ByVal 
 					            EndIf
 					        EndIf    
 					        If szCmpi (@wfd.cFileName, @"lib", 3) = 0 Then
-					            DirList += Str (nType And 7) + "," + *@wfd.cFileName[3] + "#"    
+					            DirList += Str (nType And 7) + "," + (@wfd.cFileName)[3] + "#"   ' WATCH    
 					        EndIf
 					    EndIf
 					EndIf
@@ -374,7 +374,7 @@ Sub GetLastWriteTime (ByVal pFileSpec As ZString Ptr, ByVal pFileTime As FILETIM
 		CloseHandle hFile
 	Else
 	    Dim InitFileTime As FILETIME
-	    *pFileTime = InitFileTime
+	    *pFileTime = InitFileTime                      ' zero out
 	EndIf
 
 End Sub

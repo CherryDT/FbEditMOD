@@ -104,5 +104,14 @@
                      handled den parameteranteil des kommandos nicht
 
 
+    - find (all-project-files) öffnet projectfiles im BG-TEXT-MODE und bringt die Propertyauflistung durcheinander
 
 
+    - falsche properties für:
+            sub test (x as string = "xyz", y as integer)
+            end sub
+
+
+
+
+    

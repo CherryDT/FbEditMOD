@@ -10,7 +10,9 @@
 
 #Include Once "Inc\Addins.bi"
 #Include Once "Inc\CoTxEd.bi"
+#Include Once "Inc\Environment.bi"
 #Include Once "Inc\FbEdit.bi"
+#Include Once "Inc\GUIHandling.bi"
 #Include Once "Inc\Project.bi"
 #Include Once "Inc\Resource.bi"
 #Include Once "Inc\SpecHandling.bi"
@@ -108,7 +110,7 @@ Sub SearchRegEx (ByRef StartIdx    As Integer,      _
 
 End Sub 
 
-Function MyGlobalAlloc (ByVal nType As UINT, ByVal nSize As DWORD) As HGLOBAL
+Function GlobalAllocUI (ByVal nType As UINT, ByVal nSize As DWORD) As HGLOBAL
 	Dim hMem As HGLOBAL
 
 Retry:
@@ -127,6 +129,49 @@ Retry:
 		End Select
 	EndIf
 	Return hMem
+
+End Function
+
+Function ShellExecuteUI (ByVal hWindow     As HWND, _ 
+                          ByVal pOperation  As ZString Ptr, _
+                          ByVal pFileSpec   As ZString Ptr, _
+                          ByVal pParameters As ZString Ptr, _
+                          ByVal pWorkDir    As ZString Ptr, _
+                          ByVal ShowCmd     As Integer) As BOOL
+
+    Dim pErrText  As ZString Ptr   = Any 
+    Dim ExitCode  As Integer       = Any 
+
+	UpdateEnvironment
+    TextToOutput !"\13SHELLEXECUTE: " + *pFileSpec + " " + *pParameters
+
+	ExitCode = CInt (ShellExecute (hWindow, pOperation, pFileSpec, pParameters, pWorkDir, ShowCmd))
+    
+    Select Case ExitCode
+    Case 0                      :  pErrText = @"The operating system is out of memory or resources" 
+    Case ERROR_FILE_NOT_FOUND   :  pErrText = @"The specified file was not found" 
+    Case ERROR_PATH_NOT_FOUND   :  pErrText = @"The specified path was not found" 
+    Case ERROR_BAD_FORMAT       :  pErrText = @"The .exe file is invalid (non-Microsoft Win32 .exe or error in .exe image)" 
+    Case SE_ERR_ACCESSDENIED    :  pErrText = @"The operating system denied access to the specified file" 
+    Case SE_ERR_ASSOCINCOMPLETE :  pErrText = @"The file name association is incomplete or invalid" 
+    Case SE_ERR_DDEBUSY         :  pErrText = @"The Dynamic Data Exchange (DDE) transaction could not be completed because other DDE transactions were being processed" 
+    Case SE_ERR_DDEFAIL         :  pErrText = @"The DDE transaction failed" 
+    Case SE_ERR_DDETIMEOUT      :  pErrText = @"The DDE transaction could not be completed because the request timed out" 
+    Case SE_ERR_DLLNOTFOUND     :  pErrText = @"The specified DLL was not found" 
+    Case SE_ERR_FNF             :  pErrText = @"The specified file was not found" 
+    Case SE_ERR_NOASSOC         :  pErrText = @"There is no application associated with the given file name extension" 
+    Case SE_ERR_OOM             :  pErrText = @"There was not enough memory to complete the operation" 
+    Case SE_ERR_PNF             :  pErrText = @"The specified path was not found" 
+    Case SE_ERR_SHARE           :  pErrText = @"A sharing violation occurred" 
+    End Select
+    
+    If ExitCode > 32 Then
+        Return TRUE 
+    Else
+        TextToOutput @"*** error SHELLEXECUTE ***", MB_ICONHAND
+        TextToOutput pErrText 
+        Return FALSE 
+    EndIf
 
 End Function
 
@@ -196,22 +241,24 @@ End Sub
 '
 'End Sub
 
-Sub EnableDisable(ByVal bm As Long,ByVal id As Long)
-	
-	Dim hMnu As HMENU = Any 
-
-	hMnu=GetMenu(ah.hwnd)
-	EnableMenuItem(hMnu,id,IIf(bm,MF_ENABLED,MF_GRAYED))
-	SendMessage(ah.htoolbar,TB_ENABLEBUTTON,id,IIf(bm,TRUE,FALSE))
-	
-End Sub
+'Sub EnableDisable(ByVal bm As Long,ByVal id As Long)
+'	
+'	Dim hMnu As HMENU = Any 
+'
+'	hMnu=GetMenu(ah.hwnd)
+'	EnableMenuItem(hMnu,id,IIf(bm,MF_ENABLED,MF_GRAYED))
+'	SendMessage(ah.htoolbar,TB_ENABLEBUTTON,id,IIf(bm,TRUE,FALSE))
+'	
+'End Sub
 
 '===================================
 ' MOD 17.1.2012 ADD
-#Macro Enable (id)
-	EnableMenuItem hMnu,id, MF_ENABLED       ' set outside!   hMnu = GetMenu (ah.hwnd)
-	SendMessage ah.htoolbar, TB_ENABLEBUTTON, id, TRUE
-#EndMacro
+
+'#Macro Enable (id)
+'	EnableMenuItem hMnu,id, MF_ENABLED       ' set outside!   hMnu = GetMenu (ah.hwnd)
+'	SendMessage ah.htoolbar, TB_ENABLEBUTTON, id, TRUE
+'#EndMacro
+
 'Sub Enable (ByVal id As Long)
 '	
 '	Dim hMnu As HMENU = Any 
@@ -225,10 +272,12 @@ End Sub
 
 '===================================
 ' MOD 17.1.2012 ADD
-#Macro Disable (id)
-	EnableMenuItem hMnu,id, MF_GRAYED        ' set outside!   hMnu = GetMenu (ah.hwnd)
-	SendMessage ah.htoolbar, TB_ENABLEBUTTON, id, FALSE 
-#EndMacro
+
+'#Macro Disable (id)
+'	EnableMenuItem hMnu,id, MF_GRAYED        ' set outside!   hMnu = GetMenu (ah.hwnd)
+'	SendMessage ah.htoolbar, TB_ENABLEBUTTON, id, FALSE 
+'#EndMacro
+
 'Sub Disable (ByVal id As Long)
 '	
 '	Dim hMnu As HMENU = Any 
@@ -240,22 +289,22 @@ End Sub
 'End Sub
 '===================================
 
-#Macro EnableContext (id)
-	EnableMenuItem ah.hcontextmenu, id, MF_ENABLED
-#EndMacro
-
-#Macro DisableContext (id)
-	EnableMenuItem ah.hcontextmenu, id, MF_GRAYED
-#EndMacro
-
-Sub EnableDisableContext(ByVal bm As Long,ByVal id As Long)
-
-	'Dim hMnu As HMENU = Any               MOD 8.2.2012 
-
-	'hMnu=GetMenu(ah.hwnd)                 MOD 8.2.2012
-	EnableMenuItem(ah.hcontextmenu,id,IIf(bm,MF_ENABLED,MF_GRAYED))
-	
-End Sub
+'#Macro EnableContext (id)
+'	EnableMenuItem ah.hcontextmenu, id, MF_ENABLED
+'#EndMacro
+'
+'#Macro DisableContext (id)
+'	EnableMenuItem ah.hcontextmenu, id, MF_GRAYED
+'#EndMacro
+'
+'Sub EnableDisableContext(ByVal bm As Long,ByVal id As Long)
+'
+'	'Dim hMnu As HMENU = Any               MOD 8.2.2012 
+'
+'	'hMnu=GetMenu(ah.hwnd)                 MOD 8.2.2012
+'	EnableMenuItem(ah.hcontextmenu,id,IIf(bm,MF_ENABLED,MF_GRAYED))
+'	
+'End Sub
 
 Sub CheckMenu()
 
@@ -424,15 +473,15 @@ Sub EnableMenu ()
     EnMenu (TabIsCOTXED AndAlso BlockMode, IDM_EDIT_BLOCK_INSERT)
 
 	'IDM_EDIT_BOOKMARK
-'IDM_EDIT_BOOKMARKTOGGLE		    	10051
-'IDM_EDIT_BOOKMARKNEXT				10052
-'IDM_EDIT_BOOKMARKPREVIOUS		    10053
-'IDM_EDIT_BOOKMARKDELETE	    		10054
-'IDM_EDIT_BOOKMARKLIST               10089
-'IDM_EDIT_ERROR						10055
-'IDM_EDIT_ERRORNEXT					10056
-'IDM_EDIT_ERRORCLEAR			    	10057
-'IDM_EDIT_HISTORYPASTE               10090  
+    'IDM_EDIT_BOOKMARKTOGGLE
+    'IDM_EDIT_BOOKMARKNEXT	
+    'IDM_EDIT_BOOKMARKPREVIOUS
+    'IDM_EDIT_BOOKMARKDELETE
+    'IDM_EDIT_BOOKMARKLIST     
+    'IDM_EDIT_ERROR			
+    'IDM_EDIT_ERRORNEXT		
+    'IDM_EDIT_ERRORCLEAR	
+    'IDM_EDIT_HISTORYPASTE     
 	EnMenu (TabIsCOTXED, IDM_EDIT_ELEVATOR_UP)
 	EnMenu (TabIsCOTXED, IDM_EDIT_ELEVATOR_DOWN)
 
@@ -494,6 +543,7 @@ Sub EnableMenu ()
 	EnMenu (fProject, IDM_PROJECT_FILE_OPEN_TXT)         
 	EnMenu (fProject, IDM_PROJECT_FILE_OPEN_STD)         
 	EnMenu (fProject, IDM_PROJECT_FILE_OPEN_HEX)         
+    EnMenu (fProject, IDM_PROJECT_FILE_OPEN_EXTERN)
 
     'IDM_RESOURCE						
     EnMenu (TabIsRESED, IDM_RESOURCE_DIALOG)                                                                    
@@ -515,13 +565,14 @@ Sub EnableMenu ()
 	Next
 
 
-	'IDM_MAKE				
-	'IDM_MAKE_COMPILE		
-	'IDM_MAKE_RUN			
-	'IDM_MAKE_GO			
-	'IDM_MAKE_RUNDEBUG		
-	EnMenu (fProject, IDM_MAKE_MODULE)	    		
-	'IDM_MAKE_QUICKRUN		
+	'IDM_MAKE	
+	EnMenu (fProject OrElse TabIsCODEED, IDM_MAKE_COMPILE)
+	EnMenu (fProject OrElse TabIsCODEED, IDM_MAKE_RUN)			
+	EnMenu (fProject OrElse TabIsCODEED, IDM_MAKE_GO)			
+	EnMenu (fProject OrElse TabIsCODEED, IDM_MAKE_RUNDEBUG)		
+	EnMenu (fProject                   , IDM_MAKE_MODULE)	    		
+	EnMenu (                TabIsCODEED, IDM_MAKE_QUICKRUN)		
+
 
 	'IDM_TOOLS							 
 	EnMenu (TabIsAny, IDM_TOOLS_EXPORT)
@@ -995,25 +1046,25 @@ End Sub
 '
 'End Sub
 
-Function IsResOpen() As HWND
-	Dim tci As TCITEM
-    Dim i As Integer = Any
-    
-	tci.mask=TCIF_PARAM
-	i=0
-	Do While TRUE
-		If SendMessage(ah.htabtool,TCM_GETITEM,i,Cast(Integer,@tci)) Then
-		    If GetWindowLong(pTABMEM->hedit,GWL_ID)=IDC_RESED Then
-				Return pTABMEM->hedit
-			EndIf
-		Else
-			Exit Do
-		EndIf
-		i=i+1
-	Loop
-	Return 0
-
-End Function
+'Function IsResOpen() As HWND
+'	Dim tci As TCITEM
+'    Dim i As Integer = Any
+'    
+'	tci.mask=TCIF_PARAM
+'	i=0
+'	Do While TRUE
+'		If SendMessage(ah.htabtool,TCM_GETITEM,i,Cast(Integer,@tci)) Then
+'		    If GetWindowLong(pTABMEM->hedit,GWL_ID)=IDC_RESED Then
+'				Return pTABMEM->hedit
+'			EndIf
+'		Else
+'			Exit Do
+'		EndIf
+'		i=i+1
+'	Loop
+'	Return 0
+'
+'End Function
 
 
 'Sub NotImplemented()

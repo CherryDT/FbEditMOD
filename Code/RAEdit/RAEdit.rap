@@ -103,11 +103,11 @@ CompanyName=
 8=IDB_LOCK,107,0,Res\Lock.bmp
 
 [Size]
-1=0,0,0,0,228
-16=0,0,810,411,24745
+1=0,0,0,0,10420
+16=0,0,810,411,30931
 22=0,0,0,0,3994
 23=0,0,0,0,30301
-24=0,0,0,0,3976
+24=0,0,0,0,8507
 19=0,0,0,0,5931
 2=0,0,0,0,7563
 9=0,0,0,0,9672
@@ -117,7 +117,7 @@ CompanyName=
 15=0,0,0,0,8353
 18=0,0,572,537,8609
 4=0,0,0,0,8
-13=0,0,0,0,10156
+13=0,0,0,0,3376
 26=0,0,0,0,26510
 21=0,0,0,0,4716
 14=0,0,0,0,9996
@@ -141,15 +141,15 @@ CompanyName=
 
 [Find]
 1="streamin"
-2=".EDIT.funicode"
-3="rem_getunicode"
-4="WM_PAINT"
-5="STYLE_AUTOSIZELINENUM"
-6="RAEditPaint"
-7="print"
-8="REM_SETTOOLTIP"
-9="EM_SETMODIFY"
-10="REM_SETCHANGEDSTATE"
+2="em_streamin"
+3="em_StreamOut"
+4=".EDIT.funicode"
+5="rem_getunicode"
+6="WM_PAINT"
+7="STYLE_AUTOSIZELINENUM"
+8="RAEditPaint"
+9="print"
+10="REM_SETTOOLTIP"
 
 [AutoLoad]
 AutoLoad=16,12,13,19,15,2,23,3,10,24,22,11,9,21,20,1,4
@@ -191,7 +191,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=13
+MilestoneOnDateDate=28
 MilestoneOnDateTimeYear=2006
 MilestoneOnDateTimeMonth=8
 MilestoneOnDateTimeDate=27
@@ -253,7 +253,7 @@ Group=Assembly,Resources,Misc
 3=
 
 [PTimer]
-PTimer=1084552919
+PTimer=1088937935
 
 [RADebugBP]
 16=
