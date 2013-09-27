@@ -143,6 +143,7 @@ Sub GetFilePath(ByVal sFile As String)
 End Sub
 
 Sub SetupProperty()
+	SendMessage(hPrp,PRM_SETLANGUAGE, nFREEBASIC, 0)
 	' Property types
 	SendMessage(hPrp,PRM_ADDPROPERTYTYPE,Asc("p")+256,Cast(Integer,StrPtr(szCode)))
 	SendMessage(hPrp,PRM_ADDPROPERTYTYPE,Asc("c"),Cast(Integer,StrPtr(szConst)))
