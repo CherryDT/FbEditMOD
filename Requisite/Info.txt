@@ -1,0 +1,9 @@
+
+
+    Folder Content
+
+
+        - files which are necessary to build FbEdit from source
+
+            (they are not necessary to execute FbEdit.exe)
+

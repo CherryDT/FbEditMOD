@@ -1,5 +1,5 @@
 [Project]
-Version=2
+Version=3
 Description=Convert bi to api
 Api=fb (FreeBASIC),win (Windows)
 Grouping=1
@@ -18,5 +18,10 @@ Output=
 Run=
 [FileInfo]
 1=0,122,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-2=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+2=0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 3=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+[TabOrder]
+TabOrder=1,2
+CurrentTab=1
+[BreakPoint]
+1=

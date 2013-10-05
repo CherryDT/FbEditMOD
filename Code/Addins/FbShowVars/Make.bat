@@ -14,9 +14,9 @@ echo *** building LIB (client support) ***
 "%FBHome%\fbc" -lib -w all -v "Src\ShowVars.bas" -x "Build\libShowVars.a" >> Make.log || goto ERR_Exit
 
 echo .
-echo *** Expose BI (client support) ***
+echo *** Expose BI (client support), TXT help file ***
 xcopy Src\ShowVars.bi Build /d /y || goto ERR_Exit
-
+xcopy fbShowVars.txt Build /d /y || goto ERR_Exit
 
 
 
@@ -29,8 +29,7 @@ echo ------------------------
 echo .
 echo .
 echo .
-pause
-exit 0
+exit /b 0
 
 
 :ERR_Exit
@@ -42,8 +41,7 @@ echo .
 echo .
 echo .
 Make.log
-pause
-exit 1
+exit /b 1
 
 
 rem This function reads a value from an INI file and stored it in a variable

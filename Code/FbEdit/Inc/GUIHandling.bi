@@ -65,3 +65,6 @@ Extern nsel                 As Integer
     EnableWindow (GetDlgItem (hWin, DlgItem), NewState)
 #EndMacro
 
+#Macro ShowDlgItem (hWin, DlgItem, NewState)
+    ShowWindow (GetDlgItem (hWin, DlgItem), NewState)
+#EndMacro

@@ -23,7 +23,7 @@ CCL1001=Module MASM
 2=Module MASM,..\Masm32\bin\ML.EXE  /c /coff /I"c:\Program Files (x86)\masm32\include"
 [TabOrder]
 TabOrder=1,2,3,1001,4
-CurrentTab=4
+CurrentTab=1001
 [File]
 1=Src\MixLang_Test.bas
 Main=1

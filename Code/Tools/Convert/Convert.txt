@@ -1,0 +1,13 @@
+
+
+     This is a bi to api file converter.
+
+     1. From command prompt: copy *.bi mybi.bi
+        This creates one file from many files.
+     2. Use this program to convert mybi.bi to myout.bas
+     3. Use FbEdit to have a look at the result
+     4. Use FbEdit to export properties from myout.bas
+     5. Copy result from output window to an api file.
+
+     Thats all
+

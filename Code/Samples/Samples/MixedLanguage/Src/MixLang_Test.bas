@@ -7,6 +7,7 @@
     
     ' 1. old fashioned way:
     '       doubleclick "Make.bat" inside project explorer
+    '           caution: please review before executing - some edits necessary to match your system
     ' 2. using FbEditMOD's build engine
     '       [Make]->[Compile], see also [Project]->[Project Options]                            
      

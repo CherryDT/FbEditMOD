@@ -1,0 +1,68 @@
+[Project]
+Version=3
+Description=Pre/PostBuild scripting
+Api=fb (FreeBASIC),sv (Showvars),win (Windows)
+Grouping=2
+AddMainFiles=1
+AddModuleFiles=1
+ResExport=
+CompileIfNewer=0
+IncVersion=0
+RunCmd=0
+[Make]
+Current=6
+Recompile=1
+1=a1,fbc -a1
+2=b2,fbc -b2
+3=c3,fbc -c3
+4=d4,fbc -d4
+Output=
+Run=
+Delete=*.obj
+5=b,$HA
+PreBuildBatch=C:\Programme\FbEditMOD\Projects\Samples\Pre_PostBuildBatch\prebuild.bat
+PostBuildBatch=C:\Programme\FbEditMOD\Projects\Samples\Pre_PostBuildBatch\postbuild.bat
+6=Windows Console,fbc -s console -w all -w next -w pedantic
+Module=Module Build,fbc -c
+7=Module,fbc -c -v -R
+CCL1001=Module
+CCL1002=Module
+[TabOrder]
+CurrentTab=3
+TabOrder=1,1002,2,3,1001
+[File]
+3=prebuild.bat
+MainRC=
+Main=1
+2=postbuild.bat
+1=main.bas
+1001=module1.bas
+1002=module2.bas
+[FileInfo]
+1=0,24,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+2=0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+3=0,14,2,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+4=0,12,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1001=0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1002=0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1003=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1004=0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5=0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6=0,10,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+7=0,5,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+8=0,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+9=0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+[BreakPoint]
+1=
+1001=
+1002=
+1003=
+1004=
+3=
+4=
+2=
+5=
+7=
+8=
+9=
+6=

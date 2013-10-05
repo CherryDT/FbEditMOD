@@ -9,12 +9,6 @@ dim SHARED lpHandles as ADDINHANDLES ptr
 dim SHARED lpFunctions as ADDINFUNCTIONS ptr
 dim SHARED lpData as ADDINDATA ptr
 
-type TABMEM
-	hedit				as HWND
-	filename			as zstring*260
-	profileinx		as integer
-	filestate		as Integer
-end type
 
 ' Returns info on what messages the addin hooks into (in an ADDINHOOKS type).
 function InstallDll CDECL alias "InstallDll" (byval hWin as HWND,byval hInst as HINSTANCE) as ADDINHOOKS ptr EXPORT

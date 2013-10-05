@@ -1,8 +1,13 @@
 
 @echo off
 
+:: *********************************************************
+:: edit these set commands with respect to your installation
+:: *********************************************************
 set MasmHome=%PROGRAMFILES(x86)%\Masm32
 set FbcHome=%PROGRAMFILES(x86)%\FreeBasic 0.24.0
+:: *********************************************************
+
 
 echo .
 echo *** assembling ***
@@ -23,13 +28,11 @@ echo .
 echo ------------------------
 echo --- OK - Batch ready ---
 echo ------------------------
-pause
-exit 0
+exit /b 0
 
 :ERR_Exit
 echo .
 echo ********************************
 echo *** ERROR - Batch terminated ***
 echo ********************************
-pause
-exit 1
+exit /b 1

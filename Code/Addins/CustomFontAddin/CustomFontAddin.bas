@@ -70,7 +70,7 @@ Function OpenFontFile(ByVal hWin As HWND) As String
 	Dim ofn As OPENFILENAME
 	Dim buff As ZString*260
 	Dim buff2 As ZString*260
-	Dim path As String = ExePath
+	Dim path As String = ExePath + $"\Fonts"
 
 	ofn.lStructSize=SizeOf(OPENFILENAME)
 	ofn.hwndOwner=hWin

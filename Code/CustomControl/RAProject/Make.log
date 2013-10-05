@@ -1,0 +1,538 @@
+Microsoft (R) Windows (R) Resource Compiler, Version 5.00.1823.1 - Build 1823
+Copyright (C) Microsoft Corp. 1985-1998. All rights reserved.
+
+Using codepage 1252 as default
+Creating RAProject.res
+RC: RCPP -CP 1252 -f C:\Program Files (x86)\FbEditSVN\Code\CustomControl\RAProject\RCa03288 -g C:\Program Files (x86)\FbEditSVN\Code\CustomControl\RAProject\RDa03288 -DRC_INVOKED -D_WIN32 -pc\:/ -E -I. -I Src\ -I .
+
+Src\RAProject.rc.
+Writing BITMAP:100,	lang:0x409,	size 344.
+Writing BITMAP:310,	lang:0x409,	size 18472
+ Assembling: Src\RAProject.asm
+Microsoft (R) Incremental Linker Version 5.12.8078
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+
+Start Pass1
+Processed /DEFAULTLIB:comctl32.lib
+Processed /DEFAULTLIB:user32.lib
+Processed /DEFAULTLIB:kernel32.lib
+Processed /DEFAULTLIB:gdi32.lib
+
+Searching Libraries
+    Searching C:\Program Files (x86)\Masm32\Lib\comctl32.lib:
+      Found _ImageList_AddMasked@12
+        Referenced in RAProject.obj
+        Loaded comctl32.lib(comctl32.dll)
+      Found _ImageList_BeginDrag@16
+        Referenced in RAProject.obj
+        Loaded comctl32.lib(comctl32.dll)
+      Found _ImageList_Create@20
+        Referenced in RAProject.obj
+        Loaded comctl32.lib(comctl32.dll)
+      Found _ImageList_Destroy@4
+        Referenced in RAProject.obj
+        Loaded comctl32.lib(comctl32.dll)
+      Found _ImageList_DragEnter@12
+        Referenced in RAProject.obj
+        Loaded comctl32.lib(comctl32.dll)
+      Found _ImageList_DragLeave@4
+        Referenced in RAProject.obj
+        Loaded comctl32.lib(comctl32.dll)
+      Found _ImageList_DragMove@8
+        Referenced in RAProject.obj
+        Loaded comctl32.lib(comctl32.dll)
+      Found _ImageList_EndDrag@0
+        Referenced in RAProject.obj
+        Loaded comctl32.lib(comctl32.dll)
+      Found __IMPORT_DESCRIPTOR_comctl32
+        Referenced in comctl32.lib(comctl32.dll)
+        Referenced in comctl32.lib(comctl32.dll)
+        Referenced in comctl32.lib(comctl32.dll)
+        Referenced in comctl32.lib(comctl32.dll)
+        Referenced in comctl32.lib(comctl32.dll)
+        Referenced in comctl32.lib(comctl32.dll)
+        Referenced in comctl32.lib(comctl32.dll)
+        Referenced in comctl32.lib(comctl32.dll)
+        Loaded comctl32.lib(comctl32.dll)
+      Found __NULL_IMPORT_DESCRIPTOR
+        Referenced in comctl32.lib(comctl32.dll)
+        Loaded comctl32.lib(comctl32.dll)
+      Found comctl32_NULL_THUNK_DATA
+        Referenced in comctl32.lib(comctl32.dll)
+        Loaded comctl32.lib(comctl32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\user32.lib:
+      Found _CallWindowProcA@20
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _CreateWindowExA@48
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _DefWindowProcA@16
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _DestroyWindow@4
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetClientRect@8
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetCursorPos@4
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetDesktopWindow@0
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetParent@4
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetScrollPos@8
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetWindowLongA@8
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetWindowRect@8
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _InvalidateRect@12
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _LoadBitmapA@8
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _LoadCursorA@8
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _MoveWindow@24
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _RegisterClassExA@4
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _ReleaseCapture@0
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _ScreenToClient@8
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _SendMessageA@16
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetCapture@4
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetFocus@4
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetWindowLongA@12
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _UpdateWindow@4
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _WindowFromPoint@8
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found __IMPORT_DESCRIPTOR_user32
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Loaded user32.lib(user32.dll)
+      Found user32_NULL_THUNK_DATA
+        Referenced in user32.lib(user32.dll)
+        Loaded user32.lib(user32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\kernel32.lib:
+      Found _GetProcessHeap@0
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalAlloc@8
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalFree@4
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _HeapAlloc@12
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _HeapFree@12
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _RtlMoveMemory@12
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _RtlZeroMemory@8
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _lstrcatA@8
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _lstrcmpiA@8
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _lstrcpyA@8
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _lstrcpynA@12
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _lstrlenA@4
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found __IMPORT_DESCRIPTOR_kernel32
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Loaded kernel32.lib(kernel32.dll)
+      Found kernel32_NULL_THUNK_DATA
+        Referenced in kernel32.lib(kernel32.dll)
+        Loaded kernel32.lib(kernel32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\gdi32.lib:
+      Found _DeleteObject@4
+        Referenced in RAProject.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found __IMPORT_DESCRIPTOR_gdi32
+        Referenced in gdi32.lib(gdi32.dll)
+        Loaded gdi32.lib(gdi32.dll)
+      Found gdi32_NULL_THUNK_DATA
+        Referenced in gdi32.lib(gdi32.dll)
+        Loaded gdi32.lib(gdi32.dll)
+
+Done Searching Libraries
+
+Start Generating .exp file
+Microsoft (R) Library Manager Version 5.12.8078
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+"/def:Src\RAProject.def" 
+"/name:RAProject.dll" 
+"/out:Build\RAProject.lib" 
+"/libpath:C:\Program Files (x86)\Masm32\Lib" 
+/include:_DllEntry@12 
+/SUBSYSTEM:CONSOLE 
+"RAProject.obj" 
+"RAProject.res" 
+/machine:IX86 
+/verbose 
+
+Start Pass1
+Processed /DEFAULTLIB:comctl32.lib
+Processed /DEFAULTLIB:user32.lib
+Processed /DEFAULTLIB:kernel32.lib
+Processed /DEFAULTLIB:gdi32.lib
+
+Searching Libraries
+    Searching C:\Program Files (x86)\Masm32\Lib\comctl32.lib:
+      Found _ImageList_AddMasked@12
+        Referenced in RAProject.obj
+        Loaded comctl32.lib(comctl32.dll)
+      Found _ImageList_BeginDrag@16
+        Referenced in RAProject.obj
+        Loaded comctl32.lib(comctl32.dll)
+      Found _ImageList_Create@20
+        Referenced in RAProject.obj
+        Loaded comctl32.lib(comctl32.dll)
+      Found _ImageList_Destroy@4
+        Referenced in RAProject.obj
+        Loaded comctl32.lib(comctl32.dll)
+      Found _ImageList_DragEnter@12
+        Referenced in RAProject.obj
+        Loaded comctl32.lib(comctl32.dll)
+      Found _ImageList_DragLeave@4
+        Referenced in RAProject.obj
+        Loaded comctl32.lib(comctl32.dll)
+      Found _ImageList_DragMove@8
+        Referenced in RAProject.obj
+        Loaded comctl32.lib(comctl32.dll)
+      Found _ImageList_EndDrag@0
+        Referenced in RAProject.obj
+        Loaded comctl32.lib(comctl32.dll)
+      Found __IMPORT_DESCRIPTOR_comctl32
+        Referenced in comctl32.lib(comctl32.dll)
+        Referenced in comctl32.lib(comctl32.dll)
+        Referenced in comctl32.lib(comctl32.dll)
+        Referenced in comctl32.lib(comctl32.dll)
+        Referenced in comctl32.lib(comctl32.dll)
+        Referenced in comctl32.lib(comctl32.dll)
+        Referenced in comctl32.lib(comctl32.dll)
+        Referenced in comctl32.lib(comctl32.dll)
+        Loaded comctl32.lib(comctl32.dll)
+      Found __NULL_IMPORT_DESCRIPTOR
+        Referenced in comctl32.lib(comctl32.dll)
+        Loaded comctl32.lib(comctl32.dll)
+      Found comctl32_NULL_THUNK_DATA
+        Referenced in comctl32.lib(comctl32.dll)
+        Loaded comctl32.lib(comctl32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\user32.lib:
+      Found _CallWindowProcA@20
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _CreateWindowExA@48
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _DefWindowProcA@16
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _DestroyWindow@4
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetClientRect@8
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetCursorPos@4
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetDesktopWindow@0
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetParent@4
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetScrollPos@8
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetWindowLongA@8
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetWindowRect@8
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _InvalidateRect@12
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _LoadBitmapA@8
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _LoadCursorA@8
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _MoveWindow@24
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _RegisterClassExA@4
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _ReleaseCapture@0
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _ScreenToClient@8
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _SendMessageA@16
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetCapture@4
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetFocus@4
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetWindowLongA@12
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _UpdateWindow@4
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found _WindowFromPoint@8
+        Referenced in RAProject.obj
+        Loaded user32.lib(user32.dll)
+      Found __IMPORT_DESCRIPTOR_user32
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Loaded user32.lib(user32.dll)
+      Found user32_NULL_THUNK_DATA
+        Referenced in user32.lib(user32.dll)
+        Loaded user32.lib(user32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\kernel32.lib:
+      Found _GetProcessHeap@0
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalAlloc@8
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalFree@4
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _HeapAlloc@12
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _HeapFree@12
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _RtlMoveMemory@12
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _RtlZeroMemory@8
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _lstrcatA@8
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _lstrcmpiA@8
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _lstrcpyA@8
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _lstrcpynA@12
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _lstrlenA@4
+        Referenced in RAProject.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found __IMPORT_DESCRIPTOR_kernel32
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Loaded kernel32.lib(kernel32.dll)
+      Found kernel32_NULL_THUNK_DATA
+        Referenced in kernel32.lib(kernel32.dll)
+        Loaded kernel32.lib(kernel32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\gdi32.lib:
+      Found _DeleteObject@4
+        Referenced in RAProject.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found __IMPORT_DESCRIPTOR_gdi32
+        Referenced in gdi32.lib(gdi32.dll)
+        Loaded gdi32.lib(gdi32.dll)
+      Found gdi32_NULL_THUNK_DATA
+        Referenced in gdi32.lib(gdi32.dll)
+        Loaded gdi32.lib(gdi32.dll)
+
+Done Searching Libraries
+
+End Pass1
+
+   Creating library Build\RAProject.lib and object Build\RAProject.exp
+
+End Generating .exp file
+
+Searching Libraries
+    Searching C:\Program Files (x86)\Masm32\Lib\comctl32.lib:
+
+Done Searching Libraries
+
+End Pass1
+
+Start Pass2
+     RAProject.exp
+     RAProject.res
+     RAProject.obj
+     comctl32.lib(comctl32.dll)
+     comctl32.lib(comctl32.dll)
+     comctl32.lib(comctl32.dll)
+     comctl32.lib(comctl32.dll)
+     comctl32.lib(comctl32.dll)
+     comctl32.lib(comctl32.dll)
+     comctl32.lib(comctl32.dll)
+     comctl32.lib(comctl32.dll)
+     comctl32.lib(comctl32.dll)
+     comctl32.lib(comctl32.dll)
+     comctl32.lib(comctl32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+End Pass2
+ Assembling: Src\RAProject.asm
+RAProject.obj

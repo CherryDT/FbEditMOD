@@ -25,13 +25,11 @@ includelib user32.lib
 includelib kernel32.lib
 includelib gdi32.lib
 
-includelib ..\RACodeComplete\Build\RACodeComplete.lib
-includelib ..\RAFile\Build\RAFile.lib
-includelib ..\RAGrid\Build\RAGrid.lib
-includelib ..\RAHexEd\Build\RAHexEd.lib
-includelib ..\RAProperty\Build\RAProperty.lib
-includelib ..\RAResEd\Build\RAResEd.lib
-includelib ..\RAEdit\Build\RAEdit.lib
-;includelib ..\RADebug\Build\RADebug.lib
-
-
+includelib ..\CustomControl\RACodeComplete\Build\RACodeComplete.lib
+includelib ..\CustomControl\RAFile\Build\RAFile.lib
+includelib ..\CustomControl\RAGrid\Build\RAGrid.lib
+includelib ..\CustomControl\RAHexEd\Build\RAHexEd.lib
+includelib ..\CustomControl\RAProperty\Build\RAProperty.lib
+includelib ..\CustomControl\RAResEd\Build\RAResEd.lib
+includelib ..\CustomControl\RAEdit\Build\RAEdit.lib
+;includelib ..\CustomControl\RADebug\Build\RADebug.lib

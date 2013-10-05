@@ -21,7 +21,7 @@ IntSqrt proc source:DWORD
     .while eax < 5
         inc eax
         PrintDec eax                            ; debug output to FbEdit's output window
-    .endw                                       ; for details see -> VKDebug.chm
+    .endw                                       ; for details see -> .\Redist\VKDebug\VKDebug.chm
 	
 	PrintLine
     PrintHex eax

@@ -1,0 +1,850 @@
+Microsoft (R) Windows (R) Resource Compiler, Version 5.00.1823.1 - Build 1823
+Copyright (C) Microsoft Corp. 1985-1998. All rights reserved.
+
+Using codepage 1252 as default
+Creating RAHexEd.res
+RC: RCPP -CP 1252 -f C:\Program Files (x86)\FbEditSVN\Code\CustomControl\RAHexEd\RCa03652 -g C:\Program Files (x86)\FbEditSVN\Code\CustomControl\RAHexEd\RDa03652 -DRC_INVOKED -D_WIN32 -pc\:/ -E -I. -I Src\ -I .
+
+Src\RAHexEd.rc.
+Writing BITMAP:100,	lang:0x409,	size 1464.
+Writing CURSOR:1,	lang:0x409,	size 308
+Writing GROUP_CURSOR:101,	lang:0x409,	size 20.
+Writing BITMAP:102,	lang:0x409,	size 676.
+Writing CURSOR:2,	lang:0x409,	size 308
+Writing GROUP_CURSOR:103,	lang:0x409,	size 20.
+Writing BITMAP:104,	lang:0x409,	size 192.
+Writing VERSION:1,	lang:0x409,	size 588
+ Assembling: Src\RAHexEd.asm
+Microsoft (R) Incremental Linker Version 5.12.8078
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+
+Start Pass1
+Processed /DEFAULTLIB:Comctl32.lib
+Processed /DEFAULTLIB:user32.lib
+Processed /DEFAULTLIB:kernel32.lib
+Processed /DEFAULTLIB:gdi32.lib
+
+Searching Libraries
+    Searching C:\Program Files (x86)\Masm32\Lib\Comctl32.lib:
+      Found _ImageList_Add@12
+        Referenced in RAHexEd.obj
+        Loaded Comctl32.lib(comctl32.dll)
+      Found _ImageList_Create@20
+        Referenced in RAHexEd.obj
+        Loaded Comctl32.lib(comctl32.dll)
+      Found _ImageList_Destroy@4
+        Referenced in RAHexEd.obj
+        Loaded Comctl32.lib(comctl32.dll)
+      Found _ImageList_Draw@24
+        Referenced in RAHexEd.obj
+        Loaded Comctl32.lib(comctl32.dll)
+      Found __IMPORT_DESCRIPTOR_comctl32
+        Referenced in Comctl32.lib(comctl32.dll)
+        Referenced in Comctl32.lib(comctl32.dll)
+        Referenced in Comctl32.lib(comctl32.dll)
+        Referenced in Comctl32.lib(comctl32.dll)
+        Loaded Comctl32.lib(comctl32.dll)
+      Found __NULL_IMPORT_DESCRIPTOR
+        Referenced in Comctl32.lib(comctl32.dll)
+        Loaded Comctl32.lib(comctl32.dll)
+      Found comctl32_NULL_THUNK_DATA
+        Referenced in Comctl32.lib(comctl32.dll)
+        Loaded Comctl32.lib(comctl32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\user32.lib:
+      Found _BeginPaint@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _CallWindowProcA@20
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _ClientToScreen@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _CloseClipboard@0
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _CopyRect@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _CreateCaret@16
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _CreateWindowExA@48
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _DefWindowProcA@16
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _DestroyCursor@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _DestroyWindow@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _DrawTextA@20
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _EmptyClipboard@0
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _EndPaint@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _FillRect@12
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetClientRect@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetClipboardData@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetCursor@0
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetDC@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetFocus@0
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetKeyState@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetParent@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetScrollInfo@12
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetWindowLongA@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _HideCaret@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _InvalidateRect@12
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _IsClipboardFormatAvailable@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _KillTimer@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _LoadBitmapA@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _LoadCursorA@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _MessageBeep@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _MessageBoxA@16
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _MoveWindow@24
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _OpenClipboard@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _PostMessageA@16
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _RegisterClassExA@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _ReleaseCapture@0
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _ReleaseDC@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _ScrollWindow@20
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SendMessageA@16
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetCapture@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetCaretPos@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetClipboardData@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetCursor@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetFocus@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetScrollInfo@16
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetTimer@16
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetWindowLongA@12
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetWindowPos@28
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _ShowCaret@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _ShowWindow@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _UpdateWindow@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found __IMPORT_DESCRIPTOR_user32
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Loaded user32.lib(user32.dll)
+      Found user32_NULL_THUNK_DATA
+        Referenced in user32.lib(user32.dll)
+        Loaded user32.lib(user32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\kernel32.lib:
+      Found _GetProcessHeap@0
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalAlloc@8
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalFree@4
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalLock@4
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalReAlloc@12
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalUnlock@4
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _HeapAlloc@12
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _HeapFree@12
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _HeapReAlloc@16
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _RtlMoveMemory@12
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _lstrlenA@4
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found __IMPORT_DESCRIPTOR_kernel32
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Loaded kernel32.lib(kernel32.dll)
+      Found kernel32_NULL_THUNK_DATA
+        Referenced in kernel32.lib(kernel32.dll)
+        Loaded kernel32.lib(kernel32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\gdi32.lib:
+      Found _CreatePen@12
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _CreateRectRgn@16
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _CreateSolidBrush@4
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _DeleteObject@4
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _GetStockObject@4
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _GetTextExtentPoint32A@16
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _LineTo@12
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _MoveToEx@16
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _SelectClipRgn@8
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _SelectObject@8
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _SetBkMode@8
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _SetTextColor@8
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _TextOutA@20
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found __IMPORT_DESCRIPTOR_gdi32
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Loaded gdi32.lib(gdi32.dll)
+      Found gdi32_NULL_THUNK_DATA
+        Referenced in gdi32.lib(gdi32.dll)
+        Loaded gdi32.lib(gdi32.dll)
+
+Done Searching Libraries
+
+Start Generating .exp file
+Microsoft (R) Library Manager Version 5.12.8078
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+"/def:Src\RAHexEd.def" 
+"/name:RAHexEd.dll" 
+"/out:Build\RAHexEd.lib" 
+"/libpath:C:\Program Files (x86)\Masm32\Lib" 
+/include:_DllEntry@12 
+/SUBSYSTEM:CONSOLE 
+"RAHexEd.obj" 
+"RAHexEd.res" 
+/machine:IX86 
+/verbose 
+
+Start Pass1
+Processed /DEFAULTLIB:Comctl32.lib
+Processed /DEFAULTLIB:user32.lib
+Processed /DEFAULTLIB:kernel32.lib
+Processed /DEFAULTLIB:gdi32.lib
+
+Searching Libraries
+    Searching C:\Program Files (x86)\Masm32\Lib\Comctl32.lib:
+      Found _ImageList_Add@12
+        Referenced in RAHexEd.obj
+        Loaded Comctl32.lib(comctl32.dll)
+      Found _ImageList_Create@20
+        Referenced in RAHexEd.obj
+        Loaded Comctl32.lib(comctl32.dll)
+      Found _ImageList_Destroy@4
+        Referenced in RAHexEd.obj
+        Loaded Comctl32.lib(comctl32.dll)
+      Found _ImageList_Draw@24
+        Referenced in RAHexEd.obj
+        Loaded Comctl32.lib(comctl32.dll)
+      Found __IMPORT_DESCRIPTOR_comctl32
+        Referenced in Comctl32.lib(comctl32.dll)
+        Referenced in Comctl32.lib(comctl32.dll)
+        Referenced in Comctl32.lib(comctl32.dll)
+        Referenced in Comctl32.lib(comctl32.dll)
+        Loaded Comctl32.lib(comctl32.dll)
+      Found __NULL_IMPORT_DESCRIPTOR
+        Referenced in Comctl32.lib(comctl32.dll)
+        Loaded Comctl32.lib(comctl32.dll)
+      Found comctl32_NULL_THUNK_DATA
+        Referenced in Comctl32.lib(comctl32.dll)
+        Loaded Comctl32.lib(comctl32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\user32.lib:
+      Found _BeginPaint@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _CallWindowProcA@20
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _ClientToScreen@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _CloseClipboard@0
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _CopyRect@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _CreateCaret@16
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _CreateWindowExA@48
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _DefWindowProcA@16
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _DestroyCursor@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _DestroyWindow@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _DrawTextA@20
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _EmptyClipboard@0
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _EndPaint@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _FillRect@12
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetClientRect@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetClipboardData@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetCursor@0
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetDC@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetFocus@0
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetKeyState@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetParent@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetScrollInfo@12
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetWindowLongA@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _HideCaret@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _InvalidateRect@12
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _IsClipboardFormatAvailable@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _KillTimer@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _LoadBitmapA@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _LoadCursorA@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _MessageBeep@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _MessageBoxA@16
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _MoveWindow@24
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _OpenClipboard@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _PostMessageA@16
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _RegisterClassExA@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _ReleaseCapture@0
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _ReleaseDC@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _ScrollWindow@20
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SendMessageA@16
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetCapture@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetCaretPos@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetClipboardData@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetCursor@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetFocus@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetScrollInfo@16
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetTimer@16
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetWindowLongA@12
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetWindowPos@28
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _ShowCaret@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _ShowWindow@8
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found _UpdateWindow@4
+        Referenced in RAHexEd.obj
+        Loaded user32.lib(user32.dll)
+      Found __IMPORT_DESCRIPTOR_user32
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Loaded user32.lib(user32.dll)
+      Found user32_NULL_THUNK_DATA
+        Referenced in user32.lib(user32.dll)
+        Loaded user32.lib(user32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\kernel32.lib:
+      Found _GetProcessHeap@0
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalAlloc@8
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalFree@4
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalLock@4
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalReAlloc@12
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalUnlock@4
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _HeapAlloc@12
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _HeapFree@12
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _HeapReAlloc@16
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _RtlMoveMemory@12
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _lstrlenA@4
+        Referenced in RAHexEd.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found __IMPORT_DESCRIPTOR_kernel32
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Loaded kernel32.lib(kernel32.dll)
+      Found kernel32_NULL_THUNK_DATA
+        Referenced in kernel32.lib(kernel32.dll)
+        Loaded kernel32.lib(kernel32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\gdi32.lib:
+      Found _CreatePen@12
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _CreateRectRgn@16
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _CreateSolidBrush@4
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _DeleteObject@4
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _GetStockObject@4
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _GetTextExtentPoint32A@16
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _LineTo@12
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _MoveToEx@16
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _SelectClipRgn@8
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _SelectObject@8
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _SetBkMode@8
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _SetTextColor@8
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _TextOutA@20
+        Referenced in RAHexEd.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found __IMPORT_DESCRIPTOR_gdi32
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Loaded gdi32.lib(gdi32.dll)
+      Found gdi32_NULL_THUNK_DATA
+        Referenced in gdi32.lib(gdi32.dll)
+        Loaded gdi32.lib(gdi32.dll)
+
+Done Searching Libraries
+
+End Pass1
+
+   Creating library Build\RAHexEd.lib and object Build\RAHexEd.exp
+
+End Generating .exp file
+
+Searching Libraries
+    Searching C:\Program Files (x86)\Masm32\Lib\Comctl32.lib:
+
+Done Searching Libraries
+
+End Pass1
+
+Start Pass2
+     RAHexEd.exp
+     RAHexEd.res
+     RAHexEd.obj
+     Comctl32.lib(comctl32.dll)
+     Comctl32.lib(comctl32.dll)
+     Comctl32.lib(comctl32.dll)
+     Comctl32.lib(comctl32.dll)
+     Comctl32.lib(comctl32.dll)
+     Comctl32.lib(comctl32.dll)
+     Comctl32.lib(comctl32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+End Pass2
+ Assembling: Src\RAHexEd.asm
+RAHexEd.obj

@@ -37,7 +37,7 @@ MinorFiles=*.lib;*.exp;*.res;*.obj;
 Menu=1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0
 1=4,O,$B\RC.EXE /v /fo"$4",1
 2=3,O,$B\ML.EXE /DDLL /c /coff /Cp /Zi /I"$I",2
-3=7,O,$B\LINK.EXE /verbose /SUBSYSTEM:WINDOWS /RELEASE /DLL /DEF:$6 /LIBPATH:"$L" /OUT:"$7",3,4
+3=7,O,$B\LINK.EXE /verbose /SUBSYSTEM:WINDOWS /RELEASE /DLL /DEF:$6 /LIBPATH:"$L" /LIBPATH:"..\VKDebug\Build" /OUT:"$7",3,4
 4=0,0,,5
 5=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
 6=*.obj,O,$B\ML.EXE /c /coff /Cp /I"$I",*.asm
@@ -70,7 +70,7 @@ AutoLoad=1,4,2,3
 [Size]
 3=0,0,0,0,57
 1=0,0,0,0,483
-2=0,0,0,0,458
+2=0,0,0,0,1098
 4=0,0,0,0,712
 6=0,0,0,0,48
 5=0,0,0,0,51
@@ -84,7 +84,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=27
+MilestoneOnDateDate=3
 MilestoneOnDateTimeYear=2008
 MilestoneOnDateTimeMonth=4
 MilestoneOnDateTimeDate=24
@@ -130,24 +130,24 @@ BackupLocation=C:\RadASM\Masm\Projects\VCBackups\
 [BreakPoint]
 0=
 [PTimer]
-PTimer=117812838
+PTimer=120180652
 [VerInf]
 Nme=VERINF1
 ID=1
-FV=1.0.0.391
-PV=1.0.0.391
+FV=1.0.0.392
+PV=1.0.0.392
 VerOS=0x00000004
 VerFT=0x00000000
 VerLNG=0x00000409
 VerCHS=0x000004B0
-ProductVersion=1.0.0.391
+ProductVersion=1.0.0.392
 ProductName=
 OriginalFilename=
 LegalTrademarks=
 LegalCopyright=
 InternalName=
 FileDescription=
-FileVersion=1.0.0.391
+FileVersion=1.0.0.392
 CompanyName=
 [GroupExpand]
 GroupExpand=1,1,0

@@ -1,0 +1,521 @@
+Microsoft (R) Windows (R) Resource Compiler, Version 5.00.1823.1 - Build 1823
+Copyright (C) Microsoft Corp. 1985-1998. All rights reserved.
+
+Using codepage 1252 as default
+Creating RAProperty.res
+RC: RCPP -CP 1252 -f C:\Program Files (x86)\FbEditSVN\Code\CustomControl\RAProperty\RCa03596 -g C:\Program Files (x86)\FbEditSVN\Code\CustomControl\RAProperty\RDa03596 -DRC_INVOKED -D_WIN32 -pc\:/ -E -I. -I Src\ -I .
+
+Src\RAProperty.rc.
+Writing BITMAP:100,	lang:0x409,	size 344.
+Writing BITMAP:101,	lang:0x409,	size 744.
+Writing STRING:1,	lang:0x409,	size 166
+ Assembling: Src\RAProperty.asm
+Microsoft (R) Incremental Linker Version 5.12.8078
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+
+Start Pass1
+Processed /DEFAULTLIB:Comctl32.lib
+Processed /DEFAULTLIB:user32.lib
+Processed /DEFAULTLIB:kernel32.lib
+Processed /DEFAULTLIB:gdi32.lib
+
+Searching Libraries
+    Searching C:\Program Files (x86)\Masm32\Lib\Comctl32.lib:
+      Found _ImageList_AddMasked@12
+        Referenced in RAProperty.obj
+        Loaded Comctl32.lib(comctl32.dll)
+      Found _ImageList_Create@20
+        Referenced in RAProperty.obj
+        Loaded Comctl32.lib(comctl32.dll)
+      Found __IMPORT_DESCRIPTOR_comctl32
+        Referenced in Comctl32.lib(comctl32.dll)
+        Referenced in Comctl32.lib(comctl32.dll)
+        Loaded Comctl32.lib(comctl32.dll)
+      Found __NULL_IMPORT_DESCRIPTOR
+        Referenced in Comctl32.lib(comctl32.dll)
+        Loaded Comctl32.lib(comctl32.dll)
+      Found comctl32_NULL_THUNK_DATA
+        Referenced in Comctl32.lib(comctl32.dll)
+        Loaded Comctl32.lib(comctl32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\user32.lib:
+      Found _CallWindowProcA@20
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _CreateWindowExA@48
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _DefWindowProcA@16
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _DrawTextA@20
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetClientRect@8
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetCursorPos@4
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetDC@4
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetFocus@0
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetParent@4
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetSysColor@4
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetWindowLongA@8
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetWindowRect@8
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _InvalidateRect@12
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _LoadBitmapA@8
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _LoadCursorA@8
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _LoadStringA@16
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _MoveWindow@24
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _RegisterClassExA@4
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _ReleaseDC@8
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _SendMessageA@16
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetFocus@4
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetWindowLongA@12
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found __IMPORT_DESCRIPTOR_user32
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Loaded user32.lib(user32.dll)
+      Found user32_NULL_THUNK_DATA
+        Referenced in user32.lib(user32.dll)
+        Loaded user32.lib(user32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\kernel32.lib:
+      Found _CloseHandle@4
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _CreateFileA@28
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GetFileSize@8
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalAlloc@8
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalFree@4
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalLock@4
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalUnlock@4
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _ReadFile@20
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _RtlMoveMemory@12
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _RtlZeroMemory@8
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found __IMPORT_DESCRIPTOR_kernel32
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Loaded kernel32.lib(kernel32.dll)
+      Found kernel32_NULL_THUNK_DATA
+        Referenced in kernel32.lib(kernel32.dll)
+        Loaded kernel32.lib(kernel32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\gdi32.lib:
+      Found _CreateSolidBrush@4
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _DeleteObject@4
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _ExtTextOutA@32
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _GetObjectA@12
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _GetStockObject@4
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _SelectObject@8
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _SetBkColor@8
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _SetTextColor@8
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _TextOutA@20
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found __IMPORT_DESCRIPTOR_gdi32
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Loaded gdi32.lib(gdi32.dll)
+      Found gdi32_NULL_THUNK_DATA
+        Referenced in gdi32.lib(gdi32.dll)
+        Loaded gdi32.lib(gdi32.dll)
+
+Done Searching Libraries
+
+Start Generating .exp file
+Microsoft (R) Library Manager Version 5.12.8078
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+"/def:Src\RAProperty.def" 
+"/name:RAProperty.dll" 
+"/out:Build\RAProperty.lib" 
+"/libpath:C:\Program Files (x86)\Masm32\Lib" 
+/include:_DllEntry@12 
+/SUBSYSTEM:CONSOLE 
+"RAProperty.obj" 
+"RAProperty.res" 
+/machine:IX86 
+/verbose 
+
+Start Pass1
+Processed /DEFAULTLIB:Comctl32.lib
+Processed /DEFAULTLIB:user32.lib
+Processed /DEFAULTLIB:kernel32.lib
+Processed /DEFAULTLIB:gdi32.lib
+
+Searching Libraries
+    Searching C:\Program Files (x86)\Masm32\Lib\Comctl32.lib:
+      Found _ImageList_AddMasked@12
+        Referenced in RAProperty.obj
+        Loaded Comctl32.lib(comctl32.dll)
+      Found _ImageList_Create@20
+        Referenced in RAProperty.obj
+        Loaded Comctl32.lib(comctl32.dll)
+      Found __IMPORT_DESCRIPTOR_comctl32
+        Referenced in Comctl32.lib(comctl32.dll)
+        Referenced in Comctl32.lib(comctl32.dll)
+        Loaded Comctl32.lib(comctl32.dll)
+      Found __NULL_IMPORT_DESCRIPTOR
+        Referenced in Comctl32.lib(comctl32.dll)
+        Loaded Comctl32.lib(comctl32.dll)
+      Found comctl32_NULL_THUNK_DATA
+        Referenced in Comctl32.lib(comctl32.dll)
+        Loaded Comctl32.lib(comctl32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\user32.lib:
+      Found _CallWindowProcA@20
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _CreateWindowExA@48
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _DefWindowProcA@16
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _DrawTextA@20
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetClientRect@8
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetCursorPos@4
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetDC@4
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetFocus@0
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetParent@4
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetSysColor@4
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetWindowLongA@8
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _GetWindowRect@8
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _InvalidateRect@12
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _LoadBitmapA@8
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _LoadCursorA@8
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _LoadStringA@16
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _MoveWindow@24
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _RegisterClassExA@4
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _ReleaseDC@8
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _SendMessageA@16
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetFocus@4
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found _SetWindowLongA@12
+        Referenced in RAProperty.obj
+        Loaded user32.lib(user32.dll)
+      Found __IMPORT_DESCRIPTOR_user32
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Referenced in user32.lib(user32.dll)
+        Loaded user32.lib(user32.dll)
+      Found user32_NULL_THUNK_DATA
+        Referenced in user32.lib(user32.dll)
+        Loaded user32.lib(user32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\kernel32.lib:
+      Found _CloseHandle@4
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _CreateFileA@28
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GetFileSize@8
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalAlloc@8
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalFree@4
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalLock@4
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _GlobalUnlock@4
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _ReadFile@20
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _RtlMoveMemory@12
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found _RtlZeroMemory@8
+        Referenced in RAProperty.obj
+        Loaded kernel32.lib(kernel32.dll)
+      Found __IMPORT_DESCRIPTOR_kernel32
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Referenced in kernel32.lib(kernel32.dll)
+        Loaded kernel32.lib(kernel32.dll)
+      Found kernel32_NULL_THUNK_DATA
+        Referenced in kernel32.lib(kernel32.dll)
+        Loaded kernel32.lib(kernel32.dll)
+    Searching C:\Program Files (x86)\Masm32\Lib\gdi32.lib:
+      Found _CreateSolidBrush@4
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _DeleteObject@4
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _ExtTextOutA@32
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _GetObjectA@12
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _GetStockObject@4
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _SelectObject@8
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _SetBkColor@8
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _SetTextColor@8
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found _TextOutA@20
+        Referenced in RAProperty.obj
+        Loaded gdi32.lib(gdi32.dll)
+      Found __IMPORT_DESCRIPTOR_gdi32
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Referenced in gdi32.lib(gdi32.dll)
+        Loaded gdi32.lib(gdi32.dll)
+      Found gdi32_NULL_THUNK_DATA
+        Referenced in gdi32.lib(gdi32.dll)
+        Loaded gdi32.lib(gdi32.dll)
+
+Done Searching Libraries
+
+End Pass1
+
+   Creating library Build\RAProperty.lib and object Build\RAProperty.exp
+
+End Generating .exp file
+
+Searching Libraries
+    Searching C:\Program Files (x86)\Masm32\Lib\Comctl32.lib:
+
+Done Searching Libraries
+
+End Pass1
+
+Start Pass2
+     RAProperty.exp
+     RAProperty.res
+     RAProperty.obj
+     Comctl32.lib(comctl32.dll)
+     Comctl32.lib(comctl32.dll)
+     Comctl32.lib(comctl32.dll)
+     Comctl32.lib(comctl32.dll)
+     Comctl32.lib(comctl32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     user32.lib(user32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     kernel32.lib(kernel32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+     gdi32.lib(gdi32.dll)
+End Pass2
+ Assembling: Src\RAProperty.asm
+RAProperty.obj

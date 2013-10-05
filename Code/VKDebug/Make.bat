@@ -46,8 +46,7 @@ echo ------------------------
 echo .
 echo .
 echo .
-pause
-exit 0
+exit /b 0
 
 :ERR_Exit
 echo .
@@ -58,8 +57,7 @@ echo .
 echo .
 echo .
 Make.log
-pause
-exit 1
+exit /b 1
 
 
 rem This function reads a value from an INI file and stored it in a variable

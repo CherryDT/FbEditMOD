@@ -1,8 +1,8 @@
 
-cd ..\..\..\..
+cd ..\..\Build
 
-gprof.exe fbedit-test.exe > fbedit-test.profile.txt
+gprof.exe fbedit.exe > fbedit.profile.txt
 
-fbedit-test.profile.txt
+fbedit.profile.txt
 
 exit

@@ -1,6 +1,6 @@
 
 
-#LibPath "Lib"
+#LibPath "..\FbEditDLL\Build"
 #Inclib  "FbEdit"
 Declare Function GetCharTabPtr StdCall Alias "GetCharTabPtr" () As Any Ptr
 	' other publics

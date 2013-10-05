@@ -11,7 +11,7 @@ Const GOD_MaxItems  As Integer = 50
 Enum GenericOptionsDialogMode
     GODM_ToolsMenu             = 1
     GODM_HelpMenu
-	GODM_MakeOptCollection 
+	GODM_MakeOptCollection               ' non project make options
 	GODM_MakeOptProject
 	GODM_MakeOptImport
 	GODM_RegExLib

@@ -1,5 +1,5 @@
-Use this addin to be able to select uninstalled font.
+Use this addin to be able to select an uninstalled font.
 
 Copy CustomFontAddin.dll to Addins folder.
-Copy cft.ttf to FbEdit root.
+Copy your favourite font file (e.g. cft.ttf) to FbEdit\Fonts\
 Select the CodingFontTobi font using Options / Code Editor

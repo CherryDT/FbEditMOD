@@ -1,0 +1,51 @@
+[Project]
+Version=3
+Api=fb (FreeBASIC),win (Windows)
+Description=FbEdit language translator
+Grouping=1
+AddMainFiles=1
+ResExport=
+AddModuleFiles=1
+CompileIfNewer=0
+IncVersion=0
+[Make]
+Recompile=0
+Module=Module Build,fbc -c
+Current=1
+1=Windows GUI,fbc -s gui
+2=Windows GUI (Debug),fbc -s gui -g
+Output=..\Language\FbEditLNG.exe
+Run=
+Delete=*.obj
+[File]
+1=FbEditLNG.Bas
+2=FbEditLNG.Bi
+3=FbEditLNG.Rc
+4=MenuLNG.bas
+5=MiscLNG.bas
+6=DialogLNG.bas
+7=StringLNG.bas
+8=Language.bi
+9=..\Language\Addins.txt
+[FileInfo]
+1=0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+2=0,39,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+3=0,19,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4=0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5=0,103,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6=0,129,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+7=0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+8=0,146,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+9=0,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+[BreakPoint]
+1=
+2=
+4=
+5=
+6=
+7=
+8=
+9=
+[TabOrder]
+TabOrder=3
+CurrentTab=3
