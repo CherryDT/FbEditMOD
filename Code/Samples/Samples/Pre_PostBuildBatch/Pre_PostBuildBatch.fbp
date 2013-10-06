@@ -20,15 +20,15 @@ Output=
 Run=
 Delete=*.obj
 5=b,$HA
-PreBuildBatch=C:\Programme\FbEditMOD\Projects\Samples\Pre_PostBuildBatch\prebuild.bat
-PostBuildBatch=C:\Programme\FbEditMOD\Projects\Samples\Pre_PostBuildBatch\postbuild.bat
+PreBuildBatch=prebuild.bat
+PostBuildBatch=postbuild.bat
 6=Windows Console,fbc -s console -w all -w next -w pedantic
 Module=Module Build,fbc -c
 7=Module,fbc -c -v -R
 CCL1001=Module
 CCL1002=Module
 [TabOrder]
-CurrentTab=3
+CurrentTab=1001
 TabOrder=1,1002,2,3,1001
 [File]
 3=prebuild.bat
@@ -39,9 +39,9 @@ Main=1
 1001=module1.bas
 1002=module2.bas
 [FileInfo]
-1=0,24,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1=0,19,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 2=0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-3=0,14,2,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+3=0,10,2,0,2147483648,2147483648,2147483648,2147483648,2147483648,2147483648,2147483648,2147483648,2147483648,2147483648,2147483648,2147483648,2147483648,2147483648,2147483648
 4=0,12,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 1001=0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 1002=0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
