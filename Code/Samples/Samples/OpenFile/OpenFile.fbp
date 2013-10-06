@@ -1,5 +1,5 @@
 [Project]
-Version=2
+Version=3
 Description=Open file dialog
 Api=fb (FreeBASIC),win (Windows)
 Grouping=1
@@ -21,3 +21,9 @@ Run=
 1=0,25,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 2=0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 3=0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+[TabOrder]
+TabOrder=1,2,3
+CurrentTab=1
+[BreakPoint]
+1=
+2=

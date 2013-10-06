@@ -213,8 +213,8 @@ Sub CustomFilterReplace (ByRef hEditor As HWND)
                     hMem = hMem2
                     MemSize = GlobalSize (hMem) - 1             ' reserve 1 byte for terminating NULL
                 Else
-                    TextToOutput "custom filter: GlobalReAlloc failed"
                     TextToOutput OTT_WINLASTERROR
+                    TextToOutput "custom filter: GlobalReAlloc failed"
                     SeekPos = 0                                 ' discard everything 
                     Exit Do    
                 EndIf
@@ -226,8 +226,8 @@ Sub CustomFilterReplace (ByRef hEditor As HWND)
                 If GetLastError = ERROR_BROKEN_PIPE Then
                                                                 ' thats ok, sender stops writing
                 Else 
-                    TextToOutput "custom filter: error reading pipe"
                     TextToOutput OTT_WINLASTERROR    
+                    TextToOutput "custom filter: error reading pipe"
                     SeekPos = 0                                 ' discard everything
                 EndIf
                 Exit Do           

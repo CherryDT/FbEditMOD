@@ -209,8 +209,8 @@ Function ProcessQuickRun(ByVal Param As ZString Ptr) As Integer
 	makeinf.uExit=10
 	If CreatePipe (@makeinf.hrd, @makeinf.hwr, @sat, NULL) = FALSE Then
 		' CreatePipe failed
-		TextToOutput "*** CreatePipe failed ***", MB_ICONERROR
 		TextToOutput OTT_WINLASTERROR
+		TextToOutput "*** CreatePipe failed ***", MB_ICONERROR
 	Else
 		startupinfo.cb=SizeOf(STARTUPINFO)
 		GetStartupInfo(@startupinfo)
@@ -222,9 +222,9 @@ Function ProcessQuickRun(ByVal Param As ZString Ptr) As Integer
 		' Create process
 		If CreateProcess (NULL, @buff, NULL, NULL, FALSE, NULL, NULL, NULL, @startupinfo, @makeinf.pInfo) = FALSE Then
 			' CreateProcess failed
+			TextToOutput OTT_WINLASTERROR
 			TextToOutput "*** CreateProcess failed ***", MB_ICONERROR
 			TextToOutput "command line: " + buff
-			TextToOutput OTT_WINLASTERROR
 			CloseHandle makeinf.hrd
 			CloseHandle makeinf.hwr
 		Else
@@ -344,8 +344,8 @@ Function ProcessBuild(ByVal pCmdLine As ZString Ptr) As Integer
 
 	Success = CreatePipe (@hrd, @hwr, @sat, NULL)
 	If Success = FALSE Then
-		TextToOutput "*** CreatePipe failed ***", MB_ICONERROR
 		TextToOutput OTT_WINLASTERROR
+		TextToOutput "*** CreatePipe failed ***", MB_ICONERROR
 		Return CREATE_PIPE_FAILED
 	Else
 		startupinfo.cb          = SizeOf(STARTUPINFO)
@@ -357,9 +357,9 @@ Function ProcessBuild(ByVal pCmdLine As ZString Ptr) As Integer
 
 		Success = CreateProcess (NULL, pCmdLine, NULL, NULL, TRUE, NULL, NULL, NULL, @startupinfo, @pinfo)
 		If Success = FALSE Then
+		    TextToOutput OTT_WINLASTERROR
 			TextToOutput "*** CreateProcess failed ***", MB_ICONERROR
 			TextToOutput "command line: " + *pCmdLine
-			TextToOutput OTT_WINLASTERROR
 			CloseHandle hrd
 			CloseHandle hwr
             Return CREATE_PROCESS_FAILED			
@@ -530,7 +530,7 @@ Sub DeleteFiles(Byref sFile As zString)
 
 End Sub
 
-Function MakeBuild(Byref sMakeOpt As zString, ByRef sFile As zString, ByRef CCLName As ZString, ByVal fOnlyThisModule As Boolean,ByVal fNoClear As Boolean,ByVal fQuickRun As Boolean) As Integer
+Function MakeBuild (Byref sMakeOpt As zString, ByRef sFile As zString, ByRef CCLName As ZString, ByVal fOnlyThisModule As Boolean,ByVal fNoClear As Boolean,ByVal fQuickRun As Boolean) As Integer
 	
 	Dim FileID   As Integer            = Any 
 	Dim nMiss    As Integer            = Any 
@@ -925,8 +925,14 @@ Function CompileModules () As Integer
                     Exit for
                 EndIf
                 
+                Print "CCLData: "; CCLData
                 ExpandStrByEnviron CCLData
+         	    Print "exp by Env CCLData: "; CCLData
+         	    PathUnquoteSpaces @CCLData
+         	    Print "unquot CCLData: "; CCLData
          	    PathCombine CCLData, ad.fbcPath, CCLData                 ' add default
+                Print "path combed CCLData: "; CCLData
+                Print "================"
                 
                 'DebugPrint (fCompileIfNewer)
 				If fCompileIfNewer Then

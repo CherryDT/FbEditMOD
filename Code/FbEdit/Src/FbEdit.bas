@@ -2638,8 +2638,8 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
     					EndIf
     					RefreshProjectTree
     				Else
-                		TextToOutput "*** rename failed ***", MB_ICONHAND 
                 		TextToOutput OTT_WINLASTERROR
+                		TextToOutput "*** rename failed ***", MB_ICONHAND 
     				EndIf
 				EndIf
 				#Undef pNMTVDISPINFO
