@@ -20,6 +20,8 @@ Declare Function GetFBEFileType (ByVal pFileSpec As ZString Ptr) As FBEFileType
 Declare Sub BuildDirList (ByVal lpDir As ZString Ptr, ByVal lpSub As ZString Ptr, ByVal nType As Integer)
 Declare Sub GetIncludeSpec (ByVal pIncludeSpec As ZString Ptr)
 Declare Sub GetLastWriteTime (ByVal pFileSpec As ZString Ptr, ByVal pFileTime As FILETIME Ptr)
+Declare Sub CmdLineSubstExeUI (ByRef CmdLine As ZString, ByVal hwndOwner As HWND, ByVal pFilterstring As ZString Ptr)
+Declare Sub CmdLineCombinePath (ByRef CmdLine As ZString, ByVal pDefaultPath As ZString Ptr)
 
 
 Declare Function FileExists (ByVal pSpec As ZString Ptr) As BOOL

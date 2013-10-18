@@ -487,21 +487,21 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 	*outpfnt.szFont   = lfnt.lfFaceName
 	SaveToIni @"Edit", @"OutpFont", "54044", @outpfnt, FALSE
 		
-	SendMessage(ah.hcc,WM_SETFONT,Cast(Integer,ah.hToolFont),0)
-	SendMessage(ah.htt,WM_SETFONT,Cast(Integer,ah.hToolFont),0)
-	SendMessage(ah.hpr,WM_SETFONT,Cast(Integer,ah.hToolFont),0)
-	SendMessage(ah.hpr,PRM_REFRESHLIST,0,0)
-	SendMessage(ah.hprj,WM_SETFONT,Cast(Integer,ah.hToolFont),0)
-	SendMessage(ah.hfib,WM_SETFONT,Cast(Integer,ah.hToolFont),0)
-	SendMessage(ah.htab,WM_SETFONT,Cast(Integer,ah.hToolFont),0)
-	SendMessage(ah.htabtool,WM_SETFONT,Cast(Integer,ah.hToolFont),0)
+	SendMessage ah.hcc,       WM_SETFONT, Cast (WPARAM, ah.hToolFont), FALSE
+	SendMessage ah.htt,       WM_SETFONT, Cast (WPARAM, ah.hToolFont), FALSE
+	SendMessage ah.hpr,       WM_SETFONT, Cast (WPARAM, ah.hToolFont), FALSE
+	SendMessage ah.hprj,      WM_SETFONT, Cast (WPARAM, ah.hToolFont), FALSE
+	SendMessage ah.hfib,      WM_SETFONT, Cast (WPARAM, ah.hToolFont), FALSE
+	SendMessage ah.htab,      WM_SETFONT, Cast (WPARAM, ah.hToolFont), FALSE
+	SendMessage ah.htabtool,  WM_SETFONT, Cast (WPARAM, ah.hToolFont), FALSE
     
 	SendMessage ah.hout,      WM_SETFONT, Cast (WPARAM, ah.hOutFont ), FALSE
 	SendMessage ah.himm,      WM_SETFONT, Cast (WPARAM, ah.hOutFont ), FALSE
 	SendMessage ah.hregister, WM_SETFONT, Cast (WPARAM, ah.hOutFont ), FALSE
 	SendMessage ah.hfpu,      WM_SETFONT, Cast (WPARAM, ah.hOutFont ), FALSE
 	SendMessage ah.hmmx,      WM_SETFONT, Cast (WPARAM, ah.hOutFont ), FALSE
-
+    SendMessage ah.hpr,       PRM_REFRESHLIST, 0, 0
+	
 	' Edit options
 	edtopt.tabsize=GetDlgItemInt(hWin,IDC_EDTTABSIZE,NULL,FALSE)                 
 	edtopt.ExtraLineSpace=GetDlgItemInt(hWin,IDC_EDTEXTRALINESPACE,NULL,FALSE)

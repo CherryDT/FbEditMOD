@@ -214,11 +214,8 @@ Const szSecRegExLib=        !"[RegExLib]\13\10"_
 
 Sub IniKeyNotFoundMsg (ByVal pSectionName As ZString Ptr, ByVal pKeyName As ZString Ptr)
     
-    Dim Buffer As ZString * 1024
-    Buffer = "Section: [" + *pSectionName + "], Key: " + *pKeyName + ", not found in " + ad.IniFile 
-    
     TextToOutput "*** ini file error ***", MB_ICONHAND 
-    TextToOutput Buffer     
+    TextToOutput "Section: [" + *pSectionName + "], Key: " + *pKeyName + ", not found in " + ad.IniFile      
     
 End Sub
 
@@ -837,27 +834,33 @@ End Sub
 'End Sub
 
 Sub GetPrivateProfilePath (ByVal pSectionName As ZString Ptr, ByVal pKeyName As ZString Ptr, ByVal pIniSpec As ZString Ptr, ByVal pPath As ZString Ptr, ByVal Mode As GetPrivateProfileSpecMode)
-    
-    Dim Text As ZString * 1024
-    
+
+    Dim Success As BOOL = Any 
+
     GetPrivateProfileString pSectionName, pKeyName, NULL, pPath, MAX_PATH, pIniSpec
    
     If IsZStrEmpty (*pPath) Then  
-        Text = "File: " + *pIniSpec + ", Section: [" + *pSectionName + "], Key: " + *pKeyName
         TextToOutput "*** ini file error - value not found ***", MB_ICONHAND 
-        TextToOutput Text     
+        TextToOutput "File: " + *pIniSpec + ", Section: [" + *pSectionName + "], Key: " + *pKeyName     
+        Exit Sub 
     Else
         If Mode = GPP_Expanded Then
 	        UpdateEnvironment
-			ExpandStrByEnviron *pPath
+			Success = ExpandStrByEnviron (*pPath, MAX_PATH) 
+            If Success = FALSE Then
+                TextToOutput "*** commandline too long - expansion by environment failed ***", MB_ICONHAND 
+                TextToOutput *pPath
+                SetZStrEmpty (*pPath)
+                Exit Sub  
+            EndIf 
         EndIf
 
         If Mode And GPP_MustExist Then
             If DirExists (pPath) = FALSE Then
-                Text = "File: " + *pIniSpec + ", Section: [" + *pSectionName + "], Key: " + *pKeyName + " = " + *pPath
                 TextToOutput "*** ini file error - directory not found ***", MB_ICONHAND 
-                TextToOutput Text     
+                TextToOutput "File: " + *pIniSpec + ", Section: [" + *pSectionName + "], Key: " + *pKeyName + " = " + *pPath
                 SetZStrEmpty (*pPath)
+                Exit Sub 
             EndIf
         EndIf 
     EndIf
@@ -865,27 +868,33 @@ End Sub
 
 Sub GetPrivateProfileSpec (ByVal pSectionName As ZString Ptr, ByVal pKeyName As ZString Ptr, ByVal pIniSpec As ZString Ptr, ByVal pSpec As ZString Ptr, ByVal Mode As GetPrivateProfileSpecMode)
     
-    Dim Text As ZString * 1024
+    Dim Success As BOOL = Any 
     
     GetPrivateProfileString pSectionName, pKeyName, NULL, pSpec, MAX_PATH, pIniSpec
    
     If IsZStrEmpty (*pSpec) Then  
-        Text = "File: " + *pIniSpec + ", Section: [" + *pSectionName + "], Key: " + *pKeyName
         TextToOutput "*** ini file error - value not found ***", MB_ICONHAND 
-        TextToOutput Text     
+        TextToOutput "File: " + *pIniSpec + ", Section: [" + *pSectionName + "], Key: " + *pKeyName
+        Exit Sub 
     Else
         
         If Mode And GPP_Expanded Then
 	        UpdateEnvironment
-			ExpandStrByEnviron *pSpec
+			Success = ExpandStrByEnviron (*pSpec, MAX_PATH) 
+            If Success = FALSE Then
+                TextToOutput "*** commandline too long - expansion by environment failed ***", MB_ICONHAND 
+                TextToOutput *pSpec
+                SetZStrEmpty (*pSpec)
+                Exit Sub  
+            EndIf 
         EndIf
         
         If Mode And GPP_MustExist Then
             If FileExists (pSpec) = FALSE Then
-                Text = "File: " + *pIniSpec + ", Section: [" + *pSectionName + "], Key: " + *pKeyName + " = " + *pSpec
                 TextToOutput "*** ini file error - file not found ***", MB_ICONHAND 
-                TextToOutput Text     
+                TextToOutput "File: " + *pIniSpec + ", Section: [" + *pSectionName + "], Key: " + *pKeyName + " = " + *pSpec     
                 SetZStrEmpty (*pSpec)
+                Exit Sub 
             EndIf
         EndIf
     EndIf

@@ -84,7 +84,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=3
+MilestoneOnDateDate=7
 MilestoneOnDateTimeYear=2008
 MilestoneOnDateTimeMonth=4
 MilestoneOnDateTimeDate=24
@@ -130,7 +130,7 @@ BackupLocation=C:\RadASM\Masm\Projects\VCBackups\
 [BreakPoint]
 0=
 [PTimer]
-PTimer=120180652
+PTimer=120198280
 [VerInf]
 Nme=VERINF1
 ID=1

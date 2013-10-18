@@ -170,7 +170,7 @@ Function ShellExecuteUI (ByVal hWindow     As HWND, _
     If ExitCode > 32 Then
         Return TRUE 
     Else
-        TextToOutput @"*** error SHELLEXECUTE ***", MB_ICONHAND
+        TextToOutput "*** error SHELLEXECUTE ***", MB_ICONHAND
         TextToOutput pErrText 
         Return FALSE 
     EndIf
@@ -205,7 +205,7 @@ Function GetOpenFileNameUI (ByVal pOFN As OPENFILENAME Ptr) As BOOL
         Case Else                  : pErrText = @"undefined"
         End Select
         
-        TextToOutput @"*** error Common Dialog ***", MB_ICONHAND
+        TextToOutput "*** error Common Dialog ***", MB_ICONHAND
         TextToOutput pErrText 
     EndIf
     

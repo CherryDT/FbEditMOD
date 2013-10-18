@@ -1372,9 +1372,9 @@ Function FindDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 				        UpdateAllTabs(6)            'clear bookmarks  
 
                     Case IDC_BTN_REGEX_HELP
-						GetPrivateProfileString @"Help", @"FbEdit", NULL, @buff, MAX_PATH, @ad.IniFile
+						GetPrivateProfileSpec @"Help", @"FbEdit", @ad.IniFile, @buff, GPP_Expanded Or GPP_MustExist
+
 						If IsZStrNotEmpty (buff) Then
-				            ExpandStrByEnviron buff
     				        s = "Regular Expression"
 	    			        HH_Help
 						Else

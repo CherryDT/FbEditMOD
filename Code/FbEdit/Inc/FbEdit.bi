@@ -22,6 +22,7 @@ Const COLON      As String = ":"
 ' Filter string for GetOpenFileName
 Const ALLFilterString = "Code Files (*.bas, *.bi, *.rc)"        + szNULL + "*.bas;*.bi;*.rc"         + szNULL + _
                         "Text Files (*.txt)"                    + szNULL + "*.txt"                   + szNULL + _
+                        "FreeBASIC Projects (*.fbp)"            + szNULL + "*.fbp"                   + szNULL + _
                         "All Files (*.*)"                       + szNULL + "*.*"                     + szNULL
 Const MODFilterString = "Code File (*.bas)"                     + szNULL + "*.bas"                   + szNULL
 Const DLLFilterString = "Custom controls (*.dll)"               + szNULL + "*.dll"                   + szNULL

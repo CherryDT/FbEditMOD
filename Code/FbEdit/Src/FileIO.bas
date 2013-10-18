@@ -145,9 +145,9 @@ Sub ReadResEdFile (ByVal hWin As HWND, ByVal hFile As HANDLE, ByVal lpFilename A
     
     SendMessage ah.hraresed, PRO_OPEN, Cast (WPARAM, lpFilename), Cast (LPARAM, hMem)  ' RAResEd uses GetCurrentDirectory retrieving ProjectPath
 
-    'If fProject Then
-    '    SendMessage ah.hraresed, PRO_SETNAME, Cast (WPARAM, lpFilename), Cast (LPARAM, @ad.ProjectPath)
-    'EndIf
+    If fProject Then
+        SendMessage ah.hraresed, PRO_SETNAME, Cast (WPARAM, lpFilename), Cast (LPARAM, @ad.ProjectPath)
+    EndIf
 
 End Sub
 

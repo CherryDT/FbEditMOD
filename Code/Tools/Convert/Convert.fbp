@@ -6,9 +6,11 @@ Grouping=1
 AddMainFiles=1
 ResExport=
 [File]
-1=Convert.bas
 2=Convert.rc
 3=
+1=Convert.bas
+Main=1
+MainRC=2
 [Make]
 Recompile=0
 Module=Module Build,fbc -c

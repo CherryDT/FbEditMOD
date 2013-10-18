@@ -13,7 +13,7 @@ Res.rc=1
 Menu=1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0
 1=4,O,$B\RC.EXE /v,1
 2=3,O,$B\ML.EXE /c /coff /Cp /nologo /I"$I",2
-3=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /RELEASE /VERSION:4.0 /LIBPATH:"$L" /OUT:"$5",3,4
+3=5,O,$B\LINK.EXE /SUBSYSTEM:WINDOWS /RELEASE /VERSION:4.0 /NODEFAULTLIB:\RadASM\masm\lib\debug.lib /LIBPATH:"$L" /OUT:"$5",3,4
 4=0,0,,5
 5=rsrc.obj,O,$B\CVTRES.EXE,rsrc.res
 6=*.obj,O,$B\ML.EXE /c /coff /Cp /nologo /I"$I",*.asm
@@ -49,9 +49,9 @@ Menu=1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0
 5=..\SpreadSheet.inc
 
 [Size]
-1=0,0,0,0,12652
+1=0,0,0,0,11265
 5=0,0,0,0,10643
-2=0,0,0,0,733
+2=0,0,0,0,261
 4=0,0,0,0
 3=0,0,0,0,0
 
@@ -86,13 +86,13 @@ Options=52
 Settings=1151
 Milestones=129
 MilestoneEvery=10
-MilestoneEveryCurrent=4
+MilestoneEveryCurrent=5
 MilestoneOnBuild=0.0.0.0
 MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=15
+MilestoneOnDateDate=11
 MilestoneOnDateTimeYear=2003
 MilestoneOnDateTimeMonth=10
 MilestoneOnDateTimeDate=28
@@ -123,30 +123,30 @@ Group=Added files,Assembly,Resources,Misc,Modules
 4=3
 5=2
 [VerInf]
-FV=0.2.9.2
-FileVersion=0.2.9.2
-PV=0.2.9.2
-ProductVersion=0.2.9.2
+FV=0.2.9.3
+FileVersion=0.2.9.3
+PV=0.2.9.3
+ProductVersion=0.2.9.3
 [Find]
-1="SPRM_CREATECOMBO"
-2="COLDTA.fmt.tpe"
-3="SPRN_BUTTONCLICK"
-4="TPE_FORCETYPE"
-5="TPE_FORCETEXT"
-6="SPRIF_DOUBLE"
-7="GetCellData"
-8="spri"
-9="WIN.rect.right"
-10="Print"
+1="print"
+2="SPRM_CREATECOMBO"
+3="COLDTA.fmt.tpe"
+4="SPRN_BUTTONCLICK"
+5="TPE_FORCETYPE"
+6="TPE_FORCETEXT"
+7="SPRIF_DOUBLE"
+8="GetCellData"
+9="spri"
+10="WIN.rect.right"
 [Collapse]
 1=
 2=
 5=
 3=
 [PTimer]
-PTimer=7441673
+PTimer=11922270
 [AutoLoad]
-1=1
+AutoLoad=1,2,5
 [Resource]
 1=,1,2,Res\icon.ico
 2=,2,2,Res\RadAsm.ico
@@ -154,3 +154,6 @@ PTimer=7441673
 4=,102,1,Res\SplitV.cur
 [RADebugBP]
 1=28
+2=
+[GroupExpand]
+GroupExpand=0,1,0,0,1,0

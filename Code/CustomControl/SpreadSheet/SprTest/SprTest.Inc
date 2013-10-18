@@ -5,18 +5,18 @@ include user32.inc
 include Comctl32.inc
 include shell32.inc
 include gdi32.inc
+include masm32.inc
 include ..\SpreadSheet.inc
+include ..\..\..\..\..\radasm\masm\inc\debug.inc
 
 includelib kernel32.lib
 includelib user32.lib
 includelib Comctl32.lib
 includelib shell32.lib
 includelib gdi32.lib
+includelib masm32.lib
+includelib ..\..\..\..\..\radasm\masm\lib\debug.lib
 includelib ..\lib\sprsht.lib
-
-include masm32.inc
-include \radasm\masm\inc\debug.inc
-includelib \radasm\masm\lib\debug.lib
 
 DlgProc			PROTO	:HWND,:UINT,:WPARAM,:LPARAM
 SprShtInstall	PROTO	:HINSTANCE

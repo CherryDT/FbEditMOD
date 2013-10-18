@@ -873,7 +873,7 @@ Function OpenFileExtern (ByRef FileSpec As ZString, ByVal OpenMode As FileOpenEx
     Dim ExitCode   As Integer                = Any 
     
     If IsZStrEmpty (Filespec) Then
-        TextToOutput @"*** error SHELLEXECUTE: empty filespec ***", MB_ICONHAND
+        TextToOutput "*** error SHELLEXECUTE: empty filespec ***", MB_ICONHAND
         Return FALSE     
     EndIf
     

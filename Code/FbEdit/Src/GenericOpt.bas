@@ -12,6 +12,7 @@
 #Include Once "Inc\GUIHandling.bi"
 #Include Once "Inc\Language.bi"
 #Include Once "Inc\Misc.bi"
+#Include Once "Inc\SpecHandling.bi"
 #Include Once "Inc\ZStringHandling.bi"
 
 #Include Once "Inc\GenericOpt.bi"
@@ -274,12 +275,14 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 	Dim x          As Integer
 	Dim sItem      As GOD_EntryName
 	Dim sCmd       As GOD_EntryData
-	Dim Args       As ZString * MAX_PATH
+	Dim CmdLine    As ZString * (32 * 1024)
+	Dim ArgList    As ZString * MAX_PATH
 	Dim pBuff      As ZString Ptr 
 	Dim ofn        As OPENFILENAME
     Dim Rect1      As RECT          = Any 
     Dim Rect2      As RECT          = Any
     Dim i          As Integer       = Any 
+    Dim Success    As BOOL          = Any 
            
 	Select Case uMsg
 		Case WM_INITDIALOG
@@ -292,7 +295,6 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 			SendDlgItemMessage(hWin,IDC_BTN_UP,BM_SETIMAGE,IMAGE_ICON,Cast(Integer,ImageList_GetIcon(ah.hmnuiml,2,ILD_NORMAL)))
 			SendDlgItemMessage(hWin,IDC_BTN_DOWN,BM_SETIMAGE,IMAGE_ICON,Cast(Integer,ImageList_GetIcon(ah.hmnuiml,3,ILD_NORMAL)))
 			nType = lParam
-			Print nType
 			Select Case nType
 			Case GODM_ToolsMenu 
 				buff=GetInternalString(IS_TOOLS_MENU_OPTION)
@@ -327,15 +329,15 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 			Do
 				Select Case nType
 				Case GODM_ToolsMenu
-					GetPrivateProfileString(StrPtr("Tools"),Str(i),NULL,@buff,SizeOf(sCmd),@ad.IniFile)
+					GetPrivateProfileString @"Tools", Str (i), NULL, @buff,SizeOf (sCmd), @ad.IniFile
 				Case GODM_HelpMenu
-					GetPrivateProfileString(StrPtr("Help"),Str(i),NULL,@buff,SizeOf(sCmd),@ad.IniFile)
+					GetPrivateProfileString @"Help", Str (i), NULL, @buff, SizeOf (sCmd), @ad.IniFile
 				Case GODM_MakeOptCollection, GODM_MakeOptImport
-					GetPrivateProfileString(StrPtr("Make"),Str(i),NULL,@buff,SizeOf(sCmd),@ad.IniFile)
+					GetPrivateProfileString @"Make", Str (i), NULL, @buff, SizeOf (sCmd), @ad.IniFile
 				Case GODM_MakeOptProject, GODM_MakeOptModule 
-					GetPrivateProfileString(StrPtr("Make"),Str(i),NULL,@buff,SizeOf(sCmd),@ad.ProjectFile)
+					GetPrivateProfileString @"Make", Str (i), NULL, @buff, SizeOf (sCmd), @ad.ProjectFile
 				Case GODM_RegExLib
-				    GetPrivateProfileString(StrPtr("RegExLib"),Str(i),NULL,@buff,SizeOf(sCmd),@ad.IniFile)
+				    GetPrivateProfileString @"RegExLib", Str (i), NULL, @buff, SizeOf (sCmd), @ad.IniFile
 				End Select
 
 				If IsZStrNotEmpty (buff) Then
@@ -349,11 +351,11 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 			
 			Select Case nType
 			Case GODM_MakeOptCollection
-				nInx=GetPrivateProfileInt(StrPtr("Make"),StrPtr("Current"),1,@ad.IniFile)-1
+				nInx = GetPrivateProfileInt (@"Make", @"Current", 1, @ad.IniFile) - 1
 			Case GODM_MakeOptProject
-				nInx=GetPrivateProfileInt(StrPtr("Make"),StrPtr("Current"),1,@ad.ProjectFile)-1
+				nInx = GetPrivateProfileInt (@"Make", @"Current", 1, @ad.ProjectFile) - 1
 			Case Else
-			    nInx=0    
+			    nInx = 0    
 			End Select
 
 			SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_SETCURSEL,nInx,0)
@@ -454,39 +456,22 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 							EndIf
 							'
 					    Case IDC_BTN_EXPLORE
-							With ofn
-    							.lStructSize = SizeOf (ofn)
-    							.hwndOwner   = hWin
-    							.hInstance   = hInstance
-    							.lpstrFile   = @buff
-    							.nMaxFile    = SizeOf (sCmd)
-    							.Flags       = OFN_EXPLORER Or OFN_FILEMUSTEXIST Or OFN_HIDEREADONLY Or OFN_PATHMUSTEXIST
-    							
-    							Select Case nType
-    							Case GODM_HelpMenu 
-    								.lpstrFilter = @HLPFilterString
-    							Case Else
-    								.lpstrFilter = @EXEFilterString
-    							End Select
-							End With
 							
-							GetDlgItemText hWin, IDC_EDT_CMDLINE, @buff, SizeOf (sCmd)
-							pBuff = PathGetArgs (@buff)
-						    Args = *pBuff
-						    pBuff[0] = 0                        ' trim arglist from buff
-							UpdateEnvironment
-							ExpandStrByEnviron buff
-							TrimWhiteSpace buff
-							PathUnquoteSpaces @buff
+							GetDlgItemText hWin, IDC_EDT_CMDLINE, @CmdLine, SizeOf (sCmd)
 							
-							If GetOpenFileNameUI (@ofn) Then
-								PathQuoteSpaces @buff
-								If IsZStrNotEmpty (Args) Then
-								    ZStrCat @buff, SizeOf (buff), 2, @" ", @Args
-								EndIf    
-								SetDlgItemText hWin, IDC_EDT_CMDLINE, @buff
-							EndIf
-							'
+							Select Case nType
+							Case GODM_HelpMenu 
+								CmdLineSubstExeUI CmdLine, hWin, @HLPFilterString
+							Case Else
+								CmdLineSubstExeUI CmdLine, hWin, @EXEFilterString
+							End Select
+							
+	                        If lstrlen (CmdLine) >= SizeOf (sCmd) Then 						
+                                (@CmdLine)[SizeOf (sCmd) - 1] = 0                       ' trunc 
+                                TextToOutput "*** commandline too long - substitution failed ***", MB_ICONHAND 
+                                TextToOutput CmdLine
+	                        EndIf	
+							SetDlgItemText hWin, IDC_EDT_CMDLINE, @CmdLine
 					End Select
 					'
 			    Case EN_CHANGE

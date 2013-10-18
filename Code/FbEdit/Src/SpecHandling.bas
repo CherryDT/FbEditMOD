@@ -1,5 +1,6 @@
 
 #Include Once "windows.bi"
+#Include Once "win/commdlg.bi"
 
 #Include Once "..\..\Redist\Masm32Lib\Build\Masm32.bi"
 #LibPath "..\..\Redist\Masm32Lib\Build"
@@ -9,7 +10,10 @@
 #Include Once "Inc\Addins.bi"
 #Include Once "Inc\CoTxEd.bi"
 #Include Once "Inc\EditorOpt.bi"
+#Include Once "Inc\Environment.bi"
 #Include Once "Inc\FbEdit.bi"
+#Include Once "Inc\GUIHandling.bi"
+#Include Once "Inc\Misc.bi"
 #Include Once "Inc\Project.bi"
 #Include Once "Inc\ZStringHandling.bi"
 
@@ -375,6 +379,78 @@ Sub GetLastWriteTime (ByVal pFileSpec As ZString Ptr, ByVal pFileTime As FILETIM
 	Else
 	    Dim InitFileTime As FILETIME
 	    *pFileTime = InitFileTime                      ' zero out
+	EndIf
+
+End Sub
+
+Sub CmdLineSubstExeUI (ByRef CmdLine       As ZString,    _         ' [IN] required size is 32 * 1024 bytes
+                       ByVal hwndOwner     As HWND,       _         ' [IN]
+                       ByVal pFilterstring As ZString Ptr _         ' [IN]
+                      )
+                        
+    ' caller has to ensure: required buffer size for CmdLine is 32768 bytes (MSDN Library)                   
+                        
+   
+    Const CmdLineSize As Integer               = 32 * 1024            ' max. CmdLine size
+    Dim   pBuffB      As ZString Ptr           = Any     
+    Dim   ofn         As OPENFILENAME
+    Dim   ArgList     As ZString * CmdLineSize 
+        
+    With ofn
+		.lStructSize = SizeOf (ofn)
+		.hwndOwner   = hwndOwner 
+		.hInstance   = hInstance
+		.lpstrFilter = pFilterString
+		.lpstrFile   = @CmdLine
+		.nMaxFile    = CmdLineSize
+		.Flags       = OFN_EXPLORER Or OFN_FILEMUSTEXIST Or OFN_HIDEREADONLY Or OFN_PATHMUSTEXIST
+    End With
+	
+	pBuffB = PathGetArgs (@CmdLine)
+    ArgList = *pBuffB
+    pBuffB[0] = 0                        ' trim arglist from buff
+	UpdateEnvironment
+	ExpandStrByEnviron CmdLine, CmdLineSize
+	TrimWhiteSpace CmdLine
+	PathUnquoteSpaces @CmdLine
+	
+	If GetOpenFileNameUI (@ofn) Then
+		PathQuoteSpaces @CmdLine
+		If IsZStrNotEmpty (ArgList) Then
+		    ZStrCat @CmdLine, CmdLineSize, 2, @" ", @ArgList
+		EndIf    
+	EndIf
+  
+End Sub
+
+Sub CmdLineCombinePath (ByRef CmdLine      As ZString,    _         ' [IN/OUT] required size is 32 * 1024 bytes
+                        ByVal pDefaultPath As ZString Ptr _         ' [IN]     combined if needed
+                       )
+                        
+    ' caller has to ensure: required buffer size for CmdLine is 32768 bytes (MSDN Library)                   
+                        
+   
+    Const CmdLineSize   As Integer               = 32 * 1024       ' max. CmdLine size
+    Dim   pBuffB        As ZString Ptr           = Any     
+    Dim   ArgList       As ZString * CmdLineSize 
+    Dim   DefaultPathLC As ZString * MAX_PATH   
+    
+    DefaultPathLC = *pDefaultPath                       ' local copy  
+
+	ExpandStrByEnviron CmdLine, CmdLineSize             ' arguments are expanded too
+
+	pBuffB = PathGetArgs (@CmdLine)
+    ArgList = *pBuffB
+    pBuffB[0] = 0                                       ' trim arglist from buffer
+
+	TrimWhiteSpace CmdLine
+    PathUnquoteSpaces CmdLine
+    PathUnquoteSpaces DefaultPathLC
+    PathCombine CmdLine, @DefaultPathLC, CmdLine         ' PathCombine dont like quotes
+    PathQuoteSpaces CmdLine
+
+	If IsZStrNotEmpty (ArgList) Then
+	    ZStrCat @CmdLine, SizeOf (CmdLine), 2, @" ", @ArgList
 	EndIf
 
 End Sub

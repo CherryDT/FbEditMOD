@@ -72,9 +72,8 @@ Sub GetMakeOption ()
 	Dim i            As Integer     = Any 
     Dim n            As Integer     = Any
     Dim pIniFileSpec As ZString Ptr = Any  
-    Dim pBuffB       As ZString Ptr = Any 
+    Dim pBuff        As ZString Ptr = Any 
     
-    UpdateEnvironment     
 	SendMessage ah.hcbobuild, CB_RESETCONTENT, 0, 0
 	
 	If fProject Then
@@ -97,10 +96,13 @@ Sub GetMakeOption ()
 	SendMessage ah.hcbobuild, CB_SETCURSEL, i - 1, 0
 	GetPrivateProfileString @"Make", Str (i), NULL, @buff, SizeOf (ad.smake), pIniFileSpec
 	If IsZStrNotEmpty (buff) Then
-		SplitStr buff, Asc (","), pBuffB
+		SplitStr buff, Asc (","), pBuff
+	    If pBuff Then
+	        ad.smake = *pBuff
+	    Else
+	        SetZStrEmpty (ad.smake)
+	    EndIf     
 		SBarSetBuildName @buff
-	    ExpandStrByEnviron *pBuffB
-	    PathCombine ad.smake, ad.fbcPath, pBuffB
 	EndIf
 
 	'GetPrivateProfileString @"Make", @"ModuleSTD", NULL, @buff, SizeOf (ad.smakemodule), pIniFileSpec
@@ -292,8 +294,8 @@ Sub MakeRun (ByRef FileSpec As ZString)
     		ShellExecuteUI NULL, NULL, @ExeSpec, @ad.smakerun, NULL, SW_SHOWNORMAL
     	EndIf
     Else
-        TextToOutput @"*** error execute ***", MB_ICONHAND
-        TextToOutput @"empty filespec" 
+        TextToOutput "*** error execute ***", MB_ICONHAND
+        TextToOutput "empty filespec" 
     EndIf
 End Sub
 
@@ -301,6 +303,7 @@ Sub MakeRunDebug (ByRef DebuggeeSpec As ZString)
 	
 	Dim DebuggerSpec As ZString * MAX_PATH
     Dim ParamLine    As ZString * 32768
+    Dim Success      As BOOL    = Any 
     
     If IsZStrNotEmpty (DebuggeeSpec) Then
 	    GetFullPathName @DebuggeeSpec, MAX_PATH, @ParamLine, NULL
@@ -309,17 +312,26 @@ Sub MakeRunDebug (ByRef DebuggeeSpec As ZString)
     
         If IsZStrNotEmpty (ad.smakerundebug) Then
             DebuggerSpec = ad.smakerundebug
-            ExpandStrByEnviron DebuggerSpec
+            Success = ExpandStrByEnviron (DebuggerSpec, SizeOf (DebuggerSpec))
+
+            If Success = FALSE Then
+                TextToOutput "*** commandline too long - expansion by environment failed ***", MB_ICONHAND 
+                TextToOutput DebuggerSpec
+                Exit Sub    
+            EndIf
+            
             DebuggerSpec = QUOTE + DebuggerSpec + QUOTE         ' "debugger.exe"
            
             ShellExecuteUI NULL, NULL, @DebuggerSpec, @ParamLine, NULL, SW_SHOWNORMAL
         Else
-            TextToOutput @"*** error execute ***", MB_ICONHAND
-            TextToOutput @"empty debugger spec" 
+            TextToOutput "*** error execute ***", MB_ICONHAND
+            TextToOutput "empty debugger spec" 
+            Exit Sub 
         EndIf     
     Else
-        TextToOutput @"*** error execute ***", MB_ICONHAND
-        TextToOutput @"empty debuggee spec" 
+        TextToOutput "*** error execute ***", MB_ICONHAND
+        TextToOutput "empty debuggee spec" 
+        Exit Sub 
     EndIf
 End Sub
 
@@ -530,12 +542,12 @@ Sub DeleteFiles(Byref sFile As zString)
 
 End Sub
 
-Function MakeBuild (Byref sMakeOpt As zString, ByRef sFile As zString, ByRef CCLName As ZString, ByVal fOnlyThisModule As Boolean,ByVal fNoClear As Boolean,ByVal fQuickRun As Boolean) As Integer
+Function MakeBuild (ByRef sMakeOpt As ZString, ByRef sFile As ZString, ByRef CCLName As ZString, ByVal fOnlyThisModule As BOOLEAN, ByVal fNoClear As BOOLEAN, ByVal fQuickRun As BOOLEAN) As Integer
 	
 	Dim FileID   As Integer            = Any 
 	Dim nMiss    As Integer            = Any 
 	Dim nLine    As Integer            = Any 
-	Dim nErr     As Integer            = Any 
+	Dim ErrFlag  As BOOL               = Any 
 	Dim id       As Integer            = Any
 	Dim ExitCode As Integer            = Any 
 	Dim y        As Integer            = Any
@@ -548,11 +560,12 @@ Function MakeBuild (Byref sMakeOpt As zString, ByRef sFile As zString, ByRef CCL
 
 	If IsZStrEmpty (sFile) Then
 	    TextToOutput !"no file spec\r", MB_ICONERROR
-	    Return 1 
+	    Return TRUE 
 	EndIf
 
 	CallAddins(ah.hwnd,AIM_MAKEBEGIN,Cast(WPARAM,@sFile),Cast(LPARAM,@sMakeOpt),HOOK_MAKEBEGIN)
-	nErr = 0
+	ErrFlag = FALSE
+	UpdateEnvironment 
     SetEnviron "BUILD_TYPE=" + CCLName
     SetEnviron "COMPILIN_BNAME=" + *GetFileBaseName (sFile)
     
@@ -562,7 +575,7 @@ Function MakeBuild (Byref sMakeOpt As zString, ByRef sFile As zString, ByRef CCL
             ExitCode = ProcessBuild (CmdLine)
             If ExitCode Then
                 TextToOutput "exit code: " + Str (ExitCode), MB_ICONERROR  
-                nErr = 1 
+                ErrFlag = TRUE  
                 GoTo Exit_MakeBuild
             EndIf
         EndIf
@@ -623,46 +636,49 @@ Function MakeBuild (Byref sMakeOpt As zString, ByRef sFile As zString, ByRef CCL
 		EndIf
 	EndIf
     
+    CmdLineCombinePath CmdLine, @ad.fbcPath
 	ExitCode = ProcessBuild (@CmdLine)                       ' start compiler
 
 	Select Case ExitCode                                     ' process compiler output
+	Case 0
+	    ErrFlag = FALSE
 	Case CREATE_PROCESS_FAILED, CREATE_PIPE_FAILED
-	    nErr = 1
-	Case Else 	
-		nLine = SendMessage (ah.hout, EM_GETLINECOUNT, 0, 0)
+	    ErrFlag = TRUE 
+	Case Else
+	    ErrFlag = TRUE 
+	End Select     
 
-		For i = nLine - 1 To 0 Step -1                        ' upstairs bottom line -> bookmark BMT_GO
-		    bm = SendMessage (ah.hout, REM_GETBOOKMARK, i, 0)
-		    If bm = BMT_GO Then Exit For
-		    GetLineByNo ah.hout, i, @buffer
-		
-			If     InStr(buffer, " : error ") _
-			OrElse InStr(buffer, ") error ") Then 
-				SendMessage ah.hout, REM_SETBOOKMARK, i, BMT_ERROR
-				id = SendMessage (ah.hout, REM_GETBMID, i, 0)
-				y = GetErrLine (buffer, fQuickRun)
-				If y >= 0 Then
-					SendMessage ah.hred, REM_SETERROR, y, id
-				EndIf
-			    nErr += 1
-			ElseIf InStr (buffer, ") warning ") Then
-			    SendMessage ah.hout, REM_SETBOOKMARK, i, BMT_WARN
-			    'nErr += 0
-			ElseIf InStr (buffer, "No such file: ") _
-			OrElse InStr (buffer, "cannot find") _
-			OrElse InStr (buffer, "cannot open output file") _
-			OrElse Left  (buffer, 6) = "Error!" _                         ' error message from GoRC
-			OrElse Left  (buffer, 20) = "compiling rc failed:" _          ' error message from Windres
-			OrElse Left  (buffer, 19) = "compiling C failed:" _           ' error message from gcc
-			OrElse InStr (buffer, "undefined reference to") Then
-				SendMessage ah.hout, REM_SETBOOKMARK, i, BMT_ERROR
-				SendMessage ah.hout, REM_SETBMID, i, 0
-				nErr += 1
+	nLine = SendMessage (ah.hout, EM_GETLINECOUNT, 0, 0)
+
+	For i = nLine - 1 To 0 Step -1                           ' upstairs bottom line -> bookmark BMT_GO
+	    bm = SendMessage (ah.hout, REM_GETBOOKMARK, i, 0)
+	    If bm = BMT_GO Then Exit For
+	    GetLineByNo ah.hout, i, @buffer
+	
+		If     InStr(buffer, " : error ") _
+		OrElse InStr(buffer, ") error ") Then 
+			SendMessage ah.hout, REM_SETBOOKMARK, i, BMT_ERROR
+			id = SendMessage (ah.hout, REM_GETBMID, i, 0)
+			y = GetErrLine (buffer, fQuickRun)
+			If y >= 0 Then
+				SendMessage ah.hred, REM_SETERROR, y, id
 			EndIf
-		Next 
-	End Select  
+		ElseIf InStr (buffer, ") warning ") Then
+		    SendMessage ah.hout, REM_SETBOOKMARK, i, BMT_WARN
+		ElseIf InStr (buffer, "No such file: ") _
+		OrElse InStr (buffer, "cannot find") _
+		OrElse InStr (buffer, "cannot open output file") _
+		OrElse Left  (buffer, 6) = "Error!" _                         ' error message from GoRC
+		OrElse Left  (buffer, 20) = "compiling rc failed:" _          ' error message from Windres
+		OrElse Left  (buffer, 19) = "compiling C failed:" _           ' error message from gcc
+		OrElse InStr (buffer, "undefined reference to") Then
+			SendMessage ah.hout, REM_SETBOOKMARK, i, BMT_ERROR
+			SendMessage ah.hout, REM_SETBMID, i, 0
+		EndIf
+	Next 
+	  
 
-	If nErr Then
+	If ErrFlag Then
 		TextToOutput "build error(s)", MB_ICONERROR
         GoTo Exit_MakeBuild
     EndIf 
@@ -673,7 +689,7 @@ Function MakeBuild (Byref sMakeOpt As zString, ByRef sFile As zString, ByRef CCL
             ExitCode = ProcessBuild (CmdLine)
             If ExitCode Then
                 TextToOutput "exit code: " + Str (ExitCode), MB_ICONERROR  
-                nErr = 1 
+                ErrFlag = TRUE  
                 GoTo Exit_MakeBuild
             EndIf
         EndIf
@@ -690,7 +706,7 @@ Function MakeBuild (Byref sMakeOpt As zString, ByRef sFile As zString, ByRef CCL
 	
 Exit_MakeBuild:	
 	CallAddins(ah.hwnd,AIM_MAKEDONE,Cast(WPARAM,@sFile),Cast(LPARAM,@sMakeOpt),HOOK_MAKEDONE)
-	Return nErr
+	Return ErrFlag
 
 End Function
 
@@ -878,18 +894,19 @@ End Sub
 
 Function CompileModules () As Integer
 
-	Dim SaveErr       As BOOL               = Any
-	Dim OutputVisible As Integer            = Any
-	Dim id            As Integer            = Any 
-	Dim nMiss         As Integer            = Any 
-	Dim sFile         As ZString * MAX_PATH
-	Dim sOFile        As ZString * MAX_PATH
-	Dim hFile         As HANDLE             = Any 
-	Dim ft1           As FILETIME           = Any 
-	Dim ft2           As FILETIME           = Any 
-	Dim CCLName       As GOD_EntryName      = Any 
-    Dim CCLData       As GOD_EntryData      = Any
-   	 
+	Dim   SaveErr       As BOOL               = Any
+	Dim   OutputVisible As Integer            = Any
+	Dim   id            As Integer            = Any 
+	Dim   nMiss         As Integer            = Any 
+	Dim   sFile         As ZString * MAX_PATH
+	Dim   sOFile        As ZString * MAX_PATH
+	Dim   hFile         As HANDLE             = Any 
+	Dim   ft1           As FILETIME           = Any 
+	Dim   ft2           As FILETIME           = Any 
+	Dim   CCLName       As GOD_EntryName      = Any 
+    Dim   CCLData       As GOD_EntryData      = Any
+   	Dim   Success       As BOOL               = Any 
+   	
 
     OutputVisible = wpos.fview And VIEW_OUTPUT
 
@@ -905,11 +922,10 @@ Function CompileModules () As Integer
         GoTo Exit_CompileModules
 	EndIf  
 
-    UpdateEnvironment							
 	UpdateAllTabs (2)                                                    ' clear errors
 	UpdateAllTabs (4)                                                    ' update dirty bit
 
-	fBuildErr=0
+	fBuildErr = 0
 	If fProject Then
 		nMiss = 0
 		For id = 1001 To 1256
@@ -924,15 +940,6 @@ Function CompileModules () As Integer
                     fBuildErr = 1
                     Exit for
                 EndIf
-                
-                Print "CCLData: "; CCLData
-                ExpandStrByEnviron CCLData
-         	    Print "exp by Env CCLData: "; CCLData
-         	    PathUnquoteSpaces @CCLData
-         	    Print "unquot CCLData: "; CCLData
-         	    PathCombine CCLData, ad.fbcPath, CCLData                 ' add default
-                Print "path combed CCLData: "; CCLData
-                Print "================"
                 
                 'DebugPrint (fCompileIfNewer)
 				If fCompileIfNewer Then
@@ -980,14 +987,14 @@ Exit_CompileModules:
 
 End Function
 
-Function Compile (Byref sMake As zString) As Integer
+Function Compile (ByRef sMake As zString) As Integer
 
-    Dim SaveErr       As BOOL               = Any 
-	Dim OutputVisible As Integer            = Any 
-	Dim i             As Integer            = Any 
-	Dim sFile         As ZString * MAX_PATH 
-    Dim pIniFileSpec  As ZString Ptr        = Any  
-	Dim CCLName       As GOD_EntryName      = Any 
+    Dim   sFile         As ZString * MAX_PATH
+    Dim   SaveErr       As BOOL               = Any 
+	Dim   OutputVisible As Integer            = Any 
+	Dim   i             As Integer            = Any 
+    Dim   pIniFileSpec  As ZString Ptr        = Any  
+	Dim   CCLName       As GOD_EntryName      = Any 
 	
     OutputVisible = wpos.fview And VIEW_OUTPUT
 	TextToOutput !"build:\r"
@@ -1034,7 +1041,6 @@ Function Compile (Byref sMake As zString) As Integer
         GoTo Exit_Compile
 	EndIf  
 	
-	UpdateEnvironment
 	UpdateAllTabs (2)                                	' clear errors
 	UpdateAllTabs (4)                                   ' update dirty bit	
 	
@@ -1051,8 +1057,9 @@ Function Compile (Byref sMake As zString) As Integer
     EndIf 
 	
 	If fProject Then
-		If fRecompile=RCM_PREBUILD Then
-		    If CompileModules () = 0 Then
+		If fRecompile = RCM_PREBUILD Then
+		    CompileModules
+			If fBuildErr = 0 Then 	
 				nHideOut = 0
 				sFile = *GetProjectFileName (nMain, PT_RELATIVE)     ' MOD 17.2.2012
 				fBuildErr = MakeBuild (sMake, sFile, CCLName, FALSE, TRUE, FALSE)

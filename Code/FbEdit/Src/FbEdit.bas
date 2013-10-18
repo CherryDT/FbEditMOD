@@ -362,6 +362,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
     Dim pBuffB   As ZString Ptr        = Any 
     Dim FileSpec As ZString * MAX_PATH = Any   
   	Dim hFile    As HANDLE             = Any 
+    Dim Success  As BOOL               = Any 
 
     Static mnuid As Integer            = 21000
     Static fQR   As BOOLEAN 
@@ -452,9 +453,8 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			    If DirExists (@ad.DefProjectPath) = FALSE Then
 			        ad.DefProjectPath = ad.AppPath
 			    EndIf
-                buff = "Replacement: " + ad.DefProjectPath
                 TextToOutput "*** defaulting project path ***", MB_ICONHAND 
-                TextToOutput buff     
+                TextToOutput "Replacement: " + ad.DefProjectPath
 			EndIf
 			
 			GetPrivateProfilePath "EnvironPath", "FBC_PATH"     , @ad.IniFile, @ad.fbcPath       , GPP_MustExist
@@ -799,26 +799,9 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 				        Case IDM_DEBUG_TESTSTART
 				            ' test stuff only
 				            Print "IDM_DEBUG_TESTSTART:"
-                            'CustomFilterStartUp
-                            'hMem = GetFileMemSelected (ah.hred)
-                            'If hMem Then
-                            '    Print "*"; 
-                            '    i = 0
-                            '    Do
-                            '        Select Case Cast(UByte Ptr, hMem)[i]
-                            '        Case 0
-                            '            Exit Do
-                            '        Case 13
-                            '            Print
-                            '            i += 1
-                            '        Case Else
-                            '            Print Chr (Cast (UByte Ptr, hMem)[i]);
-                            '            i += 1
-                            '        End Select
-                            '    Loop While i < 200
-                            '    Print "*"
-                            '    GlobalFree (hMem)
-                            'endif    
+                            buff = "c:\xx -b"
+                            CmdLineCombinePath (buff, @"c:\y")
+                            
 						#EndIf
 
 						Case IDM_FILE_NEWPROJECT
@@ -1925,15 +1908,21 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 					    Case IDM_TOOLS_USER_1 To IDM_TOOLS_USER_LAST
 							' Tools menu
 							UpdateEnvironment
-							GetPrivateProfileString(StrPtr("Tools"),Str(id-IDM_TOOLS_USER_1+1),NULL,@buff,GOD_EntrySize,@ad.IniFile)
+							GetPrivateProfileString @"Tools", Str (id - IDM_TOOLS_USER_1 + 1), NULL, @buff, GOD_EntrySize, @ad.IniFile
 							If IsZStrNotEmpty (buff) Then
                                	Dim SInfo  As STARTUPINFO
                             	Dim PInfo  As PROCESS_INFORMATION
 								SplitStr buff, Asc (","), pBuffB 
-								ExpandStrByEnviron *pBuffB
-                            	CreateProcess NULL, pBuffB, NULL, NULL, FALSE, CREATE_NEW_CONSOLE, NULL, NULL, @SInfo, @PInfo
-                            	CloseHandle PInfo.hProcess
-                            	CloseHandle PInfo.hThread
+								Success = ExpandStrByEnviron (*pBuffB, SizeOf (GOD_EntrySize) + @buff - pBuffB)
+								If Success Then
+                            	    CreateProcess NULL, pBuffB, NULL, NULL, FALSE, CREATE_NEW_CONSOLE, NULL, NULL, @SInfo, @PInfo
+                            	    CloseHandle PInfo.hProcess
+                            	    CloseHandle PInfo.hThread
+								Else
+                                    TextToOutput "*** commandline too long - expansion by environment failed ***", MB_ICONHAND 
+                                    TextToOutput *pBuffB
+                                EndIf     
+								     
 								'FixPath(buff)
 								'If buff[0] = Asc ("\") Then         ' MOD 27.1.2012   
 								'	buff=Left(ad.AppPath,2) & buff
@@ -2006,15 +1995,20 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 					    Case IDM_HELP_USER_1 To IDM_HELP_USER_LAST
 							' Help menu
 							UpdateEnvironment
-							GetPrivateProfileString(StrPtr("Help"),Str(id-IDM_HELP_USER_1+1),NULL,@buff,GOD_EntrySize,@ad.IniFile)
+							GetPrivateProfileString @"Help" ,Str (id - IDM_HELP_USER_1 + 1), NULL, @buff, GOD_EntrySize, @ad.IniFile
 							If IsZStrNotEmpty (buff) Then
                                	Dim SInfo  As STARTUPINFO
                             	Dim PInfo  As PROCESS_INFORMATION
 								SplitStr buff, Asc (","), pBuffB 
-								ExpandStrByEnviron *pBuffB
-                            	CreateProcess NULL, pBuffB, NULL, NULL, FALSE, CREATE_NEW_CONSOLE, NULL, NULL, @SInfo, @PInfo
-                            	CloseHandle PInfo.hProcess
-                            	CloseHandle PInfo.hThread
+								Success = ExpandStrByEnviron (*pBuffB, SizeOf (GOD_EntrySize) + @buff - pBuffB)
+								If Success Then
+                            	    CreateProcess NULL, pBuffB, NULL, NULL, FALSE, CREATE_NEW_CONSOLE, NULL, NULL, @SInfo, @PInfo
+                            	    CloseHandle PInfo.hProcess
+                            	    CloseHandle PInfo.hThread
+								Else
+                                    TextToOutput "*** commandline too long - expansion by environment failed ***", MB_ICONHAND 
+                                    TextToOutput *pBuffB
+								EndIf     
 								'buff=Mid(buff,InStr(buff,",")+1)
 								'FixPath(buff)
 								'If buff[0] = Asc ("\") Then             ' MOD 27.1.2012   

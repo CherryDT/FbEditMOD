@@ -455,6 +455,11 @@ End Sub
 
 Sub SplitStr (ByRef Source As ZString, ByVal Delimiter As UByte, ByRef pPartB As ZString Ptr)
     
+    ' [in]  Source   : ZString to be splitted
+    ' [out] Source   : left part after split
+    ' [out] pPartB   : ptr to right part after split
+    ' [in]  Delimiter: single char (removed after split)
+    
     Dim n As Integer = 0
 
     Do
@@ -463,6 +468,45 @@ Sub SplitStr (ByRef Source As ZString, ByVal Delimiter As UByte, ByRef pPartB As
             Source[n] = NULL
             pPartB = @Source[n + 1]
             Exit Sub
+        Case 0
+            pPartB = 0
+            Exit Sub 
+        End Select
+        
+        n += 1
+    Loop
+    
+End Sub
+
+Sub SplitStrQuoted (ByRef Source As ZString, ByVal Delimiter As UByte, ByRef pPartB As ZString Ptr)
+
+    ' [in]  Source   : ZString to be splitted
+    ' [out] Source   : left part after split
+    ' [out] pPartB   : ptr to right part after split
+    ' [in]  Delimiter: single char (removed after split)
+
+    ' quoted substrings are ignored
+    ' if there is only one quote, remaining part is completly ignored
+    
+    Dim n As Integer = 0
+
+    Do
+        Select Case Source[n]
+        Case Delimiter
+            Source[n] = NULL
+            pPartB = @Source[n + 1]
+            Exit Sub
+        Case Asc (!"\"")
+            Do                                ' skip quoted part
+                n += 1    
+                Select Case Source[n]
+                Case Asc (!"\"")
+                    Exit Do
+                Case 0
+                    pPartB = 0
+                    Exit Sub 
+                End Select
+            Loop
         Case 0
             pPartB = 0
             Exit Sub 
@@ -567,7 +611,6 @@ Sub ZStrCat Cdecl (ByVal pTarget As ZString Ptr, ByVal TargetSize As Integer, By
     Dim i        As Integer     = Any
     Dim k        As Integer     = Any 
     Dim pZString As ZString Ptr = Any 
-    
    
     n = lstrlen (pTarget)
     For k = 0 To ArgCount - 1

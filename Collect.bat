@@ -100,9 +100,20 @@ xcopy /F /Y "%CD%\Data\Language\*.*" "%CD%\Build\Language\*" >> Collect.log || g
 
 echo .
 echo *** get Help Files ***
-xcopy /F /Y "%CD%\Docs\Help\*.chm" "%CD%\Build\\Help\*" >> Collect.log || goto ERR_Exit
-xcopy /F /Y "%CD%\Docs\Help\OldHelp\*.chm" "%CD%\Build\\Help\*" >> Collect.log || goto ERR_Exit
-xcopy /F /Y "%CD%\Redist\Docs\*.chm" "%CD%\Build\\Help\*" >> Collect.log || goto ERR_Exit
+xcopy /F /Y "%CD%\Docs\Help\*.chm" "%CD%\Build\Help\*" >> Collect.log || goto ERR_Exit
+xcopy /F /Y "%CD%\Docs\Help\OldHelp\*.chm" "%CD%\Build\Help\*" >> Collect.log || goto ERR_Exit
+xcopy /F /Y "%CD%\Redist\Docs\*.chm" "%CD%\Build\Help\*" >> Collect.log || goto ERR_Exit
+xcopy /F /Y "%CD%\Code\CustomControl\RAResEd\Help\ResEd.chm" "%CD%\Build\Help\*" >> Collect.log || goto ERR_Exit
+
+
+
+:: ###############################################
+:: collect License Files
+:: ###############################################
+
+echo .
+echo *** get License Files ***
+xcopy /F /Y "%CD%\Redist\Licenses\*.*" "%CD%\Build\Licenses\*" >> Collect.log || goto ERR_Exit
 
 
 

@@ -154,7 +154,7 @@ Options=52
 5=0,0,0,0,9765
 3=0,0,0,0,582
 4=0,0,0,0,36
-1=0,0,718,485,36351
+1=0,0,718,485,64
 7=0,0,718,485,44515
 6=0,0,0,0,2057
 9=0,0,718,485,69462
@@ -203,16 +203,16 @@ Options=52
 
 
 [Find]
-1="PRO_OPEN"
-2="todo"
-3="messagebox"
-4="PRO_SETEXPORT"
-5="PRO_setname"
-6="ParseResource"
-7="pathcombine"
-8="path"
-9="print"
-10="IsCharAlpha"
+1="GetProjectItemName"
+2="SetProjectItemName"
+3="PRO_setname"
+4="PRO_OPEN"
+5="todo"
+6="messagebox"
+7="PRO_SETEXPORT"
+8="ParseResource"
+9="pathcombine"
+10="path"
 
 [AutoLoad]
 AutoLoad=39,3,26,25,16,9,8,51,10,17,7,1,5,2,18,13,43,28,21,24,36,35,22,37,42,33,27
@@ -260,7 +260,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=5
+MilestoneOnDateDate=7
 MilestoneOnDateTimeYear=2003
 MilestoneOnDateTimeMonth=10
 MilestoneOnDateTimeDate=16
@@ -359,7 +359,7 @@ Group=Assembly,Resources,Misc,Include
 36=
 51=,,
 [PTimer]
-PTimer=1630790133
+PTimer=1631250383
 
 [RADebugBP]
 34=

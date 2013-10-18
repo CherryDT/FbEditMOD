@@ -79,7 +79,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=13
+MilestoneOnDateDate=11
 MilestoneOnDateTimeYear=2003
 MilestoneOnDateTimeMonth=11
 MilestoneOnDateTimeDate=25
@@ -103,7 +103,7 @@ ProductVer2Range=0
 ProductVer3Range=0
 ProductVer4Range=0
 [Size]
-3=0,0,0,0,589
+3=0,0,0,0,115
 1=0,0,0,0,270
 2=0,0,0,0,322
 4=0,0,0,0
@@ -130,6 +130,6 @@ AutoLoad=1,4,3,2
 2=
 3=
 [PTimer]
-PTimer=474262
+PTimer=520609
 [GroupExpand]
 GroupExpand=0,1,0,0,1,0

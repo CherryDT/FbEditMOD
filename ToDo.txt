@@ -62,8 +62,16 @@
     - einzeilige Types werden nicht erkannt:
                         
                         Type a As Integer
-    
-    
+
+
+    - Property wird falsch formatiert (Klammerfehler):
+        Beispiel:
+            Sub ZStrCat Cdecl (ByVal pTarget As ZString Ptr, ByVal TargetSize As Integer, ByVal ArgCount As Integer, ByVal pFirst As ZString Ptr, ...)
+        wird zu
+            ZStrCat(pTarget:ZString Ptr,TargetSize:Integer,ArgCount:Integer,pFirst:ZString Ptr,...:ZString)
+
+
+
     - Blockinsert braucht fortlaufende Zahlen, die Platzhalter ersetzen
     
     

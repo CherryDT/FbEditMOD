@@ -186,7 +186,7 @@ Type ADDINDATA
 	smake			As ZString*260					' Make compile command
 	smakemodule		As ZString*260					' *** NOT USED ***    Make compile module command  
 	smakeoutput		As ZString*260					' Make output filename
-	smakerun		As ZString*260					' Run commamd line parameters
+	smakerun		As ZString*260					' Run command line parameters
 	smakerundebug	As ZString*260					' External debugger
 	filename		As ZString*260					' Current open file
 	resexport		As ZString*260					' Project resource export setting

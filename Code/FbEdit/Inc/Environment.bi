@@ -18,7 +18,7 @@
 #Define IDC_BTN_ADD_USERSTRING  1614
 
 Declare Function EnvironProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
-Declare Sub ExpandStrByEnviron (ByRef Source As ZString, ByVal MaxAttempt As Integer = 5)
+Declare Function ExpandStrByEnviron (ByRef Source As ZString, ByVal SourceSize As Integer, ByVal MaxAttempt As Integer = 5) As BOOL 
 Declare Sub UpdateEnvironment ()
 
 Type EnvironVarName     As ZString * 64

@@ -5,6 +5,7 @@ Declare Sub DePackStr OverLoad (ByRef i As Integer, ByRef Source As ZString, ByR
 Declare Sub GetSubStr OverLoad (ByRef i As Integer, ByRef Source As ZString, ByRef Dest As ZString, ByVal DestSize As Integer, ByVal Delimiter As UByte)
 Declare Sub GetSubStr OverLoad (ByRef i As Integer, ByRef Source As ZString, ByRef Dest As ZString, ByVal DestSize As Integer, Byref Delimiter As ZString)
 Declare Sub SplitStr (ByRef Source As ZString, ByVal Delimiter As UByte, ByRef pPartB As ZString Ptr)
+Declare Sub SplitStrQuoted (ByRef Source As ZString, ByVal Delimiter As UByte, ByRef pPartB As ZString Ptr)
 Declare Sub GetEnclosedStr OverLoad (ByRef i As Integer, ByRef Source As ZString, ByRef Dest As ZString, ByVal DestSize As Integer, ByVal StartDelimiter As UByte, ByVal EndDelimiter As UByte)
 Declare Sub GetEnclosedStr OverLoad (ByRef i As Integer, ByRef Source As ZString, ByRef Dest As ZString, ByVal DestSize As Integer, Byref StartDelimiter As ZString, Byref EndDelimiter As ZString)
 

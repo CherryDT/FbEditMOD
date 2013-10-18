@@ -8,6 +8,7 @@
 #Include Once "Inc\GUIHandling.bi"
 #Include Once "Inc\IniFile.bi"
 #Include Once "Inc\Language.bi"
+#Include Once "Inc\Misc.bi"
 #Include Once "Inc\Project.bi"
 #Include Once "Inc\ZStringHandling.bi"
 
@@ -368,8 +369,11 @@ Function EnvironProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WP
     Return TRUE
 End Function
 
-Sub ExpandStrByEnviron (ByRef Source As ZString, ByVal MaxAttempt As Integer = 5)
+Function ExpandStrByEnviron (ByRef Source As ZString, ByVal SourceSize As Integer, ByVal MaxAttempt As Integer = 5) As BOOL 
 
+    ' Source     [in]
+    ' SourceSize [in]
+    
     ' expands substrings like %var% with values defined in environment
     ' substitution is done inplace
     ' MaxAttempt limits forwarding e.g. greeting=%var1%, %var2%
@@ -384,25 +388,29 @@ Sub ExpandStrByEnviron (ByRef Source As ZString, ByVal MaxAttempt As Integer = 5
         ExpandEnvironmentStrings @Source, @Dest, SizeOf (Dest)
 
         If Dest = Source Then
-            Exit For
+            Return TRUE 
         Else
-            Source = Dest         ' TODO: check for buffer overflow
+            If lstrcpyn (@Source, @Dest, SourceSize) = NULL Then                ' Source = Dest 
+                Return FALSE
+            EndIf
         EndIf
     Next
-
-End Sub
+    
+    Return FALSE                 ' too much levels                              
+End Function 
 
 Sub UpdateEnvironment
 
     Dim i              As Integer             = Any
     Dim EPathValue     As EnvironPathValue
     Dim EStringValue   As EnvironStringValue
-    Dim EItem          As EnvironItem                      ' "Var=Value"
+    Dim EItem          As EnvironItem                      ' containing: "Var=Value"
     Dim pEnvironBlock  As LPTCH               = Any
     Dim EditorMode     As Long                = Any
     Dim SectionBuffer  As ZString * 64 * 1024
     Dim pBuff          As ZString Ptr         = Any
     Dim pBuffB         As ZString Ptr         = Any
+    Dim Success        As BOOL                = Any 
 
     ' Path
     For i = 1 To UBound (EnvPaths)
@@ -454,8 +462,12 @@ Sub UpdateEnvironment
     Do
         DePackStr i, *pEnvironBlock, EItem, SizeOf (EItem)   ' get copies, EnvironBlock is Const
         SplitStr EItem, Asc ("="), pBuffB
-        ExpandStrByEnviron *pBuffB                           ' but we wanna expand
-        SetEnvironmentVariable EItem, pBuffB
+        Success = ExpandStrByEnviron (*pBuffB, SizeOf (EItem) + @EItem - pBuffB)         ' but we wanna expand
+        If Success Then
+            SetEnvironmentVariable EItem, pBuffB
+        ' Else
+            ' cant expand this, leave untouched
+        EndIf     
     Loop While i
     FreeEnvironmentStrings pEnvironBlock
 
