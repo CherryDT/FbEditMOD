@@ -190,7 +190,7 @@ End Function
 
 hInst=GetModuleHandle(NULL)
 
-hLib=LoadLibrary("SprSht.dll")
+hLib=LoadLibrary("..\..\..\CustomControl\SprSht.dll")
 
 If hLib Then
 	'' Create the Dialog

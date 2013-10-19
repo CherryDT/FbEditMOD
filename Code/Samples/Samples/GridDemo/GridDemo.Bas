@@ -20,7 +20,7 @@ Declare Function DlgProc(ByVal hWnd As HWND, ByVal uMsg As UINT, ByVal wParam As
 	''
 	'' Create the Dialog
 	''
-	hLib=LoadLibrary(StrPtr("RAGrid.dll"))
+	hLib=LoadLibrary(StrPtr("..\..\..\CustomControl\RAGrid.dll"))
 	If hLib Then
 		DialogBoxParam(GetModuleHandle(NULL), Cast(ZString ptr,IDD_DLG1), NULL, @DlgProc, NULL)
 		FreeLibrary(hLib)

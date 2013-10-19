@@ -1,7 +1,13 @@
 
-#Define DEBUGGING		'' only comment this line for remove "debug" from executable!!! (check filesize)
+
+'
+' compile as EXE DEBUG   (with    option -g) for debugging support
+'         as EXE RELEASE (without option -g) to remove debug stuff from executable (please check filesize)
+'
+
+
 #Include Once "windows.bi"
-#Include Once "showvars.bi"
+#Include Once "..\..\..\Inc\showvars.bi"
 
 Declare Function WinMain ( ByVal hInstance As HINSTANCE, ByVal hPrevInstance As HINSTANCE, ByRef szCmdLine As String, ByVal iCmdShow As Integer ) As Integer
 Declare Function WndProc ( ByVal hWnd As HWND, ByVal wMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM ) As LRESULT
@@ -121,8 +127,8 @@ Function WinMain (	ByVal hInstance As HINSTANCE, _
 		DebugVar( "Msg.wparam", wMsg.wparam )
 		DebugVar( "Msg.lparam", wMsg.lparam )
 		DebugVar( "Msg.time", wMsg.time )
-		DebugVar( "Msg.pt.x", wMsg.pt.x )
-		DebugVar( "Msg.pt.y", wMsg.pt.y )
+		DebugVar( "Msg.pt.x", Cast (Integer, wMsg.pt.x ) )
+		DebugVar( "Msg.pt.y", Cast (Integer, wMsg.pt.y ) )
 		TranslateMessage( @wMsg )
 		DispatchMessage( @wMsg )
 	Wend
@@ -136,7 +142,7 @@ End Function
 
 #Define ALLTABS CLR_0 Or CLR_1 Or CLR_2 Or CLR_3 Or CLR_4 Or CLR_5 Or CLR_6
 
-DebugClear( ALLTABS )
+DebugClr( ALLTABS )
 
 DebugLog( "Start Program" )
 

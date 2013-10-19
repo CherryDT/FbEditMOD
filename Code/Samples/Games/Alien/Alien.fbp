@@ -1,24 +1,39 @@
 [Project]
-Version=2
+Version=3
 Description=Alien Invaders
 Api=fb (FreeBASIC),win (Windows)
 Grouping=2
 AddMainFiles=1
 ResExport=
+AddModuleFiles=1
+CompileIfNewer=0
+IncVersion=0
+RunCmd=0
 [Make]
-Recompile=0
+Recompile=2
 Module=Module Build,fbc -c
 Current=1
 1=Windows GUI,fbc -s gui
 2=Windows GUI (Debug),fbc -s gui -g
 Output=
 Run=
+Delete=
+PreBuildBatch=
+PostBuildBatch=
 [File]
 1=Alien.Bas
 2=Alien.Bi
 3=Alien.Rc
 4=Res\Alien.bmp
+MainRC=3
+Main=1
 [FileInfo]
-1=0,6,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-2=0,24,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1=0,351,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+2=0,28,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 3=0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+[TabOrder]
+TabOrder=1,2,3
+CurrentTab=1
+[BreakPoint]
+2=
+1=

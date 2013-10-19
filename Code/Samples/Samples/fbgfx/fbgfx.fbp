@@ -1,10 +1,14 @@
 [Project]
-Version=2
+Version=3
 Description=fbgfx
 Api=fb (FreeBASIC)
-Grouping=1
+Grouping=2
 AddMainFiles=1
 ResExport=
+AddModuleFiles=1
+CompileIfNewer=0
+IncVersion=0
+RunCmd=0
 [Make]
 Module=Module Build,fbc -c
 Recompile=2
@@ -13,7 +17,16 @@ Current=1
 2=Windows Console,fbc -s console -w 1
 Output=
 Run=
+Delete=
+PreBuildBatch=
+PostBuildBatch=
 [File]
 1=fbgfx.bas
+Main=1
 [FileInfo]
 1=0,10,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+[TabOrder]
+TabOrder=1
+CurrentTab=1
+[BreakPoint]
+1=

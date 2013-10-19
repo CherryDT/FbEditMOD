@@ -1,15 +1,21 @@
 [Project]
-Version=2
+Version=3
 Description=Dialog application
-Grouping=1
+Grouping=2
 ResExport=DialogAppRes.bi
 Api=fb (FreeBASIC),win (Windows)
 AddMainFiles=1
+AddModuleFiles=1
+CompileIfNewer=0
+IncVersion=0
+RunCmd=0
 [File]
 1=DialogApp.Bas
 2=
 3=DialogApp.Rc
 4=DialogAppRes.bi
+Main=1
+MainRC=3
 [FileInfo]
 1=0,45,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 2=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -17,9 +23,18 @@ AddMainFiles=1
 4=0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 [Make]
 Module=Module Build,fbc -c
-Recompile=0
+Recompile=2
 Current=2
 1=Windows GUI (debug),fbc -s gui -g
 2=Windows GUI,fbc -s gui
 Output=
 Run=
+Delete=
+PreBuildBatch=
+PostBuildBatch=
+[TabOrder]
+TabOrder=1,3,4
+CurrentTab=1
+[BreakPoint]
+1=
+4=

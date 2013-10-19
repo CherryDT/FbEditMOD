@@ -1,20 +1,35 @@
 [Project]
-Version=2
+Version=3
 Api=fb (FreeBASIC),win (Windows),sv (Showvars)
 Description=Sample 2
 Grouping=2
 AddMainFiles=1
 ResExport=
+AddModuleFiles=1
+CompileIfNewer=0
+IncVersion=0
+RunCmd=0
 [Make]
 Module=Module Build,fbc -c
-Recompile=0
-Current=1
-1=Window exe,fbc -s gui -w all
+Recompile=2
+Current=2
+1=EXE RELEASE,fbc -s gui -w all
 Output=sample2.exe
 Run=
+2=EXE DEBUG,fbc -g -s gui -w all
+Delete=
+PreBuildBatch=
+PostBuildBatch=
 [File]
 1=sample2.bas
-2=showvars.bi
+2=..\..\..\Inc\ShowVars.bi
+Main=1
 [FileInfo]
-1=0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1=0,130,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 2=0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+[TabOrder]
+TabOrder=1,2
+CurrentTab=1
+[BreakPoint]
+1=
+2=

@@ -41,7 +41,7 @@ Function OpenFontFile(ByVal hWin As HWND) As String
 	ofn.lStructSize=SizeOf(OPENFILENAME)
 	ofn.hwndOwner=hWin
 	ofn.hInstance=hInstance
-	ofn.lpstrInitialDir=StrPtr("C:\")
+	ofn.lpstrInitialDir=StrPtr("..\..\..\Fonts")
 	buff=String(260,0)
 	ofn.lpstrFile=@buff
 	ofn.nMaxFile=260

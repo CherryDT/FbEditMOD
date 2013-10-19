@@ -1,4 +1,4 @@
-#define IDD_DLG1                1000
+#Define IDD_DLG1                1000
 #define IDC_SHP1                1001
 #define IDR_MENU                10000
 #define IDM_FILE_NEW            10001
@@ -26,17 +26,17 @@ dim SHARED hOldBmp as HBITMAP
 #define MSHIELDS			5		' Number of shields
 #define MTIMER				30		' Speed
 
-type OBJECT
+type ITEM
 	x		as Integer
 	y		as Integer
 	state	as Integer
 end type
 
-dim SHARED shots(MSHOTS-1) as OBJECT
-dim SHARED bombs(MBOMBS-1) as OBJECT
-dim SHARED shields(MSHIELDS*2-1) as OBJECT
-dim SHARED aliens(MALIENSX*MALIENSY-1) as OBJECT
-dim SHARED aliensmovex as Integer
+dim SHARED shots(MSHOTS-1) as ITEM
+dim SHARED bombs(MBOMBS-1) as ITEM
+dim SHARED shields(MSHIELDS*2-1) as ITEM
+dim SHARED aliens(MALIENSX*MALIENSY-1) as ITEM
+Dim SHARED aliensmovex as Integer
 dim SHARED aliensmovey as Integer
 dim SHARED halt as Integer
 dim SHARED goy as Integer
