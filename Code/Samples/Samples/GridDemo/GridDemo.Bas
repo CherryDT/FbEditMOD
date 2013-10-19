@@ -24,6 +24,8 @@ Declare Function DlgProc(ByVal hWnd As HWND, ByVal uMsg As UINT, ByVal wParam As
 	If hLib Then
 		DialogBoxParam(GetModuleHandle(NULL), Cast(ZString ptr,IDD_DLG1), NULL, @DlgProc, NULL)
 		FreeLibrary(hLib)
+	Else
+	    MessageBox NULL, @!"RAGrid.dll not found\rPlease copy to startup folder", @"GridDemo", MB_OK Or MB_ICONHAND
 	EndIf
 	''
 	'' Program has ended

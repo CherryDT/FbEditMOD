@@ -144,10 +144,7 @@ Sub ReadResEdFile (ByVal hWin As HWND, ByVal hFile As HANDLE, ByVal lpFilename A
     Cast (ZString Ptr, hMem)[nSize] = 0                              ' append NULL
     
     SendMessage ah.hraresed, PRO_OPEN, Cast (WPARAM, lpFilename), Cast (LPARAM, hMem)  ' RAResEd uses GetCurrentDirectory retrieving ProjectPath
-
-    If fProject Then
-        SendMessage ah.hraresed, PRO_SETNAME, Cast (WPARAM, lpFilename), Cast (LPARAM, @ad.ProjectPath)
-    EndIf
+    SendMessage ah.hraresed, PRO_SETNAME, Cast (WPARAM, lpFilename), NULL              ' lParam = Cast (LPARAM, @ad.ProjectPath) causes setting CurrentDir
 
 End Sub
 

@@ -1,13 +1,25 @@
 [Project]
-Version=2
+Version=3
 Api=fb (FreeBASIC),win (Windows)
 Description=Picture viewer control
+Grouping=1
+AddMainFiles=1
+AddModuleFiles=1
+ResExport=
+CompileIfNewer=0
+IncVersion=0
+RunCmd=0
 [Make]
-Recompile=0
+Recompile=2
 Module=Module Build,fbc -c
 Current=1
 1=Windows GUI,fbc -s gui
 2=Windows GUI (Debug),fbc -s gui -g
+Output=
+Run=
+Delete=
+PreBuildBatch=
+PostBuildBatch=
 [File]
 1=PictCtrl.Bas
 2=PictCtrl.Bi
@@ -16,3 +28,6 @@ Current=1
 1=0,8,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 2=0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 3=0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+[TabOrder]
+TabOrder=1,2,3
+CurrentTab=3

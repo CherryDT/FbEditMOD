@@ -28,6 +28,7 @@ echo .
 echo ------------------------
 echo --- OK - Batch ready ---
 echo ------------------------
+pause
 exit /b 0
 
 :ERR_Exit
@@ -35,4 +36,5 @@ echo .
 echo ********************************
 echo *** ERROR - Batch terminated ***
 echo ********************************
+pause
 exit /b 1

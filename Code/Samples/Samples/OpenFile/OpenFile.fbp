@@ -2,21 +2,30 @@
 Version=3
 Description=Open file dialog
 Api=fb (FreeBASIC),win (Windows)
-Grouping=1
+Grouping=2
 AddMainFiles=1
 ResExport=
+AddModuleFiles=1
+CompileIfNewer=0
+IncVersion=0
+RunCmd=0
 [Make]
-Recompile=0
+Recompile=2
 Module=Module Build,fbc -c
 Current=1
 1=Windows GUI,fbc -s gui
 2=Windows GUI (Debug),fbc -s gui -g
 Output=
 Run=
+Delete=
+PreBuildBatch=
+PostBuildBatch=
 [File]
 1=OpenFile.Bas
 2=OpenFile.Bi
 3=OpenFile.Rc
+Main=1
+MainRC=3
 [FileInfo]
 1=0,25,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 2=0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0

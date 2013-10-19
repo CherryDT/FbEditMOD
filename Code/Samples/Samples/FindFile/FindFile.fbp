@@ -1,15 +1,16 @@
 [Project]
-Version=2
+Version=3
 Api=fb (FreeBASIC),win (Windows)
 Description=Find file
-Grouping=1
+Grouping=2
 AddMainFiles=1
 AddModuleFiles=1
 ResExport=
 CompileIfNewer=0
 IncVersion=0
+RunCmd=0
 [Make]
-Recompile=0
+Recompile=2
 Module=Module Build,fbc -c
 Current=1
 1=Windows GUI,fbc -s gui
@@ -17,15 +18,23 @@ Current=1
 Output=
 Run=
 Delete=*.obj
+PreBuildBatch=
+PostBuildBatch=
 [File]
 1=FindFile.Bas
 2=FindFile.Bi
 3=FindFile.Rc
+Main=1
+MainRC=3
 [BreakPoint]
 1=
 2=
+3=
 [FileInfo]
-1=0,19,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1=0,17,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 2=0,17,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-3=0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+3=0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 [NoDebug]
+[TabOrder]
+TabOrder=1,2,3
+CurrentTab=1

@@ -1,5 +1,5 @@
 [Project]
-Version=2
+Version=3
 Description=Exploring classes
 Grouping=1
 ResExport=
@@ -14,5 +14,11 @@ Output=
 Run=
 [File]
 1=Class.bas
+Main=1
 [FileInfo]
-1=0,102,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1=0,100,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+[TabOrder]
+TabOrder=1
+CurrentTab=1
+[BreakPoint]
+1=

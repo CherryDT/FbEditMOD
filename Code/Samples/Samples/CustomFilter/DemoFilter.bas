@@ -7,7 +7,7 @@
     ' restart FbEdit to take account
     
     
-    #Include Once "showvars.bi"                   ' only For debugging, use compile option -g to activate
+    #Include Once "showvars.bi"                   ' only for debugging, use compile option -g to activate
     
     
     ReDim TextLine (0) As String
@@ -22,9 +22,9 @@
     Open Cons For Input As #1
     Do Until Eof (1)
         Line Input #1, buffer
-        If Eof (1) AndAlso buffer = "" Then       ' pipe closed while Line Input
-            DebugLog ("EOF")                      ' displayed in FbEdit's ShowVars window,
-            Exit Do                               '    while Custom Filter is running
+        If Eof (1) AndAlso buffer = "" Then       ' pipe closed while Line Input while Custom Filter is running
+            DebugLog ("EOF")                      ' displayed in FbEdit's ShowVars window
+            Exit Do
         Else
             i += 1
             ReDim Preserve TextLine (1 To i) As String

@@ -13,6 +13,7 @@
 
 declare function DlgProc(byval hWnd as HWND, byval uMsg as UINT, byval wParam as WPARAM, byval lParam as LPARAM) as integer
 
+
 '''
 ''' Program start
 '''
