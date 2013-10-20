@@ -565,11 +565,23 @@ Function MakeBuild (ByRef sMakeOpt As ZString, ByRef sFile As ZString, ByRef CCL
 
 	CallAddins(ah.hwnd,AIM_MAKEBEGIN,Cast(WPARAM,@sFile),Cast(LPARAM,@sMakeOpt),HOOK_MAKEBEGIN)
 	ErrFlag = FALSE
+
+    ' *** set current directory	
+	If fProject Then 
+		SetCurrentDirectory @ad.ProjectPath	
+	Else
+		Path = sFile
+		PathRemoveFileSpec @Path
+		SetCurrentDirectory @Path
+	EndIf
+		
+    ' *** set environment	
 	UpdateEnvironment 
     SetEnviron "BUILD_TYPE=" + CCLName
     SetEnviron "COMPILIN_BNAME=" + *GetFileBaseName (sFile)
     
-    If fProject Then                                             ' start pre build batch
+    ' *** start pre build batch
+    If fProject Then
         GetPrivateProfileString @"Make", @"PreBuildBatch", NULL, CmdLine, SizeOf (CmdLine), ad.ProjectFile
         If IsZStrNotEmpty (CmdLine) Then
             ExitCode = ProcessBuild (CmdLine)
@@ -581,8 +593,8 @@ Function MakeBuild (ByRef sMakeOpt As ZString, ByRef sFile As ZString, ByRef CCL
         EndIf
     EndIf	
 	
-	If fProject Then                                             ' build command line
-		SetCurrentDirectory @ad.ProjectPath
+    ' *** build command line
+	If fProject Then
 		If fOnlyThisModule = TRUE Then
 		    CmdLine = sMakeOpt + " """ + sFile + """"
 		Else 
@@ -618,10 +630,6 @@ Function MakeBuild (ByRef sMakeOpt As ZString, ByRef sFile As ZString, ByRef CCL
 			EndIf
 		EndIf
 	Else
-		Path = sFile
-		PathRemoveFileSpec @Path
-		SetCurrentDirectory @Path
-		
 		CmdLine = sMakeOpt + " """ + *GetFileName (sFile) + """"           
 		If fOnlyThisModule = FALSE Then                       ' add resource only if building main
 			If fQuickRun Then
@@ -636,10 +644,12 @@ Function MakeBuild (ByRef sMakeOpt As ZString, ByRef sFile As ZString, ByRef CCL
 		EndIf
 	EndIf
     
+    ' *** start compiler
     CmdLineCombinePath CmdLine, @ad.fbcPath
-	ExitCode = ProcessBuild (@CmdLine)                       ' start compiler
+	ExitCode = ProcessBuild (@CmdLine)                       
 
-	Select Case ExitCode                                     ' process compiler output
+    ' *** process compiler output
+	Select Case ExitCode
 	Case 0
 	    ErrFlag = FALSE
 	Case CREATE_PROCESS_FAILED, CREATE_PIPE_FAILED
@@ -683,7 +693,8 @@ Function MakeBuild (ByRef sMakeOpt As ZString, ByRef sFile As ZString, ByRef CCL
         GoTo Exit_MakeBuild
     EndIf 
 
-    If fProject Then                                          ' start post build batch
+    ' *** start post build batch
+    If fProject Then
         GetPrivateProfileString @"Make", @"PostBuildBatch", NULL, CmdLine, SizeOf (CmdLine), ad.ProjectFile
         If IsZStrNotEmpty (CmdLine) Then
             ExitCode = ProcessBuild (CmdLine)
@@ -695,7 +706,8 @@ Function MakeBuild (ByRef sMakeOpt As ZString, ByRef sFile As ZString, ByRef CCL
         EndIf
     EndIf    
 
-	If fOnlyThisModule = FALSE Then                           ' clean up only after building main
+    ' *** clean up only after building main
+	If fOnlyThisModule = FALSE Then
 		i = 0
 		Do
 		    GetSubStr i, ProjectDeleteFiles, FileName, SizeOf (FileName), CUByte (Asc (";"))  

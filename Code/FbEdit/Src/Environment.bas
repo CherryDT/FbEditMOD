@@ -40,6 +40,7 @@ Function EnvironProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WP
     Dim    pPIDL          As LPCITEMIDLIST       = Any
     Dim    bri            As BROWSEINFO
     Dim    SectionBuffer  As ZString * 64 * 1024
+    Dim    FileSpec       As ZString * MAX_PATH
     Dim    DlgRect        As RECT                = Any
     Dim    ItemRect       As RECT                = Any
     Static InitRect       As RECT                = Any         ' client coords
@@ -91,6 +92,11 @@ Function EnvironProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WP
         Next
 
         ' fill grid: ReadOnly
+        row(0) = @"WORKING_PATH"
+        row(1) = @FileSpec
+        GetCurrentDirectory SizeOf (FileSpec), @FileSpec
+        SendDlgItemMessage hWin, IDC_GRD_READONLY, GM_ADDROW, 0, Cast (LPARAM, @row(0))
+        
         row(0) = @"FBE_PATH"
         row(1) = @ad.AppPath
         SendDlgItemMessage hWin, IDC_GRD_READONLY, GM_ADDROW, 0, Cast (LPARAM, @row(0))
@@ -408,6 +414,7 @@ Sub UpdateEnvironment
     Dim pEnvironBlock  As LPTCH               = Any
     Dim EditorMode     As Long                = Any
     Dim SectionBuffer  As ZString * 64 * 1024
+    Dim FileSpec       As ZString * MAX_PATH  
     Dim pBuff          As ZString Ptr         = Any
     Dim pBuffB         As ZString Ptr         = Any
     Dim Success        As BOOL                = Any 
@@ -427,7 +434,9 @@ Sub UpdateEnvironment
     SetEnvironmentVariable @"MAIN_RES_BNAME", StrPtr(Type<String>(GetProjectMainResource ()))
     SetEnvironmentVariable @"COMPILIN_BNAME", @""               ' updated by MakeBuild on every call
     SetEnvironmentVariable @"BUILD_TYPE", @""                   ' updated by MakeBuild on every call
-
+    GetCurrentDirectory SizeOf (FileSpec), @FileSpec
+    SetEnvironmentVariable @"WORKING_PATH", @FileSpec
+    
     SetZStrEmpty (EStringValue)
     If ah.hred then
         EditorMode = GetWindowLong (ah.hred, GWL_ID)
