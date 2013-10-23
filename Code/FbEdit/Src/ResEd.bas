@@ -25,22 +25,24 @@ Dim Shared ressize As WINSIZE=(300,170,0,52,100,100)
 
 
 Function ResEdProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer
-	Dim rect As RECT
-	Dim As Integer nInx,x,y
-	Dim pt As Point
-	Dim hMnu As HMENU
-	Dim hDll As HMODULE
-	Dim nBtn As Integer
-	Dim tbxwt As Integer
-	Dim fbcust As FBCUSTSTYLE
-	Dim cust As CUSTSTYLE
-	Dim fbrstype As FBRSTYPE
-	Dim sType As ZString*32
-	Dim sExt As ZString*64
-	Dim sEdit As ZString*128
-	Dim rarstype As RARSTYPE
-	Dim buffer As ZString*256
-    
+	
+	Dim    rect         As RECT
+	Dim    x            As Integer
+	Dim    y            As Integer
+	Dim    nInx         As Integer 
+	Dim    pt           As Point
+	Dim    hMnu         As HMENU
+	Dim    hDll         As HMODULE
+	Dim    nBtn         As Integer
+	Dim    tbxwt        As Integer
+	Dim    fbcust       As FBCUSTSTYLE
+	Dim    cust         As CUSTSTYLE
+	Dim    fbrstype     As FBRSTYPE
+	Dim    sType        As ZString * 32
+	Dim    sExt         As ZString * 64
+	Dim    sEdit        As ZString * 128
+	Dim    rarstype     As RARSTYPE
+	Dim    buffer       As ZString * 256
     Static hCustDll(32) As HMODULE
 
 	Select Case uMsg

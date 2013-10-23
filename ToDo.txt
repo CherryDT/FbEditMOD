@@ -112,9 +112,5 @@
             end sub
 
 
-    - LOCK/UNLOCK: Statusbar wird nicht richtig aktualisiert (bei ResEd-Tabs)
-
-
-
 
     

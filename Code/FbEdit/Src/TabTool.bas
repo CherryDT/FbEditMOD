@@ -1783,142 +1783,96 @@ Sub UpdateAllTabs (ByVal nType As Integer)
 End Sub
 
 Function TabToolProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer
-	Dim lret As Integer
-	Dim ht As TCHITTESTINFO
-	Dim tci As TCITEM
-	Dim buffer As ZString*260
-   'Dim hrect As RECT
-   'Dim mrect As RECT
-   'Dim x As Integer
-   'Dim fMove As Integer
-	Static i As Integer=-1
-
-    Static MoveCursorOn As BOOL 
-    Static TabRECT      As RECT
+	
+	Dim TabID             As LRESULT = Any  
+	Dim HitInfo           As TCHITTESTINFO
+	Dim tci               As TCITEM
+	Dim buffer            As ZString * MAX_PATH 
+	Dim pt                As Point 
+   	Static TabIDLastEvent As Integer = INVALID_TABID
+    Static MoveCursorOn   As BOOL 
+    Static TabRECT        As RECT
        
 	Select Case uMsg
-	    
-	    Case WM_LBUTTONDBLCLK
-			ht.pt.x=LoWord(lParam)
-			ht.pt.y=HiWord(lParam)
-			lret=SendMessage(hWin,TCM_HITTEST,0,Cast(Integer,@ht))
-			If lret <> INVALID_TABID Then
-				'tci.mask=TCIF_PARAM
-				'SendMessage(hWin,TCM_GETITEM,lret,Cast(Integer,@tci))
-				'SelectTabByWindow(pTABMEM->hedit)          ' MOD 1.2.2012 removed ah.hwnd
-				'If pTABMEM->locked = TRUE Then
-				'    pTABMEM->locked = FALSE    
-	            '    SendMessage hWin, TCM_HIGHLIGHTITEM, lret, FALSE
-                'Else
-				'    pTABMEM->locked = TRUE     
-	            '    SendMessage hWin, TCM_HIGHLIGHTITEM, lret, TRUE 
-				'EndIf
-				
-				SelectTabByTabID lret
-				ToggleTabLock lret
-				SetFocus ah.hred
-				fTimer = 1
-				Return 0
-			EndIf
-			'
-	    Case WM_RBUTTONDOWN, WM_MBUTTONDOWN
-			ht.pt.x=LoWord(lParam)
-			ht.pt.y=HiWord(lParam)
-			lret=SendMessage(hWin,TCM_HITTEST,0,Cast(Integer,@ht))
-			If lret <> INVALID_TABID Then
-				'tci.mask=TCIF_PARAM
-				'SendMessage(hWin,TCM_GETITEM,lret,Cast(Integer,@tci))
-				'SelectTabByWindow(pTABMEM->hedit)          ' MOD 1.2.2012 removed ah.hwnd
-				SelectTabByTabID lret
-				SetFocus ah.hred
-				fTimer = 1
-				Return 0
-			EndIf
-			'
-	    Case WM_MBUTTONUP
-			SendMessage(ah.hwnd,WM_COMMAND,IDM_FILE_CLOSE,0)
+	Case WM_LBUTTONDBLCLK
+	    'Print "TabTool:WM_LBUTTONDBLCLK"
+        ' on dblclk event: messages are lined up this way ->
+        '     1. WM_LBUTTONDOWN
+        '     2. WM_LBUTTONUP
+        '     3. WM_LBUTTONDBLCLK
+        '     4. WM_LBUTTONUP
+		ToggleTabLock TabIDLastEvent
+		SetFocus NULL                                 ' has focus but neccessary for updating statusbar
+		SetFocus ah.hred
+		fTimer = 1
+		Return 0
+
+	Case WM_LBUTTONDOWN
+	    'Print "TabTool:WM_LBUTTONDOWN"
+		HitInfo.pt.x = LoWord (lParam)
+		HitInfo.pt.y = HiWord (lParam)
+		TabID = SendMessage (hWin, TCM_HITTEST, 0, Cast (LPARAM, @HitInfo))
+		If TabID <> INVALID_TABID Then
+	        MoveCursorOn = TRUE
+	        GetWindowRect hWin, @TabRECT
+	        SetCapture hWin 
+			SelectTabByTabID TabID
+			SetFocus ah.hred
+			TabIDLastEvent = TabID
+			fTimer = 1
+			Return 0 
+		EndIf
+
+	Case WM_LBUTTONUP
+	    'Print "TabTool:WM_LBUTTONUP"
+        MoveCursorOn = FALSE
+        SetCursor (LoadCursor (NULL, IDC_ARROW))
+        ClipCursor NULL
+        ReleaseCapture 
+
+		HitInfo.pt.x = LoWord (lParam)
+		HitInfo.pt.y = HiWord (lParam)
+		TabID = SendMessage (hWin, TCM_HITTEST, 0, Cast (LPARAM, @HitInfo))
+
+		If      TabID            <> INVALID_TABID _
+		AndAlso TabIDLastEvent   <> INVALID_TABID _
+		AndAlso	TabIDLastEvent   <> TabID           Then
+			tci.mask       = TCIF_TEXT Or TCIF_IMAGE Or TCIF_PARAM
+			tci.pszText    = @buffer
+			tci.cchTextMax = SizeOf (buffer)
+			
+			SendMessage hWin, TCM_GETITEM, TabIDLastEvent, Cast (LPARAM, @tci)
+			SendMessage hWin, TCM_DELETEITEM, TabIDLastEvent, 0
+			SendMessage hWin, TCM_INSERTITEM, TabID, Cast (LPARAM, @tci)
+			SendMessage hWin, TCM_SETCURFOCUS, TabID, 0
+			TabIDLastEvent = TabID
+		EndIf
+        Return 0
+
+	Case WM_RBUTTONDOWN, WM_MBUTTONDOWN
+		HitInfo.pt.x = LoWord (lParam)
+		HitInfo.pt.y = HiWord (lParam)
+		TabID = SendMessage (hWin, TCM_HITTEST, 0, Cast (LPARAM, @HitInfo))
+		If TabID <> INVALID_TABID Then
+			SelectTabByTabID TabID
+			SetFocus ah.hred
+			fTimer = 1
 			Return 0
-			'
-	    Case WM_LBUTTONDOWN
-			ht.pt.x=LoWord(lParam)
-			ht.pt.y=HiWord(lParam)
-			lret=SendMessage(hWin,TCM_HITTEST,0,Cast(Integer,@ht))
-			If lret<>INVALID_TABID Then
-    	        MoveCursorOn = TRUE
-    	        GetWindowRect hWin, @TabRECT
-    	        SetCapture hWin 
-				'tci.mask=TCIF_PARAM
-				'SendMessage(hWin,TCM_GETITEM,lret,Cast(Integer,@tci))
-				'SelectTabByWindow(pTABMEM->hedit)          ' MOD 1.2.2012 removed ah.hwnd
-				SelectTabByTabID lret
-				SetFocus ah.hred
-				i = lret
-				fTimer = 1
-				Return 0 
-			EndIf
-			'
-	    Case WM_MOUSEMOVE
-	        If MoveCursorOn Then
-	            SetCursor LoadCursor (NULL, IDC_SIZEWE) 
-	            ClipCursor @TabRECT
-	        EndIf
-	        Return 0
-		'	If wParam And MK_LBUTTON Then
-		'		ht.pt.x=LoWord(lParam)
-		'		ht.pt.y=HiWord(lParam)
-		'		lret=SendMessage(hWin,TCM_HITTEST,0,Cast(Integer,@ht))
-		'		If lret<>i And lret>=0 And i>=0 Then
-        '            ' MOD 17.3.2012 
-		'			'SendMessage(hWin,TCM_GETITEMRECT,lret,Cast(LPARAM,@hrect))
-		'			'SendMessage(hWin,TCM_GETITEMRECT,i,Cast(LPARAM,@mrect))
-		'			'x=hrect.left+(hrect.right-hrect.left)\2
-		'			'If mrect.left>hrect.left Then
-		'			'	If ht.pt.x<x Then
-		'			'		fMove=TRUE
-		'			'	EndIf
-		'			'Else
-		'			'	If ht.pt.x>x Then
-		'			'		fMove=TRUE
-		'			'	EndIf
-		'			'EndIf
-		'			'If fMove Then
-		'				'tci.mask=TCIF_TEXT Or TCIF_IMAGE Or TCIF_PARAM
-		'				'tci.pszText=@buffer
-		'				'tci.cchTextMax=260
-		'				'SendMessage(hWin,TCM_GETITEM,i,Cast(LPARAM,@tci))
-		'				'SendMessage(hWin,TCM_DELETEITEM,i,0)
-		'				'SendMessage(hWin,TCM_INSERTITEM,lret,Cast(LPARAM,@tci))
-		'				'SendMessage(hWin,TCM_SETCURFOCUS,lret,0)
-		'				'i=lret
-		'			'EndIf
-		'		EndIf
-		'		Return 0
-		'	EndIf
-			'
-	    Case WM_LBUTTONUP   
-            MoveCursorOn = FALSE
-            SetCursor LoadCursor (NULL, IDC_ARROW)
-            ClipCursor NULL
-            ReleaseCapture 
+		EndIf
+		
+    Case WM_MBUTTONUP
+		SendMessage ah.hwnd, WM_COMMAND, IDM_FILE_CLOSE, 0
+		Return 0
 
-    		ht.pt.x=LoWord(lParam)
-			ht.pt.y=HiWord(lParam)
-			lret=SendMessage(hWin,TCM_HITTEST,0,Cast(Integer,@ht))
-
-			If lret<>i And lret>=0 And i>=0 Then
-				tci.mask=TCIF_TEXT Or TCIF_IMAGE Or TCIF_PARAM
-				tci.pszText=@buffer
-				tci.cchTextMax = SizeOf (buffer)
-				SendMessage(hWin,TCM_GETITEM,i,Cast(LPARAM,@tci))
-				SendMessage(hWin,TCM_DELETEITEM,i,0)
-				SendMessage(hWin,TCM_INSERTITEM,lret,Cast(LPARAM,@tci))
-				SendMessage(hWin,TCM_SETCURFOCUS,lret,0)
-				i = lret
-			EndIf
-	        Return 0
-	
+	Case WM_MOUSEMOVE
+        If MoveCursorOn Then
+            SetCursor (LoadCursor (NULL, IDC_SIZEWE)) 
+            ClipCursor @TabRECT
+        EndIf
+        Return 0
+    
 	End Select
-	Return CallWindowProc(lpOldTabToolProc,hWin,uMsg,wParam,lParam)
+	Return CallWindowProc (lpOldTabToolProc, hWin, uMsg, wParam, lParam)
 
 End Function
 
