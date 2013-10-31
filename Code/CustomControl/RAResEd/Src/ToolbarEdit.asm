@@ -51,21 +51,17 @@ ExportToolbar proc uses esi edi,hMem:DWORD
 	invoke ResEdBinToDec,[esi].TOOLBARMEM.ccx,edi
 	invoke strlen,edi
 	add		edi,eax
-	mov		al,','
-	stosb
+	mov		ax,' ,'
+	stosw
 	invoke ResEdBinToDec,[esi].TOOLBARMEM.ccy,edi
 	invoke strlen,edi
 	add		edi,eax
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
+	mov		ax,0A0Dh
+	stosw
 	invoke SaveStr,edi,addr szBEGIN
 	add		edi,eax
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
+	mov		ax,0A0Dh
+	stosw
 	lea		edx,[esi+sizeof TOOLBARMEM]
 	.while byte ptr [edx]
 		mov		al,[edx]
@@ -74,21 +70,13 @@ ExportToolbar proc uses esi edi,hMem:DWORD
 		inc		edx
 	.endw
 	.if byte ptr [edi-1]!=0Ah
-		mov		al,0Dh
-		stosb
-		mov		al,0Ah
-		stosb
+	mov		ax,0A0Dh
+	stosw
 	.endif
 	invoke SaveStr,edi,addr szEND
 	add		edi,eax
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
+	mov		eax,0A0D0A0Dh
+	stosd
 	mov		byte ptr [edi],0
 	pop		eax
 	ret

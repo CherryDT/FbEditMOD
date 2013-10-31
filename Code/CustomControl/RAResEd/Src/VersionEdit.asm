@@ -267,10 +267,8 @@ ExportVersion proc uses esi edi,hMem:DWORD
 	stosb
 	invoke SaveStr,edi,addr szVERSIONINFO
 	add		edi,eax
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
+	mov		ax,0A0Dh
+	stosw
 	;File version
 	invoke SaveStr,edi,addr szFILEVERSION
 	add		edi,eax
@@ -305,47 +303,32 @@ ExportVersion proc uses esi edi,hMem:DWORD
 	call	SaveHex
 	invoke SaveStr,edi,addr szBEGIN
 	add		edi,eax
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
-	mov		al,' '
-	stosb
-	stosb
+	mov		ax,0A0Dh
+	stosw
+	mov		ax,'  '
+	stosw
 	invoke SaveStr,edi,addr szBLOCK
 	add		edi,eax
-	mov		al,' '
-	stosb
-	mov		al,22h
-	stosb
+	mov		ax,'" '
+	stosw
 	invoke SaveStr,edi,addr szStringFileInfo
 	add		edi,eax
 	mov		al,22h
 	stosb
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
-	mov		al,' '
-	stosb
-	stosb
+	mov		ax,0A0Dh
+	stosw
+	mov		ax,'  '
+	stosw
 	invoke SaveStr,edi,addr szBEGIN
 	add		edi,eax
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
-	mov		al,' '
-	stosb
-	stosb
-	stosb
-	stosb
+	mov		ax,0A0Dh
+	stosw
+	mov		eax,'    '
+	stosd
 	invoke SaveStr,edi,addr szBLOCK
 	add		edi,eax
-	mov		al,' '
-	stosb
-	mov		al,22h
-	stosb
+	mov		ax,'" '
+	stosw
 	mov		eax,[esi].VERSIONMEM.lng
 	invoke hexEax
 	invoke strcpy,edi,offset strHex+4
@@ -356,173 +339,106 @@ ExportVersion proc uses esi edi,hMem:DWORD
 	add		edi,4
 	mov		al,22h
 	stosb
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
-	mov		al,' '
-	stosb
-	stosb
-	stosb
-	stosb
+	mov		ax,0A0Dh
+	stosw
+	mov		eax,'    '
+	stosd
 	invoke SaveStr,edi,addr szBEGIN
 	add		edi,eax
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
+	mov		ax,0A0Dh
+	stosw
 	push	esi
 	lea		esi,[esi+sizeof VERSIONMEM]
 	.while TRUE
 		.break .if ![esi].VERSIONITEM.szname
 		.if [esi].VERSIONITEM.szvalue
-			mov		al,' '
-			stosb
-			stosb
-			stosb
-			stosb
-			stosb
-			stosb
+			mov		eax,'    '
+			stosd
+			stosw
 			invoke SaveStr,edi,addr szVALUE
 			add		edi,eax
-			mov		al,' '
-			stosb
-			mov		al,22h
-			stosb
+			mov		ax,'" '
+			stosw
 			invoke SaveStr,edi,addr [esi].VERSIONITEM.szname
 			add		edi,eax
-			mov		al,22h
-			stosb
-			mov		al,','
-			stosb
-			mov		al,' '
-			stosb
-			mov		al,22h
-			stosb
+			mov		eax,'" ,"'
+			stosd
 			invoke SaveStr,edi,addr [esi].VERSIONITEM.szvalue
 			add		edi,eax
 			mov		al,'\'
 			stosb
-			mov		al,'0'
-			stosb
-			mov		al,22h
-			stosb
-			mov		al,0Dh
-			stosb
-			mov		al,0Ah
-			stosb
+			mov		ax,'"0'
+			stosw
+			mov		ax,0A0Dh
+			stosw
 		.endif
 		lea		esi,[esi+sizeof VERSIONITEM]
 	.endw
 	pop		esi
-	mov		al,' '
-	stosb
-	stosb
-	stosb
-	stosb
+	mov		eax,'    '
+	stosd
 	invoke SaveStr,edi,addr szEND
 	add		edi,eax
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
-	mov		al,' '
-	stosb
-	stosb
+	mov		ax,0A0Dh
+	stosw
+	mov		ax,'  '
+	stosw
 	invoke SaveStr,edi,addr szEND
 	add		edi,eax
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
-	mov		al,' '
-	stosb
-	stosb
+	mov		ax,0A0Dh
+	stosw
+	mov		ax,'  '
+	stosw
 	invoke SaveStr,edi,addr szBLOCK
 	add		edi,eax
-	mov		al,' '
-	stosb
-	mov		al,22h
-	stosb
+	mov		ax,'" '
+	stosw
 	invoke SaveStr,edi,addr szVarFileInfo
 	add		edi,eax
 	mov		al,22h
 	stosb
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
-	mov		al,' '
-	stosb
-	stosb
+	mov		ax,0A0Dh
+	stosw
+	mov		ax,'  '
+	stosw
 	invoke SaveStr,edi,addr szBEGIN
 	add		edi,eax
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
-	mov		al,' '
-	stosb
-	stosb
-	stosb
-	stosb
+	mov		ax,0A0Dh
+	stosw
+	mov		eax,'    '
+	stosd
 	invoke SaveStr,edi,addr szVALUE
 	add		edi,eax
-	mov		al,' '
-	stosb
-	mov		al,22h
-	stosb
+	mov		ax,'" '
+	stosw
 	invoke SaveStr,edi,addr szTranslation
 	add		edi,eax
 	mov		al,22h
 	stosb
-	mov		al,','
-	stosb
-	mov		al,' '
-	stosb
-	mov		al,'0'
-	stosb
-	mov		al,'x'
-	stosb
+	mov		eax,'x0 ,'
+	stosd
 	mov		eax,[esi].VERSIONMEM.lng
 	invoke hexEax
 	invoke strcpy,edi,offset strHex+4
 	add		edi,4
-	mov		al,','
-	stosb
-	mov		al,' '
-	stosb
-	mov		al,'0'
-	stosb
-	mov		al,'x'
-	stosb
+	mov		eax,'x0 ,'
+	stosd
 	mov		eax,[esi].VERSIONMEM.chs
 	invoke hexEax
 	invoke strcpy,edi,offset strHex+4
 	add		edi,4
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
-	mov		al,' '
-	stosb
-	stosb
+	mov		ax,0A0Dh
+	stosw
+	mov		ax,'  '
+	stosw
 	invoke SaveStr,edi,addr szEND
 	add		edi,eax
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
+	mov		ax,0A0Dh
+	stosw
 	invoke SaveStr,edi,addr szEND
 	add		edi,eax
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
+	mov		eax,0A0D0A0Dh
+	stosd
 	mov		al,0
 	stosb
 	pop		eax
@@ -537,19 +453,17 @@ SaveVer:
 	call	SaveVerItem
 	mov		eax,[esi+12]
 	call	SaveVerItem
-	dec		edi
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
+	sub		edi,2
+	mov		ax,0A0Dh
+	stosw
 	retn
 
 SaveVerItem:
 	invoke ResEdBinToDec,eax,edi
 	invoke strlen,edi
 	lea		edi,[edi+eax]
-	mov		al,','
-	stosb
+	mov		ax,' ,'
+	stosw
 	retn
 
 SaveHex:
@@ -558,10 +472,8 @@ SaveHex:
 	invoke hexEax
 	invoke strcpy,edi,offset strHex
 	add		edi,8
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
+	mov		ax,0A0Dh
+	stosw
 	retn
 
 ExportVersion endp

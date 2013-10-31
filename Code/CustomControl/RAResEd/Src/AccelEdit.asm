@@ -58,10 +58,8 @@ ExportAccel proc uses esi edi,hMem:DWORD
 	stosb
 	invoke SaveStr,edi,offset szACCELERATORS
 	add		edi,eax
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
+	mov		ax,0A0Dh
+	stosw
 	.if [esi].ACCELMEM.lang.lang || [esi].ACCELMEM.lang.sublang
 		invoke SaveLanguage,addr [esi].ACCELMEM.lang,edi
 		add		edi,eax
@@ -69,10 +67,8 @@ ExportAccel proc uses esi edi,hMem:DWORD
 	add		esi,sizeof ACCELMEM
 	invoke SaveStr,edi,offset szBEGIN
 	add		edi,eax
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
+	mov		ax,0A0Dh
+	stosw
 	.while byte ptr [esi].ACCELMEM.szname || byte ptr [esi].ACCELMEM.value
 		mov		al,' '
 		stosb
@@ -96,16 +92,16 @@ ExportAccel proc uses esi edi,hMem:DWORD
 			mov		fAscii,TRUE
 		.endif
 		invoke SaveVal,eax,FALSE
-		mov		al,','
-		stosb
+		mov		ax,' ,'
+		stosw
 		.if byte ptr [esi].ACCELMEM.szname
 			invoke SaveStr,edi,addr [esi].ACCELMEM.szname
 			add		edi,eax
 		.else
 			invoke SaveVal,[esi].ACCELMEM.value,FALSE
 		.endif
-		mov		al,','
-		stosb
+		mov		ax,' ,'
+		stosw
 		.if fAscii
 			mov		eax,offset szASCII
 		.else
@@ -115,45 +111,37 @@ ExportAccel proc uses esi edi,hMem:DWORD
 		add		edi,eax
 		test	[esi].ACCELMEM.flag,1
 		.if !ZERO?
-			mov		al,','
-			stosb
+			mov		ax,' ,'
+			stosw
 			invoke SaveStr,edi,offset szCONTROL
 			add		edi,eax
 		.endif
 		test	[esi].ACCELMEM.flag,2
 		.if !ZERO?
-			mov		al,','
-			stosb
+			mov		ax,' ,'
+			stosw
 			invoke SaveStr,edi,offset szSHIFT
 			add		edi,eax
 		.endif
 		test	[esi].ACCELMEM.flag,4
 		.if !ZERO?
-			mov		al,','
-			stosb
+			mov		ax,' ,'
+			stosw
 			invoke SaveStr,edi,offset szALT
 			add		edi,eax
 		.endif
-		mov		al,','
-		stosb
+		mov		ax,' ,'
+		stosw
 		invoke SaveStr,edi,offset szNOINVERT
 		add		edi,eax
-		mov		al,0Dh
-		stosb
-		mov		al,0Ah
-		stosb
+		mov		ax,0A0Dh
+		stosw
 		add		esi,sizeof ACCELMEM
 	.endw
 	invoke SaveStr,edi,offset szEND
 	add		edi,eax
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
-	mov		al,0Dh
-	stosb
-	mov		al,0Ah
-	stosb
+	mov		eax,0A0D0A0Dh
+	stosd
 	mov		byte ptr [edi],0
 	pop		eax
 	ret

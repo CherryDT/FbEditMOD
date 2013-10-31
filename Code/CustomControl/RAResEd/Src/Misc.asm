@@ -478,8 +478,8 @@ SaveHexVal proc pVal:DWORD,fComma:DWORD
 	pop		esi
 	add		edi,10
 	.if fComma
-		mov		al,','
-		stosb
+		mov		ax,' ,'
+		stosw
 	.endif
 	ret
 
@@ -497,8 +497,8 @@ SaveVal proc pVal:DWORD,fComma:DWORD
 	pop		esi
 	add		edi,eax
 	.if fComma
-		mov		al,','
-		stosb
+		mov		ax,' ,'
+		stosw
 	.endif
 	ret
 

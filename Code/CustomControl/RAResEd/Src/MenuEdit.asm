@@ -181,8 +181,8 @@ MnuSaveItemEx proc uses ebx,lpItem:DWORD,fPopUp:DWORD
 	mov		al,'"'
 	stosb
 	mov		ebx,edi
-	mov		al,','
-	stosb
+	mov		ax,' ,'
+	stosw
 	mov		al,(MNUITEM ptr [esi]).itemname
 	.if !al
 		m2m		val,(MNUITEM ptr [esi]).itemid
@@ -195,8 +195,8 @@ MnuSaveItemEx proc uses ebx,lpItem:DWORD,fPopUp:DWORD
 		add		edi,eax
 		mov		ebx,edi
 	.endif
-	mov		al,','
-	stosb
+	mov		ax,' ,'
+	stosw
 	;MFT_
 	mov		edx,(MNUITEM ptr [esi]).ntype
 	.if byte ptr (MNUITEM ptr [esi]).itemcaption=='-'
@@ -206,8 +206,8 @@ MnuSaveItemEx proc uses ebx,lpItem:DWORD,fPopUp:DWORD
 		invoke SaveHexVal,edx,FALSE
 		mov		ebx,edi
 	.endif
-	mov		al,','
-	stosb
+	mov		ax,' ,'
+	stosw
 	;MFS_
 	mov		eax,(MNUITEM ptr [esi]).nstate
 	.if eax
@@ -216,8 +216,8 @@ MnuSaveItemEx proc uses ebx,lpItem:DWORD,fPopUp:DWORD
 	.endif
 	.if fPopUp
 		;HelpID
-		mov		al,','
-		stosb
+		mov		ax,' ,'
+		stosw
 		mov		eax,(MNUITEM ptr [esi]).helpid
 		.if eax
 			invoke SaveVal,eax,FALSE
@@ -378,8 +378,8 @@ MnuSaveItem proc uses ebx,lpItem:DWORD,fPopUp:DWORD
 		stosb
 		.if !fPopUp
 			mov		ebx,edi
-			mov		al,','
-			stosb
+			mov		ax,' ,'
+			stosw
 			mov		al,(MNUITEM ptr [esi]).itemname
 			.if !al
 				m2m		val,(MNUITEM ptr [esi]).itemid
@@ -396,24 +396,24 @@ MnuSaveItem proc uses ebx,lpItem:DWORD,fPopUp:DWORD
 		mov		eax,(MNUITEM ptr [esi]).nstate
 		and		eax,MFS_CHECKED
 		.if eax==MFS_CHECKED
-			mov		al,','
-			stosb
+			mov		ax,' ,'
+			stosw
 			invoke SaveStr,edi,offset szCHECKED
 			add		edi,eax
 		.endif
 		mov		eax,(MNUITEM ptr [esi]).nstate
 		and		eax,MFS_GRAYED
 		.if eax==MFS_GRAYED
-			mov		al,','
-			stosb
+			mov		ax,' ,'
+			stosw
 			invoke SaveStr,edi,offset szGRAYED
 			add		edi,eax
 		.endif
 		mov		eax,(MNUITEM ptr [esi]).ntype
 		and		eax,MFT_RIGHTJUSTIFY
 		.if eax==MFT_RIGHTJUSTIFY
-			mov		al,','
-			stosb
+			mov		ax,' ,'
+			stosw
 			invoke SaveStr,edi,offset szHELP
 			add		edi,eax
 		.endif
@@ -517,7 +517,7 @@ ExportMenu proc uses esi edi,hMem:DWORD
 	.endif
 	invoke SaveStr,edi,addr szEND
 	add		edi,eax
-	mov		eax,0A0Dh
+	mov		eax,00000A0Dh
 	stosw
 	stosd
 	pop		eax

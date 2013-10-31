@@ -2320,8 +2320,8 @@ PropertyList proc uses ebx esi edi,hCtl:DWORD
 					invoke ResEdBinToDec,eax,edi
 					invoke strlen,edi
 					lea		edi,[edi+eax]
-					mov		al,','
-					stosb
+					mov		ax,' ,'
+					stosw
 				.endif
 				invoke strcpy,edi,addr (DLGHEAD ptr [esi]).font
 				add		esi,sizeof DLGHEAD

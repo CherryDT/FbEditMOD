@@ -132,21 +132,23 @@ SaveDlgFont proc
 		invoke ResEdBinToDec,val,addr buffer
 		invoke SaveStr,edi,addr buffer
 		add		edi,eax
-		mov		al,','
-		stosb
-		mov		al,22h
+		mov		ax,' ,'
+		stosw
+		mov     al,'"'
 		stosb
 		invoke SaveStr,edi,addr [esi].DLGHEAD.font
 		add		edi,eax
-		mov		ax,',"'
+		mov     al,'"'
+		stosb
+		mov		ax,' ,'
 		stosw
 		movzx	eax,[esi].DLGHEAD.weight
 		mov		val,eax
 		invoke ResEdBinToDec,val,addr buffer
 		invoke SaveStr,edi,addr buffer
 		add		edi,eax
-		mov		al,','
-		stosb
+		mov		ax,' ,'
+		stosw
 		movzx	eax,[esi].DLGHEAD.italic
 		mov		val,eax
 		invoke ResEdBinToDec,val,addr buffer
@@ -157,8 +159,8 @@ SaveDlgFont proc
 		.if ZERO?
 			movzx	eax,[esi].DLGHEAD.charset
 			mov		val,eax
-			mov		al,','
-			stosb
+			mov		ax,' ,'
+			stosw
 			invoke ResEdBinToDec,val,addr buffer
 			invoke SaveStr,edi,addr buffer
 			add		edi,eax
@@ -230,8 +232,8 @@ SaveStyle proc uses ebx esi,nStyle:DWORD,nType:DWORD,fComma:DWORD
 			xor		eax,nStyle
 			invoke SaveHexVal,eax,fComma
 		.elseif fComma
-			mov		al,','
-			stosb
+			mov		ax,' ,'
+			stosw
 		.endif
 	.endif
 	ret
@@ -392,8 +394,8 @@ SaveCtl proc uses ebx esi edi
 			invoke SaveCtlSize
 			mov		edx,[esi].DIALOG.helpid
 			.if edx
-				mov		al,','
-				stosb
+				mov		ax,' ,'
+				stosw
 				invoke ResEdBinToDec,edx,addr buffer
 				invoke SaveStr,edi,addr buffer
 				add		edi,eax
@@ -463,16 +465,16 @@ SaveCtl proc uses ebx esi edi
 			stosb
 			;Caption
 			invoke SaveCaption
-			mov		al,','
-			stosb
+			mov		ax,' ,'
+			stosw
 			invoke SaveName
 			add		edi,eax
-			mov		al,','
-			stosb
+			mov		ax,' ,'
+			stosw
 			;Class
 			invoke SaveUDCClass
-			mov		al,','
-			stosb
+			mov		ax,' ,'
+			stosw
 			mov		eax,[esi].DIALOG.style
 			and		eax,dwNOTStyle
 			xor		eax,dwNOTStyle
@@ -483,14 +485,14 @@ SaveCtl proc uses ebx esi edi
 			invoke SaveStyle,[esi].DIALOG.style,[esi].DIALOG.ntype,TRUE
 			invoke SaveCtlSize
 			.if [esi].DIALOG.exstyle || [esi].DIALOG.helpid
-				mov		al,','
-				stosb
+				mov		ax,' ,'
+				stosw
 				.if [esi].DIALOG.exstyle
 					invoke SaveExStyle,[esi].DIALOG.exstyle
 				.endif
 				.if [esi].DIALOG.helpid
-					mov		al,','
-					stosb
+					mov		ax,' ,'
+					stosw
 					invoke ResEdBinToDec,[esi].DIALOG.helpid,addr buffer
 					invoke SaveStr,edi,addr buffer
 					add		edi,eax
@@ -554,15 +556,15 @@ SaveCtl proc uses ebx esi edi
 			.else
 				invoke SaveCaption
 			.endif
-			mov		al,','
-			stosb
+			mov		ax,' ,'
+			stosw
 			invoke SaveName
 			add		edi,eax
-			mov		al,','
-			stosb
+			mov		ax,' ,'
+			stosw
 			invoke SaveClass
-			mov		al,','
-			stosb
+			mov		ax,' ,'
+			stosw
 			mov		eax,[esi].DIALOG.style
 			and		eax,dwNOTStyle
 			xor		eax,dwNOTStyle
@@ -577,14 +579,14 @@ SaveCtl proc uses ebx esi edi
 			invoke SaveStyle,[esi].DIALOG.style,[esi].DIALOG.ntype,TRUE
 			invoke SaveCtlSize
 			.if [esi].DIALOG.exstyle || [esi].DIALOG.helpid
-				mov		al,','
-				stosb
+				mov		ax,' ,'
+				stosw
 				.if [esi].DIALOG.exstyle
 					invoke SaveExStyle,[esi].DIALOG.exstyle
 				.endif
 				.if [esi].DIALOG.helpid
-					mov		al,','
-					stosb
+					mov		ax,' ,'
+					stosw
 					invoke ResEdBinToDec,[esi].DIALOG.helpid,addr buffer
 					invoke SaveStr,edi,addr buffer
 					add		edi,eax

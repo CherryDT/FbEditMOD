@@ -153,7 +153,7 @@ Lang=Deutsch (German), By B.Wiegmann / U. Richter
 4054=Gruppe:
 4055=Aktiv:
 4056=Ablage:
-4057=Quellcode-Dateien (.bas.bi.):
+4057=Quellcodes:
 4058=Diverses
 4059=Tab Größe
 4060=Backups
@@ -163,6 +163,10 @@ Lang=Deutsch (German), By B.Wiegmann / U. Richter
 4064=Inline ASM
 4065=AaBbCc
 4066=Werkzeuge
+4071=Ausgabe
+4074=Durchsuchbare Projektdatei:
+4077=Extern Öffnen:
+4076=Dateitypen
 ;--------------------------------------------------------------------------
 [4100]
 1=OK

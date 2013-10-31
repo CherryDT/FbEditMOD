@@ -50,10 +50,8 @@ ExportInclude proc uses esi edi,hMem:DWORD
 			mov		al,'"'
 			stosb
 		.endif
-		mov		al,0Dh
-		stosb
-		mov		al,0Ah
-		stosb
+		mov		ax,0A0Dh
+		stosw
 		add		esi,sizeof INCLUDEMEM
 	.endw
 	mov		ax,0A0Dh
