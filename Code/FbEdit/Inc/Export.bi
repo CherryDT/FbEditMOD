@@ -1,6 +1,6 @@
 
 
-#Define IDD_DLGEXPORT				5600
+#Define IDD_DLG_EXPORT				5600
 #Define IDC_CHKFUN					1001
 #Define IDC_CHKCON					1002
 #Define IDC_CHKVAR					1003

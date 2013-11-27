@@ -243,10 +243,10 @@ Sub DoCommandLine
         
     i = 0
     Do
-        If CommandLine[i] = 34 Then 
-            GetEnclosedStr i, *CommandLine, FileSpec, SizeOf (FileSpec), CUByte (34), CUByte (34)
+        If pCommandLine[i] = 34 Then 
+            GetEnclosedStr i, *pCommandLine, FileSpec, SizeOf (FileSpec), CUByte (34), CUByte (34)
         Else
-            GetSubStr i, *CommandLine, FileSpec, SizeOf (FileSpec), !" \""
+            GetSubStr i, *pCommandLine, FileSpec, SizeOf (FileSpec), !" \""
         EndIf
         If IsZStrNotEmpty (FileSpec) Then 
             OpenTheFile FileSpec, FOM_STD
@@ -350,7 +350,6 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 	Dim hBmp As HBITMAP = Any 
 	Dim sItem As ZString*260
 	Dim hMem As HGLOBAL
-	Dim lpCOPYDATASTRUCT As COPYDATASTRUCT Ptr
 	Dim sFile As ZString * MAX_PATH 
 	Dim FileID As Integer = Any 
 	Dim TabId  As Integer = Any 
@@ -470,11 +469,15 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			LoadFromIni "Edit"    , "Colors"    , "444444444444444444444"          , @kwcol  , FALSE
 			LoadFromIni "Edit"    , "CustColors", "444444444444444444444"          , @custcol, FALSE
 			GetMakeOption
-			GetPrivateProfileString(StrPtr("Edit"),StrPtr("CodeFiles"),StrPtr(".bas.bi."),@sCodeFiles,SizeOf(sCodeFiles),@ad.IniFile)
-            CharLower sCodeFiles			
-			GetPrivateProfileString(StrPtr("Debug"),StrPtr("Debug"),NULL,@ad.smakerundebug,SizeOf(ad.smakerundebug),@ad.IniFile)
-			GetPrivateProfileString(StrPtr("Edit"),StrPtr("CaseConvert"),StrPtr("CWPp"),@szCaseConvert,SizeOf(szCaseConvert),@ad.IniFile)
-			LoadFindHistory
+			
+			GetPrivateProfileString @"Edit", @"CodeFiles", @".bas.bi.", @CodeFiles, SizeOf (CodeFiles), @ad.IniFile
+            FormatDEVStr CodeFiles, SizeOf (CodeFiles)
+			GetPrivateProfileString @"Open", @"Extern", @".bmp.png.pdf.bat.cmd.chm.", @OpenExternFiles, SizeOf (OpenExternFiles), @ad.IniFile
+            FormatDEVStr OpenExternFiles, SizeOf (OpenExternFiles)
+
+			GetPrivateProfileString @"Debug", @"Debug", NULL, @ad.smakerundebug, SizeOf (ad.smakerundebug), @ad.IniFile
+			GetPrivateProfileString @"Edit", @"CaseConvert", @"CWPp", @szCaseConvert, SizeOf (szCaseConvert), @ad.IniFile
+			FindReadIni
 
 			' Create fonts
 			LoadFromIni "Edit", "EditFont", "44044", @edtfnt, FALSE
@@ -577,7 +580,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			lpOldProjectProc=Cast(Any Ptr,SetWindowLong(ah.hprj,GWL_WNDPROC,Cast(Integer,@ProjectProc)))
 			' Create the imagelist (file icons)
 			ah.himl=ImageList_Create(16,16,ILC_MASK Or ILC_COLOR8,16,0)
-			hBmp=LoadBitmap(hInstance,Cast(ZString Ptr,IDB_FILES))
+			hBmp = LoadBitmap (hInstance, MAKEINTRESOURCE (IDB_FILES))
 			ImageList_AddMasked(ah.himl,hBmp,&HFF00FF)
 			DeleteObject(hBmp)
 			SendMessage(ah.hprj,TVM_SETIMAGELIST,TVSIL_NORMAL,Cast(Integer,ah.himl))
@@ -688,7 +691,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			hBmp=LoadBitmap(hInstance,Cast(ZString Ptr,IDB_MNUARROW))
 			ImageList_AddMasked(ah.hmnuiml,hBmp,&HC0C0C0)
 			' Resource editor child dialog
-			ah.hres = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLGRESED), hWin, @ResEdProc)
+			ah.hres = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLG_RESED), hWin, @ResEdProc)
 			SetWindowLong ah.hres, GWL_ID, IDC_RESED             ' MOD 2.2.2012
 			SetToolsColors
 			MakeSubMenu IDM_TOOLS, IDM_TOOLS_USER_1, IDM_TOOLS_USER_LAST, "Tools"    ' MOD SetToolMenu(hWin)
@@ -723,7 +726,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			'DefFrameProc,DefWindowProc,DefMDIChildProc,DefDlgProc
 			
 			' Search Module
-			'f.fsearch=1       ' not used, see LoadFindHistory
+			'f.fsearch=1       ' not used, see FindReadIni
             
 			Return FALSE
 			'
@@ -780,7 +783,6 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			ImageList_Destroy(ah.hmnuiml)
 			ImageList_Destroy(ah.himl)
 			DestroyMenu(ah.hcontextmenu)
-			SaveFindHistory
 			SaveToIni(StrPtr("Win"),StrPtr("Winpos"),"4444444444444444444",@wpos,FALSE)
 			SaveToIni(StrPtr("Win"),StrPtr("ressize"),"444444",@ressize,FALSE)
 			WritePrivateProfileString(StrPtr("Win"),StrPtr("Path"),@szLastDir,@ad.IniFile)
@@ -805,7 +807,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 						#EndIf
 
 						Case IDM_FILE_NEWPROJECT
-							DialogBox (hInstance, MAKEINTRESOURCE (IDD_NEWPROJECT), GetOwner, @NewProjectDlgProc)
+							DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_NEWPROJECT), GetOwner, @NewProjectDlgProc)
 							fTimer = 1
 							'
 						Case IDM_FILE_OPENPROJECT
@@ -1021,7 +1023,8 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 								'OpenProject
 							EndIf
 
-						Case IDM_EDIT_UNDO
+					    Case IDM_EDIT_UNDO
+					        'Print "MainDlgProc: IDM_EDIT_UNDO"
 							SendMessage(ah.hred,EM_UNDO,0,0)
 							'
 						Case IDM_EDIT_REDO
@@ -1095,7 +1098,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 							If gotovisible Then
 								SetFocus (gotovisible)
 							Else
-								CreateDialog (hInstance, MAKEINTRESOURCE (IDD_GOTODLG), GetOwner, @GotoDlgProc)
+								CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLG_GOTO), GetOwner, @GotoDlgProc)
 							EndIf
 							'  
 					    Case IDM_EDIT_ELEVATOR_UP
@@ -1117,10 +1120,10 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 									hexfindbuff=buff
 								EndIf
 								If findvisible Then
-									SendDlgItemMessage(ah.hfind,IDC_FINDTEXT,WM_SETTEXT,0,Cast(LPARAM,@hexfindbuff))
-									SetFocus(findvisible)
+									SetDlgItemText ah.hfind, IDC_CBO_FINDTEXT, @hexfindbuff
+									SetFocus findvisible
 								Else
-									CreateDialogParam (hInstance, MAKEINTRESOURCE (IDD_HEXFINDDLG), GetOwner, @HexFindDlgProc, FALSE)
+									CreateDialogParam (hInstance, MAKEINTRESOURCE (IDD_DLG_HEXFIND), GetOwner, @HexFindDlgProc, FALSE)
 								EndIf
 							Case IDC_CODEED, IDC_TEXTED
 								If chrg.cpMin<>chrg.cpMax Then
@@ -1136,11 +1139,11 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 									If GetActiveWindow=findvisible Then
 										SendMessage(findvisible,WM_CLOSE,0,0)
 									Else
-										SendDlgItemMessage(ah.hfind,IDC_FINDTEXT,WM_SETTEXT,0,Cast(LPARAM,@f.findbuff))
-										SetFocus(findvisible)
+										SetDlgItemText ah.hfind, IDC_CBO_FINDTEXT, @f.findbuff
+										SetFocus findvisible
 									EndIf
 								Else
-									CreateDialogParam (hInstance, MAKEINTRESOURCE (IDD_FINDDLG) ,GetOwner, @FindDlgProc, FALSE)    ' lparam <> FALSE -> autopress replace button 
+									CreateDialogParam (hInstance, MAKEINTRESOURCE (IDD_DLG_FIND) ,GetOwner, @FindDlgProc, FALSE)    ' lparam <> FALSE -> autopress replace button 
 								EndIf
 							End Select
 							'
@@ -1218,10 +1221,10 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 									hexfindbuff=buff
 								EndIf
 								If findvisible Then
-									SendDlgItemMessage(ah.hfind,IDC_HEXFINDTEXT,WM_SETTEXT,0,Cast(LPARAM,@hexfindbuff))
-									SetFocus(findvisible)
+									SetDlgItemText ah.hfind, IDC_HEXFINDTEXT, @hexfindbuff
+									SetFocus findvisible
 								Else
-									CreateDialogParam (hInstance, MAKEINTRESOURCE (IDD_HEXFINDDLG), GetOwner, @HexFindDlgProc, TRUE)
+									CreateDialogParam (hInstance, MAKEINTRESOURCE (IDD_DLG_HEXFIND), GetOwner, @HexFindDlgProc, TRUE)
 								EndIf
 							Case IDC_CODEED, IDC_TEXTED
 								If chrg.cpMin<>chrg.cpMax Then
@@ -1237,11 +1240,11 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 									If GetActiveWindow=findvisible Then
 										SendMessage(findvisible,WM_CLOSE,0,0)
 									Else
-										SendDlgItemMessage(ah.hfind,IDC_FINDTEXT,WM_SETTEXT,0,Cast(LPARAM,@f.findbuff))
-										SetFocus(findvisible)
+										SetDlgItemText ah.hfind, IDC_CBO_FINDTEXT, @f.findbuff
+										SetFocus findvisible
 									EndIf
 								Else
-									CreateDialogParam (hInstance, MAKEINTRESOURCE (IDD_FINDDLG), GetOwner, @FindDlgProc, TRUE)    ' TRUE = show replace dialog version
+									CreateDialogParam (hInstance, MAKEINTRESOURCE (IDD_DLG_FIND), GetOwner, @FindDlgProc, TRUE)    ' TRUE = show replace dialog version
 								EndIf
 							End Select	
 							'
@@ -1362,7 +1365,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 							EndIf
 							'
 						Case IDM_EDIT_BLOCK_INSERT
-							DialogBox(hInstance,Cast(ZString Ptr,IDD_BLOCKDLG),GetOwner,@BlockDlgProc)
+							DialogBox(hInstance,Cast(ZString Ptr,IDD_DLG_BLOCK),GetOwner,@BlockDlgProc)
 							'
 						Case IDM_EDIT_BOOKMARKTOGGLE
 							If EditorHasFocus () Then
@@ -1769,10 +1772,10 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 							SetFocus ah.hred
 							'
 						Case IDM_PROJECT_OPTIONS
-							DialogBox(hInstance,Cast(ZString Ptr,IDD_DLGPROJECTOPTION),hWin,@ProjectOptionDlgProc)
+							DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_PROJECTOPTION), hWin, @ProjectOptionDlgProc)
 							'
 						Case IDM_PROJECT_CREATETEMPLATE
-							DialogBox(hInstance,Cast(ZString Ptr,IDD_CREATETEMPLATE),hWin,@CreateTemplateDlgProc)
+							DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_CREATETEMPLATE), hWin, @CreateTemplateDlgProc)
 							'
 						Case IDM_RESOURCE_DIALOG
 							SendMessage(ah.hraresed,PRO_ADDITEM,TPE_DIALOG,TRUE)
@@ -1903,7 +1906,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 							EndIf
 							'
 						Case IDM_TOOLS_EXPORT
-							DialogBox(hInstance,Cast(ZString Ptr,IDD_DLGEXPORT),hWin,@ExportDlgProc)
+							DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_EXPORT), hWin, @ExportDlgProc)
 							'
 					    Case IDM_TOOLS_USER_1 To IDM_TOOLS_USER_LAST
 							' Tools menu
@@ -1947,22 +1950,22 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 								'EndIf
 							EndIf
 					    Case IDM_OPTIONS_LANGUAGE
-							DialogBox(hInstance,Cast(ZString Ptr,IDD_DLGLANGUAGE),hWin,@LanguageDlgProc)
+							DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_LANGUAGE), hWin, @LanguageDlgProc)
 							'
 						Case IDM_OPTIONS_CODE
-							DialogBox(hInstance,Cast(ZString Ptr,IDD_DLGKEYWORDS),hWin,@KeyWordsDlgProc)
+							DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_EDITOROPTION), hWin, @EditorOptDlgProc)
 							'
 						Case IDM_OPTIONS_DIALOG
-							DialogBox(hInstance,Cast(ZString Ptr,IDD_TABOPTIONS),hWin,@TabOptionsProc)
+							DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_RESEDOPTION), hWin, @TabOptionsProc)
 							'
 						'Case IDM_OPTIONS_PATH
 							'DialogBox(hInstance,Cast(ZString Ptr,IDD_DLGPATHOPTION),hWin,@PathOptDlgProc)
 							'
 						Case IDM_OPTIONS_DEBUG
-							DialogBox(hInstance,Cast(ZString Ptr,IDD_DLGDEBUGOPT),hWin,@DebugOptDlgProc)
+							DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_DEBUGOPTION), hWin, @DebugOptDlgProc)
 							'
 						Case IDM_OPTIONS_MAKE
-							i = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLGOPTMNU), hWin, @GenericOptDlgProc, GODM_MakeOptCollection)
+							i = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_GENERICOPTION), hWin, @GenericOptDlgProc, GODM_MakeOptCollection)
 		                    If i Then 
 		                        WritePrivateProfileString @"Make", @"Current", Str (i), @ad.IniFile
                         		GetMakeOption
@@ -1972,24 +1975,24 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 						'	DialogBox(hInstance,Cast(ZString Ptr,IDD_DLGEXTERNALFILE),hWin,@ExternalFileDlgProc)
 							'
 						Case IDM_OPTIONS_ADDINS
-							DialogBox(hInstance,Cast(ZString Ptr,IDD_DLGADDINMANAGER),hWin,@AddinManagerProc)
+							DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_ADDINMANAGER), hWin, @AddinManagerProc)
 							'
 					    Case IDM_OPTIONS_ENVIRONMENT 
 					        DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_ENVIRON), hWin, @EnvironProc) 
 					        GetMakeOption
 					        '
 						Case IDM_OPTIONS_TOOLS
-							DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLGOPTMNU), hWin, @GenericOptDlgProc, GODM_ToolsMenu)
+							DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_GENERICOPTION), hWin, @GenericOptDlgProc, GODM_ToolsMenu)
                        		MakeSubMenu IDM_TOOLS, IDM_TOOLS_USER_1, IDM_TOOLS_USER_LAST, "Tools"
 		                    CallAddins(ah.hwnd,AIM_MENUREFRESH,0,0,HOOK_MENUREFRESH)
 							'
 						Case IDM_OPTIONS_HELP
-							DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLGOPTMNU), hWin, @GenericOptDlgProc, GODM_HelpMenu)
+							DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_GENERICOPTION), hWin, @GenericOptDlgProc, GODM_HelpMenu)
     						MakeSubMenu IDM_HELP, IDM_HELP_USER_1, IDM_HELP_USER_LAST, "Help"
 	                    	CallAddins(ah.hwnd,AIM_MENUREFRESH,0,0,HOOK_MENUREFRESH)
 							'
 						Case IDM_HELP_ABOUT
-							DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLGABOUT), hWin, @AboutDlgProc)
+							DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_ABOUT), hWin, @AboutDlgProc)
 							SetFocus(ah.hred)
 							'
 					    Case IDM_HELP_USER_1 To IDM_HELP_USER_LAST
@@ -2205,36 +2208,37 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			'
 		Case WM_CONTEXTMENU
 			If CallAddins(hWin,AIM_CONTEXTMEMU,wParam,lParam,HOOK_CONTEXTMEMU)=FALSE Then
-				If lParam=-1 Then
-					hCtl=GetFocus
-					GetCaretPos(@pt)
-					ClientToScreen(hCtl,@pt)
-					pt.x=pt.x+10
-				Else
-					pt.x=Cast(Short,LoWord(lParam))
-					pt.y=Cast(Short,HiWord(lParam))
-					hCtl=WindowFromPoint(pt)
-				EndIf
-				hCtl=Cast(HWND,wParam)
-				If hCtl=ah.hprj Then
-					' Project 
-					TrackPopupMenu(GetSubMenu(ah.hcontextmenu,1),TPM_LEFTALIGN Or TPM_RIGHTBUTTON,pt.x,pt.y,0,ah.hwnd,0)
-				ElseIf hCtl=ah.hpr Then
-					' Property Context
-					TrackPopupMenu(GetSubMenu(ah.hcontextmenu,3),TPM_LEFTALIGN Or TPM_RIGHTBUTTON,pt.x,pt.y,0,ah.hwnd,0)
-				ElseIf hCtl=hWin Then
-					' Main window
-					TrackPopupMenu(GetSubMenu(ah.hmenu,0),TPM_LEFTALIGN Or TPM_RIGHTBUTTON,pt.x,pt.y,0,ah.hwnd,0)
-				ElseIf hCtl=ah.htabtool Then
-					' Tab select
-					TrackPopupMenu(GetSubMenu(ah.hcontextmenu,0),TPM_LEFTALIGN Or TPM_RIGHTBUTTON,pt.x,pt.y,0,ah.hwnd,0)
-				' MOD 11.2.2012   add
-				ElseIf hCtl=ah.hfib Then                        
-					' Filebrowser Context
-					TrackPopupMenu(GetSubMenu(ah.hcontextmenu,6),TPM_LEFTALIGN Or TPM_RIGHTBUTTON,pt.x,pt.y,0,ah.hwnd,0)
-				' =========================
-				EndIf
+		
+		    	If lParam = -1 Then             ' context menu called by keyboard
+					GetCursorPos @pt
+		    	Else                            ' context menu called by R-button-click
+					pt.x = LoWord (lParam)
+					pt.y = HiWord (lParam)
+		    	EndIf
+				
+				Select Case wParam
+				Case ah.hprj					' Project 
+					hMnu = GetSubMenu (ah.hcontextmenu, 1)
+				Case ah.hpr				    	' Property Context
+				    hMnu = GetSubMenu (ah.hcontextmenu, 3)
+				Case hWin					    ' Main window
+					hMnu = GetSubMenu (ah.hmenu, 0)
+				Case ah.htabtool				' Tab select
+					hMnu = GetSubMenu (ah.hcontextmenu, 0)
+				Case ah.hfib					' Filebrowser Context
+					hMnu = GetSubMenu (ah.hcontextmenu, 6)
+				Case Else
+				    hMnu = 0
+				End Select
+                
+                If hMnu Then
+                    TrackPopupMenu hMnu, TPM_LEFTALIGN Or TPM_RIGHTBUTTON, pt.x, pt.y, 0, ah.hwnd, 0
+                    Return 0
+                Else
+                    Return DefWindowProc (hWin, uMsg, wParam, lParam)            
+                EndIf     
 			EndIf
+		
 		Case WM_MOVE
 			ShowWindow(ah.htt,SW_HIDE)
 			HideCCLists()
@@ -2691,17 +2695,16 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 		
 		
 		Case WM_DROPFILES
-			id=0
-			lret=TRUE
-			Do While lret
-				lret=DragQueryFile(Cast(HDROP,wParam),id,@sItem,SizeOf(sItem))
-				If lret Then
-					' Open single file
-					If (GetFileAttributes(@sItem) And FILE_ATTRIBUTE_DIRECTORY)=0 Then
-						OpenTheFile(sItem,FOM_STD)
+			id = 0
+			Do
+				If DragQueryFile (Cast (HDROP, wParam), id, @FileSpec, SizeOf (FileSpec)) Then
+					If FileExists (FileSpec) Then
+						OpenTheFile FileSpec, FOM_STD
 					EndIf
+				Else
+				    Exit Do
 				EndIf
-				id+=1
+				id += 1
 			Loop
 			'
 		Case WM_SIZE
@@ -2966,8 +2969,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			OpenTheFile(buff,wParam)
 			'
 	    Case WM_COPYDATA               ' processing command line if single instance option is enabled
-			lpCOPYDATASTRUCT=Cast(COPYDATASTRUCT Ptr,lParam)
-			CommandLine=lpCOPYDATASTRUCT->lpData
+			pCommandLine = Cast (COPYDATASTRUCT Ptr, lParam)->lpData
 			DoCommandLine        
 			'
 		Case WM_QUERYENDSESSION
@@ -3017,17 +3019,17 @@ Function WinMain(ByVal hInst As HINSTANCE,ByVal hPrevInst As HINSTANCE,ByVal lpC
 	LoadFromIni "Win", "ressize", "444444", @ressize, FALSE
 
 	' handle single instance mode
-	CommandLine = PathGetArgs (GetCommandLine)
+	pCommandLine = PathGetArgs (GetCommandLine)
 	If wpos.singleinstance Then
 		FBEWnd = FindWindow (@szMainWindowClassName, NULL)
 		If FBEWnd Then
 			If IsIconic (FBEWnd) Then
 				ShowWindow FBEWnd, SW_RESTORE
 			EndIf
-			If IsZStrNotEmpty (*CommandLine) Then
+			If IsZStrNotEmpty (*pCommandLine) Then
 				cpd.dwData = 0
-				cpd.lpData = CommandLine
-				cpd.cbData = lstrlen (CommandLine) + 1
+				cpd.lpData = pCommandLine
+				cpd.cbData = lstrlen (pCommandLine) + 1
 				SendMessage FBEWnd, WM_COPYDATA, 0, Cast (LPARAM, @cpd)
 			EndIf
 			Return 0
@@ -3114,7 +3116,7 @@ End Function
 	hInstance = GetModuleHandle (NULL)
 	hRichEditDll = LoadLibrary ("riched20.dll")
 
-	ad.lpCharTab   = Getchartabptr ()
+	ad.lpCharTab   = GetCharTabPtr ()
 	ad.lpszVersion = @"FreeBASIC editor 1.0.7.8"
     ad.version     = 1078
 	ad.lpBuff      = @buff

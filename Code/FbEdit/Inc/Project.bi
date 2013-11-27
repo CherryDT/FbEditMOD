@@ -26,8 +26,8 @@ End Type
 
 
 #Define MAX_MISS		                    10
-#Define IDD_NEWPROJECT		            	5300
-#Define IDD_DLGPROJECTOPTION				5500
+#Define IDD_DLG_NEWPROJECT		           	5300
+#Define IDD_DLG_PROJECTOPTION				5500
 
 
 Declare Function GetProjectFileName (ByVal nInx As Integer, ByVal PathMode As PathType) As ZString Ptr

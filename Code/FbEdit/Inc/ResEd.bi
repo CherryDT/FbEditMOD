@@ -14,7 +14,7 @@ Type FBRSTYPE
 End Type
 
 
-#Define IDD_DLGRESED            1300
+#Define IDD_DLG_RESED            1300
 
 
 Declare Function ResEdProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer

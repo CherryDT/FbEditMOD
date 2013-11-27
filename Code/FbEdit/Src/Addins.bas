@@ -61,7 +61,7 @@ Function AddinManagerProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As 
 
     Select Case uMsg
         Case WM_INITDIALOG
-            TranslateDialog(hWin,IDD_DLGADDINMANAGER)
+            TranslateDialog(hWin,IDD_DLG_ADDINMANAGER)
             hLst=GetDlgItem(hWin,IDC_LSTADDINS)
             lpOldAddinListProc=Cast(Any Ptr,SetWindowLong(hLst,GWL_WNDPROC,Cast(Integer,@AddinListProc)))
             nInx=0

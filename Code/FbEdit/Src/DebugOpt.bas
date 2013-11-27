@@ -22,7 +22,7 @@ Function DebugOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As
 
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_DLGDEBUGOPT)
+			TranslateDialog(hWin,IDD_DLG_DEBUGOPTION)
 			CenterOwner(hWin)
 			SetDlgItemText(hWin,IDC_EDTDEBUGOPT,@ad.smakerundebug)
 			SetDlgItemText(hWin,IDC_EDTQUICKRUN,@ad.smakequickrun)
@@ -59,7 +59,7 @@ Function DebugOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As
 					EndIf
 					'
 				Case IDC_BTNQUICKRUN
-					id = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLGOPTMNU), hWin, @GenericOptDlgProc, GODM_MakeOptImport)
+					id = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_GENERICOPTION), hWin, @GenericOptDlgProc, GODM_MakeOptImport)
 					If id Then
 						GetPrivateProfileString(StrPtr("Make"),Str(id),NULL,@buff,GOD_EntrySize,@ad.IniFile)
 						SetDlgItemText hWin, IDC_EDTQUICKRUN, @buff[InStr (buff, ",")]

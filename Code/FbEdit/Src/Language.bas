@@ -174,7 +174,8 @@ Sub TranslateDialog(ByVal hWin As HWND,ByVal id As Integer)
 End Sub
 
 Function GetInternalString(ByVal id As Integer) As String
-	Dim buff As ZString*1024
+
+	Dim buff As ZString * 1024
 
 	If ad.hLangMem Then
 		buff=FindString(ad.hLangMem,"Internal",Str(id))
@@ -235,7 +236,7 @@ Function LanguageDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As
 
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_DLGLANGUAGE)
+			TranslateDialog(hWin,IDD_DLG_LANGUAGE)
 			CenterOwner(hWin)
 			id=256
 			SendDlgItemMessage(hWin,IDC_LSTLANGUAGE,LB_SETTABSTOPS,1,Cast(LPARAM,@id))

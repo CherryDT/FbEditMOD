@@ -67,7 +67,7 @@ Function AboutDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPAR
 
     Select Case uMsg
         Case WM_INITDIALOG
-            TranslateDialog(hWin,IDD_DLGABOUT)
+            TranslateDialog(hWin,IDD_DLG_ABOUT)
             SetWindowText(hwin,ad.lpszVersion)
             CenterOwner(hWin)
             ' Subclass the control

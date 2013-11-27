@@ -1,6 +1,6 @@
 
 
-#Define IDD_HEXFINDDLG          6300
+#Define IDD_DLG_HEXFIND         6300
 #Define IDC_HEXFINDTEXT         1002
 #define IDC_HEXREPLACESTATIC    1003
 #define IDC_HEXREPLACETEXT      1004

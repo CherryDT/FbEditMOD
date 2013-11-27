@@ -26,7 +26,7 @@
     Dim Shared CF_hThread      As Any Ptr 
     Dim Shared CF_Spec         As ZString * MAX_PATH 
         
-    Const      CF_TERMINATED As UINT = 256                            ' reserved ExitCode: process terminated 
+    Const      CF_TERMINATED   As UINT = 256                          ' reserved ExitCode: process terminated 
     
     
 Function CustomFilterDlgProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParm As WPARAM, ByVal lParm As LPARAM) As Integer
@@ -171,7 +171,7 @@ Sub CustomFilterReplace (ByRef hEditor As HWND)
         Exit Sub
     EndIf
 
-    SendDlgItemMessage (CF_hDlg, IDC_STC_CFNAME, WM_SETTEXT, 0, Cast (LPARAM, PathFindFileName (CF_Spec)))
+    SetDlgItemText CF_hDlg, IDC_STC_CFNAME, PathFindFileName (CF_Spec)
     
     CloseHandle hWriteChildStdOut                               ' close unused end of pipe
     CloseHandle hReadChildStdIn                                 

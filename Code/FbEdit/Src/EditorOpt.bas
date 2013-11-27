@@ -40,9 +40,7 @@ Dim Shared lnrfnt        As EDITFONT   = ( -6, 0, @"Terminal"   , 400, 0)
 Dim Shared outpfnt       As EDITFONT   = (-11, 0, @"Tahoma"     , 400, 0)
 Dim Shared toolfnt       As EDITFONT   = (-11, 0, @"Tahoma"     , 400, 0)
 
-Dim Shared sCodeFiles    As ZString * 260          'sCodeFiles is LCASE p.def. - forced on every I/O
 Dim Shared custcol       As KWCOLOR
-
 Dim Shared thme(15)      As THEME
 Dim Shared szTheme(15)   As ZString * 32
 
@@ -398,12 +396,14 @@ Sub PutTheme(ByVal hWin As HWND,ByVal nInx As Integer)
 End Sub
 
 Sub SaveEditOptions (ByVal hWin As HWND)
-	Dim nInx As Integer
-	Dim ofs As Any Ptr
-	Dim col As Integer
-	Dim lfnt As LOGFONT
-	Dim sItem As ZString*256
 
+	Dim nInx    As Integer
+	Dim ofs     As Any Ptr
+	Dim col     As Integer
+	Dim lfnt    As LOGFONT
+	Dim sItem   As ZString * 256
+    Dim Success As BOOL          = Any 
+    
 	' Window colors
 	ofs=@fbcol
 	nInx=0
@@ -549,15 +549,21 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 			SaveToIni(StrPtr("Theme"),Str(nInx),"04444444444444444444444444444444444444444444444444444",@thme(nInx),FALSE)
 		EndIf
 	Next 
-	GetDlgItemText(hWin,IDC_EDTCODEFILES,@sCodeFiles,SizeOf(sCodeFiles))
-	CharLower sCodeFiles                         'MOD 12.1.2012      sCodeFiles = LCase (sCodeFiles)
-	If Right(sCodeFiles,1)<>"." Then
-		sCodeFiles=sCodeFiles & "."
-	EndIf
-	If Left(sCodeFiles,1)<>"." Then
-		sCodeFiles="." & sCodeFiles
-	EndIf
-	WritePrivateProfileString(StrPtr("Edit"),StrPtr("CodeFiles"),@sCodeFiles,@ad.IniFile)
+
+	GetDlgItemText hWin, IDC_EDTCODEFILES, @CodeFiles, SizeOf (CodeFiles)
+	Success = FormatDEVStr (CodeFiles, SizeOf (CodeFiles))
+ 	If Success = FALSE Then
+        TextToOutput "*** invalid extension list ***", MB_ICONASTERISK
+ 	EndIf
+	WritePrivateProfileString @"Edit", @"CodeFiles", @CodeFiles, @ad.IniFile
+
+	GetDlgItemText hWin, IDC_EDTOPENEXTERN, @OpenExternFiles, SizeOf (OpenExternFiles)
+    Success = FormatDEVStr (OpenExternFiles, SizeOf (OpenExternFiles))
+ 	If Success = FALSE Then
+        TextToOutput "*** invalid extension list ***", MB_ICONASTERISK
+ 	EndIf
+	WritePrivateProfileString @"Open", @"Extern", @OpenExternFiles, @ad.IniFile
+
 	If edtopt.bracematch Then
 		SendMessage(ah.hout,REM_BRACKETMATCH,0,Cast(Integer,@szBracketMatch))
 	Else
@@ -717,7 +723,8 @@ Sub FillHold(ByVal hWin As HWND)
 	oldsel=nInx
 End Sub
 
-Function KeyWordsDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
+Function EditorOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
+
 	Dim As Long id, Event
 	Static hBtnApply As HWND
 	Dim lfnt As LOGFONT
@@ -735,12 +742,17 @@ Function KeyWordsDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As
 	Dim pt As Point
     Dim i   As Integer = Any 
     Dim Key As ZString * 32
-
+    Dim Success As BOOL = Any 
 
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_DLGKEYWORDS)
+			TranslateDialog(hWin,IDD_DLG_EDITOROPTION)
 			CenterOwner(hWin)
+			
+			' Bitmap buttons
+			SendDlgItemMessage hWin, IDC_BTNHOLD  , BM_SETIMAGE, IMAGE_ICON, Cast (LPARAM, ImageList_GetIcon (ah.hmnuiml, 1, ILD_NORMAL))
+			SendDlgItemMessage hWin, IDC_BTNACTIVE, BM_SETIMAGE, IMAGE_ICON, Cast (LPARAM, ImageList_GetIcon (ah.hmnuiml, 0, ILD_NORMAL))
+
 			' Themes
 			SendDlgItemMessage(hWin,IDC_CBOTHEME,CB_ADDSTRING,0,Cast(Integer,StrPtr("New Theme")))
 			nInx=0
@@ -762,7 +774,7 @@ Function KeyWordsDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As
 			nInx=GetPrivateProfileInt(StrPtr("Theme"),StrPtr("Current"),1,@ad.IniFile)
 			SendDlgItemMessage(hWin,IDC_CBOTHEME,CB_SETCURSEL,nInx,0)
 			SendDlgItemMessage(hWin,IDC_CBOTHEME,CB_GETLBTEXT,nInx,Cast(Integer,@sItem))
-			SendDlgItemMessage(hWin,IDC_EDTTHEME,WM_SETTEXT,0,Cast(Integer,@sItem))
+			SetDlgItemText hWin, IDC_EDTTHEME, @sItem
 
 			' Keywords
     	    For i = 0 To 21
@@ -913,17 +925,15 @@ Function KeyWordsDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As
 				nInx=nInx+1
 			Loop
 			SendDlgItemMessage(hWin,IDC_LSTKWCOLORS,LB_SETCURSEL,0,0)
-			SetDlgItemText(hWin,IDC_EDTCODEFILES,@sCodeFiles)
+			SetDlgItemText(hWin,IDC_EDTCODEFILES,@CodeFiles)
+			SetDlgItemText(hWin,IDC_EDTOPENEXTERN,@OpenExternFiles)
 			FillList(hWin)
 			FillHold(hWin)
 			EnableWindow(hBtnApply,FALSE)
-			'
-		Case WM_CLOSE
-			EndDialog(hWin, 0)
-			'
+
 		Case WM_COMMAND
-			id=LoWord(wParam)
-			Event=HiWord(wParam)
+			id = LoWord (wParam)
+			Event = HiWord (wParam)
 			Select Case Event
 				Case BN_CLICKED
 					Select Case id
@@ -963,7 +973,7 @@ Function KeyWordsDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As
 							'
 						Case IDC_BTNHOLD
 							nInx=0
-							Do While TRUE
+							Do
 								col=SendDlgItemMessage(hWin,IDC_LSTKWACTIVE,LB_GETSEL,nInx,0)
 								If col=LB_ERR Then
 									Exit Do
@@ -987,7 +997,7 @@ Function KeyWordsDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As
 							'
 						Case IDC_BTNDEL
 							nInx=0
-							Do While TRUE
+							Do
 								col=SendDlgItemMessage(hWin,IDC_LSTKWACTIVE,LB_GETSEL,nInx,0)
 								If col=LB_ERR Then
 									Exit Do
@@ -1095,9 +1105,10 @@ Function KeyWordsDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As
 					'
 				Case EN_CHANGE
 					Select Case id
-					    Case IDC_EDTTABSIZE       , _
-					         IDC_EDTEXTRALINESPACE, _
-					         IDC_EDTBACKUP        , _
+					    Case IDC_EDTTABSIZE        , _
+					         IDC_EDTEXTRALINESPACE , _
+					         IDC_EDTBACKUP         , _
+					         IDC_EDTOPENEXTERN     , _
 					         IDC_EDTCODEFILES
 							EnableWindow hBtnApply, TRUE
 							'
@@ -1106,7 +1117,25 @@ Function KeyWordsDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As
 							EnableWindow(hCtl,GetDlgItemText(hWin,IDC_EDTKW,@buff,32))
 							'
 					End Select
-					'
+
+			    Case EN_KILLFOCUS 
+			        Select Case id
+        			Case IDC_EDTOPENEXTERN
+        			    GetDlgItemText hWin, IDC_EDTOPENEXTERN, @buff, SizeOf (OpenExternFiles)
+        		        Success = FormatDEVStr (buff, SizeOf (OpenExternFiles))
+                     	If Success = FALSE Then
+                            TextToOutput "*** invalid extension list ***", MB_ICONASTERISK
+                     	EndIf
+               			SetDlgItemText hWin, IDC_EDTOPENEXTERN, @buff
+			        Case IDC_EDTCODEFILES
+        			    GetDlgItemText hWin, IDC_EDTCODEFILES, @buff, SizeOf (CodeFiles)
+        		        Success = FormatDEVStr (buff, SizeOf (CodeFiles))
+                     	If Success = FALSE Then
+                            TextToOutput "*** invalid extension list ***", MB_ICONASTERISK
+                     	EndIf
+               			SetDlgItemText hWin, IDC_EDTCODEFILES, @buff
+			        End Select
+	
 				Case LBN_SELCHANGE
 					Select Case id
 						Case IDC_LSTKWCOLORS
@@ -1135,7 +1164,7 @@ Function KeyWordsDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As
 							EnableDlgItem(hWin,IDC_BTNSAVETHEME,x)
 							EnableDlgItem(hWin,IDC_EDTTHEME,x)
 							SendDlgItemMessage(hWin,IDC_CBOTHEME,CB_GETLBTEXT,nInx,Cast(Integer,@sItem))
-							SendDlgItemMessage(hWin,IDC_EDTTHEME,WM_SETTEXT,0,Cast(Integer,@sItem))
+							SetDlgItemText hWin, IDC_EDTTHEME, @sItem
 							If nInx Then
 								GetTheme(hWin,nInx)
 								EnableWindow(hBtnApply,TRUE)
@@ -1284,17 +1313,19 @@ Function KeyWordsDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As
 				Return FALSE
 			EndIf
 			'
-		Case WM_CLOSE
-			DeleteObject(hCFont)
-			DeleteObject(hLFont)
-			DeleteObject(hTFont)
+	    Case WM_CLOSE
+			DeleteObject hCFont
+			DeleteObject hLFont
+			DeleteObject hTFont
 			DeleteObject hOFont
-			EndDialog(hWin, 0)
+
+			EndDialog hWin, 0
 			'
 		Case Else
 			Return FALSE
 			'
 	End Select
+	
 	Return TRUE
 
 End Function

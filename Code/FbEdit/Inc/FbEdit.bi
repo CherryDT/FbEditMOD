@@ -42,11 +42,13 @@ Common Shared hIcon               As HICON
 Common Shared nLastLine           As Integer
 Common Shared nLastSize           As Integer
 Common Shared nCaretPos           As Integer
-Common Shared buff                As ZString * 20 * 1024
-Common Shared s                   As ZString * 20 * 1024
-Common Shared CommandLine         As ZString Ptr
+Common Shared buff                As ZString * (32 * 1024)
+Common Shared s                   As ZString * (32 * 1024)
+Common Shared pCommandLine        As ZString Ptr
 Common Shared ApiFiles            As ZString * 260
 Common Shared DefApiFiles         As ZString * 260
+Common Shared CodeFiles           As ZString * 260                      ' CodeFiles      : LCASE p.def. - forced on every I/O 
+Common Shared OpenExternFiles     As ZString * 260                      ' OpenExternFiles: LCASE p.def. - forced on every I/O 
 
 Common Shared fTimer              As Integer
 'Common Shared fChangeNotification As Integer

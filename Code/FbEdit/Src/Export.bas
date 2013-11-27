@@ -251,10 +251,10 @@ Function ExportDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPA
 	
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_DLGEXPORT)
+			TranslateDialog(hWin,IDD_DLG_EXPORT)
 			PropertyButton = SendMessage (ah.hpr, PRM_GETSELBUTTON, 0, 0)    ' numbered base 1
 			buff = "Scope: " + GetInternalString(IS_RAPROPERTY1 + PropertyButton - 1)
-			SendDlgItemMessage hWin, IDC_STC_SCOPE, WM_SETTEXT, 0, Cast (LPARAM, @buff)
+			SetDlgItemText hWin, IDC_STC_SCOPE, buff
 			'
 		Case WM_CLOSE
 			EndDialog(hWin, 0)

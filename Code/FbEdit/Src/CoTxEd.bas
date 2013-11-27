@@ -451,7 +451,9 @@ Sub CaseConvert(ByVal hWin As HWND)
 	Dim nCount As Integer
 
 	hCur=GetCursor
-	SetCursor(LoadCursor(0,IDC_WAIT))
+    ShowCursor FALSE
+	SetCursor(LoadCursor(NULL,IDC_WAIT))
+	ShowCursor TRUE 
 	SendMessage(hWin,REM_SETCHARTAB,Asc("."),CT_CHAR)
 	hMem=Cast(HGLOBAL,SendMessage(ah.hpr,PRM_GETSORTEDLIST,Cast(WPARAM,@szCaseConvert),Cast(LPARAM,@nCount)))
 	SendMessage(hWin,EM_EXGETSEL,0,Cast(LPARAM,@chrg))
@@ -476,8 +478,9 @@ Sub CaseConvert(ByVal hWin As HWND)
 	SendMessage(hWin,REM_REPAINT,0,0)
 	GlobalFree(hMem)
 	SendMessage(hWin,EM_SETMODIFY,TRUE,0)
+	ShowCursor FALSE
 	SetCursor(hCur)
-
+    ShowCursor TRUE 
 End Sub
 
 Function GetIndent(ByVal hWin As HWND,ByVal ln As Integer,ByVal lpszBlockSt As ZString Ptr,ByVal lpErr As Integer Ptr) As String
@@ -627,7 +630,9 @@ Sub FormatIndent(ByVal hWin As HWND)
 	' Indent / Outdent
 	lstpos.fnohandling=1
 	hCur=GetCursor
-	SetCursor(LoadCursor(0,IDC_WAIT))
+    ShowCursor FALSE
+	SetCursor(LoadCursor(NULL,IDC_WAIT))
+	ShowCursor TRUE
 	SendMessage(hWin,WM_SETREDRAW,FALSE,0)
 	lntop=SendMessage(hWin,EM_GETFIRSTVISIBLELINE,0,0)
 	SendMessage(hWin,EM_EXGETSEL,0,Cast(LPARAM,@chrg))
@@ -690,7 +695,9 @@ Sub FormatIndent(ByVal hWin As HWND)
 	SendMessage(hWin,WM_SETREDRAW,TRUE,0)
 	SendMessage(hWin,REM_REPAINT,0,0)
 	SendMessage(hWin,EM_SCROLLCARET,0,0)
+	ShowCursor FALSE
 	SetCursor(hCur)
+	ShowCursor TRUE 
 	lstpos.fnohandling=0
 
 End Sub
@@ -892,6 +899,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 	Dim Path   As ZString * MAX_PATH 
 	Dim i As Integer
 	Dim fnoret As Integer
+    Dim hPrevCur As HCURSOR = Any
 	Static OldPt          As Point
 	Static LButtonUPCount As UInteger
 	Static TimerRunning   As UINT
@@ -1469,19 +1477,28 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 			EndIf
 		Case WM_CONTEXTMENU
 			If CallAddins(hWin,AIM_CONTEXTMEMU,wParam,lParam,HOOK_CONTEXTMEMU)=FALSE Then
-				If lParam=-1 Then     ' context menu called by keyboard
-					GetCaretPos(@pt)
-					ClientToScreen(hWin,@pt)
-					pt.x=pt.x+10
-				Else                  ' context menu called by R-button-click 
-					pt.x=Cast(Short,LoWord(lParam))
-					pt.y=Cast(Short,HiWord(lParam))
-				EndIf
-				hMnu=GetMenu(ah.hwnd)
-				hMnu=GetSubMenu(hMnu,1)
-				TrackPopupMenu(hMnu,TPM_LEFTALIGN Or TPM_RIGHTBUTTON,pt.x,pt.y,0,ah.hwnd,0)
+		    	If lParam = -1 Then               ' context menu called by keyboard
+					GetCaretPos @pt
+					ClientToScreen Cast (HWND, wParam), @pt
+					pt.x += 10
+		    	Else                              ' context menu called by R-button-click
+					pt.x = LoWord (lParam)
+					pt.y = HiWord (lParam)
+		    	EndIf
+				    
+				hMnu = GetSubMenu (GetMenu (ah.hwnd), 1)
+				
+				ShowCursor FALSE
+    			hPrevCur = SetCursor (LoadCursor (NULL, IDC_ARROW))
+				ShowCursor TRUE
+				TrackPopupMenu hMnu, TPM_LEFTALIGN Or TPM_RIGHTBUTTON, pt.x, pt.y, 0, ah.hwnd, 0
+				ShowCursor FALSE
+				SetCursor hPrevCur
+				ShowCursor TRUE 
+				
+				Return 0
 			EndIf
-			Return 0
+			
 		Case WM_LBUTTONDOWN
 			'Print "CoTxEdProc:WM_LBUTTONDOWN" 
 			mdn=GetKeyState(VK_CONTROL) And &H80

@@ -28,11 +28,11 @@ End Type
 
 
 'TabOptions.dlg
-#Define IDD_TABOPTIONS						2000
+#Define IDD_DLG_RESEDOPTION					2000
 #Define IDC_TABOPT							2001
 
 'TabOpt1.dlg
-#Define IDD_TABOPT1							2100
+#Define IDD_DLG_RESEDOPTION_TAB1			2100
 #Define IDC_RBNEXPOPT1						2101
 #Define IDC_RBNEXPOPT2						2102
 #Define IDC_EDTEXPOPT						2113
@@ -44,15 +44,15 @@ End Type
 #Define IDC_RBNEXPOPT4						2104
 
 'TabOpt2.dlg
-#Define IDD_TABOPT2							2200
+#Define IDD_DLG_RESEDOPTION_TAB2	    	2200
 #Define IDC_BTNCUSTDEL						2205
 #Define IDC_BTNCUSTADD						2204
 #Define IDC_GRDCUST							2201
 
 'TabOpt3.dlg
-#Define IDD_TABOPT3							2300
+#Define IDD_DLG_RESEDOPTION_TAB3			2300
 #Define IDC_EDTY							4005
-#Define IDC_EDTX							4008
+#Define IDC_EDTX						    4008
 #Define IDC_CHKSNAPGRID						4002
 #Define IDC_CHKSHOWGRID						4003
 #Define IDC_UDNY							4004
@@ -66,13 +66,13 @@ End Type
 #Define IDC_CHKDEFSTATIC					4013
 
 'TabOpt4.dlg
-#Define IDD_TABOPT4							2400
+#Define IDD_DLG_RESEDOPTION_TAB4			2400
 #Define IDC_BTNSTYLEADD						2402
 #Define IDC_BTNSTYLEDEL						2401
 #Define IDC_GRDSTYLE						2403
 
 'TabOpt5.dlg
-#Define IDD_TABOPT5							2410
+#Define IDD_DLG_RESEDOPTION_TAB5			2410
 #Define IDC_BTNTYPEADD						2502
 #Define IDC_BTNTYPEDEL						2501
 #Define IDC_GRDTYPE							2503

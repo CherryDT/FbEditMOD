@@ -44,9 +44,7 @@
       
       
     - statusbar DBLCLK: Sub/Func-name setzt aktuelles Item in Property functions 
-                        LIN/BLK Toggle
-                        INS/OVR Toggle
-     
+
                         
     - FindDeclare findet keine Enums / Locals / Types
 
@@ -103,9 +101,6 @@
            
     - Split-Editor-Mode AND BLK-Mode: Cursor hinterlässt beim Fensterwechsel Caretreste
     
-
-    - find (all-project-files) öffnet projectfiles im BG-TEXT-MODE und bringt die Propertyauflistung durcheinander
-
 
     - falsche properties für:
             sub test (x as string = "xyz", y as integer)

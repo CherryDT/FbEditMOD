@@ -55,17 +55,17 @@ Function HexFindDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WP
 
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_HEXFINDDLG)
+			TranslateDialog(hWin,IDD_DLG_HEXFIND)
 			findvisible=hWin
 			SetWindowPos(hWin,0,wpos.ptfind.x,wpos.ptfind.y,0,0,SWP_NOSIZE)
 			If lParam Then
 				PostMessage(hWin,WM_COMMAND,MAKEWPARAM(IDC_HEXBTN_REPLACE,BN_CLICKED),0)
 			EndIf
 			' Put text in edit boxes
-			SendDlgItemMessage(hWin,IDC_HEXFINDTEXT,EM_LIMITTEXT,255,0)
-			SendDlgItemMessage(hWin,IDC_HEXFINDTEXT,WM_SETTEXT,0,Cast(LPARAM,@hexfindbuff))
-			SendDlgItemMessage(hWin,IDC_HEXREPLACETEXT,EM_LIMITTEXT,255,0)
-			SendDlgItemMessage(hWin,IDC_HEXREPLACETEXT,WM_SETTEXT,0,Cast(LPARAM,@hexreplacebuff))
+			SendDlgItemMessage hWin, IDC_HEXFINDTEXT   , EM_LIMITTEXT, SizeOf (hexfindbuff)   , 0
+			SendDlgItemMessage hWin, IDC_HEXREPLACETEXT, EM_LIMITTEXT, SizeOf (hexreplacebuff), 0
+			SetDlgItemText hWin, IDC_HEXFINDTEXT   , @hexfindbuff
+			SetDlgItemText hWin, IDC_HEXREPLACETEXT, @hexreplacebuff
 			' Set find type
 			If frhex And FR_HEX Then
 				CheckDlgButton(hWin,IDC_HEXRBN_HEX,BST_CHECKED)
@@ -149,13 +149,14 @@ Function HexFindDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WP
 				'
 			ElseIf Event=EN_CHANGE Then
 				' Update text buffers
-				If id=IDC_HEXFINDTEXT Then
-					SendDlgItemMessage(hWin,id,WM_GETTEXT,SizeOf(hexfindbuff),Cast(LPARAM,@hexfindbuff))
-					freshex=-1
-				ElseIf id=IDC_HEXREPLACETEXT Then
-					SendDlgItemMessage(hWin,id,WM_GETTEXT,SizeOf(hexreplacebuff),Cast(LPARAM,@hexreplacebuff))
-					freshex=-1
-				EndIf
+				Select Case id
+				Case IDC_HEXFINDTEXT 
+					GetDlgItemText hWin, id, @hexfindbuff, SizeOf (hexfindbuff)
+					freshex = -1
+				Case IDC_HEXREPLACETEXT
+					GetDlgItemText hWin, id, @hexreplacebuff, SizeOf (hexreplacebuff)
+					freshex = -1
+				End Select 
 			EndIf
 			'
 		Case WM_CLOSE

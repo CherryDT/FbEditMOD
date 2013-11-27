@@ -130,9 +130,9 @@ FbEditMOD 1.0.7.8
         MENUITEM exports MenuItemId explicitly (i.e. as 0 if empty)
         needed for windres (FreeBASIC MinGW edition)
 
-      - windres (FreeBASIC MinGW edition) build errors are recognized
+     - windres (FreeBASIC MinGW edition) build errors are recognized
 
-      - [Format]->[Custom Filter]
+     - [Format]->[Custom Filter]
         Custom Filters are simple console programs written in Freebasic or something else,
         compiled to exes and located to ...\FbEdit\CustomFilter\
         where they can be found by FbEdit encountered into submenu [Custom Filter]
@@ -142,7 +142,14 @@ FbEditMOD 1.0.7.8
         FbEdit pipes only selected text to STDIN, so selection has to be done before using an
         sub menu entry
 
+     - [Options]->[Code Editor]
+        there is a two new editboxes for lists of extensions
+        Open Extern: these files are opened with shellexecute by default
+        Code Files : these files are loaded into code editors by default
 
+     - [Edit]->[Find]
+        there is a new editbox for a list of extensions
+        Load For Project Search: these files are loaded during project wide searches
 
 
       *** incomplete ***

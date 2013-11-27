@@ -37,7 +37,7 @@ Function TabOpt1Proc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 	
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_TABOPT1)
+			TranslateDialog(hWin,IDD_DLG_RESEDOPTION_TAB1)
 			CheckRadioButton(hWin,IDC_RBNEXPOPT1,IDC_RBNEXPOPT4,IDC_RBNEXPOPT1+nmeexp.nType)
 			CheckRadioButton(hWin,IDC_RBNEXPORTFILE,IDC_RBNEXPORTOUT,IDC_RBNEXPORTFILE+nmeexp.nOutput)
 			SendDlgItemMessage(hWin,IDC_EDTEXPOPT,EM_LIMITTEXT,MAX_PATH,0)
@@ -67,7 +67,7 @@ Function TabOpt2Proc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_TABOPT2)
+			TranslateDialog(hWin,IDD_DLG_RESEDOPTION_TAB2)
 			hGrd=GetDlgItem(hWin,IDC_GRDCUST)
 			SendMessage(hGrd,WM_SETFONT,SendMessage(hWin,WM_GETFONT,0,0),FALSE)
 			SendMessage hGrd, GM_SETHDRHEIGHT, 0, 22
@@ -182,7 +182,7 @@ Function TabOpt3Proc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_TABOPT3)
+			TranslateDialog(hWin,IDD_DLG_RESEDOPTION_TAB3)
 			SendDlgItemMessage(hWin,IDC_UDNX,UDM_SETRANGE,0,&H00010014)	' Set range
 			SendDlgItemMessage(hWin,IDC_UDNX,UDM_SETPOS,0,grdsize.x)		' Set default value
 			SendDlgItemMessage(hWin,IDC_UDNY,UDM_SETRANGE,0,&H00010014)	' Set range
@@ -243,7 +243,7 @@ Function TabOpt4Proc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_TABOPT4)
+			TranslateDialog(hWin,IDD_DLG_RESEDOPTION_TAB4)
 			hGrd=GetDlgItem(hWin,IDC_GRDSTYLE)
 			SendMessage(hGrd,WM_SETFONT,SendMessage(hWin,WM_GETFONT,0,0),FALSE)
             SendMessage hGrd, GM_SETHDRHEIGHT, 0, 22
@@ -361,7 +361,7 @@ Function TabOpt5Proc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_TABOPT5)
+			TranslateDialog(hWin,IDD_DLG_RESEDOPTION_TAB5)
 			hGrd=GetDlgItem(hWin,IDC_GRDTYPE)
 			SendMessage(hGrd,WM_SETFONT,SendMessage(hWin,WM_GETFONT,0,0),FALSE)
 			SendMessage hGrd, GM_SETHDRHEIGHT, 0, 22
@@ -562,7 +562,7 @@ Function TabOptionsProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WP
 
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_TABOPTIONS)
+			TranslateDialog(hWin,IDD_DLG_RESEDOPTION)
 			CenterOwner(hWin)
 			grdcol=grdsize.color
 			hGrdBr=CreateSolidBrush(grdcol)
@@ -587,11 +587,11 @@ Function TabOptionsProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WP
 			ts.pszText=StrPtr(buff)
 			SendMessage(hTabOpt,TCM_INSERTITEM,4,Cast(Integer,@ts))
 			' Create the tab dialogs
-			hTabDlg(0) = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_TABOPT1), hTabOpt, @TabOpt1Proc)  ' Name Export  
-			hTabDlg(1) = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_TABOPT3), hTabOpt, @TabOpt3Proc)  ' Grid Options
-			hTabDlg(2) = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_TABOPT2), hTabOpt, @TabOpt2Proc)  ' Custom Controls
-			hTabDlg(3) = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_TABOPT4), hTabOpt, @TabOpt4Proc)  ' Custom Styles
-			hTabDlg(4) = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_TABOPT5), hTabOpt, @TabOpt5Proc)  ' Resource Types
+			hTabDlg(0) = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLG_RESEDOPTION_TAB1), hTabOpt, @TabOpt1Proc)  ' Name Export  
+			hTabDlg(1) = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLG_RESEDOPTION_TAB3), hTabOpt, @TabOpt3Proc)  ' Grid Options
+			hTabDlg(2) = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLG_RESEDOPTION_TAB2), hTabOpt, @TabOpt2Proc)  ' Custom Controls
+			hTabDlg(3) = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLG_RESEDOPTION_TAB4), hTabOpt, @TabOpt4Proc)  ' Custom Styles
+			hTabDlg(4) = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLG_RESEDOPTION_TAB5), hTabOpt, @TabOpt5Proc)  ' Resource Types
 			SelTab=0
 			'
 		Case WM_NOTIFY

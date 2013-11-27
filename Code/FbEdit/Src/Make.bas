@@ -925,7 +925,7 @@ Function CompileModules () As Integer
 	If edtopt.autosave Then
 		SaveErr = SaveAllTabs ()                     
 	Else
-		SaveErr = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLGSAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_ALLFILES)
+		SaveErr = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_SAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_ALLFILES)
 	EndIf
 
 	If SaveErr Then
@@ -1044,7 +1044,7 @@ Function Compile (ByRef sMake As zString) As Integer
 	If edtopt.autosave Then
 		SaveErr = SaveAllTabs ()                        ' MOD 2.1.2012   bm=SaveAllFiles(ah.hwnd)
 	Else
-		SaveErr = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLGSAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_ALLFILES)
+		SaveErr = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_SAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_ALLFILES)
 	EndIf
 	
 	If SaveErr Then

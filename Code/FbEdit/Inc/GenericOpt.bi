@@ -20,4 +20,4 @@ End Enum
 
 
 
-#Define IDD_DLGOPTMNU		     3200
+#Define IDD_DLG_GENERICOPTION		     3200

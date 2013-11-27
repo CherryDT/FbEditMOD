@@ -269,31 +269,32 @@ End Sub
 
 Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
 	
-	Dim id         As Long 
-	Dim EVENT      As Long 
-	Dim nInx       As Integer
-	Dim x          As Integer
-	Dim sItem      As GOD_EntryName
-	Dim sCmd       As GOD_EntryData
-	Dim CmdLine    As ZString * (32 * 1024)
-	Dim ArgList    As ZString * MAX_PATH
-	Dim pBuff      As ZString Ptr 
-	Dim ofn        As OPENFILENAME
-    Dim Rect1      As RECT          = Any 
-    Dim Rect2      As RECT          = Any
-    Dim i          As Integer       = Any 
-    Dim Success    As BOOL          = Any 
+	Dim id      As Long 
+	Dim Event   As Long 
+	Dim nInx    As Integer
+	Dim nMax    As Integer 
+	Dim x       As Integer
+	Dim sItem   As GOD_EntryName
+	Dim sCmd    As GOD_EntryData
+	Dim CmdLine As ZString * (32 * 1024)
+	Dim ArgList As ZString * MAX_PATH
+	Dim pBuff   As ZString Ptr 
+	Dim ofn     As OPENFILENAME
+    Dim i       As Integer               = Any 
+    Dim n       As Integer               = Any 
+    Dim Success As BOOL                  = Any 
+    Dim TabStop As Const Integer         = 140     ' separates name and command (istbox width)  
            
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_DLGOPTMNU)
+			TranslateDialog(hWin,IDD_DLG_GENERICOPTION)
 			CenterOwner(hWin)
-			SendDlgItemMessage(hWin,IDC_EDT_ITEMNAME,EM_LIMITTEXT,SizeOf(sItem),0)
-			SendDlgItemMessage(hWin,IDC_EDT_CMDLINE,EM_LIMITTEXT,SizeOf(sCmd),0)
-			nInx=120
-			SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_SETTABSTOPS,1,Cast(Integer,@nInx))
-			SendDlgItemMessage(hWin,IDC_BTN_UP,BM_SETIMAGE,IMAGE_ICON,Cast(Integer,ImageList_GetIcon(ah.hmnuiml,2,ILD_NORMAL)))
-			SendDlgItemMessage(hWin,IDC_BTN_DOWN,BM_SETIMAGE,IMAGE_ICON,Cast(Integer,ImageList_GetIcon(ah.hmnuiml,3,ILD_NORMAL)))
+			SendDlgItemMessage hWin, IDC_EDT_ITEMNAME, EM_LIMITTEXT, SizeOf (sItem), 0
+			SendDlgItemMessage hWin, IDC_EDT_CMDLINE,  EM_LIMITTEXT, SizeOf (sCmd) , 0
+    		SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_SETTABSTOPS, 1, Cast (LPARAM, @TabStop)
+    		
+			SendDlgItemMessage hWin, IDC_BTN_UP  , BM_SETIMAGE, IMAGE_ICON, Cast (LPARAM, ImageList_GetIcon (ah.hmnuiml, 2, ILD_NORMAL))
+			SendDlgItemMessage hWin, IDC_BTN_DOWN, BM_SETIMAGE, IMAGE_ICON, Cast (LPARAM, ImageList_GetIcon (ah.hmnuiml, 3, ILD_NORMAL))
 			nType = lParam
 			Select Case nType
 			Case GODM_ToolsMenu 
@@ -316,9 +317,7 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 				EnableDlgItem(hWin,IDC_BTN_EXPLORE,FALSE)
 			Case GODM_RegExLib 
 			    buff = GetInternalString (IS_REGEX_LIB)
-   				ShowDlgItem (hWin, IDC_BTN_EXPLORE, SW_HIDE)          ' remove explore button and reuse freed space
- 			    GetWindowRect GetDlgItem (hWin, IDC_EDT_ITEMNAME), @Rect1       
-		        SetWindowPos GetDlgItem (hWin, IDC_EDT_CMDLINE), HWND_TOP, 0, 0, Rect1.right - Rect1.left, Rect1.bottom - Rect1.top, SWP_NOMOVE Or SWP_NOACTIVATE
+   				ShowDlgItem (hWin, IDC_BTN_EXPLORE, SW_HIDE)          ' remove explore button
 			Case GODM_MakeOptModule
 				buff=GetInternalString(IS_MODULE_BUILD_OPTIONS)
 				ShowDlgItem (hWin, IDC_BTN_IMPORT, SW_SHOW)
@@ -365,15 +364,15 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 			EndDialog hWin, 0
 			'
 		Case WM_COMMAND
-			id=LoWord(wParam)
-			Event=HiWord(wParam)
+			id    = LoWord (wParam)
+			Event = HiWord (wParam)
 			Select Case Event
 				Case BN_CLICKED
 					Select Case id
 						Case IDOK
 							GenericOptSave hWin
-							nInx = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCURSEL, 0, 0)
-							EndDialog hWin, nInx + 1
+							i = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCURSEL, 0, 0)
+							EndDialog hWin, i + 1
 							'Select Case nType
 							'Case GODM_MakeOptImport
 							'	nInx=SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_GETCURSEL,0,0)
@@ -392,39 +391,40 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
                 			EndDialog hWin, 0
 							'
 					    Case IDC_BTN_UP
-							nInx=SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_GETCURSEL,0,0)
-							If nInx>0 Then
-								SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_GETTEXT,nInx,Cast(Integer,@buff))
-								SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_DELETESTRING,nInx,0)
-								nInx=nInx-1
-								SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_INSERTSTRING,nInx,Cast(Integer,@buff))
-								SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_SETCURSEL,nInx,0)
+							i = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCURSEL, 0, 0)
+							If i > 0 Then
+								SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_GETTEXT, i, Cast (LPARAM, @buff)
+								SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_DELETESTRING, i, 0
+								i -= 1
+								SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_INSERTSTRING, i, Cast (LPARAM, @buff)
+								SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_SETCURSEL, i, 0
 							EndIf
 							'
 					    Case IDC_BTN_DOWN
-							nInx=SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_GETCURSEL,0,0)
-							If SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_GETCOUNT,0,0)-1<>nInx Then
-								SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_GETTEXT,nInx,Cast(Integer,@buff))
-								SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_DELETESTRING,nInx,0)
-								nInx=nInx+1
-								SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_INSERTSTRING,nInx,Cast(Integer,@buff))
-								SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_SETCURSEL,nInx,0)
+							i = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCURSEL, 0, 0)
+							n = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCOUNT , 0, 0)
+							If i < (n - 1) Then
+								SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_GETTEXT, i, Cast (LPARAM, @buff)
+								SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_DELETESTRING, i, 0
+								i += 1
+								SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_INSERTSTRING, i, Cast (LPARAM, @buff)
+								SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_SETCURSEL, i, 0
 							EndIf
 							'
 					    Case IDC_BTN_IMPORT
-							i = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCOUNT, 0, 0)
-							If i < GOD_MaxItems Then 
-    							x=nType
-    							nInx = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLGOPTMNU), hWin, @GenericOptDlgProc, GODM_MakeOptImport)
-    							nType=x
-    							If nInx Then
-    								GetPrivateProfileString(StrPtr("Make"),Str(nInx),NULL,@buff,GOD_EntrySize,@ad.IniFile)
+							n = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCOUNT, 0, 0)
+							If n < GOD_MaxItems Then  
+    							x = nType
+    							i = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_GENERICOPTION), hWin, @GenericOptDlgProc, GODM_MakeOptImport)
+    							nType = x
+							    If i Then 
+    								GetPrivateProfileString @"Make", Str (i), NULL, @buff, GOD_EntrySize, @ad.IniFile
 									ReplaceChar1stHit buff, Asc (","), VK_TAB
-    								nInx=SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_GETCURSEL,0,0)
-    								If nInx = LB_ERR Then nInx = 0
-    								SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_INSERTSTRING,nInx,Cast(Integer,@buff))
-    								SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_SETCURSEL,nInx,0)
-    								EditUpdate(hWin)
+    								i = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCURSEL, 0, 0)
+    								If i = LB_ERR Then i = 0
+    								SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_INSERTSTRING, i, Cast (LPARAM, @buff)
+    								SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_SETCURSEL, i, 0
+    								EditUpdate hWin
     							EndIf
 							Else
 							    TextToOutput "*** no more space ***", &hFFFFFFFF
@@ -445,14 +445,14 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 							'
 					    Case IDC_BTN_DELETE
 							EditSet hWin, @"", @""
-							nInx=SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_GETCURSEL,0,0)
-							If nInx<>LB_ERR Then
-								SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_DELETESTRING,nInx,0)
-							If SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_SETCURSEL,nInx,0)=LB_ERR Then
-									nInx=nInx-1
-									SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_SETCURSEL,nInx,0)
+							i = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCURSEL, 0, 0)
+							If i <> LB_ERR Then
+								SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_DELETESTRING, i, 0
+							    If SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_SETCURSEL, i, 0) = LB_ERR Then
+									i -= 1
+									SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_SETCURSEL, i, 0
 								EndIf
-								EditUpdate(hWin)
+								EditUpdate hWin
 							EndIf
 							'
 					    Case IDC_BTN_EXPLORE

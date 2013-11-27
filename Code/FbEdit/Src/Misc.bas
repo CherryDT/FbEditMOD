@@ -139,7 +139,8 @@ Function ShellExecuteUI (ByVal hWindow     As HWND, _
                           ByVal pFileSpec   As ZString Ptr, _
                           ByVal pParameters As ZString Ptr, _
                           ByVal pWorkDir    As ZString Ptr, _
-                          ByVal ShowCmd     As Integer) As BOOL
+                          ByVal ShowCmd     As Integer      _
+                        ) As BOOL
 
     Dim pErrText  As ZString Ptr   = Any 
     Dim ExitCode  As Integer       = Any 

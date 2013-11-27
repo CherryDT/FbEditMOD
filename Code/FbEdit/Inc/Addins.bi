@@ -7,7 +7,7 @@
 #Define IDC_HEXED							1300	' Hex editor
 #Define IDC_TEXTED                          1400    ' Text editor
 
-#Define IDD_DLGADDINMANAGER                 6100
+#Define IDD_DLG_ADDINMANAGER                6100
 #Define IDC_LSTADDINS                       1001
 #Define IDC_ADDINHELP                       1002
 
@@ -22,7 +22,7 @@ Enum FileOpenMode           ' MOD 5.2.2012 ADD File Open Modes
     FOM_STD = 0 
     FOM_HEX 
     FOM_TXT
-    FOM_TXT_BG              ' create/update Tab, dont select
+    FOM_BG                  ' create/update Tab, dont select
 End Enum
  
 

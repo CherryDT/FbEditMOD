@@ -42,41 +42,34 @@ End Sub
 
 Sub FileMonitorProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal idEvent As UINT, ByVal dwTime As DWORD)
 
-	Dim tci   As TCITEM
-	Dim i     As Integer  = 0
-	Dim hFile As HANDLE   = Any 
-	Dim ft    As FILETIME = Any 
+	Dim tci      As TCITEM
+	Dim i        As Integer         = 0
+	Dim hFile    As HANDLE          = Any 
+	Dim ft       As FILETIME        = Any 
+    Dim buffer   As ZString  * 1024 = Any 
+    Dim ExitCode As Integer         = Any 
 
 	tci.mask = TCIF_PARAM
 	
-	'Print "FileMon:";idEvent;":";dwTime
+	'Print "FileMon:"; idEvent; ":"; dwTime
 	
 	Do
 		If SendMessage (ah.htabtool, TCM_GETITEM, i, Cast (LPARAM ,@tci)) Then
 			GetLastWriteTime pTABMEM->filename, @ft
-			'hFile = CreateFile (pTABMEM->filename, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL)
-			'If hFile <> INVALID_HANDLE_VALUE Then
-			'	GetFileTime hFile, NULL, NULL, @ft
-			'	CloseHandle hFile
-				If CompareFileTime (@ft, @pTABMEM->ft) > 0 Then
-					
-					FileMonitorStop
-					buff = pTABMEM->filename + CR + GetInternalString (IS_FILE_CHANGED_OUTSIDE_EDITOR) + CR + GetInternalString (IS_REOPEN_THE_FILE)
-					If MessageBox (ah.hwnd, @buff, @szAppName, MB_YESNO Or MB_ICONEXCLAMATION) = IDYES Then
-						ReadTheFile pTABMEM->hedit, pTABMEM->filename             ' Reload file
-						SetFileInfo pTABMEM->hedit, pTABMEM->filename
-					EndIf
-                                        
-                    GetLastWriteTime pTABMEM->filename, @pTABMEM->ft 
-					'hFile = CreateFile (pTABMEM->filename, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL)
-					'If hFile <> INVALID_HANDLE_VALUE Then
-					'	GetFileTime hFile, NULL, NULL, @ft
-					'	CloseHandle hFile
-					'EndIf
-					'pTABMEM->ft = ft
-				    FileMonitorStart
+			If CompareFileTime (@ft, @pTABMEM->ft) > 0 Then
+				
+				FileMonitorStop
+				buffer = pTABMEM->filename + CR + GetInternalString (IS_FILE_CHANGED_OUTSIDE_EDITOR) + CR + GetInternalString (IS_REOPEN_THE_FILE)
+				ExitCode = MessageBox (ah.hwnd, @buffer, @szAppName, MB_YESNO Or MB_ICONEXCLAMATION)
+
+				If ExitCode = IDYES Then
+					ReadTheFile pTABMEM->hedit, pTABMEM->filename             ' Reload file
+					SetFileInfo pTABMEM->hedit, pTABMEM->filename
 				EndIf
-			'EndIf
+                                    
+                GetLastWriteTime pTABMEM->filename, @pTABMEM->ft 
+			    FileMonitorStart
+			EndIf
 		Else
 			Exit Do
 		EndIf

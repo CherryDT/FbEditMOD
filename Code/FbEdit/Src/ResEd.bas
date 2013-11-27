@@ -120,7 +120,8 @@ Function ResEdProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,
 		Case EM_SETMODIFY
 			SendMessage(ah.hraresed,PRO_SETMODIFY,wParam,0)
 			'
-		Case EM_UNDO
+	    Case EM_UNDO
+	        'Print "ResEdProc: EM_UNDO"
 			SendMessage(ah.hraresed,DEM_UNDO,0,0)
 			'
 		Case EM_REDO
@@ -152,18 +153,18 @@ Function ResEdProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,
 			'
 		Case WM_CONTEXTMENU
 			If CallAddins(hWin,AIM_CONTEXTMEMU,wParam,lParam,HOOK_CONTEXTMEMU)=FALSE Then
-				If lParam=-1 Then
-					GetWindowRect(hWin,@rect)
-					pt.x=rect.left+90
-					pt.y=rect.top+90
-				Else
-					pt.x=Cast(Short,LoWord(lParam))
-					pt.y=Cast(Short,HiWord(lParam))
-				EndIf
-				hMnu=GetSubMenu(ah.hcontextmenu,4)
-				TrackPopupMenu(hMnu,TPM_LEFTALIGN Or TPM_RIGHTBUTTON,pt.x,pt.y,0,ah.hwnd,0)
+		    	If lParam = -1 Then               ' context menu called by keyboard
+					GetCursorPos @pt
+		    	Else                              ' context menu called by R-button-click
+					pt.x = LoWord (lParam)
+					pt.y = HiWord (lParam)
+		    	EndIf
+				
+				hMnu = GetSubMenu (ah.hcontextmenu, 4)
+				TrackPopupMenu hMnu, TPM_LEFTALIGN Or TPM_RIGHTBUTTON, pt.x, pt.y, 0, ah.hwnd, 0
+				Return 0
 			EndIf
-			'
+
 		Case WM_SHOWWINDOW
 			If ah.hfullscreen<>0 And fInUse=FALSE Then
 				fInUse=TRUE

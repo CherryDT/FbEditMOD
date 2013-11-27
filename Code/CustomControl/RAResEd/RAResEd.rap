@@ -154,14 +154,27 @@ Options=52
 5=0,0,0,0,9765
 3=0,0,0,0,582
 4=0,0,0,0,36
+<<<<<<< .mine
+1=0,0,718,485,38090
+7=0,0,718,485,76351
+6=0,0,0,0,12169
+9=0,0,718,485,85584
+=======
 1=0,0,718,485,38202
 7=0,0,718,485,76351
 6=0,0,0,0,4081
 9=0,0,718,485,85584
+>>>>>>> .r52
 2=0,0,584,498,6433
+<<<<<<< .mine
+8=0,0,0,0,4685
+10=0,0,0,0,13417
+16=0,0,718,485,18551
+=======
 8=0,0,0,0,4685
 10=0,0,0,0,13417
 16=0,0,718,485,13788
+>>>>>>> .r52
 15=0,0,0,0
 17=0,0,0,0,55440
 18=0,0,0,0,25034
@@ -203,6 +216,18 @@ Options=52
 
 
 [Find]
+<<<<<<< .mine
+1="','"
+2="GetProjectItemName"
+3="SetProjectItemName"
+4="PRO_setname"
+5="PRO_OPEN"
+6="todo"
+7="messagebox"
+8="PRO_SETEXPORT"
+9="ParseResource"
+10="pathcombine"
+=======
 1="','"
 2="'.'"
 3="mouse"
@@ -213,9 +238,14 @@ Options=52
 8="todo"
 9="messagebox"
 10="PRO_SETEXPORT"
+>>>>>>> .r52
 
 [AutoLoad]
+<<<<<<< .mine
+AutoLoad=39,3,26,25,16,9,8,51,10,17,7,1,5,2,18,13,43,28,21,24,36,35,22,37,42,33,27,6
+=======
 AutoLoad=39,3,26,25,16,9,8,51,10,17,7,1,5,2,18,13,43,28,21,24,36,35,22,37,42,33,27,30,6,29,34,32
+>>>>>>> .r52
 [VerInf]
 Nme=VERINF1
 ID=1
@@ -260,7 +290,11 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
+<<<<<<< .mine
+MilestoneOnDateDate=3
+=======
 MilestoneOnDateDate=30
+>>>>>>> .r52
 MilestoneOnDateTimeYear=2003
 MilestoneOnDateTimeMonth=10
 MilestoneOnDateTimeDate=16
@@ -359,7 +393,11 @@ Group=Assembly,Resources,Misc,Include
 36=
 51=,,
 [PTimer]
+<<<<<<< .mine
+PTimer=1636188673
+=======
 PTimer=1647308128
+>>>>>>> .r52
 
 [RADebugBP]
 34=

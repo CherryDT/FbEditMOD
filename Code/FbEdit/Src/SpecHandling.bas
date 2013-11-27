@@ -226,14 +226,14 @@ End Function
 Function GetFBEFileType (ByVal pFileSpec As ZString Ptr) As FBEFileType
 	
 	' MOD 11.1.2012
-	'sCodeFiles is LCASE p.def. - forced on file I/O
+	'CodeFiles is LCASE p.def. - forced on file I/O
 	
 	Dim i       As Integer            = Any
 	Dim FileExt As ZString * MAX_PATH = *PathFindExtension (pFileSpec)
 		
-	If FileExt[0] = 0 Then Return FBFT_UNKOWN
+	If IsZStrEmpty (FileExt) Then Return FBFT_UNKOWN
 	CharLower FileExt
-	If InZStr (0, sCodeFiles, FileExt + ".") >= 0 Then Return FBFT_CODE	
+	If InZStr (0, CodeFiles, FileExt + ".") >= 0 Then Return FBFT_CODE	
 	
 	Select Case FileExt
 	Case ".rc"   :   Return FBFT_RESOURCE
@@ -245,7 +245,7 @@ Function GetFBEFileType (ByVal pFileSpec As ZString Ptr) As FBEFileType
 
 	'Dim sItem As String
 	'sItem=GetFileExt(sFile) & "."
-	'If InStr(UCase(sCodeFiles),UCase(sItem)) Then
+	'If InStr(UCase(CodeFiles),UCase(sItem)) Then
 	'	Return 1
 	'ElseIf UCase(Right(sFile,3))=".RC" Then
 	'	Return 2
@@ -453,4 +453,32 @@ Sub CmdLineCombinePath (ByRef CmdLine      As ZString,    _         ' [IN/OUT] r
 	    ZStrCat @CmdLine, SizeOf (CmdLine), 2, @" ", @ArgList
 	EndIf
 
+End Sub
+
+Sub WeedOutSpec (ByRef FileSpec As ZString)
+
+    ' removes illegal chars from spec, removing is done inplace
+    ' [IN/OUT] FileSpec (has to be terminated by NULL)
+
+    Dim n As Integer = Any 
+    Dim i As Integer = Any
+
+    i = 0
+    n = 0
+    
+    Do                                ' remove illegal chars
+        If FileSpec[i] Then
+            If PathGetCharType (FileSpec[i]) And GCT_LFNCHAR Then
+                FileSpec[n] = FileSpec[i]
+                n += 1
+                i += 1
+            Else
+                i += 1
+            EndIf
+        Else
+            FileSpec[n] = NULL        ' terminating null
+            Exit Do
+        EndIf
+    Loop
+    
 End Sub

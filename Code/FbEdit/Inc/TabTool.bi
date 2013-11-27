@@ -57,6 +57,7 @@ Declare Function SaveSelectionDlgProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByV
 
 Declare Function CountCodeEdTabs () As Integer
 Declare Sub OpenTheFile (Byref FileSpec As ZString, ByVal OpenMode As FileOpenMode)
+Declare Function IsFileForOpenExtern (ByVal pFileSpec As ZString Ptr) As BOOL 
 Declare Function OpenFileExtern (ByRef FileSpec As ZString, ByVal OpenMode As FileOpenExternMode) As BOOL
 Declare Sub OpenAFile (ByVal OpenMode As FileOpenMode)                ' MOD 1.2.2012 OpenAFile(ByVal hWin As HWND,ByVal fHex As Boolean)
 Declare Sub OpenAProject ()                                           ' MOD 1.2.2012    OpenAProject(ByVal hWin As HWND) As Boolean
@@ -79,7 +80,7 @@ Declare Sub SelectTabByFileID (ByVal nInx As Integer)
 Declare Function TabToolProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer
 
 
-#Define IDD_DLGSAVESELECTION		5000
+#Define IDD_DLG_SAVESELECTION		5000
 #Define pTABMEM                     Cast (TABMEM Ptr, tci.lParam) 
 
 

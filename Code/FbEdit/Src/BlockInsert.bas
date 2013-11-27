@@ -18,20 +18,20 @@ Function BlockDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WP
 
 	Select Case uMsg
     	Case WM_INITDIALOG
-            TranslateDialog(hWin,IDD_BLOCKDLG)
+            TranslateDialog(hWin,IDD_DLG_BLOCK)
 			'
 	    Case WM_CLOSE
-	        EndDialog(hWin, 0)
+	        EndDialog hWin, 0
 			'
 		Case WM_COMMAND
-			Select Case LoWord(wParam)
+			Select Case LoWord (wParam)
 				Case IDOK
-					SendDlgItemMessage(hWin,IDC_EDTBLOCKINSERT,WM_GETTEXT,SizeOf(buff),Cast(Integer,@buff))
-					SendMessage(ah.hred,REM_BLOCKINSERT,0,Cast(Integer,@buff))
-					EndDialog(hWin, 0)
+					GetDlgItemText hWin, IDC_EDTBLOCKINSERT, @buff, SizeOf (buff)
+					SendMessage ah.hred, REM_BLOCKINSERT, 0, Cast (LPARAM, @buff)
+					EndDialog hWin, 0
 					'
 			    Case IDCANCEL
-			        EndDialog(hWin, 0)
+			        EndDialog hWin, 0
 					'
 			End Select
 		Case Else

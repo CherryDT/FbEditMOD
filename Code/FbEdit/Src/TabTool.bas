@@ -826,15 +826,13 @@ Sub SelectTabByWindow (ByVal hEdit As HWND)
 	EndIf 
 End Sub
 
-Sub SwitchTab()
+Sub SwitchTab ()
     
 	Dim n        As Integer    = Any 
-	Dim i        As Integer    = Any 
 	Dim tci      As TCITEM
 
 	n = SendMessage (ah.htabtool, TCM_GETITEMCOUNT, 0, 0)
 	If n > 1 Then
-		i = SendMessage (ah.htabtool, TCM_GETCURSEL, 0, 0)
 		tci.mask = TCIF_PARAM
 		If SendMessage (ah.htabtool, TCM_GETITEM, prevtab, Cast (LPARAM, @tci)) Then
 			SelectTabByWindow pTABMEM->hedit                  ' MOD 1.2.2012 removed ah.hwnd
@@ -864,33 +862,41 @@ Sub SetFileInfo (ByVal hWin As HWND, ByVal pFileSpec As ZString Ptr)
 
 End Sub
 
+Function IsFileForOpenExtern (ByVal pFileSpec As ZString Ptr) As BOOL 
+	
+	' OpenExternFiles is LCASE p.def. - forced on file I/O
+	
+	Dim FileExt As ZString * MAX_PATH = *PathFindExtension (pFileSpec)
+		
+	If IsZStrEmpty (FileExt) Then Return FALSE 
+	CharLower FileExt
+	
+	If InZStr (0, OpenExternFiles, FileExt + ".") >= 0 Then 
+	    Return TRUE
+	Else
+	    Return FALSE    
+	EndIf
+
+End Function
+
 Function OpenFileExtern (ByRef FileSpec As ZString, ByVal OpenMode As FileOpenExternMode) As BOOL
         
-    Dim FileExt    As ZString * MAX_PATH 
-    Dim QuotedSpec As ZString * MAX_PATH + 2
-    Dim sItem      As ZString * 512
-    Dim pErrText   As ZString Ptr            = Any 
-    Dim ExitCode   As Integer                = Any 
+    Dim QuotedSpec As ZString * MAX_PATH + 2 = Any 
+    Dim Success    As BOOL                   = Any 
     
     If IsZStrEmpty (Filespec) Then
         TextToOutput "*** error SHELLEXECUTE: empty filespec ***", MB_ICONHAND
         Return FALSE     
     EndIf
     
-    If OpenMode = FOEM_ONLYALLOWED Then
-        FileExt = *PathFindExtension (FileSpec)
-    		
-    	If IsZStrNotEmpty (FileExt) Then
-    		GetPrivateProfileString @"Open", @"Extern", NULL, @sItem, SizeOf (sItem), @ad.IniFile
-    		
-    		If InStr (sItem, FileExt + ".") = 0 Then
-    		    Return FALSE         ' not allowed for ShellExecute by FbEdit.ini (no ErrText)
-    		EndIf     
-    	EndIf
+    If      OpenMode = FOEM_ONLYALLOWED _
+    AndAlso IsFileForOpenExtern (@FileSpec) = FALSE Then 
+ 		Return FALSE         ' not allowed for ShellExecute by FbEdit.ini (no ErrText)
+    Else
+    	QuotedSpec = QUOTE + FileSpec + QUOTE
+    	Success = ShellExecuteUI (ah.hwnd, @"open", @QuotedSpec, NULL, NULL, SW_SHOWDEFAULT)
+        Return Success
     EndIf 
-        
-	QuotedSpec = QUOTE + FileSpec + QUOTE
-	Return ShellExecuteUI (ah.hwnd, @"open", @QuotedSpec, NULL, NULL, SW_SHOWDEFAULT)
 
 End Function
 
@@ -1018,19 +1024,43 @@ Sub OpenTheFile (Byref FileSpec As ZString, ByVal OpenMode As FileOpenMode)
             EndIf   
     	End Select
 	
-	Case FOM_TXT_BG
-        If     TabMode = IDC_CODEED _
-        OrElse TABMODE = IDC_TEXTED Then                   ' exists, right mode
-            'dont select                                    
-        Else                                               ' wrong mode
-            If TabID = INVALID_TABID  _                        
-            OrElse CloseTab (TabID) = TRUE then                           
-            	hEditor = CreateTxtEd (FileSpec)
-            	AddTab hEditor, FileSpec, ATM_BACKGROUND
-            	ReadTheFile hEditor, FileSpec
-            	SetFileInfo ah.hred, FileSpec
-            EndIf 
-        EndIf    
+	Case FOM_BG
+        ' TODO
+    	Select Case FileType
+    	Case FBFT_PROJECT                                  ' ProjectFile (.fbp)
+            ' skip
+   		Case FBFT_CODE                                     ' CodeFile (.bas .bi)
+            If TabMode = IDC_CODEED Then                   ' exists, right mode
+                'dont select
+            Else                                           ' wrong mode
+                If TabID = INVALID_TABID  _                        
+                OrElse CloseTab (TabID) = TRUE Then                             
+                	hEditor = CreateCodeEd (FileSpec)
+                	AddTab hEditor, FileSpec, ATM_BACKGROUND
+                	ReadTheFile hEditor, FileSpec
+                	SetFileInfo ah.hred, FileSpec
+                EndIf  
+            EndIf   
+
+       'Case FBFT_RESOURCE                                 ' ResourceFile (.rc)
+        Case Else
+
+            'If OpenFileExtern (FileSpec, FOEM_ONLYALLOWED) Then 
+            '    Exit Sub
+            'EndIf
+
+            If TABMODE = IDC_TEXTED Then                       ' exists, right mode
+                'dont select                                    
+            Else                                               ' wrong mode
+                If TabID = INVALID_TABID  _                        
+                OrElse CloseTab (TabID) = TRUE then                           
+                	hEditor = CreateTxtEd (FileSpec)
+                	AddTab hEditor, FileSpec, ATM_BACKGROUND
+                	ReadTheFile hEditor, FileSpec
+                	SetFileInfo ah.hred, FileSpec
+                EndIf 
+            EndIf    
+	    End Select 
 	End Select
 End Sub
 
@@ -1124,8 +1154,8 @@ End Sub
 '
 'End Sub
 
-#Define IDD_DLGSAVEUNICODE		1400
-#Define IDC_CHKUNICODE			1401
+#Define IDD_TPL_SAVEUNICODE	    	1400
+#Define IDC_CHKUNICODE		        1401
 
 Function UnicodeProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam as WPARAM,ByVal lParam as LPARAM) As Integer
 
@@ -1149,41 +1179,38 @@ Function UnicodeProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam as WPARA
 
 End Function
 
-Function SaveTabAs() As BOOLEAN    ' MOD 1.2.2012    SaveFileAs(ByVal hWin As HWND) As Boolean
+Function SaveTabAs() As BOOLEAN
 	
-	Dim ofn As OPENFILENAME
+	Dim ofn      As OPENFILENAME
+    Dim FileSpec As ZString * MAX_PATH 
 
-	ofn.lStructSize=SizeOf(OPENFILENAME)
-	' MOD 1.2.2012
-	ofn.hwndOwner=GetOwner
-	'If hWin=ah.hwnd Then
-	'	ofn.hwndOwner=GetOwner
-	'Else
-	'	ofn.hwndOwner=hWin
-	'EndIf
-	' ==================
-	ofn.hInstance=hInstance
-	buff=ad.filename
-	ofn.lpstrFile=StrPtr(buff)
-	ofn.nMaxFile=260
-	ofn.lpstrDefExt=StrPtr("bas")
-	ofn.lpstrFilter=StrPtr(ALLFilterString)                         
-	ofn.Flags=OFN_EXPLORER Or OFN_HIDEREADONLY Or OFN_PATHMUSTEXIST Or OFN_OVERWRITEPROMPT Or OFN_ENABLETEMPLATE Or OFN_ENABLEHOOK Or OFN_ENABLESIZING
-	ofn.lpTemplateName=Cast(ZString Ptr,IDD_DLGSAVEUNICODE)
-	ofn.lpfnHook=Cast(Any Ptr,@UnicodeProc)
-	fUnicode=SendMessage(ah.hred,REM_GETUNICODE,0,0)
-	'fChangeNotification=-1                          ' turn file change checking off, while waiting for saveas
-	'FileMonitorStop
-	If GetSaveFileName(@ofn) Then
-		ad.filename=buff
-		SendMessage(ah.hred,REM_SETUNICODE,fUnicode,0)
-		WriteTheFile(ah.hred,ad.filename)
+    FileSpec = ad.filename
+    fUnicode = SendMessage (ah.hred, REM_GETUNICODE, 0, 0)
+    
+    With ofn
+        .lStructSize    = SizeOf (OPENFILENAME)
+	    .hwndOwner      = GetOwner
+	    .hInstance      = hInstance
+	    .lpstrFile      = @FileSpec
+	    .nMaxFile       = SizeOf (FileSpec)
+	    .lpstrDefExt    = @"bas"
+	    .lpstrFilter    = @ALLFilterString                         
+	    .Flags          = OFN_EXPLORER        Or OFN_HIDEREADONLY   Or OFN_PATHMUSTEXIST Or _
+	                      OFN_OVERWRITEPROMPT Or OFN_ENABLETEMPLATE Or OFN_ENABLEHOOK    Or _
+	                      OFN_ENABLESIZING
+        .lpTemplateName = MAKEINTRESOURCE (IDD_TPL_SAVEUNICODE)
+	    .lpfnHook       = Cast (LPOFNHOOKPROC, @UnicodeProc)
+	End With 
+	
+	If GetSaveFileName (@ofn) Then
+		ad.filename = FileSpec
+		SendMessage ah.hred, REM_SETUNICODE, fUnicode, 0
+		WriteTheFile ah.hred, ad.filename
 		UpdateTab
 		SetWinCaption
 		Return TRUE
 	EndIf
-	'FileMonitorStart
-	'fChangeNotification=0                           ' turn file change checking on
+	
 	Return FALSE
 
 End Function
@@ -1246,7 +1273,7 @@ Function SaveSelectionDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam
 
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_DLGSAVESELECTION)
+			TranslateDialog(hWin,IDD_DLG_SAVESELECTION)
 			tci.mask=TCIF_PARAM
 			i=0
 			n=0
@@ -1363,7 +1390,7 @@ Function CloseAllTabs () As BOOL
 	Dim tci      As TCITEM
 	Dim i        As Integer = 0
  
-	If DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLGSAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_ALLFILES) Then
+	If DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_SAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_ALLFILES) Then
 		Return FALSE  
 	EndIf
 
@@ -1388,7 +1415,7 @@ Function CloseAllTabsButCurrent () As BOOL
 	Dim tci      As TCITEM
 	Dim i        As Integer = 0
  
-	If DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLGSAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_ALLFILES_BUT_CURRENT) Then
+	If DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_SAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_ALLFILES_BUT_CURRENT) Then
 		Return FALSE  
 	EndIf
 
@@ -1417,7 +1444,7 @@ Function CloseAllProjectTabs () As BOOL
 	Dim tci      As TCITEM
 	Dim i        As Integer    = 0
 
-	If DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLGSAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_PROJECTFILES) Then
+	If DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_SAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_PROJECTFILES) Then
 		Return FALSE  
 	EndIf
     
@@ -1446,7 +1473,7 @@ Function CloseAllNonProjectTabs () As BOOL
 	Dim tci      As TCITEM
 	Dim i        As Integer    = 0
 
-	If DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLGSAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_NONPROJECTFILES) Then
+	If DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_SAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_NONPROJECTFILES) Then
         Return FALSE  
 	EndIf
 
@@ -1478,7 +1505,7 @@ End Function
 '	Dim sTabOrder As String
 '
 '	If fProjectClose Then
-'		If DialogBoxParam(hInstance,Cast(ZString Ptr,IDD_DLGSAVESELECTION),ah.hwnd,@SaveSelectionDlgProc,SAM_ALLFILES) Then
+'		If DialogBoxParam(hInstance,Cast(ZString Ptr,IDD_DLG_SAVESELECTION),ah.hwnd,@SaveSelectionDlgProc,SAM_ALLFILES) Then
 '			Return TRUE
 '		EndIf
 '	EndIf
@@ -1782,7 +1809,7 @@ Sub UpdateAllTabs (ByVal nType As Integer)
 
 End Sub
 
-Function TabToolProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer
+Function TabToolProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer
 	
 	Dim TabID             As LRESULT = Any  
 	Dim HitInfo           As TCHITTESTINFO
@@ -1826,7 +1853,9 @@ Function TabToolProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 	Case WM_LBUTTONUP
 	    'Print "TabTool:WM_LBUTTONUP"
         MoveCursorOn = FALSE
+        ShowCursor FALSE
         SetCursor (LoadCursor (NULL, IDC_ARROW))
+        ShowCursor TRUE 
         ClipCursor NULL
         ReleaseCapture 
 
@@ -1866,7 +1895,9 @@ Function TabToolProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 
 	Case WM_MOUSEMOVE
         If MoveCursorOn Then
+            ShowCursor FALSE 
             SetCursor (LoadCursor (NULL, IDC_SIZEWE)) 
+            ShowCursor TRUE 
             ClipCursor @TabRECT
         EndIf
         Return 0

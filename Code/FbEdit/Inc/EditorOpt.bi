@@ -6,7 +6,7 @@ Declare Sub SetToolsColors ()
 Declare Sub PropertyHL (ByVal bUpdate As Integer)
 Declare Sub UpdateEditOptions (ByVal hEditor As HWND)
 
-Declare Function KeyWordsDlgProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
+Declare Function EditorOptDlgProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
 
 
 Type EDITOPTION
@@ -46,7 +46,7 @@ Const szBracketMatch As String = "({[,)}],_"        ' Bracket matching
 
 
 'KeyWords.dlg
-#Define IDD_DLGKEYWORDS						4000
+#Define IDD_DLG_EDITOROPTION				4000
 #Define IDC_BTNKWAPPLY						4002
 #Define IDC_LSTKWCOLORS						4001
 #Define IDC_CHKITALIC						4003
@@ -62,6 +62,7 @@ Const szBracketMatch As String = "({[,)}],_"        ' Bracket matching
 #Define IDC_CHKASM							4064
 #Define IDC_LSTCOLORS						4015
 #Define IDC_EDTCODEFILES					4030
+#Define IDC_EDTOPENEXTERN                   4073
 #Define IDC_EDTTABSIZE						4018
 #Define IDC_SPNTABSIZE						4017
 #Define IDC_EDTEXTRALINESPACE               4067
@@ -114,13 +115,10 @@ Extern edtfnt  As EDITFONT
 Extern lnrfnt  As EDITFONT
 Extern outpfnt As EDITFONT
 Extern toolfnt As EDITFONT
-
-
-Extern sCodeFiles    As ZString * 260          'sCodeFiles is LCASE p.def. - forced on every I/O
-Extern custcol       As KWCOLOR
-
-Extern thme(15)      As THEME
-Extern szTheme(15)   As ZString * 32
+ 
+Extern custcol         As KWCOLOR
+Extern thme(15)        As THEME
+Extern szTheme(15)     As ZString * 32
 
 
 

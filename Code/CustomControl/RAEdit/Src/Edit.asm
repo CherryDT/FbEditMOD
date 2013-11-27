@@ -421,8 +421,10 @@ DeleteSelection proc uses ebx edi,hMem:DWORD,cpMin:DWORD,cpMax:DWORD
 	.if eax!=cpMax
 		invoke GetCursor
 		push	eax
+		invoke ShowCursor, FALSE                ; *** MOD
 		invoke LoadCursor,0,IDC_WAIT
 		invoke SetCursor,eax
+		invoke ShowCursor, TRUE
 		mov		eax,cpMax
 		sub		eax,cpMin
 		push	eax
@@ -441,8 +443,10 @@ DeleteSelection proc uses ebx edi,hMem:DWORD,cpMin:DWORD,cpMax:DWORD
 		pop		eax
 		invoke SaveUndo,ebx,UNDO_DELETEBLOCK,cpMin,edi,eax
 		invoke GlobalFree,edi
+		invoke ShowCursor, FALSE                ; *** MOD
 		pop		eax
 		invoke SetCursor,eax
+		invoke ShowCursor, TRUE
 		mov		eax,cpMin
 		mov		[ebx].EDIT.cpMin,eax
 		mov		[ebx].EDIT.cpMax,eax

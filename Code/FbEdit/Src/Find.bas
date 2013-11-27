@@ -33,34 +33,36 @@ Dim Shared fsave          As FIND
 Dim Shared FindHistory(8) As ZString * 260
 
 
-Sub FindDlgDisable ()
+Sub FindDlgItemDisable ()
     
     Dim chrg As CHARRANGE = Any
             
-    EnableDlgItem (ah.hfind, IDOK                , TRUE)
-    EnableDlgItem (ah.hfind, IDC_BTN_REPLACE     , TRUE)      
-    EnableDlgItem (ah.hfind, IDC_BTN_REPLACEALL  , TRUE)         
-    EnableDlgItem (ah.hfind, IDC_BTN_FINDALL     , TRUE)      
-    EnableDlgItem (ah.hfind, IDC_BTN_CLR_OUTPUT  , TRUE)
-    EnableDlgItem (ah.hfind, IDC_FINDTEXT	     , TRUE)
-    EnableDlgItem (ah.hfind, IDC_REPLACETEXT     , TRUE)
-    EnableDlgItem (ah.hfind, IDC_RBN_SELECTION   , TRUE)
-    EnableDlgItem (ah.hfind, IDC_RBN_PROCEDURE   , TRUE)
-    EnableDlgItem (ah.hfind, IDC_RBN_CURRENTFILE , TRUE)
-    EnableDlgItem (ah.hfind, IDC_RBN_OPENFILES   , TRUE)
-    EnableDlgItem (ah.hfind, IDC_RBN_PROJECTFILES, TRUE)
-    EnableDlgItem (ah.hfind, IDC_RBN_INCLUDEPATH , TRUE)
-    EnableDlgItem (ah.hfind, IDC_RBN_ALL         , TRUE)
-    EnableDlgItem (ah.hfind, IDC_RBN_DOWN        , TRUE)
-    EnableDlgItem (ah.hfind, IDC_RBN_UP          , TRUE)
-    EnableDlgItem (ah.hfind, IDC_CHK_MATCHCASE   , TRUE)
-    EnableDlgItem (ah.hfind, IDC_CHK_WHOLEWORD   , TRUE)
-    EnableDlgItem (ah.hfind, IDC_CHK_SKIPCOMMENTS, TRUE)
-    EnableDlgItem (ah.hfind, IDC_CHK_LOGFIND	 , TRUE)
-    EnableDlgItem (ah.hfind, IDC_CHK_USE_REGEX   , TRUE)
-    EnableDlgItem (ah.hfind, IDC_BTN_REGEX_LIB   , TRUE)
+    EnableDlgItem (ah.hfind, IDOK                 , TRUE)
+    EnableDlgItem (ah.hfind, IDC_BTN_REPLACE      , TRUE)      
+    EnableDlgItem (ah.hfind, IDC_BTN_REPLACEALL   , TRUE)         
+    EnableDlgItem (ah.hfind, IDC_BTN_FINDALL      , TRUE)      
+    EnableDlgItem (ah.hfind, IDC_BTN_CLR_OUTPUT   , TRUE)
+    EnableDlgItem (ah.hfind, IDC_CBO_FINDTEXT	  , TRUE)
+    EnableDlgItem (ah.hfind, IDC_EDT_REPLACETEXT  , TRUE)
+    EnableDlgItem (ah.hfind, IDC_RBN_SELECTION    , TRUE)
+    EnableDlgItem (ah.hfind, IDC_RBN_PROCEDURE    , TRUE)
+    EnableDlgItem (ah.hfind, IDC_RBN_CURRENTFILE  , TRUE)
+    EnableDlgItem (ah.hfind, IDC_RBN_OPENFILES    , TRUE)
+    EnableDlgItem (ah.hfind, IDC_RBN_PROJECTFILES , TRUE)
+    EnableDlgItem (ah.hfind, IDC_RBN_INCLUDEPATH  , TRUE)
+    EnableDlgItem (ah.hfind, IDC_RBN_ALL          , TRUE)
+    EnableDlgItem (ah.hfind, IDC_RBN_DOWN         , TRUE)
+    EnableDlgItem (ah.hfind, IDC_RBN_UP           , TRUE)
+    EnableDlgItem (ah.hfind, IDC_CHK_MATCHCASE    , TRUE)
+    EnableDlgItem (ah.hfind, IDC_CHK_WHOLEWORD    , TRUE)
+    EnableDlgItem (ah.hfind, IDC_CHK_SKIPCOMMENTS , TRUE)
+    EnableDlgItem (ah.hfind, IDC_CHK_LOGFIND	  , TRUE)
+    EnableDlgItem (ah.hfind, IDC_CHK_USE_REGEX    , TRUE)
+    EnableDlgItem (ah.hfind, IDC_BTN_REGEX_LIB    , TRUE)
+    EnableDlgItem (ah.hfind, IDC_EDT_LOADFORSEARCH, TRUE)
+
     
-	If IsWindowVisible (GetDlgItem (ah.hfind, IDC_REPLACETEXT)) = FALSE Then
+	If IsWindowVisible (GetDlgItem (ah.hfind, IDC_EDT_REPLACETEXT)) = FALSE Then
 		EnableDlgItem (ah.hfind, IDC_BTN_REPLACEALL, FALSE) 
 	EndIf
 						
@@ -99,12 +101,16 @@ Sub FindDlgDisable ()
         EnableDlgItem (ah.hfind, IDOK                , FALSE)
         EnableDlgItem (ah.hfind, IDC_BTN_REPLACE     , FALSE)      
         EnableDlgItem (ah.hfind, IDC_BTN_REPLACEALL  , FALSE)         
-        EnableDlgItem (ah.hfind, IDC_REPLACETEXT     , FALSE)
+        EnableDlgItem (ah.hfind, IDC_EDT_REPLACETEXT , FALSE)
         EnableDlgItem (ah.hfind, IDC_CHK_SKIPCOMMENTS, FALSE)
         EnableDlgItem (ah.hfind, IDC_CHK_WHOLEWORD   , FALSE)
         EnableDlgItem (ah.hfind, IDC_CHK_LOGFIND     , FALSE)
         EnableDlgItem (ah.hfind, IDC_RBN_UP          , FALSE)
         EnableDlgItem (ah.hfind, IDC_RBN_DOWN        , FALSE)
+    EndIf
+
+    If f.fsearch <> FM_RANGE_PROJECT Then
+        EnableDlgItem (ah.hfind, IDC_EDT_LOADFORSEARCH, FALSE)
     EndIf
 
 	If     GetWindowLong (ah.hred, GWL_ID) = IDC_RESED _
@@ -116,49 +122,50 @@ Sub FindDlgDisable ()
 	EndIf
 
     If f.Busy Then
-        EnableDlgItem (ah.hfind, IDOK                , FALSE)
-        EnableDlgItem (ah.hfind, IDC_BTN_REPLACE     , FALSE)      
-        EnableDlgItem (ah.hfind, IDC_BTN_REPLACEALL  , FALSE)         
-        EnableDlgItem (ah.hfind, IDC_BTN_FINDALL     , FALSE)      
-        EnableDlgItem (ah.hfind, IDC_BTN_CLR_OUTPUT  , FALSE)
-        EnableDlgItem (ah.hfind, IDC_FINDTEXT	     , FALSE)
-        EnableDlgItem (ah.hfind, IDC_REPLACETEXT     , FALSE)
-        EnableDlgItem (ah.hfind, IDC_RBN_SELECTION   , FALSE)
-        EnableDlgItem (ah.hfind, IDC_RBN_PROCEDURE   , FALSE)
-        EnableDlgItem (ah.hfind, IDC_RBN_CURRENTFILE , FALSE)
-        EnableDlgItem (ah.hfind, IDC_RBN_OPENFILES   , FALSE)
-        EnableDlgItem (ah.hfind, IDC_RBN_PROJECTFILES, FALSE)
-        EnableDlgItem (ah.hfind, IDC_RBN_INCLUDEPATH , FALSE)
-        EnableDlgItem (ah.hfind, IDC_RBN_ALL         , FALSE)
-        EnableDlgItem (ah.hfind, IDC_RBN_DOWN        , FALSE)
-        EnableDlgItem (ah.hfind, IDC_RBN_UP          , FALSE)
-        EnableDlgItem (ah.hfind, IDC_CHK_MATCHCASE   , FALSE)
-        EnableDlgItem (ah.hfind, IDC_CHK_WHOLEWORD   , FALSE)
-        EnableDlgItem (ah.hfind, IDC_CHK_SKIPCOMMENTS, FALSE)
-        EnableDlgItem (ah.hfind, IDC_CHK_LOGFIND	 , FALSE)
-        EnableDlgItem (ah.hfind, IDC_CHK_USE_REGEX   , FALSE)
-        EnableDlgItem (ah.hfind, IDC_BTN_REGEX_LIB   , FALSE)
+        EnableDlgItem (ah.hfind, IDOK                 , FALSE)
+        EnableDlgItem (ah.hfind, IDC_BTN_REPLACE      , FALSE)      
+        EnableDlgItem (ah.hfind, IDC_BTN_REPLACEALL   , FALSE)         
+        EnableDlgItem (ah.hfind, IDC_BTN_FINDALL      , FALSE)      
+        EnableDlgItem (ah.hfind, IDC_BTN_CLR_OUTPUT   , FALSE)
+        EnableDlgItem (ah.hfind, IDC_CBO_FINDTEXT	  , FALSE)
+        EnableDlgItem (ah.hfind, IDC_EDT_REPLACETEXT  , FALSE)
+        EnableDlgItem (ah.hfind, IDC_RBN_SELECTION    , FALSE)
+        EnableDlgItem (ah.hfind, IDC_RBN_PROCEDURE    , FALSE)
+        EnableDlgItem (ah.hfind, IDC_RBN_CURRENTFILE  , FALSE)
+        EnableDlgItem (ah.hfind, IDC_RBN_OPENFILES    , FALSE)
+        EnableDlgItem (ah.hfind, IDC_RBN_PROJECTFILES , FALSE)
+        EnableDlgItem (ah.hfind, IDC_RBN_INCLUDEPATH  , FALSE)
+        EnableDlgItem (ah.hfind, IDC_RBN_ALL          , FALSE)
+        EnableDlgItem (ah.hfind, IDC_RBN_DOWN         , FALSE)
+        EnableDlgItem (ah.hfind, IDC_RBN_UP           , FALSE)
+        EnableDlgItem (ah.hfind, IDC_CHK_MATCHCASE    , FALSE)
+        EnableDlgItem (ah.hfind, IDC_CHK_WHOLEWORD    , FALSE)
+        EnableDlgItem (ah.hfind, IDC_CHK_SKIPCOMMENTS , FALSE)
+        EnableDlgItem (ah.hfind, IDC_CHK_LOGFIND	  , FALSE)
+        EnableDlgItem (ah.hfind, IDC_CHK_USE_REGEX    , FALSE)
+        EnableDlgItem (ah.hfind, IDC_BTN_REGEX_LIB    , FALSE)
+        EnableDlgItem (ah.hfind, IDC_EDT_LOADFORSEARCH, FALSE)
     EndIf
 
 End Sub
 
 Sub ClearFindMsg ()
 
-	SendDlgItemMessage ah.hfind, IDC_IMG_FINDMSG, STM_SETICON, NULL, 0                 ' MOD 18.2.2012 add
-	SendDlgItemMessage ah.hfind, IDC_TXT_FINDMSG, WM_SETTEXT, 0, Cast (LPARAM, @"")    ' MOD 18.2.2012 add
+	SendDlgItemMessage ah.hfind, IDC_IMG_FINDMSG, STM_SETICON, NULL, 0
+	SetDlgItemText     ah.hfind, IDC_TXT_FINDMSG, @""
     
 End Sub
 
 Sub SetFindMsg (ByRef MsgText As ZString, Byval IconID As ZString Ptr)
 
     SendDlgItemMessage ah.hfind, IDC_IMG_FINDMSG, STM_SETICON, Cast (WPARAM, LoadIcon (NULL, IconID)), 0
-	SendDlgItemMessage ah.hfind, IDC_TXT_FINDMSG, WM_SETTEXT, 0, Cast (LPARAM, @MsgText)		
+	SetDlgItemText     ah.hfind, IDC_TXT_FINDMSG, @MsgText		
 
 End Sub
 
 Sub GetFindMsg (ByVal pMsgText As ZString Ptr, ByVal BuffSize As Integer)
 
-	SendDlgItemMessage ah.hfind, IDC_TXT_FINDMSG, WM_GETTEXT, BuffSize, Cast (LPARAM, pMsgText)		
+	GetDlgItemText ah.hfind, IDC_TXT_FINDMSG, pMsgText, BuffSize		
 
 End Sub
 
@@ -230,7 +237,7 @@ Sub InitRegEx
     EndIf
 
 	Result = RegComp (@(f.RegEx), f.ft.lpstrText, cFlags)
-	
+
 	If Result Then 
 	    RegError(Result, @(f.RegEx), @ErrText, SizeOf (ErrText))
 	    ErrText = "REGEX: " + ErrText
@@ -412,7 +419,7 @@ Sub InitFindRange
 			CurrentTab = SendMessage (ah.htabtool, TCM_GETCURSEL, 0, 0)
 			tci.mask = TCIF_PARAM
 			If f.fdir = FM_DIR_ALL OrElse f.fdir = FM_DIR_DOWN Then
-    			For i = CurrentTab + 1 To 999         ' list Followers, except current
+    			For i = CurrentTab + 1 To 999         ' list followers, except current
     				If SendMessage (ah.htabtool, TCM_GETITEM, i, Cast (LPARAM, @tci)) Then
         				EditMode = GetWindowLong (pTABMEM->hedit, GWL_ID)
         				If EditMode = IDC_CODEED OrElse EditMode = IDC_TEXTED Then
@@ -432,8 +439,8 @@ Sub InitFindRange
 	            		
 	            		GetPrivateProfileString @"File", Str (nInx), NULL, @sItem, SizeOf (sItem), @ad.ProjectFile
 	                                
-	            		If sItem[0] Then
-	    				    If GetFBEFileType (sItem) = FBFT_CODE Then               ' 1 = code files
+	            		If IsZStrNotEmpty (sItem) Then
+	    				    If IsFileSearchable (sItem) Then
 	    				        If GetTabIDByFileID (nInx) = INVALID_TABID Then      ' ignore open files
 	    						    f.listoffiles += Str (nInx) + ","
 	    					    EndIf 
@@ -567,7 +574,7 @@ Sub ResetFind
             InitRegEx
         EndIf
 	    
-	    FindDlgDisable
+	    FindDlgItemDisable
 	EndIf
 
 End Sub
@@ -657,20 +664,15 @@ Function FindInFile(ByVal hWin As HWND,ByVal frType As Integer) As Integer
 		
 End Function
 
-Function Find(ByVal hWin As HWND,ByVal frType As Integer) As Integer
+Function Find (ByVal hWin As HWND, ByVal frType As Integer) As Integer
 	
-	'Static Total As Integer 
-	Dim isinp As ISINPROC
-	Dim tci As TCITEM
-	Dim p As ZString Ptr
-	Dim sFile As ZString*260
-	'Dim hMem As HGLOBAL
-	'Dim ms As MEMSEARCH
-	'Dim hREd As HWND                          ' MOD 16.2.2012   unused
-	Dim hEditor As HWND = Any                  ' MOD 19.2.2012
-	Dim i As Integer
-	'Dim chrg As CHARRANGE                     ' MOD 17.2.2012
-	Dim nLine As Integer
+	Dim isinp    As ISINPROC
+	Dim tci      As TCITEM
+	Dim p        As ZString Ptr
+	Dim FileSpec As ZString * MAX_PATH = Any 
+	Dim hEditor  As HWND               = Any 
+	Dim i        As Integer            = Any 
+	Dim nLine    As Integer
 
     ' MOD 17.2.2012
     'SetCursor LoadCursor (NULL, IDC_WAIT)
@@ -784,7 +786,8 @@ TryAgain:
       				i = InStr (f.listoffiles, ",")
     				f.ffileno = Val (f.listoffiles)
     				f.listoffiles = Mid (f.listoffiles, i + 1)
-					OpenTheFile (*GetProjectFileName (f.ffileno, PT_ABSOLUTE), FOM_TXT_BG)
+					FileSpec = *GetProjectFileName (f.ffileno, PT_ABSOLUTE)
+					OpenTheFile FileSpec, FOM_BG
        				hEditor = GetEditWindowByFileID (f.ffileno) 
     				f.chrgrange.cpMin = 0
     				f.chrgrange.cpMax = SendMessage (hEditor, WM_GETTEXTLENGTH, 0, 0) + 1
@@ -983,11 +986,12 @@ TryAgain:
 
 End Function
 
-Sub LoadFindHistory ()
+Sub FindReadIni ()
 
-	Dim i                 As Integer 
+	Dim i                 As Integer = Any 
 	Dim sItem             As ZString * 260
 	Dim SaveFlags(1 To 6) As Integer              ' MOD 23.2.2012 add
+	Dim Success           As BOOL    = Any 
 	
 	For i = 1 To 9
 		If GetPrivateProfileString (@"Find", Str (i), NULL, @sItem, SizeOf (sItem), @ad.IniFile) Then
@@ -996,7 +1000,13 @@ Sub LoadFindHistory ()
 			Exit For
 		EndIf
 	Next
-	
+
+    GetPrivateProfileString @"Find", @"LoadForSearch", @".bas.bi.rc.txt.bat.", @f.LoadForSearch, SizeOf (f.LoadForSearch), @ad.IniFile
+    Success = FormatDEVStr (f.LoadForSearch, SizeOf (f.LoadForSearch))
+ 	If Success = FALSE Then
+        TextToOutput "*** invalid extension list ***", MB_ICONASTERISK
+ 	EndIf 			
+
 	' MOD 23.2.2012
 	LoadFromIni "Find", "Flags", "444444", @SaveFlags(1), FALSE 
 
@@ -1009,9 +1019,9 @@ Sub LoadFindHistory ()
     '=================
 End Sub
 
-Sub SaveFindHistory()
+Sub FindWriteIni()
 	
-	Dim As Integer i
+	Dim i                  As Integer = Any 
     Dim SaveFlags (1 To 6) As Integer => { f.Engine,           _     ' MOD 23.2.2012 add
                                            f.fdir,             _
                                            f.fr,               _
@@ -1019,17 +1029,25 @@ Sub SaveFindHistory()
                                            f.flogfind,         _
                                            f.fsearch }
 
-	For i=1 To 9
+	For i = 1 To 9
 		WritePrivateProfileString @"Find", Str (i), @FindHistory(i - 1), @ad.IniFile
 	Next
+
+    WritePrivateProfileString @"Find", @"LoadForSearch", @f.LoadForSearch, @ad.IniFile
+    
     SaveToIni @"Find", @"Flags", "444444", @SaveFlags(1), FALSE       ' MOD 23.2.2012 add
     
 End Sub
 
 Sub UpdateFindHistory(ByVal hWin As HWND)
 	
-	If IsZStrNotEmpty (f.findbuff) AndAlso SendMessage(hWin,CB_FINDSTRINGEXACT,-1,Cast(LPARAM,@f.findbuff))=CB_ERR Then
-		SendMessage(hWin,CB_INSERTSTRING,0,Cast(LPARAM,@f.findbuff))
+	Dim lret As LRESULT = Any 
+	
+	If IsZStrNotEmpty (f.findbuff) Then  
+	    lret = SendMessage (hWin, CB_FINDSTRINGEXACT, -1, Cast (LPARAM, @f.findbuff))
+	    If lret = CB_ERR Then
+		    SendMessage hWin, CB_INSERTSTRING, 0, Cast (LPARAM, @f.findbuff)
+	    EndIf    
 	EndIf
 
 End Sub
@@ -1089,7 +1107,7 @@ Sub FindAllOutside
   	Dim OutputLine      As Integer              = Any
 	Dim HeadLineWritten As BOOLEAN              = Any 
     
-	UpdateFindHistory GetDlgItem (ah.hfind, IDC_FINDTEXT)
+	UpdateFindHistory GetDlgItem (ah.hfind, IDC_CBO_FINDTEXT)
 	ClearFindMsg
     ResetFind
     If Len (f.listoffiles) = 0 Then Exit Sub 
@@ -1107,7 +1125,7 @@ Sub FindAllOutside
         If hMem Then
             cpMin = 0 
             cpMax = lstrlen (Cast (ZString Ptr, hMem))
-            SendDlgItemMessage ah.hfind, IDC_TXT_FINDMSG, WM_SETTEXT, 0, Cast (LPARAM, @FileSpec)
+            SetDlgItemText ah.hfind, IDC_TXT_FINDMSG, @FileSpec
 
             Do
                 DoEvents NULL
@@ -1157,7 +1175,7 @@ End Sub
 
 Sub FindAllInside
 
-    UpdateFindHistory GetDlgItem (ah.hfind, IDC_FINDTEXT)
+    UpdateFindHistory GetDlgItem (ah.hfind, IDC_CBO_FINDTEXT)
 	ClearFindMsg
 	
 	f.Busy = TRUE 
@@ -1172,7 +1190,7 @@ Sub FindAllInside
    		    TextToOutput OTT_HLINE
     	    SendDlgItemMessage ah.hfind, IDC_IMG_FINDMSG, STM_SETICON, Cast (WPARAM, LoadIcon (NULL, IDI_EXCLAMATION)), 0
     		buff = GetInternalString (IS_SEARCH_CANCELLED)
-    		SendDlgItemMessage ah.hfind, IDC_TXT_FINDMSG, WM_SETTEXT, 0, Cast (LPARAM, @buff)		
+    		SetDlgItemText ah.hfind, IDC_TXT_FINDMSG, @buff		
             MessageBeep MB_ICONEXCLAMATION 
             Exit Do 
         EndIf
@@ -1188,341 +1206,395 @@ Function FindDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 	Dim id      As Integer = Any 
 	Dim Event   As Integer = Any 
 	Dim Result  As Integer = Any
+	Dim lret    As LRESULT = Any 
+	Dim Success As BOOL    = Any 
 	Dim x       As Integer = Any  
 	Dim hCtl    As HWND    = Any 
 	Dim chrg    As CHARRANGE
-	Dim rect    As RECT    = Any        
+	Dim rect    As RECT    = Any    
+	    
     Static hBMP As HBITMAP = Any 
     
 	Select Case uMsg
-	    Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_FINDDLG)
-			findvisible=hWin
-			If lParam Then
-				PostMessage hWin, WM_COMMAND, MAKEWPARAM (IDC_BTN_REPLACE, BN_CLICKED), 0
+    Case WM_INITDIALOG
+		TranslateDialog(hWin,IDD_DLG_FIND)
+		findvisible = hWin
+		If lParam Then
+			PostMessage hWin, WM_COMMAND, MAKEWPARAM (IDC_BTN_REPLACE, BN_CLICKED), 0
+		EndIf
+		FindReadIni
+		
+		' Fill ComboBox
+		For id = 0 To 8
+			If IsZStrNotEmpty (FindHistory(id)) Then
+				SendDlgItemMessage hWin, IDC_CBO_FINDTEXT, CB_ADDSTRING, 0, Cast (LPARAM, @FindHistory(id))
 			EndIf
-			' Fill ComboBox
-			hCtl=GetDlgItem(hWin,IDC_FINDTEXT)
-			For id = 0 To 8
-				If IsZStrNotEmpty (FindHistory(id)) Then
-					SendMessage(hCtl,CB_ADDSTRING,0,Cast(LPARAM,@FindHistory(id)))
-				EndIf
-			Next
-			' Put text in edit boxes
-			SendDlgItemMessage(hWin,IDC_FINDTEXT,EM_LIMITTEXT,255,0)
-			SendDlgItemMessage(hWin,IDC_FINDTEXT,WM_SETTEXT,0,Cast(Integer,@f.findbuff))
-			SendDlgItemMessage(hWin,IDC_REPLACETEXT,EM_LIMITTEXT,255,0)
-			SendDlgItemMessage(hWin,IDC_REPLACETEXT,WM_SETTEXT,0,Cast(Integer,@f.replacebuff))
-			' Set check boxes
-			CheckDlgButton(hWin,IDC_CHK_MATCHCASE,IIf(f.fr And FR_MATCHCASE,BST_CHECKED,BST_UNCHECKED))
-			CheckDlgButton(hWin,IDC_CHK_WHOLEWORD,IIf(f.fr And FR_WHOLEWORD,BST_CHECKED,BST_UNCHECKED))
-			CheckDlgButton(hWin,IDC_CHK_USE_REGEX,IIf(f.Engine,BST_CHECKED,BST_UNCHECKED))
-			' Set find direction
-			Select Case f.fdir
-				Case FM_DIR_ALL
-					id=IDC_RBN_ALL
-			    Case FM_DIR_DOWN
-					id=IDC_RBN_DOWN
-			    Case FM_DIR_UP
-					id=IDC_RBN_UP
+		Next
+		
+		' Put text in edit boxes
+		SendDlgItemMessage hWin, IDC_CBO_FINDTEXT   , EM_LIMITTEXT, SizeOf (f.findbuff)   , 0
+		SendDlgItemMessage hWin, IDC_EDT_REPLACETEXT, EM_LIMITTEXT, SizeOf (f.replacebuff), 0
+		SetDlgItemText     hWin, IDC_CBO_FINDTEXT     , @f.findbuff
+		SetDlgItemText     hWin, IDC_EDT_REPLACETEXT  , @f.replacebuff
+		SetDlgItemText     hWin, IDC_EDT_LOADFORSEARCH, @f.LoadForSearch
+		
+		' Set check boxes
+		CheckDlgButton hWin, IDC_CHK_MATCHCASE   , IIf (f.fr And FR_MATCHCASE, BST_CHECKED, BST_UNCHECKED)
+		CheckDlgButton hWin, IDC_CHK_WHOLEWORD   , IIf (f.fr And FR_WHOLEWORD, BST_CHECKED, BST_UNCHECKED)
+		CheckDlgButton hWin, IDC_CHK_USE_REGEX   , IIf (f.Engine             , BST_CHECKED, BST_UNCHECKED)
+		CheckDlgButton hWin, IDC_CHK_SKIPCOMMENTS, IIf (f.fskipcommentline   , BST_CHECKED, BST_UNCHECKED)
+		CheckDlgButton hWin, IDC_CHK_LOGFIND     , IIf (f.flogfind           , BST_CHECKED, BST_UNCHECKED)
+		
+		' Set find direction
+		Select Case f.fdir
+		Case FM_DIR_ALL
+			id = IDC_RBN_ALL
+	    Case FM_DIR_DOWN
+			id = IDC_RBN_DOWN
+	    Case FM_DIR_UP
+			id = IDC_RBN_UP
+		End Select
+		CheckDlgButton hWin, id, BST_CHECKED
+		
+		SetWindowPos(hWin,0,wpos.ptfind.x,wpos.ptfind.y,0,0,SWP_NOSIZE)
+        hBMP = LoadImage (hInstance, MAKEINTRESOURCE (IDC_HELPICON), IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS)
+        SendDlgItemMessage hWin, IDC_BTN_REGEX_HELP, BM_SETIMAGE, IMAGE_BITMAP, Cast (LPARAM, hBMP)			
+		
+		f.SaveOnExit = TRUE 
+		'f.fpro=0
+		'ResetFind
+		'
+	Case WM_ACTIVATE
+		If wParam<>WA_INACTIVE Then
+			ah.hfind=hWin
+            ' translate    			
+			Select Case f.fsearch
+			Case FM_RANGE_SELECTION
+			    id = IDC_RBN_SELECTION
+			Case FM_RANGE_PROC
+			    id = IDC_RBN_PROCEDURE
+			Case FM_RANGE_SELTAB
+			    id = IDC_RBN_CURRENTFILE
+			Case FM_RANGE_PROJECT
+			    id = IDC_RBN_PROJECTFILES
+			Case FM_RANGE_ALLTABS
+			    id = IDC_RBN_OPENFILES
+			Case FM_RANGE_COMPILERINCPATH
+                id=IDC_RBN_INCLUDEPATH   		    
 			End Select
-			CheckDlgButton(hWin,id,BST_CHECKED)
-			
-			'EnableWindow(GetDlgItem(hWin,IDC_RBN_SELECTION),f.ft.chrg.cpMin<>f.ft.chrg.cpMax)
-			CheckDlgButton(hWin,IDC_CHK_SKIPCOMMENTS,IIf(f.fskipcommentline,BST_CHECKED,BST_UNCHECKED))
-			CheckDlgButton(hWin,IDC_CHK_LOGFIND,IIf(f.flogfind,BST_CHECKED,BST_UNCHECKED))
-			'EnableWindow(GetDlgItem(hWin,IDC_BTN_FINDALL),f.flogfind)
-			'EnableWindow(GetDlgItem(hWin,IDC_RBN_PROJECTFILES),fProject)
-			SetWindowPos(hWin,0,wpos.ptfind.x,wpos.ptfind.y,0,0,SWP_NOSIZE)
-            hBMP = LoadImage (hInstance, MAKEINTRESOURCE (IDC_HELPICON), IMAGE_BITMAP, 0, 0, LR_LOADMAP3DCOLORS)
-            SendDlgItemMessage hWin, IDC_BTN_REGEX_HELP, BM_SETIMAGE, IMAGE_BITMAP, Cast (LPARAM, hBMP)			
-			'f.fpro=0
-			'ResetFind
-			'
-		Case WM_ACTIVATE
-			If wParam<>WA_INACTIVE Then
-				ah.hfind=hWin
-                ' translate    			
-    			Select Case f.fsearch
-    			Case FM_RANGE_SELECTION
-    			    id = IDC_RBN_SELECTION
-    			Case FM_RANGE_PROC
-    			    id = IDC_RBN_PROCEDURE
-    			Case FM_RANGE_SELTAB
-    			    id = IDC_RBN_CURRENTFILE
-    			Case FM_RANGE_PROJECT
-    			    id = IDC_RBN_PROJECTFILES
-    			Case FM_RANGE_ALLTABS
-    			    id = IDC_RBN_OPENFILES
-    			Case FM_RANGE_COMPILERINCPATH
-	                id=IDC_RBN_INCLUDEPATH   		    
-    			End Select
-    			'validate and downgrade
-    			If id = IDC_RBN_SELECTION Then
-			        SendMessage ah.hred, EM_EXGETSEL, 0, Cast (LPARAM, @chrg)		
-					If chrg.cpMin = chrg.cpMax Then
-					    id = IDC_RBN_CURRENTFILE                 ' selection removed while Dlg unfocus
-					EndIf
-    			EndIf
-                If id = IDC_RBN_PROCEDURE Then
-                    If GetWindowLong (ah.hred, GWL_ID) <> IDC_CODEED Then
-                        id = IDC_RBN_PROJECTFILES
-                    EndIf          
-                EndIf
-                If id = IDC_RBN_CURRENTFILE Then
-                	If     GetWindowLong (ah.hred, GWL_ID) = IDC_RESED _
-                    OrElse GetWindowLong (ah.hred, GWL_ID) = IDC_HEXED Then
-                        id = IDC_RBN_PROJECTFILES
-                    EndIf          
-                EndIf
-    			If id = IDC_RBN_PROJECTFILES Then
-    			    If fProject = FALSE  Then
-    			        id = IDC_RBN_OPENFILES
-    			    EndIf
-    			EndIf
-    			If id = IDC_RBN_OPENFILES Then
-    				Select Case CountCodeEdTabs
-					Case 0
-					    id = IDC_RBN_INCLUDEPATH
-					Case 1
-					    id = IDC_RBN_CURRENTFILE 
-					End Select
-    			EndIf 
-
-                SendDlgItemMessage hWin, id, BM_CLICK, 0, 0
-                ResetFind 
+			'validate and downgrade
+			If id = IDC_RBN_SELECTION Then
+		        SendMessage ah.hred, EM_EXGETSEL, 0, Cast (LPARAM, @chrg)		
+				If chrg.cpMin = chrg.cpMax Then
+				    id = IDC_RBN_CURRENTFILE                 ' selection removed while Dlg unfocus
+				EndIf
 			EndIf
-			'
-	    'Case WM_SETFOCUS 
-	    '    Print "Find:WM_SETFOCUS"
-	        '
-    	Case WM_COMMAND
-			id=LoWord(wParam)
-			Event=HiWord(wParam)
-			If Event=BN_CLICKED Then
-				Select Case id
-					Case IDOK
-				        If IsDlgItemEnabled (hWin, IDOK) Then	' if button click was on queue, before disabling take effect
-							If f.fdir = FM_DIR_UP Then
-								buff=GetInternalString(IS_PREVIOUS)
-							Else
-								buff=GetInternalString(IS_NEXT)
-							EndIf
-							SendMessage(GetDlgItem(hWin,IDOK),WM_SETTEXT,0,Cast(LPARAM,@buff))
-							UpdateFindHistory(GetDlgItem(hWin,IDC_FINDTEXT))
-	                        ClearFindMsg
-							Find(hWin,f.fr)
-				        EndIf
-						'
-					Case IDCANCEL
-               			If f.Busy Then
-               			    f.Busy = FALSE 
-               			Else
-                            SendMessage hWin, WM_CLOSE, 0, 0
-               			EndIf
-						'
-					Case IDC_BTN_REPLACE
-				        If IsDlgItemEnabled (hWin, IDC_BTN_REPLACE) Then
-							If IsWindowVisible(GetDlgItem(hWin,IDC_REPLACETEXT))=FALSE Then
-								' Enable Replace all button
-							    EnableDlgItem(hWin,IDC_BTN_REPLACEALL,TRUE)
-								' Set caption to Replace...
-								SetWindowText(hWin,GetInternalString(IS_REPLACE))
-								' Show replace
-								ShowDlgItem (hWin, IDC_REPLACESTATIC, SW_SHOWNA)
-								ShowDlgItem (hWin, IDC_REPLACETEXT, SW_SHOWNA)
-								SetFocus GetDlgItem (hWin, IDC_REPLACETEXT)      ' MOD 20.2.2012  add
-							Else
-								If f.fres<>-1 Then
-									f.nreplacecount+=1
-									SendMessage(ah.hred,EM_REPLACESEL,TRUE,Cast(Integer,@f.replacebuff))
-									If f.fdir = FM_DIR_UP Then
-										f.ft.chrg.cpMin=f.ft.chrg.cpMin-1
-									EndIf
-								EndIf
-								ClearFindMsg
-								Find(hWin,f.fr)
-							EndIf 
-						EndIf
-						'
-					Case IDC_BTN_FINDALL
-                        If IsDlgItemEnabled (hWin, IDC_BTN_FINDALL) Then
-	                        If f.fsearch = FM_RANGE_COMPILERINCPATH Then
-	                            FindAllOutside
-	                        Else
-	                            FindAllInside   
-	                        EndIf
-                        EndIf 
-                        
-				    Case IDC_BTN_REPLACEALL
-				        If IsDlgItemEnabled (hWin, IDC_BTN_REPLACEALL) Then
-					        ClearFindMsg
-							If f.fres=-1 Then
-								Find(hWin,f.fr)
-							EndIf
-							Do While f.fres<>-1
-								SendMessage hWin, WM_COMMAND, MAKEWPARAM (IDC_BTN_REPLACE, BN_CLICKED), 0
-							Loop
-							ResetFind
-				        EndIf 
-				        	
-					' MOD 15.2.2012     add
-				    Case IDC_BTN_CLR_OUTPUT
-                        SendMessage ah.hout, WM_SETTEXT, 0, Cast (LPARAM, @"")
-				        UpdateAllTabs(6)            'clear bookmarks  
-
-                    Case IDC_BTN_REGEX_HELP
-						GetPrivateProfileSpec @"Help", @"FbEdit", @ad.IniFile, @buff, GPP_Expanded Or GPP_MustExist
-
-						If IsZStrNotEmpty (buff) Then
-    				        s = "Regular Expression"
-	    			        HH_Help
-						Else
-						    IniKeyNotFoundMsg "Help", "FbEdit"
-						EndIf
-				
-				    Case IDC_BTN_REGEX_LIB
-    					Result = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLGOPTMNU), hWin, @GenericOptDlgProc, GODM_RegExLib)
-                        If Result > 0 Then
-               			    GetPrivateProfileString @"RegExLib", Str (Result), NULL, @buff, GOD_EntrySize, @ad.IniFile
-                            If IsZStrNotEmpty (buff) Then
-                                x = InStr (buff, ",")    
-                                SendDlgItemMessage hWin, IDC_FINDTEXT, WM_SETTEXT, 0, Cast (LPARAM, @buff[x])
-                                f.findbuff = (@buff)[x]            'WATCH
-                                ResetFind  
-                            EndIf 
-                        EndIf
-                        
-				    Case IDC_CHK_USE_REGEX  
-				        Select Case f.Engine
-				        Case FM_ENGINE_STD       
-				            f.Engine = FM_ENGINE_REGEX     ' sorry, searching only forward
-				            f.fnoreset = TRUE
-				            If f.fdir = FM_DIR_UP Then SendDlgItemMessage hWin, IDC_RBN_ALL, BM_CLICK, 0, 0
-				            If f.fr And FR_WHOLEWORD Then SendDlgItemMessage hWin, IDC_CHK_WHOLEWORD, BM_CLICK, 0, 0
-				            f.fnoreset = FALSE
-				        Case FM_ENGINE_REGEX
-				            f.Engine = FM_ENGINE_STD
-				        End Select
-				        ResetFind
-				    '==========================
-				        
-					Case IDC_CHK_MATCHCASE
-						f.fr=f.fr Xor FR_MATCHCASE
-						ResetFind
-						'
-					Case IDC_CHK_WHOLEWORD
-						f.fr=f.fr Xor FR_WHOLEWORD
-						ResetFind
-						'
-					Case IDC_CHK_SKIPCOMMENTS
-						f.fskipcommentline=f.fskipcommentline Xor 1
-						ResetFind
-						'
-					Case IDC_CHK_LOGFIND
-						f.flogfind=f.flogfind Xor 1
-						ResetFind
-						'
-				    Case IDC_RBN_ALL
-				        If f.fdir <> FM_DIR_ALL Then
-						    f.fdir = FM_DIR_ALL
-						    ResetFind
-						EndIf     
-						'
-				    Case IDC_RBN_DOWN
-				        If f.fdir <> FM_DIR_DOWN Then
-				        	f.fdir = FM_DIR_DOWN    
-						    ResetFind
-				        EndIf    
-						'
-				    Case IDC_RBN_UP
-						If f.fdir <> FM_DIR_UP Then 
-						    f.fdir = FM_DIR_UP
-						    ResetFind
-						EndIf    
-						'
-					Case IDC_RBN_PROCEDURE
-						If f.fsearch <> FM_RANGE_PROC Then
-						    f.fsearch = FM_RANGE_PROC
-						    ResetFind
-						EndIf    
-						'
-					Case IDC_RBN_CURRENTFILE
-						If f.fsearch <> FM_RANGE_SELTAB Then
-						    f.fsearch = FM_RANGE_SELTAB
-						    ResetFind
-						EndIf     
-						'
-					Case IDC_RBN_OPENFILES
-						If f.fsearch <> FM_RANGE_ALLTABS Then
-						    f.fsearch = FM_RANGE_ALLTABS
-						    ResetFind
-						EndIf     
-						'
-					Case IDC_RBN_PROJECTFILES
-						If f.fsearch <> FM_RANGE_PROJECT Then
-						    f.fsearch = FM_RANGE_PROJECT
-						    ResetFind
-						EndIf    
-						'
-				    Case IDC_RBN_INCLUDEPATH
-						f.fsearch = FM_RANGE_COMPILERINCPATH
-						f.fnoreset = TRUE 
-						If f.fdir <> FM_DIR_ALL  Then SendDlgItemMessage hWin, IDC_RBN_ALL,          BM_CLICK, 0, 0
-						If f.flogfind = FALSE    Then SendDlgItemMessage hWin, IDC_CHK_LOGFIND,      BM_CLICK, 0, 0
-						If f.fskipcommentline    Then SendDlgItemMessage hWin, IDC_CHK_SKIPCOMMENTS, BM_CLICK, 0, 0
-                        If f.fr And FR_WHOLEWORD Then SendDlgItemMessage hWin, IDC_CHK_WHOLEWORD,    BM_CLICK, 0, 0						
-						f.fnoreset = FALSE
-						ResetFind
-						'
-					Case IDC_RBN_SELECTION
-						If f.fsearch <> FM_RANGE_SELECTION Then
-						    f.fsearch = FM_RANGE_SELECTION
-						    ResetFind
-						EndIf    
-						'
+            If id = IDC_RBN_PROCEDURE Then
+                If GetWindowLong (ah.hred, GWL_ID) <> IDC_CODEED Then
+                    id = IDC_RBN_PROJECTFILES
+                EndIf          
+            EndIf
+            If id = IDC_RBN_CURRENTFILE Then
+            	If     GetWindowLong (ah.hred, GWL_ID) = IDC_RESED _
+                OrElse GetWindowLong (ah.hred, GWL_ID) = IDC_HEXED Then
+                    id = IDC_RBN_PROJECTFILES
+                EndIf          
+            EndIf
+			If id = IDC_RBN_PROJECTFILES Then
+			    If fProject = FALSE  Then
+			        id = IDC_RBN_OPENFILES
+			    EndIf
+			EndIf
+			If id = IDC_RBN_OPENFILES Then
+				Select Case CountCodeEdTabs
+				Case 0
+				    id = IDC_RBN_INCLUDEPATH
+				Case 1
+				    id = IDC_RBN_CURRENTFILE 
 				End Select
+			EndIf 
+
+            SendDlgItemMessage hWin, id, BM_CLICK, 0, 0
+            ResetFind 
+		EndIf
+
+    'Case WM_SETFOCUS 
+    '    Print "Find:WM_SETFOCUS"
+        
+	Case WM_COMMAND
+		id = LoWord (wParam)
+		Event = HiWord (wParam)
+		Select Case Event
+		Case BN_CLICKED 
+			Select Case id
+			Case IDOK
+		        If IsDlgItemEnabled (hWin, IDOK) Then	' if button click was on queue, before disabling take effect
+					If f.fdir = FM_DIR_UP Then
+						buff=GetInternalString(IS_PREVIOUS)
+					Else
+						buff=GetInternalString(IS_NEXT)
+					EndIf
+					SetDlgItemText hWin, IDOK, @buff
+					UpdateFindHistory(GetDlgItem(hWin,IDC_CBO_FINDTEXT))
+                    ClearFindMsg
+					Find(hWin,f.fr)
+		        EndIf
 				'
-			ElseIf Event=CBN_EDITCHANGE Then
-				SendDlgItemMessage(hWin,id,WM_GETTEXT,255,Cast(LPARAM,@f.findbuff))
-				SendDlgItemMessage(hWin,IDC_REPLACETEXT,WM_GETTEXT,255,Cast(LPARAM,@f.replacebuff))
-				ResetFind
+			Case IDCANCEL
+       			If f.Busy Then
+       			    f.Busy = FALSE 
+       			Else
+       			    f.SaveOnExit = FALSE 
+                    SendMessage hWin, WM_CLOSE, 0, 0
+       			EndIf
 				'
-			ElseIf Event=CBN_SELCHANGE Then
-				id=SendDlgItemMessage(hWin,id,CB_GETCURSEL,0,0)
-				SendDlgItemMessage(hWin,IDC_FINDTEXT,CB_SETCURSEL,id,0)
-				SendDlgItemMessage(hWin,IDC_FINDTEXT,WM_GETTEXT,255,Cast(LPARAM,@f.findbuff))
-				SendDlgItemMessage(hWin,IDC_REPLACETEXT,WM_GETTEXT,255,Cast(LPARAM,@f.replacebuff))
-				ResetFind
+			Case IDC_BTN_REPLACE
+		        If IsDlgItemEnabled (hWin, IDC_BTN_REPLACE) Then
+		        If IsWindowVisible(GetDlgItem(hWin,IDC_EDT_REPLACETEXT))=FALSE Then
+						' Enable Replace all button
+					    EnableDlgItem(hWin,IDC_BTN_REPLACEALL,TRUE)
+						' Set caption to Replace...
+						SetWindowText(hWin,GetInternalString(IS_REPLACE))
+						' Show replace
+						ShowDlgItem (hWin, IDC_STC_REPLACE, SW_SHOWNA)
+						ShowDlgItem (hWin, IDC_EDT_REPLACETEXT, SW_SHOWNA)
+						SetFocus GetDlgItem (hWin, IDC_EDT_REPLACETEXT)      ' MOD 20.2.2012  add
+					Else
+						If f.fres<>-1 Then
+							f.nreplacecount+=1
+							SendMessage(ah.hred,EM_REPLACESEL,TRUE,Cast(Integer,@f.replacebuff))
+							If f.fdir = FM_DIR_UP Then
+								f.ft.chrg.cpMin=f.ft.chrg.cpMin-1
+							EndIf
+						EndIf
+						ClearFindMsg
+						Find(hWin,f.fr)
+					EndIf 
+				EndIf
 				'
-			ElseIf Event=EN_CHANGE Then
-				' Update text buffers
-				SendDlgItemMessage(hWin,IDC_FINDTEXT,WM_GETTEXT,255,Cast(LPARAM,@f.findbuff))
-				SendDlgItemMessage(hWin,IDC_REPLACETEXT,WM_GETTEXT,255,Cast(LPARAM,@f.replacebuff))
+			Case IDC_BTN_FINDALL
+                If IsDlgItemEnabled (hWin, IDC_BTN_FINDALL) Then
+                    If f.fsearch = FM_RANGE_COMPILERINCPATH Then
+                        FindAllOutside
+                    Else
+                        FindAllInside   
+                    EndIf
+                EndIf 
+                
+		    Case IDC_BTN_REPLACEALL
+		        If IsDlgItemEnabled (hWin, IDC_BTN_REPLACEALL) Then
+			        ClearFindMsg
+					If f.fres=-1 Then
+						Find(hWin,f.fr)
+					EndIf
+					Do While f.fres<>-1
+						SendMessage hWin, WM_COMMAND, MAKEWPARAM (IDC_BTN_REPLACE, BN_CLICKED), 0
+					Loop
+					ResetFind
+		        EndIf 
+		        	
+			Case IDC_BTN_CLR_OUTPUT
+                SendMessage ah.hout, WM_SETTEXT, 0, Cast (LPARAM, @"")
+		        UpdateAllTabs(6)            'clear bookmarks  
+
+            Case IDC_BTN_REGEX_HELP
+				GetPrivateProfileSpec @"Help", @"FbEdit", @ad.IniFile, @buff, GPP_Expanded Or GPP_MustExist
+
+				If IsZStrNotEmpty (buff) Then
+			        s = "Regular Expression"
+			        HH_Help
+				Else
+				    IniKeyNotFoundMsg "Help", "FbEdit"
+				EndIf
+		
+		    Case IDC_BTN_REGEX_LIB
+				Result = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_GENERICOPTION), hWin, @GenericOptDlgProc, GODM_RegExLib)
+                If Result > 0 Then
+       			    GetPrivateProfileString @"RegExLib", Str (Result), NULL, @buff, GOD_EntrySize, @ad.IniFile
+                    If IsZStrNotEmpty (buff) Then
+                        x = InStr (buff, ",")    
+                        SetdlgItemtext hWin, IDC_CBO_FINDTEXT, @buff[x]
+                        f.findbuff = (@buff)[x]            'WATCH
+                        ResetFind  
+                    EndIf 
+                EndIf
+                
+		    Case IDC_CHK_USE_REGEX  
+		        Select Case f.Engine
+		        Case FM_ENGINE_STD       
+		            f.Engine = FM_ENGINE_REGEX             ' sorry, searching only forward
+		            f.fnoreset = TRUE
+		            If f.fdir = FM_DIR_UP Then SendDlgItemMessage hWin, IDC_RBN_ALL, BM_CLICK, 0, 0
+		            If f.fr And FR_WHOLEWORD Then SendDlgItemMessage hWin, IDC_CHK_WHOLEWORD, BM_CLICK, 0, 0
+		            f.fnoreset = FALSE
+		        Case FM_ENGINE_REGEX
+		            f.Engine = FM_ENGINE_STD
+		        End Select
+		        ResetFind
+		        
+			Case IDC_CHK_MATCHCASE
+				f.fr=f.fr Xor FR_MATCHCASE
 				ResetFind
-			EndIf
-			'
-	    Case WM_CLOSE
-	        f.Busy = FALSE                      ' stoppit if running
-			DestroyWindow(hWin)
-            DeleteObject hBMP 
-			SetFocus(ah.hred)
-			'
-		Case WM_DESTROY
-			hCtl=GetDlgItem(hWin,IDC_FINDTEXT)
-			For id=0 To 8
-				SendMessage(hCtl,CB_GETLBTEXT,id,Cast(LPARAM,@FindHistory(id)))
-			Next
-			GetWindowRect(hWin,@rect)
-			wpos.ptfind.x=rect.left
-			wpos.ptfind.y=rect.top
-			ah.hfind=0
-			findvisible=0
-			'
-		Case Else
-			Return FALSE
-			'
+
+			Case IDC_CHK_WHOLEWORD
+				f.fr=f.fr Xor FR_WHOLEWORD
+				ResetFind
+
+			Case IDC_CHK_SKIPCOMMENTS
+				f.fskipcommentline=f.fskipcommentline Xor 1
+				ResetFind
+
+			Case IDC_CHK_LOGFIND
+				f.flogfind=f.flogfind Xor 1
+				ResetFind
+
+		    Case IDC_RBN_ALL
+		        If f.fdir <> FM_DIR_ALL Then
+				    f.fdir = FM_DIR_ALL
+				    ResetFind
+				EndIf     
+
+		    Case IDC_RBN_DOWN
+		        If f.fdir <> FM_DIR_DOWN Then
+		        	f.fdir = FM_DIR_DOWN    
+				    ResetFind
+		        EndIf    
+
+		    Case IDC_RBN_UP
+				If f.fdir <> FM_DIR_UP Then 
+				    f.fdir = FM_DIR_UP
+				    ResetFind
+				EndIf    
+
+			Case IDC_RBN_PROCEDURE
+				If f.fsearch <> FM_RANGE_PROC Then
+				    f.fsearch = FM_RANGE_PROC
+				    ResetFind
+				EndIf    
+
+			Case IDC_RBN_CURRENTFILE
+				If f.fsearch <> FM_RANGE_SELTAB Then
+				    f.fsearch = FM_RANGE_SELTAB
+				    ResetFind
+				EndIf     
+
+			Case IDC_RBN_OPENFILES
+				If f.fsearch <> FM_RANGE_ALLTABS Then
+				    f.fsearch = FM_RANGE_ALLTABS
+				    ResetFind
+				EndIf     
+
+			Case IDC_RBN_PROJECTFILES
+				If f.fsearch <> FM_RANGE_PROJECT Then
+				    f.fsearch = FM_RANGE_PROJECT
+				    ResetFind
+				EndIf    
+
+		    Case IDC_RBN_INCLUDEPATH
+				f.fsearch = FM_RANGE_COMPILERINCPATH
+				f.fnoreset = TRUE 
+				If f.fdir <> FM_DIR_ALL  Then SendDlgItemMessage hWin, IDC_RBN_ALL,          BM_CLICK, 0, 0
+				If f.flogfind = FALSE    Then SendDlgItemMessage hWin, IDC_CHK_LOGFIND,      BM_CLICK, 0, 0
+				If f.fskipcommentline    Then SendDlgItemMessage hWin, IDC_CHK_SKIPCOMMENTS, BM_CLICK, 0, 0
+                If f.fr And FR_WHOLEWORD Then SendDlgItemMessage hWin, IDC_CHK_WHOLEWORD,    BM_CLICK, 0, 0						
+				f.fnoreset = FALSE
+				ResetFind
+
+			Case IDC_RBN_SELECTION
+				If f.fsearch <> FM_RANGE_SELECTION Then
+				    f.fsearch = FM_RANGE_SELECTION
+				    ResetFind
+				EndIf    
+			End Select
+
+		Case CBN_EDITCHANGE
+			GetDlgItemText hWin, IDC_CBO_FINDTEXT, @f.findbuff, SizeOf (f.findbuff)
+			ResetFind
+        
+		Case CBN_SELCHANGE 
+            lret = SendDlgItemMessage (hWin, IDC_CBO_FINDTEXT, CB_GETCURSEL, 0, 0)
+            SendDlgItemMessage hWin, IDC_CBO_FINDTEXT, CB_SETCURSEL, lret, 0
+			GetDlgItemText hWin, IDC_CBO_FINDTEXT, @f.findbuff, SizeOf (f.findbuff)
+   			ResetFind
+
+		'Case EN_CHANGE
+		'	Select Case id
+		'	Case IDC_EDT_REPLACETEXT
+		'	    GetDlgItemText hWin, IDC_EDT_REPLACETEXT, @f.replacebuff, SizeOf (f.replacebuff)
+		'	    ResetFind    
+		'	Case IDC_EDT_LOADFORSEARCH
+		'	    GetDlgItemText hWin, IDC_EDT_LOADFORSEARCH, @f.LoadForSearch, SizeOf (f.LoadForSearch)
+		'	    ResetFind
+		'	End Select
+		
+		Case EN_KILLFOCUS 
+			Select Case id
+			Case IDC_EDT_REPLACETEXT
+			    GetDlgItemText hWin, IDC_EDT_REPLACETEXT, @f.replacebuff, SizeOf (f.replacebuff)
+			    ResetFind    
+			Case IDC_EDT_LOADFORSEARCH
+			    GetDlgItemText hWin, IDC_EDT_LOADFORSEARCH, @f.LoadForSearch, SizeOf (f.LoadForSearch)
+		        Success = FormatDEVStr (f.LoadForSearch, SizeOf (f.LoadForSearch))
+             	If Success = FALSE Then
+                    TextToOutput "*** invalid extension list ***", MB_ICONASTERISK
+             	EndIf
+       			SetDlgItemText hWin, IDC_EDT_LOADFORSEARCH, @f.LoadForSearch
+       			ResetFind  
+			End Select
+		End Select 
+
+	Case WM_CLOSE
+        f.Busy = FALSE                      ' stoppit if running
+		SetFocus ah.hred                    ' saves edit boxes by killing focus
+		If f.SaveOnExit Then                ' distinguish between buttons: Exit / Cancel 
+    		For id = 0 To 8
+    			SendDlgItemMessage hWin, IDC_CBO_FINDTEXT, CB_GETLBTEXT, id, Cast (LPARAM, @FindHistory(id))
+    		Next
+    		
+    		FindWriteIni
+    		GetWindowRect hWin, @rect
+    		wpos.ptfind.x = rect.left
+    		wpos.ptfind.y = rect.top
+		EndIf
+		
+		DestroyWindow hWin
+    
+        DeleteObject hBMP 
+		ah.hfind = 0
+		findvisible = 0
+
+		'
+	'Case WM_DESTROY
+	'	For id = 0 To 8
+	'		SendDlgItemMessage hWin, IDC_CBO_FINDTEXT, CB_GETLBTEXT, id, Cast (LPARAM, @FindHistory(id))
+	'	Next
+	'	FindWriteIni
+	'	GetWindowRect hWin, @rect
+	'	wpos.ptfind.x = rect.left
+	'	wpos.ptfind.y = rect.top
+
+	Case Else
+		Return FALSE
+
 	End Select
+
 	Return TRUE
+
+End Function
+
+Function IsFileSearchable (ByVal pFileSpec As ZString Ptr) As BOOL 
+	
+	' f.LoadForSearch is LCASE p.def. - forced on file I/O
+	
+	Dim FileExt As ZString * MAX_PATH = *PathFindExtension (pFileSpec)
+		
+	If IsZStrEmpty (FileExt) Then Return FALSE 
+	CharLower FileExt
+	
+	If InZStr (0, f.LoadForSearch, FileExt + ".") >= 0 Then 
+	    Return TRUE
+	Else
+	    Return FALSE    
+	EndIf
 
 End Function

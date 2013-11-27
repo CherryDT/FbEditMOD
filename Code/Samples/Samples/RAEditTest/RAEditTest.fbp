@@ -12,7 +12,7 @@ RunCmd=0
 [Make]
 Current=1
 1=Windows GUI,fbc -s gui
-Recompile=2
+Recompile=0
 Module=Module Build,fbc -c
 Output=
 Run=
@@ -20,25 +20,31 @@ Delete=
 PreBuildBatch=
 PostBuildBatch=
 [TabOrder]
-TabOrder=1,3,2,4,5,6
+TabOrder=1,3,2,4,6,5
 CurrentTab=1
 [File]
 1=RAEditTest.bas
 2=RAEditTest.rc
 3=RAEditTest.bi
 4=RAEdit.bi
-5=FileIO.bas
-6=Misc.bas
+MainRC=2
+Main=1
+5=Misc.bas
+6=FileIO.bas
 [BreakPoint]
 1=
 3=
 5=
 4=
 6=
+1002=
+1001=
 [FileInfo]
-5=0,30,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5=0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 1=0,6,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 3=0,8,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 2=0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 4=0,24,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-6=0,16,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6=0,30,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1002=0,30,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1001=0,16,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0

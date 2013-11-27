@@ -15,9 +15,13 @@ Declare Sub ZStrReplaceChar (ByVal lpszStr As UByte Ptr, ByVal nByte As UByte, B
 Declare Sub TrimWhiteSpace (ByRef Work As ZString)
 Declare Function InZStr (ByRef i As Integer, ByRef Source As ZString, ByRef Find As ZString) As Integer 
 Declare Sub ZStrCat Cdecl (ByVal pTarget As ZString Ptr, ByVal TargetSize As Integer, ByVal ArgCount As Integer, ByVal pFirst As ZString Ptr, ...)
+Declare Sub RemoveChars (Byref Source As ZString, ByRef CharList As ZString)
+Declare Sub KeepChars (ByRef Source As ZString, ByRef CharList As ZString)
+Declare Function EncloseString (ByRef Source As ZString, ByVal SourceSize As Integer, ByVal EncloseChar As UByte) As BOOL 
 
 
 Declare Sub FormatFunctionName (ByRef FuncDescIn As ZString, ByRef FuncDescOut As ZString)
+Declare Function FormatDEVStr (ByRef Source As ZString, ByVal SourceSize As Integer) As BOOL
 
 
 

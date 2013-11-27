@@ -3,6 +3,8 @@
 ' module compile with: -gen gcc -O2
 
 #Include Once "windows.bi"
+#Include Once "Inc\SpecHandling.bi"
+#Include Once "Inc\ZStringHandling.bi"
 
 
 Function InZStr (ByRef i As Integer, ByRef Source As ZString, ByRef Find As ZString) As Integer 
@@ -638,3 +640,133 @@ Sub ZStrCat Cdecl (ByVal pTarget As ZString Ptr, ByVal TargetSize As Integer, By
     Next 
     
 End Sub     
+
+Function FormatDEVStr (ByRef Source As ZString, ByVal SourceSize As Integer) As BOOL
+    
+    ' DEV Dot Enclosed Value
+
+    Dim n       As Integer = Any 
+    Dim i       As Integer = Any
+    Dim Success As BOOL    = Any 
+
+
+  	WeedOutSpec Source                        ' remove illegal chars from spec
+  	CharLower @Source                         ' LCASE p.def.
+    Success = EncloseString (Source, SourceSize, Asc("."))
+    	
+    Return Success 
+        
+End Function
+
+Sub RemoveChars (Byref Source As ZString, ByRef CharList As ZString)
+    
+    ' [in/out]  Source   : null terminated string, from which chars will be removed
+    ' [in]      CharList : list of illegal chars, any char in this list will be removed from Source
+    
+    Dim IllegalCharTab(0 To 255) As UByte   
+    Dim n                        As Integer = Any 
+    Dim i                        As Integer = Any
+  
+    n = 0
+    Do           ' set chartab
+        Select Case CharList[n]
+        Case 0
+            Exit Do 
+        Case Else
+            IllegalCharTab(CharList[n]) = TRUE 
+        End Select
+        n += 1    
+    Loop
+    
+    i = 0
+    n = 0
+    Do           ' remove illegal chars
+        If Source[i] Then
+            If IllegalCharTab(Source[i]) Then
+                i += 1
+            Else
+                Source[n] = Source[i]
+                n += 1
+                i += 1
+            EndIf
+        Else
+            Source[n] = Source[i]        ' terminating null
+            Exit Sub 
+        EndIf
+    Loop
+    
+End Sub
+
+Sub KeepChars (ByRef Source As ZString, ByRef CharList As ZString)
+    
+    ' [in/out]  Source   : null terminated string, from which chars will be removed
+    ' [in]      CharList : list of legal chars, any char NOT in this list will be removed from Source
+    
+    Dim LegalCharTab(0 To 255) As UByte   
+    Dim n                      As Integer = Any 
+    Dim i                      As Integer = Any
+  
+    n = 0
+    Do           ' set chartab
+        Select Case CharList[n]
+        Case 0
+            Exit Do 
+        Case Else
+            LegalCharTab(CharList[n]) = TRUE 
+        End Select
+        n += 1    
+    Loop
+    
+    i = 0
+    n = 0
+    Do           ' remove illegal chars
+        If Source[i] Then
+            If LegalCharTab(Source[i]) Then
+                Source[n] = Source[i]
+                n += 1
+                i += 1
+            Else
+                i += 1
+            EndIf
+        Else
+            Source[n] = Source[i]        ' terminating null
+            Exit Sub 
+        EndIf
+    Loop
+    
+End Sub
+
+Function EncloseString (ByRef Source As ZString, ByVal SourceSize As Integer, ByVal EncloseChar As UByte) As BOOL 
+        
+    Dim L As Integer = Any 
+    
+    L = lstrlen (@Source)
+    
+    If Source[0] Then
+        If Source[0] <> EncloseChar Then 
+            If L >= SourceSize - 1 Then
+                Return FALSE                                  ' string not extensible 
+            EndIf
+            MoveMemory (@Source + 1, @Source, L + 1)          ' shift string in mem, incl. terminating null
+            Source[0] = EncloseChar                           ' prefix it
+            L += 1
+        EndIf 
+        If (Source[L - 1] <> EncloseChar) OrElse (L = 1) Then ' (L = 1) to preserve prefix
+            If L >= SourceSize - 1 Then
+                Return FALSE 
+            EndIf
+            Source[L]     = EncloseChar                       ' postfix it
+            Source[L + 1] = NULL 
+        EndIf
+    Else
+        If SourceSize < 3 Then
+            Return FALSE
+        EndIf
+        Source[0] = EncloseChar
+        Source[1] = EncloseChar
+        Source[2] = NULL
+    EndIf 
+    
+    Return TRUE
+     
+End Function 

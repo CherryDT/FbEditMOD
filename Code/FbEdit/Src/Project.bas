@@ -44,8 +44,8 @@
 #Define IDC_STCNEWPROJECTTPL				1002
 
 #Define IDC_TABNEWPROJECT					5301
-#Define IDD_NEWPROJECT1						5360
-#Define IDD_NEWPROJECT2						5380
+#Define IDD_DLG_NEWPROJECT_TAB1				5360
+#Define IDD_DLG_NEWPROJECT_TAB2				5380
 
 'ProjectOption.dlg
 #Define IDC_EDTPODESCRIPTION				1001
@@ -77,7 +77,7 @@
 #Define IDC_EDT_PREBUILDBATCH               5533
 
 ' Api select
-#Define IDD_DLGPROJECTOPTIONAPI		    	6200
+#Define IDD_DLG_PROJECTAPI		    	    6200
 #Define IDC_LSTAPIFILES						6201
 
 Dim Shared hTabNewProject1 	  As HWND
@@ -289,6 +289,7 @@ Function GetFileImg (ByRef FileSpec As ZString, ByVal FileID As Integer) As Inte
 	    Else
 	                            Return 5    
 	    EndIf
+	Case ".bat", ".cmd"     :   Return 9
 	Case Else               :   Return 5
 	End Select    
 
@@ -1168,25 +1169,27 @@ Sub AddAProjectFile(Byref sFile As zString,ByVal fModule As Boolean,ByVal fCreat
 End Sub
 
 Sub AddNewProjectFile()
-	Dim sFile As ZString*MAX_PATH
-	Dim ofn As OPENFILENAME
+	
+	Dim FileSpec As ZString * MAX_PATH
+	Dim Title    As ZString * 1024
+	Dim ofn      As OPENFILENAME
     
-	ofn.lStructSize=SizeOf(OPENFILENAME)
-	ofn.hwndOwner=GetOwner
-	ofn.hInstance=hInstance
-	ofn.lpstrInitialDir=@ad.ProjectPath
-	SetZStrEmpty (buff)                                   ' MOD 14.1.2012   buff=String(260,0)
-	ofn.lpstrFile=@buff                  'receives full spec
-	ofn.nMaxFile=260
-	ofn.lpstrFilter=StrPtr(ALLFilterString)
-	sFile=GetInternalString(IS_ADD_NEW_FILE)
-	ofn.lpstrTitle=@sFile                'receives filename + extension
-	ofn.Flags=OFN_EXPLORER Or OFN_PATHMUSTEXIST Or OFN_HIDEREADONLY Or OFN_OVERWRITEPROMPT
-	If GetSaveFileName(@ofn) Then
-		' MOD 1.3.2012
-		AddAProjectFile buff, FALSE, TRUE
-		'sFile=buff
-		'AddAProjectFile(sFile,FALSE,TRUE)
+    Title = GetInternalString (IS_ADD_NEW_FILE)
+    
+    With ofn
+    	.lStructSize     = SizeOf (OPENFILENAME)
+    	.hwndOwner       = GetOwner
+    	.hInstance       = hInstance
+    	.lpstrInitialDir = @ad.ProjectPath
+    	.lpstrFile       = @FileSpec
+    	.nMaxFile        = SizeOf (FileSpec)
+    	.lpstrFilter     = @ALLFilterString
+    	.lpstrTitle      = @Title
+    	.Flags           = OFN_EXPLORER Or OFN_PATHMUSTEXIST Or OFN_HIDEREADONLY Or OFN_OVERWRITEPROMPT
+    End With
+
+	If GetSaveFileName (@ofn) Then
+		AddAProjectFile FileSpec, FALSE, TRUE
 	EndIf
 
 End Sub
@@ -1232,24 +1235,28 @@ Sub AddExistingProjectFile()
 End Sub
 
 Sub AddNewProjectModule()
-	Dim ofn As OPENFILENAME
-	Dim sFile As ZString*260
+    
+    Dim FileSpec As ZString * MAX_PATH
+    Dim Title    As ZString * 1024
+	Dim ofn      As OPENFILENAME
+    
+    Title = GetInternalString (IS_ADD_NEW_MODULE)
+    
+    With ofn
+    	.lStructSize     = SizeOf (OPENFILENAME)
+    	.hwndOwner       = GetOwner
+    	.hInstance       = hInstance
+    	.lpstrInitialDir = @ad.ProjectPath
+    	.lpstrFile       = @FileSpec
+    	.nMaxFile        = SizeOf (FileSpec)
+    	.lpstrFilter     = @MODFilterString
+    	.lpstrTitle      = @Title
+    	.Flags           = OFN_EXPLORER Or OFN_PATHMUSTEXIST Or OFN_HIDEREADONLY Or OFN_OVERWRITEPROMPT
+    	.lpstrDefExt     = @"bas"
+    End With
 
-	ofn.lStructSize=SizeOf(OPENFILENAME)
-	ofn.hwndOwner=GetOwner
-	ofn.hInstance=hInstance
-	ofn.lpstrInitialDir=@ad.ProjectPath
-	SetZStrEmpty (buff)                                   ' MOD 14.1.2012   buff=String(260,0)
-	ofn.lpstrFile=@buff
-	ofn.nMaxFile=260
-	ofn.lpstrFilter=StrPtr(MODFilterString)
-	sFile=GetInternalString(IS_ADD_NEW_MODULE)
-	ofn.lpstrTitle=@sFile
-	ofn.Flags=OFN_EXPLORER Or OFN_PATHMUSTEXIST Or OFN_HIDEREADONLY Or OFN_OVERWRITEPROMPT
-	ofn.lpstrDefExt=StrPtr("bas")
-	If GetSaveFileName(@ofn) Then
-		sFile=buff
-		AddAProjectFile(sFile,TRUE,TRUE)
+	If GetSaveFileName (@ofn) Then
+		AddAProjectFile FileSpec, TRUE, TRUE
 	EndIf
 
 End Sub
@@ -2049,7 +2056,7 @@ Function NewProjectTab1Proc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam A
 
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_NEWPROJECT1)
+			TranslateDialog(hWin,IDD_DLG_NEWPROJECT_TAB1)
 			nInx=1
 			Do While nInx<20
 				sItem=Str(nInx)
@@ -2079,7 +2086,7 @@ Function NewProjectTab2Proc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam A
 
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_NEWPROJECT2)
+			TranslateDialog(hWin,IDD_DLG_NEWPROJECT_TAB2)
 			SendDlgItemMessage(hWin,IDC_LSTNEWPROJECTTPL,LB_ADDSTRING,0,Cast(LPARAM,StrPtr("(None)")))
 			buff=ad.AppPath & "\Templates\*.tpl"
 			hwfd=FindFirstFile(@buff,@wfd)
@@ -2134,7 +2141,7 @@ Function NewProjectDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_NEWPROJECT)
+			TranslateDialog(hWin,IDD_DLG_NEWPROJECT)
 			CenterOwner(hWin)
 			hNPTab=GetDlgItem(hWin,IDC_TABNEWPROJECT)
 			ts.mask=TCIF_TEXT
@@ -2145,8 +2152,8 @@ Function NewProjectDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 			ts.pszText=@sItem
 			SendMessage(hNPTab,TCM_INSERTITEM,1,Cast(LPARAM,@ts))
 			'Create the tab dialogs
-			hTabNewProject1 = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_NEWPROJECT1), hNPTab, @NewProjectTab1Proc)
-			hTabNewProject2 = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_NEWPROJECT2), hNPTab, @NewProjectTab2Proc)
+			hTabNewProject1 = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLG_NEWPROJECT_TAB1), hNPTab, @NewProjectTab1Proc)
+			hTabNewProject2 = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLG_NEWPROJECT_TAB2), hNPTab, @NewProjectTab2Proc)
 			SetDlgItemText(hWin,IDC_EDTPROJECTPATH,@ad.DefProjectPath)
 			SendDlgItemMessage(hWin,IDC_EDTPROJECTNAME,EM_LIMITTEXT,64,0)
 			SendDlgItemMessage(hWin,IDC_EDTPROJECTDESCRIPTION,EM_LIMITTEXT,64,0)
@@ -2247,7 +2254,7 @@ Function ApiOptionProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPA
 
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_DLGPROJECTOPTIONAPI)
+			TranslateDialog(hWin,IDD_DLG_PROJECTAPI)
 			CenterOwner(hWin)
 			hLst=GetDlgItem(hWin,IDC_LSTAPIFILES)
 			lpOldApiListProc=Cast(Any Ptr,SetWindowLong(hLst,GWL_WNDPROC,Cast(Integer,@ApiListProc)))
@@ -2377,7 +2384,7 @@ Function ProjectOptionDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wPar
 
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog hWin, IDD_DLGPROJECTOPTION
+			TranslateDialog hWin, IDD_DLG_PROJECTOPTION
 			CenterOwner hWin
 			'SendDlgItemMessage(hWin,IDC_EDTPODESCRIPTION,EM_LIMITTEXT,64,0)
 			'SendDlgItemMessage(hWin,IDC_EDTPOTYPE,EM_LIMITTEXT,SizeOf (CCLName),0)
@@ -2539,7 +2546,7 @@ Function ProjectOptionDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wPar
 					EndDialog hWin, 0
 					'
 				Case IDC_BTNMAKEOPT
-					x = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLGOPTMNU), hWin, @GenericOptDlgProc, GODM_MakeOptProject)
+					x = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_GENERICOPTION), hWin, @GenericOptDlgProc, GODM_MakeOptProject)
 					If x Then 
 					    WritePrivateProfileString @"Make", @"Current", Str (x), @ad.ProjectFile
 						GetMakeOption
@@ -2578,7 +2585,7 @@ Function ProjectOptionDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wPar
 					EndIf
 			    
 				Case IDC_BTNAPIFILES
-					If DialogBox(hInstance,Cast(ZString Ptr,IDD_DLGPROJECTOPTIONAPI),hWin,@ApiOptionProc) Then
+					If DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_PROJECTAPI), hWin, @ApiOptionProc) Then
 						SetDlgItemText(hWin,IDC_EDTAPIFILES,@buff)
 					EndIf
 					'
@@ -2614,7 +2621,7 @@ Function ProjectOptionDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wPar
     		    Case GN_HEADERCLICK
 				    SendMessage hGrd, GM_COLUMNSORT, pGRIDNOTIFY->col, SORT_INVERT
     		    Case GN_BUTTONCLICK
-					Result = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLGOPTMNU), hWin, @GenericOptDlgProc, GODM_MakeOptModule)
+					Result = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_GENERICOPTION), hWin, @GenericOptDlgProc, GODM_MakeOptModule)
                     If Result > 0 Then
 	                    GetPrivateProfileString @"Make", Str (Result), NULL, @buff, GOD_EntrySize, @ad.ProjectFile
                         SplitStr buff, Asc (","), pBuffB 

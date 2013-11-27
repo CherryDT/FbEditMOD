@@ -10,8 +10,8 @@ Type FIND
 	chrgrange			    As CHARRANGE					' Range to search
 	fr						As Integer						' Find flags
 	ft						As FINDTEXTEX
-	findbuff				As ZString*260
-	replacebuff			    As ZString*260
+	findbuff				As ZString * 260
+	replacebuff			    As ZString * 260
 	nreplacecount		    As Integer
 	fskipcommentline	    As Integer
 	flogfind				As Integer
@@ -23,7 +23,9 @@ Type FIND
 	nlinesout			    As Integer
 	fres					As Integer						' Find result
     RegEx                   As regex_t                      ' MOD 16.2.2012
-    Busy                    As BOOLEAN                      ' MOD 28.3.2012 lenghty op is running, clear to stop it  
+    Busy                    As BOOLEAN                      ' MOD 28.3.2012 lenghty op is running, clear to stop it
+    LoadForSearch           As ZString * 260                ' list of extensions, matching project files are loaded for searching 
+    SaveOnExit              As BOOL                         ' FALSE skips saving of dialogbox data (cancel button)
 End Type
 
 
@@ -45,21 +47,22 @@ Extern f     As FIND
 Extern fsave As FIND
 
 
-Declare Sub LoadFindHistory ()
-Declare Sub SaveFindHistory ()
+Declare Sub FindReadIni ()
+Declare Sub FindWriteIni ()
 Declare Function Find (ByVal hWin As HWND,ByVal frType As Integer) As Integer
 Declare Sub ResetFind ()
 Declare Sub UpDateFind (ByVal hWin As HWND,ByVal cpMin As Integer,ByVal fChanged As Integer)
 Declare Function FindDlgProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer
+Declare Function IsFileSearchable (ByVal pFileSpec As ZString Ptr) As BOOL 
 
 
-#Define IDD_FINDDLG							2500
-#Define IDC_FINDTEXT						2001
-#Define IDC_REPLACETEXT						2002
+#Define IDD_DLG_FIND						2500
+#Define IDC_CBO_FINDTEXT					2001
+#Define IDC_EDT_REPLACETEXT 				2002
 #Define IDC_CHK_MATCHCASE					2003
 #Define IDC_CHK_WHOLEWORD					2007
 #Define IDC_BTN_REPLACEALL					2008
-#Define IDC_REPLACESTATIC					2009
+#Define IDC_STC_REPLACE  					2009
 #Define IDC_BTN_REPLACE						2010
 #Define IDC_CHK_USE_REGEX                   2011         ' MOD 16.2.2012 add
 #Define IDC_BTN_REGEX_HELP                  2012         ' MOD 16.2.2012 add
@@ -68,6 +71,7 @@ Declare Function FindDlgProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam
 #Define IDC_BTN_FINDALL						2015
 #Define IDC_BTN_CLR_OUTPUT                  2016         ' MOD 15.2.2012 add
 #Define IDC_BTN_REGEX_LIB                   2020
+#Define IDC_EDT_LOADFORSEARCH               2021
 
 ' Messages
 #Define IDC_IMG_FINDMSG                     2017

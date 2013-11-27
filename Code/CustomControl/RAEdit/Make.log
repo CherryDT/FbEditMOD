@@ -3,7 +3,7 @@ Copyright (C) Microsoft Corp. 1985-1998. All rights reserved.
 
 Using codepage 1252 as default
 Creating RAEdit.res
-RC: RCPP -CP 1252 -f C:\Program Files (x86)\FbEditSVN\Code\CustomControl\RAEdit\RCa02324 -g C:\Program Files (x86)\FbEditSVN\Code\CustomControl\RAEdit\RDa02324 -DRC_INVOKED -D_WIN32 -pc\:/ -E -I. -I Src\ -I .
+RC: RCPP -CP 1252 -f C:\Program Files (x86)\FbEditSVN\Code\CustomControl\RAEdit\RCa01816 -g C:\Program Files (x86)\FbEditSVN\Code\CustomControl\RAEdit\RDa01816 -DRC_INVOKED -D_WIN32 -pc\:/ -E -I. -I Src\ -I .
 
 Src\RAEdit.rc.
 Writing VERSION:1,	lang:0x409,	size 600.
@@ -254,6 +254,9 @@ Searching Libraries
       Found _ShowCaret@4
         Referenced in RAEdit.obj
         Loaded user32.lib(user32.dll)
+      Found _ShowCursor@4
+        Referenced in RAEdit.obj
+        Loaded user32.lib(user32.dll)
       Found _ShowWindow@8
         Referenced in RAEdit.obj
         Loaded user32.lib(user32.dll)
@@ -267,6 +270,7 @@ Searching Libraries
         Referenced in RAEdit.obj
         Loaded user32.lib(user32.dll)
       Found __IMPORT_DESCRIPTOR_user32
+        Referenced in user32.lib(user32.dll)
         Referenced in user32.lib(user32.dll)
         Referenced in user32.lib(user32.dll)
         Referenced in user32.lib(user32.dll)
@@ -777,6 +781,9 @@ Searching Libraries
       Found _ShowCaret@4
         Referenced in RAEdit.obj
         Loaded user32.lib(user32.dll)
+      Found _ShowCursor@4
+        Referenced in RAEdit.obj
+        Loaded user32.lib(user32.dll)
       Found _ShowWindow@8
         Referenced in RAEdit.obj
         Loaded user32.lib(user32.dll)
@@ -790,6 +797,7 @@ Searching Libraries
         Referenced in RAEdit.obj
         Loaded user32.lib(user32.dll)
       Found __IMPORT_DESCRIPTOR_user32
+        Referenced in user32.lib(user32.dll)
         Referenced in user32.lib(user32.dll)
         Referenced in user32.lib(user32.dll)
         Referenced in user32.lib(user32.dll)
@@ -1077,6 +1085,7 @@ Start Pass2
      comctl32.lib(comctl32.dll)
      comctl32.lib(comctl32.dll)
      comctl32.lib(comctl32.dll)
+     user32.lib(user32.dll)
      user32.lib(user32.dll)
      user32.lib(user32.dll)
      user32.lib(user32.dll)

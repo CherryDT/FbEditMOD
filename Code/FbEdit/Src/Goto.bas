@@ -120,7 +120,7 @@ Function GotoDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 
 	Select Case uMsg
 		Case WM_INITDIALOG
-			TranslateDialog(hWin,IDD_GOTODLG)
+			TranslateDialog(hWin,IDD_DLG_GOTO)
 			gotovisible=hWin
 			SetWindowPos(hWin,0,wpos.ptgoto.x,wpos.ptgoto.y,0,0,SWP_NOSIZE)
 			'

@@ -79,7 +79,7 @@ Function BrowseForFolderCallBack(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal lPa
 
 End Function
 
-Sub BrowseForFolder(ByVal hWin As HWND,ByVal nID As Integer)
+Sub BrowseForFolder (ByVal hWin As HWND, ByVal nID As Integer)
 	
 	Dim pidl As LPCITEMIDLIST
 	Dim bri  As BROWSEINFO
@@ -94,35 +94,46 @@ Sub BrowseForFolder(ByVal hWin As HWND,ByVal nID As Integer)
 	'bri.iImage         = 0
 
 	' get path   
-	SendDlgItemMessage(hWin,nID,WM_GETTEXT,260,Cast(Integer,@buff))
-	pidl=SHBrowseForFolder(@bri)
+	GetDlgItemText hWin, nID, @buff, MAX_PATH 
+	pidl = SHBrowseForFolder (@bri)
 	If pidl Then
-		SHGetPathFromIDList(pidl,@buff)
+		SHGetPathFromIDList pidl, @buff
    		CoTaskMemFree pidl
 		' set new path back to edit
-		SendDlgItemMessage(hWin,nID,WM_SETTEXT,0,Cast(Integer,@buff))
+		SetDlgItemText hWin, nID, @buff
 	EndIf
 
 End Sub
 
 Function OutputProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
 	
-	Dim pt   As Point = Any
-	Dim hMnu As HMENU = Any 
-
+	Dim pt       As Point   = Any
+	Dim hMnu     As HMENU   = Any 
+    Dim hPrevCur As HCURSOR = Any
+    
 	Select Case uMsg
 		Case WM_CONTEXTMENU
 			If CallAddins(hWin,AIM_CONTEXTMEMU,wParam,lParam,HOOK_CONTEXTMEMU)=FALSE Then
-				If lParam=-1 Then
-					GetCaretPos(@pt)
-					ClientToScreen(hWin,@pt)
-					pt.x=pt.x+10
-				Else
-					pt.x=Cast(Short,LoWord(lParam))
-					pt.y=Cast(Short,HiWord(lParam))
-				EndIf
-				hMnu=GetSubMenu(ah.hcontextmenu,2)
-				TrackPopupMenu(hMnu,TPM_LEFTALIGN Or TPM_RIGHTBUTTON,pt.x,pt.y,0,ah.hwnd,0)
+		    	If lParam = -1 Then               ' context menu called by keyboard
+					GetCaretPos @pt
+					ClientToScreen Cast (HWND, wParam), @pt
+					pt.x += 10
+		    	Else                              ' context menu called by R-button-click
+					pt.x = LoWord (lParam)
+					pt.y = HiWord (lParam)
+		    	EndIf
+				
+				hMnu = GetSubMenu (ah.hcontextmenu, 2)
+
+				ShowCursor FALSE
+    			hPrevCur = SetCursor (LoadCursor (NULL, IDC_ARROW))
+				ShowCursor TRUE
+				TrackPopupMenu hMnu, TPM_LEFTALIGN Or TPM_RIGHTBUTTON, pt.x, pt.y, 0, ah.hwnd, 0
+				ShowCursor FALSE
+				SetCursor hPrevCur
+				ShowCursor TRUE 
+
+				Return 0
 			EndIf
 		
 		Case WM_SETFOCUS
@@ -134,28 +145,40 @@ Function OutputProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 	        SbarClear
 	
 	End Select
+	
 	Return CallWindowProc(lpOldOutputProc,hWin,uMsg,wParam,lParam)
 
 End Function
 
 Function ImmediateProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
 	
-	Dim pt   As Point = Any 
-	Dim hMnu As HMENU = Any
-
+	Dim pt       As Point   = Any 
+	Dim hMnu     As HMENU   = Any
+    Dim hPrevCur As HCURSOR = Any
+    
 	Select Case uMsg
 		Case WM_CONTEXTMENU
 			If CallAddins(hWin,AIM_CONTEXTMEMU,wParam,lParam,HOOK_CONTEXTMEMU)=FALSE Then
-				If lParam=-1 Then
-					GetCaretPos(@pt)
-					ClientToScreen(hWin,@pt)
-					pt.x=pt.x+10
-				Else
-					pt.x=Cast(Short,LoWord(lParam))
-					pt.y=Cast(Short,HiWord(lParam))
-				EndIf
-				hMnu=GetSubMenu(ah.hcontextmenu,5)
-				TrackPopupMenu(hMnu,TPM_LEFTALIGN Or TPM_RIGHTBUTTON,pt.x,pt.y,0,ah.hwnd,0)
+		    	If lParam = -1 Then               ' context menu called by keyboard
+					GetCaretPos @pt
+					ClientToScreen Cast (HWND, wParam), @pt
+    				pt.x += 10
+		    	Else                              ' context menu called by R-button-click
+					pt.x = LoWord (lParam)
+					pt.y = HiWord (lParam)
+		    	EndIf
+				
+				hMnu = GetSubMenu (ah.hcontextmenu, 5)
+
+				ShowCursor FALSE
+    			hPrevCur = SetCursor (LoadCursor (NULL, IDC_ARROW))
+				ShowCursor TRUE
+				TrackPopupMenu hMnu, TPM_LEFTALIGN Or TPM_RIGHTBUTTON, pt.x, pt.y, 0, ah.hwnd, 0
+				ShowCursor FALSE
+				SetCursor hPrevCur
+				ShowCursor TRUE 
+
+				Return 0
 			EndIf
 
 	    Case WM_SETFOCUS

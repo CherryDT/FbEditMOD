@@ -11,7 +11,7 @@ Const szEBIN = "[*ENDBIN*]"
 Const szNAME = "[*PRONAME*]"
 
 
-#Define IDD_CREATETEMPLATE      6000
+#Define IDD_DLG_CREATETEMPLATE      6000
 
 
 Declare Function CreateTemplateDlgProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer
