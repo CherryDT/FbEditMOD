@@ -28,7 +28,7 @@
 
 Dim Shared lpOldCoTxEdProc          As WNDPROC
 Dim Shared lpOldParCoTxEdProc       As WNDPROC
-Dim Shared lpOldCCProc              As WNDPROC 
+Dim Shared lpOldCCProc              As WNDPROC
 
 Dim Shared lstpos                   As LASTPOS
 Dim Shared szCaseConvert            As ZString * 32
@@ -55,7 +55,7 @@ Sub GetLineByNo (ByVal hWin As HWND, ByVal LineNo As Integer, Byval pBuff As ZSt
 
 	' LineNo [in ] zerobased
 	' pBuff  [out] receives up to 512 bytes
-	    
+
     Const MaxChars As UShort  = 511     ' + NULL
     Dim   Length   As LRESULT = Any
 
@@ -63,35 +63,35 @@ Sub GetLineByNo (ByVal hWin As HWND, ByVal LineNo As Integer, Byval pBuff As ZSt
 
     'pbuff[0] = LoByte (MaxChars)
 	'pbuff[1] = HiByte (MaxChars)
-    
+
     'The copied line will not contain a terminating null character
     Length = SendMessage (hWin, EM_GETLINE, LineNo, Cast (LPARAM, pBuff))
-    
-    pBuff[Length] = NULL                ' fix it 
+
+    pBuff[Length] = NULL                ' fix it
 
 End Sub
 
 Sub GetLineByCaret (ByVal hWin As HWND, ByRef pBuff As ZString Ptr, ByRef LineNo As Integer)     ' MOD 21.1.2012   Function GetLineBySel(ByVal hWin As HWND,ByRef lpszBuff As ZString Ptr) As Integer
-	
+
 	' pBuff  [out] receives up to 512 bytes
 	' LineNo [out] zerobased
-	
+
 	Dim chrg   As CHARRANGE = Any
 
 	SendMessage hWin, EM_EXGETSEL, 0, Cast (LPARAM, @chrg)
 	LineNo = SendMessage (hWin, EM_EXLINEFROMCHAR, 0, chrg.cpMax)
 	'chrg.cpMin=SendMessage(hWin,EM_LINEINDEX,ln,0)
-	
+
 	GetLineByNo hWin, LineNo, pBuff
-	
+
 	'*lpszBuff=Chr(255) & Chr(1)
 	'ln=SendMessage(hWin,EM_GETLINE,ln,Cast(LPARAM,lpszBuff))
 	'lpszBuff[ln]=NULL
 	' MOD 21.1.2012    Return ln     (unused)
 
 End Sub                'MOD 21.1.2012 Function -> Sub
- 
-Sub GetLineUpToCaret (ByVal hWin As HWND, ByRef pBuff As ZString Ptr, ByRef LineNo As Integer) 
+
+Sub GetLineUpToCaret (ByVal hWin As HWND, ByRef pBuff As ZString Ptr, ByRef LineNo As Integer)
 
 	' pBuff  [out] receives up to 512 bytes
 	' LineNo [out] zerobased
@@ -103,38 +103,38 @@ Sub GetLineUpToCaret (ByVal hWin As HWND, ByRef pBuff As ZString Ptr, ByRef Line
    	SendMessage hWin, EM_EXGETSEL, 0, Cast (LPARAM, @chrg)
 	LineNo = SendMessage (hWin, EM_EXLINEFROMCHAR, 0, chrg.cpMax)
     Length = chrg.cpMax - SendMessage (hWin, EM_LINEINDEX, LineNo, 0)
-    
-    If Length > MaxChars Then 
+
+    If Length > MaxChars Then
         *Cast(UShort Ptr, pBuff) = MaxChars
     Else
         *Cast(UShort Ptr, pBuff) = Length
     EndIf
-    
+
     'The copied line will not contain a terminating null character
     Length = SendMessage (hWin, EM_GETLINE, LineNo, Cast (LPARAM, pBuff))
-    
-    pBuff[Length] = NULL                ' fix it 
-    
+
+    pBuff[Length] = NULL                ' fix it
+
 End Sub
 
 Sub GetStringLiteralByCaret (ByVal hWin As HWND, ByRef pBuff As ZString Ptr, ByRef LineNo As Integer)
 
    	' pBuff  [out] receives up to 512 bytes
 	' LineNo [out] zerobased
-	
+
 	Dim chrg     As CHARRANGE = Any
     Dim CharType As LRESULT   = Any
-    
+
 	SendMessage hWin, EM_EXGETSEL, 0, Cast (LPARAM, @chrg)
 	CharType = SendMessage (hWin, REM_ISCHARPOS, chrg.cpMin, 0)
-	
+
 	If CharType = 3 Then                     ' 3=IsString  (string literal: "xyz")
 	    LineNo = SendMessage (hWin, EM_EXLINEFROMCHAR, 0, chrg.cpMax)
 	    GetLineByNo hWin, LineNo, pBuff
         GetEnclosedStr 0, *pBuff, *pBuff, CInt (512), CUByte (34), CUByte (34)
 	Else
 	    SetZStrEmpty (pBuff)
-    EndIf 
+    EndIf
 
 End Sub
 
@@ -374,7 +374,7 @@ Sub AutoBrace(ByVal hWin As HWND,ByVal nChr As Integer)
 		Case Asc("[")
 			i=Asc("]")
 	    Case Asc(!"\"")
-		    i=Asc(!"\"")	
+		    i=Asc(!"\"")
 	End Select
 	SendMessage(hWin,EM_EXGETSEL,0,Cast(Integer,@chrg))
 	SendMessage(hWin,WM_CHAR,i,0)
@@ -453,7 +453,7 @@ Sub CaseConvert(ByVal hWin As HWND)
 	hCur=GetCursor
     ShowCursor FALSE
 	SetCursor(LoadCursor(NULL,IDC_WAIT))
-	ShowCursor TRUE 
+	ShowCursor TRUE
 	SendMessage(hWin,REM_SETCHARTAB,Asc("."),CT_CHAR)
 	hMem=Cast(HGLOBAL,SendMessage(ah.hpr,PRM_GETSORTEDLIST,Cast(WPARAM,@szCaseConvert),Cast(LPARAM,@nCount)))
 	SendMessage(hWin,EM_EXGETSEL,0,Cast(LPARAM,@chrg))
@@ -480,14 +480,14 @@ Sub CaseConvert(ByVal hWin As HWND)
 	SendMessage(hWin,EM_SETMODIFY,TRUE,0)
 	ShowCursor FALSE
 	SetCursor(hCur)
-    ShowCursor TRUE 
+    ShowCursor TRUE
 End Sub
 
 Function GetIndent(ByVal hWin As HWND,ByVal ln As Integer,ByVal lpszBlockSt As ZString Ptr,ByVal lpErr As Integer Ptr) As String
 	Dim lx As Integer = Any
-	Dim lz As Integer = Any 
+	Dim lz As Integer = Any
 	Dim szIndent As ZString*1024
-	
+
 	*lpErr = 1                                                ' MOD  Poke Integer,lpErr,1
 	lx=ln+1
 	lz=0
@@ -517,8 +517,8 @@ Function GetIndent(ByVal hWin As HWND,ByVal ln As Integer,ByVal lpszBlockSt As Z
                 	        lz += 1
                 	    Case Else
                 	        szIndent[lz] = NULL
-                	        *lpErr = 0                    
-                	        Exit Do     
+                	        *lpErr = 0
+                	        Exit Do
                 	    End Select
                 	Loop
 					'lz=1
@@ -566,14 +566,14 @@ Function SetIndent(ByVal hWin As HWND,ByVal ln As Integer,ByVal lpszIndent As ZS
 	        lz += 1
 	    Case Else
 	        szIndent[lz] = NULL
-	        Exit Do     
+	        Exit Do
 	    End Select
 	Loop
 	'lz=1
 	'While lz<=lx
 	'	If Asc(szIndent,lz)<>VK_SPACE And Asc(szIndent,lz)<>VK_TAB Then
 	'		szIndent[lz-1]=NULL
-	'		Exit While 
+	'		Exit While
 	'	EndIf
 	'	lz=lz+1
 	'Wend
@@ -597,8 +597,8 @@ Function SetIndent(ByVal hWin As HWND,ByVal ln As Integer,ByVal lpszIndent As ZS
 End Function
 
 Function AddIndent(ByVal n As Integer,ByVal lpszIndent As ZString Ptr) As String
-    
-    ' MOD 1.3.2012 
+
+    ' MOD 1.3.2012
     If edtopt.expand Then
 		Return *lpszIndent + Space (n * edtopt.tabsize)
 	Else
@@ -640,7 +640,7 @@ Sub FormatIndent(ByVal hWin As HWND)
 	SendMessage(hWin,REM_LOCKUNDOID,TRUE,0)
 	lm=SendMessage(hWin,EM_GETLINECOUNT,0,0)
 	ln=0
-    SetZStrEmpty (buff)             'MOD 26.1.2012 	
+    SetZStrEmpty (buff)             'MOD 26.1.2012
 	While ln<=lm
 		wp=0
 		If fAsm Then
@@ -697,7 +697,7 @@ Sub FormatIndent(ByVal hWin As HWND)
 	SendMessage(hWin,EM_SCROLLCARET,0,0)
 	ShowCursor FALSE
 	SetCursor(hCur)
-	ShowCursor TRUE 
+	ShowCursor TRUE
 	lstpos.fnohandling=0
 
 End Sub
@@ -766,7 +766,7 @@ End Function
 
 Function SmartMath(ByVal hWin As HWND,ByVal nChr As Integer) As Integer
 	Dim trng As TEXTRANGE
-	
+
 	If nChr=Asc("+") Or nChr=Asc("-") Or nChr=Asc("*") Or nChr=Asc("/") Or nChr=Asc("\") Then
 		SendMessage(hWin,EM_EXGETSEL,0,Cast(LPARAM,@trng.chrg))
 		trng.chrg.cpMin-=1
@@ -778,7 +778,7 @@ Function SmartMath(ByVal hWin As HWND,ByVal nChr As Integer) As Integer
 		EndIf
 	EndIf
 	Return FALSE
-	
+
 End Function
 
 Sub CodeComplete(ByVal hWin As HWND)
@@ -796,7 +796,7 @@ Sub CodeComplete(ByVal hWin As HWND)
 	'buff[i]=NULL
 	If fincliblist Or fincludelist Then
 		SendMessage(ah.hout,REM_SETCHARTAB,Asc("."),CT_CHAR)
-		SendMessage(ah.hout,REM_SETCHARTAB,Asc("\"),CT_CHAR)           
+		SendMessage(ah.hout,REM_SETCHARTAB,Asc("\"),CT_CHAR)
 		SendMessage(ah.hpr,PRM_GETWORD,chrg.cpMax-chrg.cpMin,Cast(LPARAM,@buff))
 		SendMessage(ah.hout,REM_SETCHARTAB,Asc("."),CT_HICHAR)
 		SendMessage(ah.hout,REM_SETCHARTAB,Asc("\"),CT_OPER)
@@ -896,14 +896,14 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 	Dim lz As Integer
 	Dim isinp As ISINPROC
 	Dim buffer As ZString*256
-	Dim Path   As ZString * MAX_PATH 
+	Dim Path   As ZString * MAX_PATH
 	Dim i As Integer
 	Dim fnoret As Integer
     Dim hPrevCur As HCURSOR = Any
 	Static OldPt          As Point
 	Static LButtonUPCount As UInteger
 	Static TimerRunning   As UINT
-	
+
 	'Print uMsg;" ";
 	Select Case uMsg
 		Case WM_CHAR
@@ -919,7 +919,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 						Return 0
 					EndIf
 				EndIf
-				
+
 				SendMessage(hPar,EM_EXGETSEL,0,Cast(LPARAM,@prechrg))
 				If wParam=VK_TAB Then                               ' Indent / Outdent
 					If (GetKeyState(VK_SHIFT) And &H80)<>0 Then
@@ -933,7 +933,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 					EndIf
 					Return CallWindowProc(lpOldCoTxEdProc,hWin,uMsg,wParam,lParam)
 				EndIf
-				
+
 				If SendMessage(hPar,REM_GETWORDGROUP,0,0)=0 Then
 					' Code edit
 					If wParam=VK_SPACE And (GetKeyState(VK_CONTROL) And &H80)<>0 Then
@@ -987,7 +987,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 													DirList = ""
 												    If IsZStrNotEmpty (ad.FbcIncPath) Then
     													BuildDirList(ad.FbcIncPath,NULL,6)
-												    EndIf 	
+												    EndIf
 													If fProject Then
 														BuildDirList(ad.ProjectPath,NULL,7)
 													Else
@@ -995,7 +995,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 													    PathRemoveFileSpec @Path
 													    BuildDirList(Path,NULL,7)
 													EndIf
-													DirListLCase = DirList 
+													DirListLCase = DirList
 	                                                CharLower StrPtr (DirListLCase)
 													UpdateIncludeList()
 													Return CallWindowProc(lpOldCoTxEdProc,hWin,uMsg,wParam,lParam)
@@ -1003,9 +1003,9 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 													buff=Mid(buff,InStr(buff,Chr(34))+1)
 													'reset last dir
 													DirList = ""
-												    If IsZStrNotEmpty (ad.FbcLibPath) Then    
+												    If IsZStrNotEmpty (ad.FbcLibPath) Then
     													BuildDirList(ad.FbcLibPath,NULL,8)
-                                                    EndIf 
+                                                    EndIf
 													If fProject Then
 														BuildDirList(ad.ProjectPath,NULL,9)
 													Else
@@ -1013,7 +1013,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 													    PathRemoveFileSpec @Path
 													    BuildDirList(Path,NULL,9)
 													EndIf
-													DirListLCase = DirList 
+													DirListLCase = DirList
 	                                                CharLower StrPtr (DirListLCase)
 													UpdateInclibList()
 													Return CallWindowProc(lpOldCoTxEdProc,hWin,uMsg,wParam,lParam)
@@ -1032,7 +1032,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 									i=InStr(buff,Chr(34))
 									If i Then
 										buff=Mid(buff,i+1)
-										CharLower buff 
+										CharLower buff
 										If fincludelist Then
 											UpdateIncludeList()
 										ElseIf fincliblist Then
@@ -1115,7 +1115,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 										SendMessage(ah.hout,REM_SETCHARTAB,Asc("."),CT_HICHAR)
 										If SendMessage(ah.hpr,PRM_GETTOOLTIP,TT_NOMATCHCASE Or TT_PARANTESES,Cast(LPARAM,@tt)) Then
 											ShowTooltip(hWin,@tt)
-										EndIf	
+										EndIf
 									EndIf
 								EndIf
 							Else
@@ -1158,7 +1158,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 							isinp.nLine=SendMessage(hPar,EM_EXLINEFROMCHAR,0,chrg.cpMax)
 							If fProject Then
 								isinp.nOwner=GetFileIDByEditor(hPar)
-							Else	
+							Else
 							    isinp.nOwner=Cast(Integer,hPar)
 							EndIf
 							isinp.lpszType=StrPtr("pxyzo")
@@ -1216,7 +1216,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 							dirlist=""
 						    If IsZStrNotEmpty (ad.FbcIncPath) Then
     							BuildDirList(ad.FbcIncPath,NULL,6)
-						    EndIf 
+						    EndIf
 							If fProject Then
 								BuildDirList(ad.ProjectPath,NULL,7)
 							Else
@@ -1228,15 +1228,15 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 							    PathRemoveFileSpec @Path
 							    BuildDirList(Path,NULL,7)
 							EndIf
-							DirListLCase = DirList 
+							DirListLCase = DirList
                             CharLower StrPtr (DirListLCase)
 							UpdateIncludeList()
 						ElseIf InStr(s,"#inclib")<>0 And lp=0 Then
 							'reset last dir
 							dirlist=""
-						    If IsZStrNotEmpty (ad.FbcLibPath) Then    
+						    If IsZStrNotEmpty (ad.FbcLibPath) Then
 							    BuildDirList(ad.FbcLibPath,NULL,8+6)
-							EndIf 
+							EndIf
 							If fProject Then
 								BuildDirList(ad.ProjectPath,NULL,8+7)
 							Else
@@ -1244,7 +1244,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 							    PathRemoveFileSpec @Path
 							    BuildDirList(Path,NULL,8+7)
 							EndIf
-							DirListLCase = DirList 
+							DirListLCase = DirList
                             CharLower StrPtr (DirListLCase)
 							UpdateInclibList()
 						ElseIf IsWindowVisible(ah.hcc) Then
@@ -1273,8 +1273,8 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 							Wend
 							buffer=Mid(buffer,tp+1)
 							' MOD 26.1.2012         Crash:  Move caret to line 1 > Change to BlockMode > Press ENTER
-							ln = SendMessage (hPar, EM_LINEFROMCHAR, chrg.cpMin, 0) 
-							If ln > 0 Then ln -= 1           
+							ln = SendMessage (hPar, EM_LINEFROMCHAR, chrg.cpMin, 0)
+							If ln > 0 Then ln -= 1
 							' =========================
 							ln=SendMessage(hPar,REM_GETLINEBEGIN,ln,0)
 							If SendMessage(hPar,REM_GETBOOKMARK,ln,0)=BMT_COLLAPSE Then
@@ -1318,7 +1318,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
                                     	        lz += 1
                                     	    Case Else
                                     	        Buff[lz] = NULL
-                                    	        Exit Do     
+                                    	        Exit Do
                                     	    End Select
                                     	Loop
                                     	'lp = lstrlen (buff)
@@ -1332,7 +1332,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 										'Wend
 										'======================
 										buff=CR & buff & szEn(wp)
-										
+
 										If fnoret Then
 											buff &=CR
 										EndIf
@@ -1462,7 +1462,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 					If fProject Then
 						isinp.nOwner=GetFileIDByEditor(hPar)
 					Else
-					    isinp.nOwner=Cast(Integer,hPar)    
+					    isinp.nOwner=Cast(Integer,hPar)
 					EndIf
 					isinp.lpszType=StrPtr("pxyzo")
 					p=Cast(ZString Ptr,SendMessage(ah.hpr,PRM_ISINPROC,0,Cast(LPARAM,@isinp)))
@@ -1485,41 +1485,41 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 					pt.x = LoWord (lParam)
 					pt.y = HiWord (lParam)
 		    	EndIf
-				    
+
 				hMnu = GetSubMenu (GetMenu (ah.hwnd), 1)
-				
+
 				ShowCursor FALSE
     			hPrevCur = SetCursor (LoadCursor (NULL, IDC_ARROW))
 				ShowCursor TRUE
 				TrackPopupMenu hMnu, TPM_LEFTALIGN Or TPM_RIGHTBUTTON, pt.x, pt.y, 0, ah.hwnd, 0
 				ShowCursor FALSE
 				SetCursor hPrevCur
-				ShowCursor TRUE 
-				
+				ShowCursor TRUE
+
 				Return 0
 			EndIf
-			
+
 		Case WM_LBUTTONDOWN
-			'Print "CoTxEdProc:WM_LBUTTONDOWN" 
+			'Print "CoTxEdProc:WM_LBUTTONDOWN"
 			mdn=GetKeyState(VK_CONTROL) And &H80
-			TimerRunning = SetTimer (hWin, IDT_MOUSE_CLK_TIMER, GetDoubleClickTime, NULL)		
+			TimerRunning = SetTimer (hWin, IDT_MOUSE_CLK_TIMER, GetDoubleClickTime, NULL)
 			GetCursorPos @OldPt
-		Case WM_TIMER 
+		Case WM_TIMER
 			KillTimer hWin, IDT_MOUSE_CLK_TIMER
 			TimerRunning = 0
 		    If LButtonUPCount = 1 Then
 				GetCursorPos @pt
 				If      Abs (pt.x - OldPt.x) < GetSystemMetrics (SM_CXDOUBLECLK) _
 				AndAlso Abs (pt.y - OldPt.y) < GetSystemMetrics (SM_CYDOUBLECLK) Then
-					ShowCursor FALSE 
+					ShowCursor FALSE
 					SetCursorPos pt.x + 15, pt.y + 30
 					ShowCursor TRUE
-				EndIf 	 
+				EndIf
 		    EndIf
 		    LButtonUPCount = 0
 		Case WM_LBUTTONUP
 			If mdn Then	SendMessage ah.hwnd, WM_COMMAND, IDM_FILE_OPEN_STD, 0
-			If TimerRunning Then LButtonUPCount += 1	
+			If TimerRunning Then LButtonUPCount += 1
 	    Case WM_KILLFOCUS                   ' wParam: Handle to the window that receives the keyboard focus
 	        'Print "CoTxEd:KILLFOCUS"
 			ShowWindow(ah.htt,SW_HIDE)
@@ -1529,7 +1529,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 			hPar=GetParent(Cast(HWND,wParam))
 			If GetWindowLong(hPar,GWL_USERDATA)=1 Then
 				' Must be parsed
-				SetPropertyDirty hPar 
+				SetPropertyDirty hPar
 			EndIf
 			'temp fix split focus bug
 			If ah.hpane(0) Then
@@ -1546,7 +1546,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 			EndIf
 			'SendMessage ah.hwnd, FBE_CHILDLOOSINGFOCUS, 0, Cast (LPARAM, GetParent (hWin))     ' notify: window is loosing focus
 			SbarClear
-			
+
 	    Case WM_SETFOCUS
 	        'Print "CoTxEd:SETFOCUS"
 			'temp fix split focus bug
@@ -1560,7 +1560,7 @@ Function CoTxEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 			EndIf
 	        SbarSetBlockMode
 	        SbarLabelLockState
-	        SbarSetWriteMode    
+	        SbarSetWriteMode
 			'Return 0
 		Case WM_MOUSEWHEEL,WM_VSCROLL
 			If IsWindowVisible(ah.htt) Then
@@ -1626,7 +1626,7 @@ Function ParCoTxEdProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPA
 End Function
 
 Function CCProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer
-	
+
 	Select Case uMsg
 		Case WM_CHAR
 			If wParam=VK_TAB Or wParam=VK_RETURN Then
@@ -1659,60 +1659,60 @@ Function CCProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByV
 End Function
 
 Sub BlockModeToggle (ByVal hEditor As HWND = ah.hred)
-    
+
     Dim Mode As Long
-    
+
     If EditInfo.CoTxEd Then
 	    Mode = SendMessage (hEditor, REM_GETMODE, 0, 0) Xor MODE_BLOCK
 	    SendMessage hEditor, REM_SETMODE, Mode, 0
 	Else
-    
+
     EndIf
-    
+
 	'CheckMenuItem ah.hmenu, IDM_EDIT_BLOCKMODE, IIf (Mode, MF_CHECKED, MF_UNCHECKED)
-    
+
 End Sub
 
 'Sub BlockModeUnset (ByVal hEditor As HWND = ah.hred)
-'    
+'
 '    SendMessage hEditor, REM_SETMODE, FALSE, 0
 '    CheckMenuItem ah.hmenu, IDM_EDIT_BLOCKMODE, MF_UNCHECKED
-'    
+'
 'End Sub
 
 'Function IsEditorWindow (ByVal hWin As HWND, ByVal TestForType As EditorType) As BOOL
-'    
-'    Dim EditorMode As Long = Any 
-'    
+'
+'    Dim EditorMode As Long = Any
+'
 '    If hWin Then
-'        EditorMode = GetWindowLong (hWin, GWL_ID)   
+'        EditorMode = GetWindowLong (hWin, GWL_ID)
 '
 '        Select Case As Const TestForType
 '        Case ET_CoTxEd   : Return (EditorMode = IDC_CODEED) OrElse (EditorMode = IDC_TEXTED)
 '        Case ET_CodeEd   : Return (EditorMode = IDC_CODEED)
 '        Case ET_TextEd   : Return (EditorMode = IDC_TEXTED)
 '        Case ET_ResEd    : Return (EditorMode = IDC_RESED)
-'        Case ET_HexEd    : Return (EditorMode = IDC_HEXED) 
-'        Case ET_AlphaEd  : Return (EditorMode = IDC_CODEED) OrElse (EditorMode = IDC_TEXTED) OrElse (EditorMode = IDC_HEXED) 
+'        Case ET_HexEd    : Return (EditorMode = IDC_HEXED)
+'        Case ET_AlphaEd  : Return (EditorMode = IDC_CODEED) OrElse (EditorMode = IDC_TEXTED) OrElse (EditorMode = IDC_HEXED)
 '        End Select
 '    EndIf
-'    
-'    Return FALSE 
+'
+'    Return FALSE
 '
 'End Function
 
 Function EditorHasFocus () As BOOL
-    
+
     Return (ah.hred = GetParent (GetFocus ()))
-  
+
 End Function
 
 Sub SetEditorTypeInfo (ByVal hWin As HWND)
-    
-    Dim    EditorMode As Long           = Any 
-        
+
+    Dim    EditorMode As Long           = Any
+
     If hWin Then
-        EditorMode = GetWindowLong (hWin, GWL_ID)   
+        EditorMode = GetWindowLong (hWin, GWL_ID)
 
 		EditInfo.ResEd   = (EditorMode = IDC_RESED)
 		EditInfo.CodeEd  = (EditorMode = IDC_CODEED)
@@ -1722,27 +1722,27 @@ Sub SetEditorTypeInfo (ByVal hWin As HWND)
 		EditInfo.AlphaEd = Not (EditInfo.ResEd)
     Else
         Dim InitialEditInfo As EditorTypeInfo
-        EditInfo = InitialEditInfo 
+        EditInfo = InitialEditInfo
     EndIf
-  
+
 End Sub
 
 Function CreateCodeEd (Byref sFile As zString) As HWND
 
-	Dim hTmp    As HWND         = Any 
-    Dim i       As Integer      = Any 
+	Dim hTmp    As HWND         = Any
+    Dim i       As Integer      = Any
 	Dim buffer  As ZString * 64
 
-	Const Style As DWORD        = WS_CHILD                Or WS_VISIBLE        Or WS_CLIPCHILDREN   _ 
+	Const Style As DWORD        = WS_CHILD                Or WS_VISIBLE        Or WS_CLIPCHILDREN   _
 	         	               Or WS_CLIPSIBLINGS         Or STYLE_SCROLLTIP   Or STYLE_DRAGDROP    _
 	      	                   Or STYLE_AUTOSIZELINENUM
-	       
+
 	hTmp = CreateWindowEx (WS_EX_CLIENTEDGE, @"RAEDIT", NULL, Style, 0, 0, 0, 0, ah.hwnd, Cast (HMENU, IDC_RAEDIT), hInstance, 0)
- 
-    If hTmp Then                                            ' MOD 1.3.2012   
+
+    If hTmp Then                                            ' MOD 1.3.2012
     	SetWindowLong hTmp, GWL_ID, IDC_CODEED              ' MOD 10.2.2012
     	UpdateEditOptions hTmp
-    
+
 		'SetWindowLong hTmp, GWL_USERDATA, 2  				' must be parsed
 		SendMessage hTmp, REM_SETSTYLEEX, STYLEEX_BLOCKGUIDE Or STILEEX_LINECHANGED Or STILEEX_STRINGMODEFB, 0
     	SendMessage hTmp, WM_SETTEXT, 0, Cast (LPARAM, @"")
@@ -1753,36 +1753,36 @@ Function CreateCodeEd (Byref sFile As zString) As HWND
     		buffer = GetInternalString (IS_RAEDIT_BASE + i)
     		SendMessage hTmp, REM_SETTOOLTIP, i, Cast (LPARAM, @buffer)
     	Next
-    
+
     	lpOldParCoTxEdProc = Cast (WNDPROC, SetWindowLong (hTmp, GWL_WNDPROC, Cast (LONG, @ParCoTxEdProc)))
     	lpOldCoTxEdProc = Cast (WNDPROC, SendMessage (hTmp, REM_SUBCLASS, 0, Cast (LPARAM, @CoTxEdProc)))
     	CallAddins ah.hwnd, AIM_CREATEEDIT, Cast (WPARAM, hTmp), 0, HOOK_CREATEEDIT
-    	
+
     	If edtopt.linenumbers Then
     		SendDlgItemMessage hTmp, -2, BM_CLICK, 0, 0
     	EndIf
     EndIf
 	Return hTmp
-        
+
 End Function
 
 Function CreateTxtEd (Byref sFile As zString) As HWND
 
-	Dim hTmp    As HWND         = Any 
-	Dim i       As Integer      = Any 
+	Dim hTmp    As HWND         = Any
+	Dim i       As Integer      = Any
 	Dim buffer  As ZString * 64
 
-	Const Style As DWORD        = WS_CHILD                Or WS_VISIBLE        Or WS_CLIPCHILDREN   Or _ 
+	Const Style As DWORD        = WS_CHILD                Or WS_VISIBLE        Or WS_CLIPCHILDREN   Or _
 	    		                      WS_CLIPSIBLINGS         Or STYLE_SCROLLTIP   Or STYLE_DRAGDROP    Or _
 	      	                      STYLE_AUTOSIZELINENUM   Or STYLE_NOHILITE    Or STYLE_NOCOLLAPSE  Or _
 	                              STYLE_NODIVIDERLINE
-	
+
 	hTmp = CreateWindowEx (WS_EX_CLIENTEDGE, @"RAEDIT", NULL, Style, 0, 0, 0, 0, ah.hwnd, Cast (HMENU, IDC_RAEDIT), hInstance, 0)
- 
-    If hTmp Then                                            ' MOD 1.3.2012   
+
+    If hTmp Then                                            ' MOD 1.3.2012
     	SetWindowLong hTmp, GWL_ID, IDC_TEXTED              ' MOD 10.2.2012
     	UpdateEditOptions hTmp
-    
+
    		SendMessage hTmp, REM_SETWORDGROUP, 0, 15
 			SendMessage hTmp, REM_SETSTYLEEX, STILEEX_LINECHANGED Or STILEEX_STRINGMODEFB, 0
     	SendMessage hTmp, WM_SETTEXT, 0, Cast (LPARAM, @"")
@@ -1793,15 +1793,15 @@ Function CreateTxtEd (Byref sFile As zString) As HWND
     		buffer = GetInternalString (IS_RAEDIT_BASE + i)
     		SendMessage hTmp, REM_SETTOOLTIP, i, Cast (LPARAM, @buffer)
     	Next
-    
+
     	lpOldParCoTxEdProc = Cast (WNDPROC, SetWindowLong (hTmp, GWL_WNDPROC, Cast(Long, @ParCoTxEdProc)))
     	lpOldCoTxEdProc = Cast (WNDPROC, SendMessage (hTmp, REM_SUBCLASS, 0, Cast (LPARAM, @CoTxEdProc)))
     	CallAddins ah.hwnd, AIM_CREATEEDIT, Cast (WPARAM, hTmp), 0, HOOK_CREATEEDIT
-		
+
 			If edtopt.linenumbers Then
     		SendDlgItemMessage hTmp, -2, BM_CLICK, 0, 0
     	EndIf
     EndIf
 	Return hTmp
-	
+
 End Function

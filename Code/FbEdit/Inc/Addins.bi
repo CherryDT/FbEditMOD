@@ -18,11 +18,11 @@ Type RAFONT Field=1
 End Type
 
 
-Enum FileOpenMode           ' MOD 5.2.2012 ADD File Open Modes
+Enum FileOpenMode
     FOM_STD = 0 
     FOM_HEX 
     FOM_TXT
-    FOM_BG                  ' create/update Tab, dont select
+    FOM_BG                                          ' create/update Tab, dont select
 End Enum
  
 
@@ -78,26 +78,26 @@ End Type
 
 
 Type RACOLOR Field=1
-	bckcol			As COLORREF					' Back color
-	txtcol			As COLORREF					' Text color
-	selbckcol		As COLORREF					' Sel back color
-	seltxtcol		As COLORREF					' Sel text color
-	cmntcol			As COLORREF					' Comment color
-	strcol			As COLORREF					' String color
-	oprcol			As COLORREF					' Operator color
-	hicol1			As COLORREF					' Line hilite 1
-	hicol2			As COLORREF					' Line hilite 2
-	hicol3			As COLORREF					' Line hilite 3
-	selbarbck		As COLORREF					' Selection bar
-	selbarpen		As COLORREF					' Selection bar pen
-	lnrcol			As COLORREF					' Line numbers color
-	numcol			As COLORREF					' Numbers & hex color
-	cmntback		As COLORREF					' Comment back color
-	strback			As COLORREF					' String back color
-	numback			As COLORREF					' Numbers & hex back color
-	oprback			As COLORREF					' Operator back color
-	changed			As COLORREF					' Line changed indicator
-	changesaved		As COLORREF					' Line saved chane indicator
+	bckcol			As COLORREF					    ' Back color
+	txtcol			As COLORREF					    ' Text color
+	selbckcol		As COLORREF					    ' Sel back color
+	seltxtcol		As COLORREF					    ' Sel text color
+	cmntcol			As COLORREF					    ' Comment color
+	strcol			As COLORREF					    ' String color
+	oprcol			As COLORREF					    ' Operator color
+	hicol1			As COLORREF					    ' Line hilite 1
+	hicol2			As COLORREF					    ' Line hilite 2
+	hicol3			As COLORREF					    ' Line hilite 3
+	selbarbck		As COLORREF					    ' Selection bar
+	selbarpen		As COLORREF					    ' Selection bar pen
+	lnrcol			As COLORREF					    ' Line numbers color
+	numcol			As COLORREF					    ' Numbers & hex color
+	cmntback		As COLORREF					    ' Comment back color
+	strback			As COLORREF					    ' String back color
+	numback			As COLORREF					    ' Numbers & hex back color
+	oprback			As COLORREF					    ' Operator back color
+	changed			As COLORREF					    ' Line changed indicator
+	changesaved		As COLORREF					    ' Line saved chane indicator
 End Type
 
 
@@ -208,14 +208,14 @@ End Type
 
 Type ADDINFUNCTIONS
 	TextToOutput         As Sub      (ByVal sText As ZString Ptr)
-	SaveToIni            As Sub      (ByVal lpszApp As ZString Ptr,ByVal lpszKey As ZString Ptr,ByRef lpszTypes As ZString,ByVal lpDta As Any Ptr,ByVal fProject As Boolean)
-	LoadFromIni          As Function (ByVal lpszApp As ZString Ptr,ByVal lpszKey As ZString Ptr,Byref szTypes As zString,ByVal lpDta As Any Ptr,ByVal fProject As Boolean) As Boolean
-	OpenTheFile          As Sub      (ByRef FileSpec As ZString,ByVal OpenMode As FileOpenMode)
+	SaveToIni            As Sub      (ByVal lpszApp As ZString Ptr, ByVal lpszKey As ZString Ptr, ByRef lpszTypes As ZString, ByVal lpDta As Any Ptr, ByVal fProject As Boolean)
+	LoadFromIni          As Function (ByVal lpszApp As ZString Ptr, ByVal lpszKey As ZString Ptr, ByRef szTypes As zString, ByVal lpDta As Any Ptr, ByVal fProject As Boolean) As Boolean
+	OpenTheFile          As Sub      (ByRef FileSpec As ZString, ByVal OpenMode As FileOpenMode)
 	Compile              As Function (ByRef sMake As ZString) As Integer
 	ShowOutput           As Sub      (ByVal bShow As Boolean)
-	TranslateAddinDialog As Sub      (ByVal hWin As HWND,Byref sID As ZString)
-	FindString           As Function (ByVal hMem As HGLOBAL,Byref szApp As ZString,Byref szKey As ZString) As String
-	CallAddins           As Function (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal WPARAM As WPARAM,ByVal LPARAM As LPARAM,ByVal hook1 As UINT) As Integer
+	TranslateAddinDialog As Sub      (ByVal hWin As HWND, ByRef sID As ZString)
+	FindString           As Function (ByVal hMem As HGLOBAL, ByRef szApp As ZString, ByRef szKey As ZString) As String
+	CallAddins           As Function (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal WPARAM As WPARAM, ByVal LPARAM As LPARAM, ByVal hook1 As UINT) As Integer
 	ShowImmediate        As Sub      (ByVal bShow As Boolean)
 	MakeProjectFileName  As Function (ByRef sFile As Const ZString) As String
 	HH_Help              As Sub      ()

@@ -85,7 +85,7 @@ End Sub
 
 Sub SetHiliteWords(ByVal hWin As HWND)
 
-    Dim i   As Integer = Any 
+    Dim i   As Integer = Any
     Dim Key As ZString * 32
 
 	' Reset all words
@@ -97,7 +97,7 @@ Sub SetHiliteWords(ByVal hWin As HWND)
     	GetPrivateProfileString @"Edit", @Key, NULL, @buff, SizeOf (buff), @ad.IniFile
     	SendMessage ah.hout, REM_SETHILITEWORDS, Cast (COLORREF Ptr, @kwcol)[i], Cast (LPARAM, @buff)
     Next
-    
+
 
 
 
@@ -267,7 +267,7 @@ End Sub
 Sub HLUDT()
 	Dim lret As ZString Ptr
 	Dim sItem As ZString*256
-	
+
 	lret=Cast(ZString Ptr,SendMessage(ah.hpr,PRM_FINDFIRST,Cast(Integer,StrPtr("s")),Cast(Integer,StrPtr(""))))
 	Do While lret
 		sItem= "^"
@@ -281,7 +281,7 @@ End Sub
 Sub HLConstants()
 	Dim lret As ZString Ptr
 	Dim sItem As ZString*256
-	
+
 	lret=Cast(ZString Ptr,SendMessage(ah.hpr,PRM_FINDFIRST,Cast(Integer,StrPtr("c")),Cast(Integer,StrPtr(""))))
 	Do While lret
 		sItem= "^"
@@ -295,7 +295,7 @@ End Sub
 Sub HLVariable()
 	Dim lret As ZString Ptr
 	Dim sItem As ZString*256
-	
+
 	lret=Cast(ZString Ptr,SendMessage(ah.hpr,PRM_FINDFIRST,Cast(Integer,StrPtr("d")),Cast(Integer,StrPtr(""))))
 	Do While lret
 		sItem= "^"
@@ -309,7 +309,7 @@ End Sub
 Sub HLFunction()
 	Dim lret As ZString Ptr
 	Dim sItem As ZString*256
-	
+
 	lret=Cast(ZString Ptr,SendMessage(ah.hpr,PRM_FINDFIRST,Cast(Integer,StrPtr("p")),Cast(Integer,StrPtr(""))))
 	Do While lret
 		sItem= "^"
@@ -332,7 +332,7 @@ Sub PropertyHL(ByVal bUpdate As Integer)
 		SetHiliteWordsFromApi(ah.hwnd)
 	EndIf
 	SendMessage(ah.hred,REM_REPAINT,0,TRUE)
-	
+
 End Sub
 
 Sub GetTheme(ByVal hWin As HWND,ByVal nInx As Integer)
@@ -402,8 +402,8 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 	Dim col     As Integer
 	Dim lfnt    As LOGFONT
 	Dim sItem   As ZString * 256
-    Dim Success As BOOL          = Any 
-    
+    Dim Success As BOOL          = Any
+
 	' Window colors
 	ofs=@fbcol
 	nInx=0
@@ -454,11 +454,11 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 	edtfnt.italics    = lfnt.lfItalic
 	*edtfnt.szFont    = lfnt.lfFaceName
     SaveToIni @"Edit", @"EditFont", "54044", @edtfnt, FALSE
-			
+
 	lfnt.lfItalic     = TRUE
 	DeleteObject ah.rafnt.hIFont
 	ah.rafnt.hIFont   = CreateFontIndirect (@lfnt)
-		
+
 	GetObject hLFont, SizeOf (LOGFONT), @lfnt
 	DeleteObject ah.rafnt.hLnrFont
 	ah.rafnt.hLnrFont = CreateFontIndirect (@lfnt)
@@ -468,7 +468,7 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 	lnrfnt.italics    = lfnt.lfItalic
 	*lnrfnt.szFont    = lfnt.lfFaceName
 	SaveToIni @"Edit", @"LnrFont", "54044", @lnrfnt, FALSE
-	
+
 	GetObject hTFont, SizeOf (LOGFONT), @lfnt
 	ah.hToolFont      = CreateFontIndirect (@lfnt)
 	toolfnt.size      = lfnt.lfHeight
@@ -486,7 +486,7 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 	outpfnt.italics   = lfnt.lfItalic
 	*outpfnt.szFont   = lfnt.lfFaceName
 	SaveToIni @"Edit", @"OutpFont", "54044", @outpfnt, FALSE
-		
+
 	SendMessage ah.hcc,       WM_SETFONT, Cast (WPARAM, ah.hToolFont), FALSE
 	SendMessage ah.htt,       WM_SETFONT, Cast (WPARAM, ah.hToolFont), FALSE
 	SendMessage ah.hpr,       WM_SETFONT, Cast (WPARAM, ah.hToolFont), FALSE
@@ -494,16 +494,16 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 	SendMessage ah.hfib,      WM_SETFONT, Cast (WPARAM, ah.hToolFont), FALSE
 	SendMessage ah.htab,      WM_SETFONT, Cast (WPARAM, ah.hToolFont), FALSE
 	SendMessage ah.htabtool,  WM_SETFONT, Cast (WPARAM, ah.hToolFont), FALSE
-    
+
 	SendMessage ah.hout,      WM_SETFONT, Cast (WPARAM, ah.hOutFont ), FALSE
 	SendMessage ah.himm,      WM_SETFONT, Cast (WPARAM, ah.hOutFont ), FALSE
 	SendMessage ah.hregister, WM_SETFONT, Cast (WPARAM, ah.hOutFont ), FALSE
 	SendMessage ah.hfpu,      WM_SETFONT, Cast (WPARAM, ah.hOutFont ), FALSE
 	SendMessage ah.hmmx,      WM_SETFONT, Cast (WPARAM, ah.hOutFont ), FALSE
     SendMessage ah.hpr,       PRM_REFRESHLIST, 0, 0
-	
+
 	' Edit options
-	edtopt.tabsize=GetDlgItemInt(hWin,IDC_EDTTABSIZE,NULL,FALSE)                 
+	edtopt.tabsize=GetDlgItemInt(hWin,IDC_EDTTABSIZE,NULL,FALSE)
 	edtopt.ExtraLineSpace=GetDlgItemInt(hWin,IDC_EDTEXTRALINESPACE,NULL,FALSE)
 	edtopt.expand=IsDlgButtonChecked(hWin,IDC_CHKEXPAND)
 	edtopt.hiliteline=IsDlgButtonChecked(hWin,IDC_CHKHILITELINE)
@@ -548,7 +548,7 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 		If lstrlen(thme(nInx).lpszTheme) Then
 			SaveToIni(StrPtr("Theme"),Str(nInx),"04444444444444444444444444444444444444444444444444444",@thme(nInx),FALSE)
 		EndIf
-	Next 
+	Next
 
 	GetDlgItemText hWin, IDC_EDTCODEFILES, @CodeFiles, SizeOf (CodeFiles)
 	Success = FormatDEVStr (CodeFiles, SizeOf (CodeFiles))
@@ -577,14 +577,14 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 End Sub
 
 Sub UpdateEditOptions (ByVal hEditor As HWND)
-	
-	Dim style      As Integer = Any 
-    Dim EditorMode As Long    = Any 
-    Dim HexFont    As HEFONT  = Any 
-    Dim HexColor   As HECOLOR = Any  
+
+	Dim style      As Integer = Any
+    Dim EditorMode As Long    = Any
+    Dim HexFont    As HEFONT  = Any
+    Dim HexColor   As HECOLOR = Any
 
     If hEditor Then
-        EditorMode = GetWindowLong (hEditor, GWL_ID)   
+        EditorMode = GetWindowLong (hEditor, GWL_ID)
 
         Select Case EditorMode
         Case IDC_CODEED, IDC_TEXTED
@@ -593,7 +593,7 @@ Sub UpdateEditOptions (ByVal hEditor As HWND)
         	SendMessage hEditor, REM_TABWIDTH, edtopt.tabsize, edtopt.expand
         	SendMessage hEditor, REM_AUTOINDENT, 0, edtopt.autoindent
         	SendMessage hEditor, REM_HILITEACTIVELINE, 0, IIf (edtopt.hiliteline, 2, 0)
-        	
+
         	style = GetWindowLong (hEditor, GWL_STYLE)
 
         	If edtopt.hilitecmnt Then
@@ -602,7 +602,7 @@ Sub UpdateEditOptions (ByVal hEditor As HWND)
                	style = style And (-1 Xor STYLE_HILITECOMMENT)    ' reset bit
         	EndIf
         	SetWindowLong hEditor, GWL_STYLE, style
-        	
+
         	'TODO
             'SendMessage(hEdt,REM_SETSTYLEEX,STYLEEX_LOCK Or STYLEEX_BLOCKGUIDE Or STILEEX_LINECHANGED Or STILEEX_STRINGMODEFB,0)
         	'SendMessage(hEdt,REM_SETSTYLEEX,STYLEEX_BLOCKGUIDE Or STILEEX_LINECHANGED Or STILEEX_STRINGMODEFB,0)
@@ -627,7 +627,7 @@ Sub UpdateEditOptions (ByVal hEditor As HWND)
     	    SendMessage hEditor, HEM_SETFONT, Abs (edtfnt.size) * edtopt.ExtraLineSpace \ 4, Cast (LPARAM, @HexFont)
             'SendMessage hEdt, HEM_LINENUMBERWIDTH, 50, 0
             'SendMessage hEdt, HEM_SELBARWIDTH, 50, 0
-        End Select 
+        End Select
     EndIf
 
 End Sub
@@ -636,8 +636,8 @@ Sub GetList(ByVal hWin As HWND)
 	Dim nInx As Integer
 	Dim sItem As String*256
 	Dim x As Integer
-	
-	SetZStrEmpty (buff)             'MOD 26.1.2012 
+
+	SetZStrEmpty (buff)             'MOD 26.1.2012
 	nInx=0
 	Do While SendDlgItemMessage(hWin,IDC_LSTKWACTIVE,LB_GETTEXT,nInx,Cast(Integer,@sItem))<>LB_ERR
 		buff=buff & sItem & " "
@@ -693,8 +693,8 @@ End Sub
 Sub GetHold(ByVal hWin As HWND)
 	Dim nInx As Integer
 	Dim sItem As ZString*256
-	
-	SetZStrEmpty (buff)             'MOD 26.1.2012 
+
+	SetZStrEmpty (buff)             'MOD 26.1.2012
 	nInx=0
 	Do While SendDlgItemMessage(hWin,IDC_LSTKWHOLD,LB_GETTEXT,nInx,Cast(Integer,@sItem))<>LB_ERR
 		buff=buff & sItem & " "
@@ -740,15 +740,15 @@ Function EditorOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam A
 	Dim cc As ChooseColor
 	Dim x As Integer
 	Dim pt As Point
-    Dim i   As Integer = Any 
+    Dim i   As Integer = Any
     Dim Key As ZString * 32
-    Dim Success As BOOL = Any 
+    Dim Success As BOOL = Any
 
 	Select Case uMsg
 		Case WM_INITDIALOG
 			TranslateDialog(hWin,IDD_DLG_EDITOROPTION)
 			CenterOwner(hWin)
-			
+
 			' Bitmap buttons
 			SendDlgItemMessage hWin, IDC_BTNHOLD  , BM_SETIMAGE, IMAGE_ICON, Cast (LPARAM, ImageList_GetIcon (ah.hmnuiml, 1, ILD_NORMAL))
 			SendDlgItemMessage hWin, IDC_BTNACTIVE, BM_SETIMAGE, IMAGE_ICON, Cast (LPARAM, ImageList_GetIcon (ah.hmnuiml, 0, ILD_NORMAL))
@@ -765,7 +765,7 @@ Function EditorOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam A
 					lstrcpy(@sItem,thme(col).lpszTheme)
 					nInx=SendDlgItemMessage(hWin,IDC_CBOTHEME,CB_ADDSTRING,0,Cast(Integer,@sItem))
 				EndIf
-			Next 
+			Next
 			If nInx=0 Then
 				PutTheme(hWin,1)
 				szTheme(1)="Default"
@@ -782,8 +782,8 @@ Function EditorOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam A
     			GetPrivateProfileString @"Edit", @Key, NULL, @buff, SizeOf (buff), @ad.IniFile
     			sKeyWords(i) = buff
 			Next
-			
-			
+
+
 			'GetPrivateProfileString(StrPtr("Edit"),StrPtr("C0"),@C0,@buff,SizeOf(buff),@ad.IniFile)
 			'sKeyWords(0)=buff
 			'GetPrivateProfileString(StrPtr("Edit"),StrPtr("C1"),@C1,@buff,SizeOf(buff),@ad.IniFile)
@@ -873,7 +873,7 @@ Function EditorOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam A
 			GetObject ah.hOutFont, SizeOf (LOGFONT), @lfnt
 			hOFont = CreateFontIndirect (@lfnt)
 			SendDlgItemMessage   hWin, IDC_STCOUTPFONT, WM_SETFONT, Cast (WPARAM, hOFont), FALSE
-			
+
 			hBtnApply=GetDlgItem(hWin,IDC_BTNKWAPPLY)
 			' Colors
 			tmpcol=fbcol
@@ -1118,7 +1118,7 @@ Function EditorOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam A
 							'
 					End Select
 
-			    Case EN_KILLFOCUS 
+			    Case EN_KILLFOCUS
 			        Select Case id
         			Case IDC_EDTOPENEXTERN
         			    GetDlgItemText hWin, IDC_EDTOPENEXTERN, @buff, SizeOf (OpenExternFiles)
@@ -1135,7 +1135,7 @@ Function EditorOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam A
                      	EndIf
                			SetDlgItemText hWin, IDC_EDTCODEFILES, @buff
 			        End Select
-	
+
 				Case LBN_SELCHANGE
 					Select Case id
 						Case IDC_LSTKWCOLORS
@@ -1325,7 +1325,7 @@ Function EditorOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam A
 			Return FALSE
 			'
 	End Select
-	
+
 	Return TRUE
 
 End Function

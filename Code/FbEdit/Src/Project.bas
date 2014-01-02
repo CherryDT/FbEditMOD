@@ -1194,42 +1194,44 @@ Sub AddNewProjectFile()
 
 End Sub
 
-Sub AddExistingProjectFile()
-	Dim sFile As String
-	Dim ofn As OPENFILENAME
-	Dim i As Integer
-	Dim x As Integer
-	Dim pth As ZString*260
-	Dim s As ZString*260
+Sub AddExistingProjectFile ()
 
-	ofn.lStructSize=SizeOf(OPENFILENAME)
-	ofn.hwndOwner=GetOwner
-	ofn.hInstance=hInstance
-	ofn.lpstrInitialDir=@ad.ProjectPath
-    SetZStrEmpty (buff)                                   ' MOD 14.1.2012   buff=String(260,0)
-	ofn.lpstrFile=@buff
-	ofn.nMaxFile=16*1024
-	ofn.lpstrFilter=StrPtr(ALLFilterString)
-	s=GetInternalString(IS_ADD_EXISTING_FILE)
-	ofn.lpstrTitle=@s
-	ofn.Flags=OFN_EXPLORER Or OFN_FILEMUSTEXIST Or OFN_PATHMUSTEXIST Or OFN_HIDEREADONLY Or OFN_ALLOWMULTISELECT
+	Dim ofn     As OPENFILENAME
+	Dim Buffer  As ZString * 32 * 1024
+	Dim Title   As ZString * 1024
+	Dim SubStr1 As ZString * MAX_PATH 
+	Dim SubStrN As ZString * MAX_PATH 
+	Dim Idx     As Integer = Any 
+	
+	Title = GetInternalString (IS_ADD_EXISTING_FILE)
+	
+	With ofn
+    	.lStructSize     = SizeOf (OPENFILENAME)
+    	.hwndOwner       = GetOwner
+    	.hInstance       = hInstance
+    	.lpstrFile       = @Buffer                      
+    	.nMaxFile        = SizeOf (Buffer)              
+    	.lpstrFilter     = @ALLFilterString
+    	.Flags           = OFN_EXPLORER      Or OFN_FILEMUSTEXIST    Or OFN_HIDEREADONLY Or _
+    	                   OFN_PATHMUSTEXIST Or OFN_ALLOWMULTISELECT
+   		.lpstrInitialDir = @ad.ProjectPath
+   		.lpstrTitle      = @Title
+	End With 
+	
 	If GetOpenFileNameUI (@ofn) Then
-		lstrcpy(@pth,@buff)
-		i=Len(pth)+1
-		x=Cast(Integer,@buff)
-		lstrcpy(@s,Cast(ZString Ptr,x+i))
-		If Asc(s)=0 Then
-			' Add single file
-			AddAProjectFile(pth,FALSE,FALSE)
-		Else
-			' Open multiple files
-			Do While Asc(s)<>0
-				sFile=pth & "\" & s
-				AddAProjectFile(sFile,FALSE,FALSE)
-				i=i+Len(s)+1
-				lstrcpy(@s,Cast(ZString Ptr,x+i))
-			Loop
-		EndIf
+		
+		Idx = 0
+		DePackStr Idx, Buffer, SubStr1, SizeOf (SubStr1)
+		If Idx = 0 Then           ' nothing follows
+		    AddAProjectFile SubStr1, FALSE, FALSE
+			PathRemoveFileSpec SubStr1
+		Else                      ' multi file selection
+			Do
+				DePackStr Idx, Buffer, SubStrN, SizeOf (SubStrN)
+				AddAProjectFile SubStr1 + "\" + SubStrN, FALSE, FALSE
+			Loop While Idx
+		EndIf 
+		szLastDir = SubStr1		
 	EndIf
 
 End Sub
@@ -1261,43 +1263,46 @@ Sub AddNewProjectModule()
 
 End Sub
 
-Sub AddExistingProjectModule()
-	Dim ofn As OPENFILENAME
-	Dim sFile As String*260
-	Dim i As Integer
-	Dim x As Integer
-	Dim pth As ZString*260
-	Dim s As ZString*260
-
-	ofn.lStructSize=SizeOf(OPENFILENAME)
-	ofn.hwndOwner=GetOwner
-	ofn.hInstance=hInstance
-	ofn.lpstrInitialDir=@ad.ProjectPath
-	SetZStrEmpty (buff)                                 ' MOD 14.1.2012   buff=String(260,0)
-	ofn.lpstrFile=@buff
-	ofn.nMaxFile=16*1024
-	ofn.lpstrFilter=StrPtr(MODFilterString)
-	s=GetInternalString(IS_ADD_EXISTING_MODULE)
-	ofn.lpstrTitle=@s
-	ofn.Flags=OFN_EXPLORER Or OFN_FILEMUSTEXIST Or OFN_PATHMUSTEXIST Or OFN_HIDEREADONLY Or OFN_ALLOWMULTISELECT
+Sub AddExistingProjectModule ()
+	
+	Dim ofn     As OPENFILENAME
+	Dim Buffer  As ZString * 32 * 1024
+	Dim Title   As ZString * 1024
+	Dim SubStr1 As ZString * MAX_PATH 
+	Dim SubStrN As ZString * MAX_PATH 
+	Dim Idx     As Integer = Any 
+	
+	Title = GetInternalString (IS_ADD_EXISTING_MODULE)
+	
+	With ofn
+    	.lStructSize     = SizeOf (OPENFILENAME)
+    	.hwndOwner       = GetOwner
+    	.hInstance       = hInstance
+    	.lpstrFile       = @Buffer                      
+    	.nMaxFile        = SizeOf (Buffer)              
+    	.lpstrFilter     = @MODFilterString
+    	.Flags           = OFN_EXPLORER      Or OFN_FILEMUSTEXIST    Or OFN_HIDEREADONLY Or _
+    	                   OFN_PATHMUSTEXIST Or OFN_ALLOWMULTISELECT
+   		.lpstrInitialDir = @ad.ProjectPath
+   		.lpstrTitle      = @Title
+	End With 
+	
 	If GetOpenFileNameUI (@ofn) Then
-		lstrcpy(@pth,@buff)
-		i=Len(pth)+1
-		x=Cast(Integer,@buff)
-		lstrcpy(@s,Cast(ZString Ptr,x+i))
-		If IsZStrEmpty (s) Then
-			' Add single file
-			AddAProjectFile(pth,TRUE,FALSE)
-		Else
-			' Open multiple files
-			Do While IsZStrNotEmpty (s)
-				sFile=pth & "\" & s
-				AddAProjectFile(sFile,TRUE,FALSE)
-				i=i+Len(s)+1
-				lstrcpy(@s,Cast(ZString Ptr,x+i))
-			Loop
-		EndIf
+		
+		Idx = 0
+		DePackStr Idx, Buffer, SubStr1, SizeOf (SubStr1)
+		If Idx = 0 Then           ' nothing follows
+		    AddAProjectFile SubStr1, TRUE, FALSE
+			PathRemoveFileSpec SubStr1
+		Else                      ' multi file selection
+			Do
+				DePackStr Idx, Buffer, SubStrN, SizeOf (SubStrN)
+				AddAProjectFile SubStr1 + "\" + SubStrN, TRUE, FALSE
+			Loop While Idx
+		EndIf 
+		szLastDir = SubStr1		
 	EndIf
+
 
 End Sub
 
@@ -2364,7 +2369,7 @@ End Function
 '
 'End Function 
 
-Function ProjectOptionDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
+Function ProjectOptionDlgProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
 	
 	Dim x        As Integer       = Any  
 	Dim i        As Integer       = Any

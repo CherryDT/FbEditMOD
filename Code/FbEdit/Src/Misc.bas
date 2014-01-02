@@ -29,19 +29,19 @@
 
 'Type HH_AKLINK                                    ' HTML help
 '	cbStruct	    As Integer
-'	fReserved		As BOOLEAN 
+'	fReserved		As BOOLEAN
 '	pszKeywords		As ZString Ptr
 '	pszUrl			As ZString Ptr
 '	pszMsgText		As ZString Ptr
 '	pszMsgTitle		As ZString Ptr
 '	pszWindow		As ZString Ptr
-'	fIndexOnFail	As BOOLEAN 
+'	fIndexOnFail	As BOOLEAN
 'End Type
 '
 '#Define HH_DISPLAY_TOPIC	&H0000
 '#Define HH_KEYWORD_LOOKUP   &H000D
 
-'Dim Shared hHtmlOcx      As HINSTANCE = 0 
+'Dim Shared hHtmlOcx      As HINSTANCE = 0
 'Dim Shared pHtmlHelpProc As Any Ptr   = 0
 'Dim Shared hHHwin        As HWND      = 0
 'Dim Shared hhaklink      As HH_AKLINK
@@ -53,50 +53,50 @@ Dim Shared ppage    As PRNPAGE = ((21000,29700),(1000,1000,1000,1000),66,0)
 Dim Shared psd      As PageSetupDlg
 Dim Shared pd       As PrintDlg
 
- 
+
 
 Sub SearchRegEx (ByRef StartIdx    As Integer,      _
 	             ByVal pSearchData As ZString Ptr,  _
 	             ByVal pSearchExpr As ZString Ptr,  _
 	             ByVal SubMatchNo  As Integer,      _
 	             ByRef Found       As String,       _
-	             ByRef pErrText    As ZString Ptr)  	
-	
-	
+	             ByRef pErrText    As ZString Ptr)
+
+
 	Const  cFlags                   As Integer       = REG_EXTENDED Or REG_ICASE
     Const  MaxSubMatch              As Integer       = 9
 
     Static ErrText                  As ZString * 256
-    
+
     Dim    RegEx                    As regex_t
 	Dim    Match(0 To MaxSubMatch)  As regmatch_t
 	Dim    ExitCode                 As Integer       = Any
-	Dim    SearchDataLen            As Integer       = lstrlen (pSearchData) 
-	
-    
-    If (StartIdx > SearchDataLen) OrElse (StartIdx < 0) Then 
+	Dim    SearchDataLen            As Integer       = lstrlen (pSearchData)
+
+
+    If (StartIdx > SearchDataLen) OrElse (StartIdx < 0) Then
 	    pErrText = @"index out of range"
 	    Found    = ""
 		StartIdx = 0
 		Exit Sub
     EndIf
-    	
+
 	If (SubMatchNo < 0) OrElse (SubMatchNo > MaxSubMatch) Then
 	    pErrText = @"submatch index out of range"
 	    Found    = ""
 		StartIdx = 0
 		Exit Sub
 	EndIf
-	
+
 	ExitCode = RegComp(@RegEx, pSearchExpr, cFlags)
-	If ExitCode Then 
+	If ExitCode Then
 	    RegError(ExitCode, @RegEx, @ErrText, SizeOf (ErrText))
    	    pErrText = @ErrText
 	    Found    = ""
 		StartIdx = 0
 		Exit Sub
-	EndIf 
-	    	
+	EndIf
+
 	If RegExec(@RegEx, pSearchData + StartIdx, MaxSubMatch + 1, @Match(0), 0) Then
 	    pErrText = @"not found"
 	    Found    = ""
@@ -104,119 +104,125 @@ Sub SearchRegEx (ByRef StartIdx    As Integer,      _
 	Else
 		pErrText = @""                                      ' success
 		Found    = Mid (*pSearchData, StartIdx + Match(SubMatchNo).rm_so + 1, Match(SubMatchNo).rm_eo - Match(SubMatchNo).rm_so)
-		StartIdx += Match(0).rm_eo 
+		StartIdx += Match(0).rm_eo
 		If StartIdx >= SearchDataLen Then StartIdx = 0	    ' flagging: end reached
 	EndIf
 
 	RegFree(@RegEx)
 
-End Sub 
+End Sub
 
 Function GlobalAllocUI (ByVal nType As UINT, ByVal nSize As DWORD) As HGLOBAL
+
 	Dim hMem As HGLOBAL
 
-Retry:
-
-	hMem = GlobalAlloc (nType, nSize)
-	If hMem = 0 Then
-		Select Case MessageBox(ah.hwnd,"Memory allocation failed." & CRLF & Str(nSize) & " Bytes.",@szAppName,MB_ABORTRETRYIGNORE Or MB_ICONERROR)
-			Case IDRETRY
-				GoTo Retry
-				'
-			Case IDABORT
-				End
-				'
-			Case IDIGNORE
-				'
-		End Select
-	EndIf
-	Return hMem
+    Do
+    	hMem = GlobalAlloc (nType, nSize)
+    	If hMem = 0 Then
+    		Select Case MessageBox(ah.hwnd,"Memory allocation failed." & CRLF & Str(nSize) & " Bytes.",@szAppName,MB_ABORTRETRYIGNORE Or MB_ICONERROR)
+    		Case IDRETRY
+    		    Continue Do 
+    		Case IDABORT
+    		    End
+    		Case IDIGNORE
+                Return 0
+    		End Select
+    	Else
+    	    Return hMem    
+    	EndIf
+    Loop 
 
 End Function
 
-Function ShellExecuteUI (ByVal hWindow     As HWND, _ 
-                          ByVal pOperation  As ZString Ptr, _
-                          ByVal pFileSpec   As ZString Ptr, _
-                          ByVal pParameters As ZString Ptr, _
-                          ByVal pWorkDir    As ZString Ptr, _
-                          ByVal ShowCmd     As Integer      _
-                        ) As BOOL
+Function ShellExecuteUI (ByVal hWindow     As HWND, _
+                         ByVal pOperation  As ZString Ptr, _
+                         ByVal pFileSpec   As ZString Ptr, _
+                         ByVal pParameters As ZString Ptr, _
+                         ByVal pWorkDir    As ZString Ptr, _
+                         ByVal ShowCmd     As Integer      _
+                        )                  As BOOL
 
-    Dim pErrText  As ZString Ptr   = Any 
-    Dim ExitCode  As Integer       = Any 
+    Dim pErrText  As ZString Ptr   = Any
+    Dim ExitCode  As Integer       = Any
 
 	UpdateEnvironment
     TextToOutput !"\13SHELLEXECUTE: " + *pFileSpec + " " + *pParameters
 
 	ExitCode = CInt (ShellExecute (hWindow, pOperation, pFileSpec, pParameters, pWorkDir, ShowCmd))
-    
+
     Select Case ExitCode
-    Case 0                      :  pErrText = @"The operating system is out of memory or resources" 
-    Case ERROR_FILE_NOT_FOUND   :  pErrText = @"The specified file was not found" 
-    Case ERROR_PATH_NOT_FOUND   :  pErrText = @"The specified path was not found" 
-    Case ERROR_BAD_FORMAT       :  pErrText = @"The .exe file is invalid (non-Microsoft Win32 .exe or error in .exe image)" 
-    Case SE_ERR_ACCESSDENIED    :  pErrText = @"The operating system denied access to the specified file" 
-    Case SE_ERR_ASSOCINCOMPLETE :  pErrText = @"The file name association is incomplete or invalid" 
-    Case SE_ERR_DDEBUSY         :  pErrText = @"The Dynamic Data Exchange (DDE) transaction could not be completed because other DDE transactions were being processed" 
-    Case SE_ERR_DDEFAIL         :  pErrText = @"The DDE transaction failed" 
-    Case SE_ERR_DDETIMEOUT      :  pErrText = @"The DDE transaction could not be completed because the request timed out" 
-    Case SE_ERR_DLLNOTFOUND     :  pErrText = @"The specified DLL was not found" 
-    Case SE_ERR_FNF             :  pErrText = @"The specified file was not found" 
-    Case SE_ERR_NOASSOC         :  pErrText = @"There is no application associated with the given file name extension" 
-    Case SE_ERR_OOM             :  pErrText = @"There was not enough memory to complete the operation" 
-    Case SE_ERR_PNF             :  pErrText = @"The specified path was not found" 
-    Case SE_ERR_SHARE           :  pErrText = @"A sharing violation occurred" 
+    Case 0                      :  pErrText = @"The operating system is out of memory or resources"
+    Case ERROR_FILE_NOT_FOUND   :  pErrText = @"The specified file was not found"
+    Case ERROR_PATH_NOT_FOUND   :  pErrText = @"The specified path was not found"
+    Case ERROR_BAD_FORMAT       :  pErrText = @"The .exe file is invalid (non-Microsoft Win32 .exe or error in .exe image)"
+    Case SE_ERR_ACCESSDENIED    :  pErrText = @"The operating system denied access to the specified file"
+    Case SE_ERR_ASSOCINCOMPLETE :  pErrText = @"The file name association is incomplete or invalid"
+    Case SE_ERR_DDEBUSY         :  pErrText = @"The Dynamic Data Exchange (DDE) transaction could not be completed because other DDE transactions were being processed"
+    Case SE_ERR_DDEFAIL         :  pErrText = @"The DDE transaction failed"
+    Case SE_ERR_DDETIMEOUT      :  pErrText = @"The DDE transaction could not be completed because the request timed out"
+    Case SE_ERR_DLLNOTFOUND     :  pErrText = @"The specified DLL was not found"
+    Case SE_ERR_FNF             :  pErrText = @"The specified file was not found"
+    Case SE_ERR_NOASSOC         :  pErrText = @"There is no application associated with the given file name extension"
+    Case SE_ERR_OOM             :  pErrText = @"There was not enough memory to complete the operation"
+    Case SE_ERR_PNF             :  pErrText = @"The specified path was not found"
+    Case SE_ERR_SHARE           :  pErrText = @"A sharing violation occurred"
     End Select
-    
+
     If ExitCode > 32 Then
-        Return TRUE 
+        Return TRUE
     Else
         TextToOutput "*** error SHELLEXECUTE ***", MB_ICONHAND
-        TextToOutput pErrText 
-        Return FALSE 
+        TextToOutput pErrText
+        Return FALSE
     EndIf
 
 End Function
 
 Function GetOpenFileNameUI (ByVal pOFN As OPENFILENAME Ptr) As BOOL
 
-    Dim pErrText  As ZString Ptr   = Any 
-    Dim Success   As BOOL 
+    Dim pErrText  As ZString Ptr   = Any
+    Dim Success   As BOOL          = Any 
+    Dim ErrorCode As DWORD         = Any
 
 	Success = GetOpenFileName (pOFN)
-    
+
     If Success = FALSE Then
-         
-        Select Case CommDlgExtendedError
-        Case CDERR_DIALOGFAILURE   : pErrText = @"CDERR_DIALOGFAILURE" 
-        Case CDERR_FINDRESFAILURE  : pErrText = @"CDERR_FINDRESFAILURE"
-        Case CDERR_NOHINSTANCE     : pErrText = @"CDERR_NOHINSTANCE"
-        Case CDERR_INITIALIZATION  : pErrText = @"CDERR_INITIALIZATION"
-        Case CDERR_NOHOOK          : pErrText = @"CDERR_NOHOOK"
-        Case CDERR_LOCKRESFAILURE  : pErrText = @"CDERR_LOCKRESFAILURE"
-        Case CDERR_NOTEMPLATE      : pErrText = @"CDERR_NOTEMPLATE"
-        Case CDERR_LOADRESFAILURE  : pErrText = @"CDERR_LOADRESFAILURE"
-        Case CDERR_STRUCTSIZE      : pErrText = @"CDERR_STRUCTSIZE"
-        Case CDERR_LOADSTRFAILURE  : pErrText = @"CDERR_LOADSTRFAILURE"
-        Case FNERR_BUFFERTOOSMALL  : pErrText = @"FNERR_BUFFERTOOSMALL"
-        Case CDERR_MEMALLOCFAILURE : pErrText = @"CDERR_MEMALLOCFAILURE"
-        Case FNERR_INVALIDFILENAME : pErrText = @"FNERR_INVALIDFILENAME"
-        Case CDERR_MEMLOCKFAILURE  : pErrText = @"CDERR_MEMLOCKFAILURE"
-        Case FNERR_SUBCLASSFAILURE : pErrText = @"FNERR_SUBCLASSFAILURE"
-        Case Else                  : pErrText = @"undefined"
-        End Select
-        
-        TextToOutput "*** error Common Dialog ***", MB_ICONHAND
-        TextToOutput pErrText 
+
+        ErrorCode = CommDlgExtendedError
+        If ErrorCode Then
+            Select Case ErrorCode
+            Case CDERR_DIALOGFAILURE   : pErrText = @"CDERR_DIALOGFAILURE"
+            Case CDERR_FINDRESFAILURE  : pErrText = @"CDERR_FINDRESFAILURE"
+            Case CDERR_NOHINSTANCE     : pErrText = @"CDERR_NOHINSTANCE"
+            Case CDERR_INITIALIZATION  : pErrText = @"CDERR_INITIALIZATION"
+            Case CDERR_NOHOOK          : pErrText = @"CDERR_NOHOOK"
+            Case CDERR_LOCKRESFAILURE  : pErrText = @"CDERR_LOCKRESFAILURE"
+            Case CDERR_NOTEMPLATE      : pErrText = @"CDERR_NOTEMPLATE"
+            Case CDERR_LOADRESFAILURE  : pErrText = @"CDERR_LOADRESFAILURE"
+            Case CDERR_STRUCTSIZE      : pErrText = @"CDERR_STRUCTSIZE"
+            Case CDERR_LOADSTRFAILURE  : pErrText = @"CDERR_LOADSTRFAILURE"
+            Case FNERR_BUFFERTOOSMALL  : pErrText = @"FNERR_BUFFERTOOSMALL"
+            Case CDERR_MEMALLOCFAILURE : pErrText = @"CDERR_MEMALLOCFAILURE"
+            Case FNERR_INVALIDFILENAME : pErrText = @"FNERR_INVALIDFILENAME"
+            Case CDERR_MEMLOCKFAILURE  : pErrText = @"CDERR_MEMLOCKFAILURE"
+            Case FNERR_SUBCLASSFAILURE : pErrText = @"FNERR_SUBCLASSFAILURE"
+            Case Else                  : pErrText = @"undefined"
+            End Select
+
+            TextToOutput "*** error Common Dialog ***", MB_ICONHAND
+            TextToOutput pErrText
+       'Else
+            ' ErrorCode = 0 means user cancellation, dont generate message
+        EndIf
     EndIf
-    
+
     Return Success
-        
+
 End Function
 
 Sub HH_Help
 
-    Dim hhaklink As HH_AKLINK = Any  
+    Dim hhaklink As HH_AKLINK = Any
 
     hhaklink.cbStruct     = SizeOf (HH_AKLINK)
     hhaklink.fReserved    = FALSE
@@ -225,8 +231,8 @@ Sub HH_Help
     hhaklink.pszMsgText   = NULL
     hhaklink.pszMsgTitle  = NULL
     hhaklink.pszWindow    = NULL
-    hhaklink.fIndexOnFail = TRUE 
-    
+    hhaklink.fIndexOnFail = TRUE
+
     HtmlHelp 0, @buff, HH_DISPLAY_TOPIC , 0
     HtmlHelp 0, @buff, HH_KEYWORD_LOOKUP, Cast (DWORD, @hhaklink)
 
@@ -237,15 +243,15 @@ End Sub
 '    Print "HH_Help"
 '    DebugPrint (buff)
 '    DebugPrint (s)
-'    
+'
 '	If hHtmlOcx=0 Then
 '		hHtmlOcx=LoadLibrary(StrPtr("hhctrl.ocx"))
 '		pHtmlHelpProc=GetProcAddress(hHtmlOcx,StrPtr("HtmlHelpA"))
 '	EndIf
-'	
+'
 '	DebugPrint (hHtmlOcx)
 '	DebugPrint (pHtmlHelpProc)
-'	
+'
 '	If hHtmlOcx Then
 '		hhaklink.cbStruct=SizeOf(HH_AKLINK)
 '		hhaklink.fReserved=FALSE
@@ -254,7 +260,7 @@ End Sub
 '		hhaklink.pszMsgText=NULL
 '		hhaklink.pszMsgTitle=NULL
 '		hhaklink.pszWindow=NULL
-'		hhaklink.fIndexOnFail=TRUE 
+'		hhaklink.fIndexOnFail=TRUE
 '		Asm
 '			'hHHwin = HtmlHelp (0, @buff, HH_DISPLAY_TOPIC, NULL)
 '			push 0
@@ -281,13 +287,13 @@ End Sub
 'End Sub
 
 'Sub EnableDisable(ByVal bm As Long,ByVal id As Long)
-'	
-'	Dim hMnu As HMENU = Any 
+'
+'	Dim hMnu As HMENU = Any
 '
 '	hMnu=GetMenu(ah.hwnd)
 '	EnableMenuItem(hMnu,id,IIf(bm,MF_ENABLED,MF_GRAYED))
 '	SendMessage(ah.htoolbar,TB_ENABLEBUTTON,id,IIf(bm,TRUE,FALSE))
-'	
+'
 'End Sub
 
 '===================================
@@ -299,13 +305,13 @@ End Sub
 '#EndMacro
 
 'Sub Enable (ByVal id As Long)
-'	
-'	Dim hMnu As HMENU = Any 
+'
+'	Dim hMnu As HMENU = Any
 '
 '	hMnu = GetMenu (ah.hwnd)
 '	EnableMenuItem hMnu,id, MF_ENABLED
 '	SendMessage ah.htoolbar, TB_ENABLEBUTTON, id, TRUE
-'	
+'
 'End Sub
 '===================================
 
@@ -314,17 +320,17 @@ End Sub
 
 '#Macro Disable (id)
 '	EnableMenuItem hMnu,id, MF_GRAYED        ' set outside!   hMnu = GetMenu (ah.hwnd)
-'	SendMessage ah.htoolbar, TB_ENABLEBUTTON, id, FALSE 
+'	SendMessage ah.htoolbar, TB_ENABLEBUTTON, id, FALSE
 '#EndMacro
 
 'Sub Disable (ByVal id As Long)
-'	
-'	Dim hMnu As HMENU = Any 
+'
+'	Dim hMnu As HMENU = Any
 '
 '	hMnu = GetMenu (ah.hwnd)
 '	EnableMenuItem hMnu,id, MF_GRAYED
-'	SendMessage ah.htoolbar, TB_ENABLEBUTTON, id, FALSE 
-'	
+'	SendMessage ah.htoolbar, TB_ENABLEBUTTON, id, FALSE
+'
 'End Sub
 '===================================
 
@@ -338,11 +344,11 @@ End Sub
 '
 'Sub EnableDisableContext(ByVal bm As Long,ByVal id As Long)
 '
-'	'Dim hMnu As HMENU = Any               MOD 8.2.2012 
+'	'Dim hMnu As HMENU = Any               MOD 8.2.2012
 '
 '	'hMnu=GetMenu(ah.hwnd)                 MOD 8.2.2012
 '	EnableMenuItem(ah.hcontextmenu,id,IIf(bm,MF_ENABLED,MF_GRAYED))
-'	
+'
 'End Sub
 
 Sub CheckMenu()
@@ -369,68 +375,68 @@ Sub CheckMenu()
 End Sub
 
 #Macro DisMenu (Condition, ID)
-	
+
 	EnableMenuItem hMnu           , ID, IIf (Condition, MF_GRAYED, MF_ENABLED)
 	EnableMenuItem ah.hcontextmenu, ID, IIf (Condition, MF_GRAYED, MF_ENABLED)
 	SendMessage ah.htoolbar, TB_ENABLEBUTTON, ID, IIf (Condition, FALSE, TRUE)
-	
-#EndMacro   
+
+#EndMacro
 
 #Macro EnMenu (Condition, ID)
-	
+
 	EnableMenuItem hMnu           , ID, IIf (Condition, MF_ENABLED, MF_GRAYED)
 	EnableMenuItem ah.hcontextmenu, ID, IIf (Condition, MF_ENABLED, MF_GRAYED)
 	SendMessage ah.htoolbar, TB_ENABLEBUTTON, ID, IIf (Condition, TRUE, FALSE)
-	
-#EndMacro   
+
+#EndMacro
 
 #Macro DisCtxMenu (Condition, ID)
-	
+
 	EnableMenuItem ah.hcontextmenu, ID, IIf (Condition, MF_GRAYED, MF_ENABLED)
-	
-#EndMacro   
+
+#EndMacro
 
 #Macro EnCtxMenu (Condition, ID)
-	
+
 	EnableMenuItem ah.hcontextmenu, ID, IIf (Condition, MF_ENABLED, MF_GRAYED)
-	
-#EndMacro   
+
+#EndMacro
 
 Sub EnableMenu ()
 
-    Dim hMnu As HMENU = Any 
+    Dim hMnu As HMENU = Any
 
 	hMnu = GetMenu (ah.hwnd)
-    Dim NoTabOpen          As BOOL      = FALSE 
+    Dim NoTabOpen          As BOOL      = FALSE
     Dim AnyTabOpen         As BOOL      = FALSE
 	Dim TabIsRESED         As BOOL      = FALSE
 	Dim TabIsCODEED        As BOOL      = FALSE
 	Dim TabIsHEXED         As BOOL      = FALSE
 	Dim TabIsTEXTED        As BOOL      = FALSE
-	Dim TabIsCOTXED        As BOOL      = FALSE 
+	Dim TabIsCOTXED        As BOOL      = FALSE
 	Dim TabIsAlpha         As BOOL      = FALSE
 	Dim TabIsAny           As BOOL      = FALSE
 	Dim TabIsProject       As BOOL      = FALSE
-	Dim TabCanUndo         As BOOL      = FALSE 
+	Dim TabCanUndo         As BOOL      = FALSE
 	Dim TabCanRedo         As BOOL      = FALSE
 	Dim TabHasSel          As BOOL      = FALSE
 	Dim TabCanPaste        As BOOL      = FALSE
-	Dim TabHasDeclareQueue As BOOL      = FALSE 
+	Dim TabHasDeclareQueue As BOOL      = FALSE
 	Dim EditorMode         As Long      = 0
 	Dim TabCount           As Integer   = 0
 	Dim PropertyValid      As BOOL      = FALSE
-	Dim BlockMode          As BOOL      = FALSE 
-	Dim ID                 As Integer   = Any 
-	Dim chrg               As CHARRANGE = Any 
-	
-	
+	Dim BlockMode          As BOOL      = FALSE
+	Dim ID                 As Integer   = Any
+	Dim chrg               As CHARRANGE = Any
+
+
     'hCtl = GetParent (GetFocus)
     'If hCtl Then
     '    If hCtl = ah.hred OrElse hCtl = ah.hout OrElse hCtl = ah.himm Then
-    '        FocusIsRAEdit = TRUE	
+    '        FocusIsRAEdit = TRUE
     '    EndIf
     'EndIf
-	
+
 	If ah.hred Then
 		EditorMode    = GetWindowLong (ah.hred, GWL_ID)
 		TabIsRESED    = (EditorMode =  IDC_RESED)
@@ -443,34 +449,34 @@ Sub EnableMenu ()
 		TabIsProject  = fProject
 		TabCount      = SendMessage (ah.htabtool, TCM_GETITEMCOUNT, 0, 0)
 		PropertyValid = SendMessage (ah.hpr, PRM_GETCURSEL, 0, 0) <> LB_ERR
-		BlockMode     = (SendMessage (ah.hred, REM_GETMODE, 0, 0) And MODE_BLOCK) <> 0 
+		BlockMode     = (SendMessage (ah.hred, REM_GETMODE, 0, 0) And MODE_BLOCK) <> 0
 		TabCanUndo    = (TabIsAlpha AndAlso SendMessage (ah.hred, EM_CANUNDO, 0, 0)) OrElse _
 		             	(TabIsRESED AndAlso SendMessage (ah.hraresed, DEM_CANUNDO, 0, 0))
 		TabCanRedo    = (TabIsAlpha AndAlso SendMessage (ah.hred, EM_CANREDO, 0, 0)) OrElse _
 		             	(TabIsRESED AndAlso SendMessage (ah.hraresed, DEM_CANREDO, 0, 0))
-        
+
         SendMessage ah.hred, EM_EXGETSEL, 0, Cast (LPARAM, @chrg)
-        
+
         TabHasSel     = (TabIsAlpha AndAlso (chrg.cpMax <> chrg.cpMin)) OrElse _
                         (TabIsRESED AndAlso	SendMessage (ah.hraresed, DEM_ISSELECTION, 0, 0))
 		TabCanPaste   = (TabIsAlpha AndAlso SendMessage (ah.hred, EM_CANPASTE, CF_TEXT, 0)) OrElse _
 		                (TabIsRESED AndAlso SendMessage (ah.hraresed, DEM_CANPASTE, 0, 0))
-				
-        'TabHasDeclareQueue = TabIsCODEED AndAlso fdc(fdcpos).hwnd 
+
+        'TabHasDeclareQueue = TabIsCODEED AndAlso fdc(fdcpos).hwnd
 	Else
-		NoTabOpen = TRUE 	
+		NoTabOpen = TRUE
 	EndIf
-		
-	'IDM_FILE					
-	'IDM_FILE_NEWPROJECT		
-	'IDM_FILE_OPENPROJECT		
+
+	'IDM_FILE
+	'IDM_FILE_NEWPROJECT
+	'IDM_FILE_OPENPROJECT
 	EnMenu (fProject,           IDM_FILE_CLOSEPROJECT)
-	'IDM_FILE_NEW				
-	'IDM_FILE_NEW_RESOURCE		
-	'IDM_FILE_OPEN_STD   		
-	'IDM_FILE_OPEN_HEX			
-	'IDM_FILE_OPEN_TXT			
-	'IDM_FILE_RECENTFILE		
+	'IDM_FILE_NEW
+	'IDM_FILE_NEW_RESOURCE
+	'IDM_FILE_OPEN_STD
+	'IDM_FILE_OPEN_HEX
+	'IDM_FILE_OPEN_TXT
+	'IDM_FILE_RECENTFILE
 	EnMenu (TabIsAny,           IDM_FILE_SAVE    )
 	EnMenu (TabIsAny,           IDM_FILE_SAVEALL )
 	EnMenu (TabIsAny,           IDM_FILE_SAVEAS  )
@@ -478,9 +484,9 @@ Sub EnableMenu ()
 	EnMenu (TabIsAny,           IDM_FILE_CLOSEALL)
 	'IDM_FILE_PAGESETUP
     EnMenu (TabIsAlpha,         IDM_FILE_PRINT   )
-	'IDM_FILE_EXIT				
+	'IDM_FILE_EXIT
 
-	'IDM_EDIT					
+	'IDM_EDIT
 	EnMenu (TabCanUndo,         IDM_EDIT_UNDO)
     EnMenu (TabCanRedo,         IDM_EDIT_REDO)
     EnMenu (TabIsCOTXED,        IDM_EDIT_EMPTYUNDO)
@@ -497,137 +503,137 @@ Sub EnableMenu ()
 	EnMenu (TabIsCODEED,        IDM_EDIT_FINDDECLARE)
 	'EnMenu (TabHasDeclareQueue, IDM_EDIT_RETURN)
 	EnMenu (TabIsCODEED,        IDM_EDIT_EXPAND)
-	
+
 	'IDM_EDIT_BLOCK
 	EnMenu (TabIsCOTXED,        IDM_EDIT_BLOCKINDENT)
 	EnMenu (TabIsCOTXED,        IDM_EDIT_BLOCKOUTDENT)
 	EnMenu (TabIsCODEED,        IDM_EDIT_BLOCKCOMMENT)
 	EnMenu (TabIsCODEED,        IDM_EDIT_BLOCKUNCOMMENT)
 	EnMenu (TabIsCOTXED AndAlso TabHasSel, IDM_EDIT_BLOCKTRIM)
-	EnMenu (TabIsCOTXED AndAlso TabHasSel, IDM_EDIT_CONVERTTAB)		 
-	EnMenu (TabIsCOTXED AndAlso TabHasSel, IDM_EDIT_CONVERTSPACE)	
-	EnMenu (TabIsCOTXED AndAlso TabHasSel, IDM_EDIT_CONVERTUPPER)	
-	EnMenu (TabIsCOTXED AndAlso TabHasSel, IDM_EDIT_CONVERTLOWER)	
+	EnMenu (TabIsCOTXED AndAlso TabHasSel, IDM_EDIT_CONVERTTAB)
+	EnMenu (TabIsCOTXED AndAlso TabHasSel, IDM_EDIT_CONVERTSPACE)
+	EnMenu (TabIsCOTXED AndAlso TabHasSel, IDM_EDIT_CONVERTUPPER)
+	EnMenu (TabIsCOTXED AndAlso TabHasSel, IDM_EDIT_CONVERTLOWER)
     EnMenu (TabIsCOTXED                  , IDM_EDIT_BLOCKMODE)
     EnMenu (TabIsCOTXED AndAlso BlockMode, IDM_EDIT_BLOCK_INSERT)
 
 	'IDM_EDIT_BOOKMARK
     'IDM_EDIT_BOOKMARKTOGGLE
-    'IDM_EDIT_BOOKMARKNEXT	
+    'IDM_EDIT_BOOKMARKNEXT
     'IDM_EDIT_BOOKMARKPREVIOUS
     'IDM_EDIT_BOOKMARKDELETE
-    'IDM_EDIT_BOOKMARKLIST     
-    'IDM_EDIT_ERROR			
-    'IDM_EDIT_ERRORNEXT		
-    'IDM_EDIT_ERRORCLEAR	
-    'IDM_EDIT_HISTORYPASTE     
+    'IDM_EDIT_BOOKMARKLIST
+    'IDM_EDIT_ERROR
+    'IDM_EDIT_ERRORNEXT
+    'IDM_EDIT_ERRORCLEAR
+    'IDM_EDIT_HISTORYPASTE
 	EnMenu (TabIsCOTXED, IDM_EDIT_ELEVATOR_UP)
 	EnMenu (TabIsCOTXED, IDM_EDIT_ELEVATOR_DOWN)
 
-	'IDM_FORMAT						
+	'IDM_FORMAT
     EnMenu (TabIsRESED, IDM_FORMAT_LOCK)
     EnMenu (TabIsRESED, IDM_FORMAT_BACK)
     EnMenu (TabIsRESED, IDM_FORMAT_FRONT)
-    EnMenu (TabIsRESED, IDM_FORMAT_GRID)					
-    EnMenu (TabIsRESED, IDM_FORMAT_SNAP)					
-	'IDM_FORMAT_ALIGN				
-    EnMenu (TabIsRESED, IDM_FORMAT_ALIGN_LEFT)	
+    EnMenu (TabIsRESED, IDM_FORMAT_GRID)
+    EnMenu (TabIsRESED, IDM_FORMAT_SNAP)
+	'IDM_FORMAT_ALIGN
+    EnMenu (TabIsRESED, IDM_FORMAT_ALIGN_LEFT)
     EnMenu (TabIsRESED, IDM_FORMAT_ALIGN_CENTER)
-    EnMenu (TabIsRESED, IDM_FORMAT_ALIGN_RIGHT)	  
-    EnMenu (TabIsRESED, IDM_FORMAT_ALIGN_TOP)	
+    EnMenu (TabIsRESED, IDM_FORMAT_ALIGN_RIGHT)
+    EnMenu (TabIsRESED, IDM_FORMAT_ALIGN_TOP)
     EnMenu (TabIsRESED, IDM_FORMAT_ALIGN_MIDDLE)
     EnMenu (TabIsRESED, IDM_FORMAT_ALIGN_BOTTOM)
-	'IDM_FORMAT_SIZE				
-    EnMenu (TabIsRESED, IDM_FORMAT_SIZE_WIDTH)		
-    EnMenu (TabIsRESED, IDM_FORMAT_SIZE_HEIGHT)		
-    EnMenu (TabIsRESED, IDM_FORMAT_SIZE_BOTH)		
-	'IDM_FORMAT_CENTER				
-    EnMenu (TabIsRESED, IDM_FORMAT_CENTER_HOR)			
-    EnMenu (TabIsRESED, IDM_FORMAT_CENTER_VER)			
-    EnMenu (TabIsRESED, IDM_FORMAT_TAB)	
+	'IDM_FORMAT_SIZE
+    EnMenu (TabIsRESED, IDM_FORMAT_SIZE_WIDTH)
+    EnMenu (TabIsRESED, IDM_FORMAT_SIZE_HEIGHT)
+    EnMenu (TabIsRESED, IDM_FORMAT_SIZE_BOTH)
+	'IDM_FORMAT_CENTER
+    EnMenu (TabIsRESED, IDM_FORMAT_CENTER_HOR)
+    EnMenu (TabIsRESED, IDM_FORMAT_CENTER_VER)
+    EnMenu (TabIsRESED, IDM_FORMAT_TAB)
     EnMenu (TabIsRESED, IDM_FORMAT_RENUM)
     EnMenu (TabIsAlpha, IDM_FORMAT_CASECONVERT)
     EnMenu (TabIsAlpha, IDM_FORMAT_INDENT)
 
-	'IDM_VIEW						
-	'IDM_VIEW_OUTPUT				
-	'IDM_VIEW_IMMEDIATE				
-	'IDM_VIEW_PROJECT				
-	'IDM_VIEW_PROPERTY				
-	'IDM_VIEW_TOOLBAR				
-	'IDM_VIEW_TABSELECT				
-	'IDM_VIEW_STATUSBAR				
+	'IDM_VIEW
+	'IDM_VIEW_OUTPUT
+	'IDM_VIEW_IMMEDIATE
+	'IDM_VIEW_PROJECT
+	'IDM_VIEW_PROPERTY
+	'IDM_VIEW_TOOLBAR
+	'IDM_VIEW_TABSELECT
+	'IDM_VIEW_STATUSBAR
 	EnMenu (TabIsRESED, IDM_VIEW_DIALOG)
-	EnMenu (TabIsAlpha, IDM_VIEW_SPLITSCREEN)			
-	EnMenu (TabIsAny, IDM_VIEW_FULLSCREEN)			
-	EnMenu (TabIsAny, IDM_VIEW_DUALPANE)				
+	EnMenu (TabIsAlpha, IDM_VIEW_SPLITSCREEN)
+	EnMenu (TabIsAny, IDM_VIEW_FULLSCREEN)
+	EnMenu (TabIsAny, IDM_VIEW_DUALPANE)
 
 
 	'IDM_PROJECT
 	'IDM_PROJECT_ADDNEW
-	EnMenu (fProject, IDM_PROJECT_ADDNEWFILE)         
-	EnMenu (fProject, IDM_PROJECT_ADDNEWMODULE)         
+	EnMenu (fProject, IDM_PROJECT_ADDNEWFILE)
+	EnMenu (fProject, IDM_PROJECT_ADDNEWMODULE)
 	'IDM_PROJECT_ADDEXISTING
 	EnMenu (fProject, IDM_PROJECT_ADDEXISTINGFILE)
     EnMenu (fProject, IDM_PROJECT_ADDEXISTINGMODULE)
-	EnMenu (fProject, IDM_PROJECT_SETMAIN)	    		
-	EnMenu (fProject, IDM_PROJECT_TOGGLE)				
-	EnMenu (fProject, IDM_PROJECT_REMOVE)				
-	EnMenu (fProject, IDM_PROJECT_RENAME)				
-	EnMenu (fProject, IDM_PROJECT_INCLUDE)	
-	EnMenu (fProject, IDM_PROJECT_INCLUDE_ONCE)	    	
-	EnMenu (fProject, IDM_PROJECT_OPTIONS)			    
-	EnMenu (fProject, IDM_PROJECT_CREATETEMPLATE)		 
-	'IDM_PROJECT_FILE_OPEN             
-	EnMenu (fProject, IDM_PROJECT_FILE_OPEN_TXT)         
-	EnMenu (fProject, IDM_PROJECT_FILE_OPEN_STD)         
-	EnMenu (fProject, IDM_PROJECT_FILE_OPEN_HEX)         
+	EnMenu (fProject, IDM_PROJECT_SETMAIN)
+	EnMenu (fProject, IDM_PROJECT_TOGGLE)
+	EnMenu (fProject, IDM_PROJECT_REMOVE)
+	EnMenu (fProject, IDM_PROJECT_RENAME)
+	EnMenu (fProject, IDM_PROJECT_INCLUDE)
+	EnMenu (fProject, IDM_PROJECT_INCLUDE_ONCE)
+	EnMenu (fProject, IDM_PROJECT_OPTIONS)
+	EnMenu (fProject, IDM_PROJECT_CREATETEMPLATE)
+	'IDM_PROJECT_FILE_OPEN
+	EnMenu (fProject, IDM_PROJECT_FILE_OPEN_TXT)
+	EnMenu (fProject, IDM_PROJECT_FILE_OPEN_STD)
+	EnMenu (fProject, IDM_PROJECT_FILE_OPEN_HEX)
     EnMenu (fProject, IDM_PROJECT_FILE_OPEN_EXTERN)
 
-    'IDM_RESOURCE						
-    EnMenu (TabIsRESED, IDM_RESOURCE_DIALOG)                                                                    
-    EnMenu (TabIsRESED, IDM_RESOURCE_MENU)				
-    EnMenu (TabIsRESED, IDM_RESOURCE_ACCEL)				
-    EnMenu (TabIsRESED, IDM_RESOURCE_STRINGTABLE)		
-    EnMenu (TabIsRESED, IDM_RESOURCE_VERSION)			
-    EnMenu (TabIsRESED, IDM_RESOURCE_XPMANIFEST)	    
-    EnMenu (TabIsRESED, IDM_RESOURCE_RCDATA)			 
-    EnMenu (TabIsRESED, IDM_RESOURCE_LANGUAGE)			
-    EnMenu (TabIsRESED, IDM_RESOURCE_INCLUDE)			
-    EnMenu (TabIsRESED, IDM_RESOURCE_RES)				
-    EnMenu (TabIsRESED, IDM_RESOURCE_NAMES)				
-    EnMenu (TabIsRESED, IDM_RESOURCE_EXPORT)			 
-    EnMenu (TabIsRESED, IDM_RESOURCE_REMOVE)			 
-    EnMenu (TabIsRESED, IDM_RESOURCE_UNDO)				
+    'IDM_RESOURCE
+    EnMenu (TabIsRESED, IDM_RESOURCE_DIALOG)
+    EnMenu (TabIsRESED, IDM_RESOURCE_MENU)
+    EnMenu (TabIsRESED, IDM_RESOURCE_ACCEL)
+    EnMenu (TabIsRESED, IDM_RESOURCE_STRINGTABLE)
+    EnMenu (TabIsRESED, IDM_RESOURCE_VERSION)
+    EnMenu (TabIsRESED, IDM_RESOURCE_XPMANIFEST)
+    EnMenu (TabIsRESED, IDM_RESOURCE_RCDATA)
+    EnMenu (TabIsRESED, IDM_RESOURCE_LANGUAGE)
+    EnMenu (TabIsRESED, IDM_RESOURCE_INCLUDE)
+    EnMenu (TabIsRESED, IDM_RESOURCE_RES)
+    EnMenu (TabIsRESED, IDM_RESOURCE_NAMES)
+    EnMenu (TabIsRESED, IDM_RESOURCE_EXPORT)
+    EnMenu (TabIsRESED, IDM_RESOURCE_REMOVE)
+    EnMenu (TabIsRESED, IDM_RESOURCE_UNDO)
 	For ID = 22000 To 22032       ' Custom resource
 		EnMenu (TabIsRESED,	ID)
 	Next
 
 
-	'IDM_MAKE	
+	'IDM_MAKE
 	EnMenu (fProject OrElse TabIsCODEED, IDM_MAKE_COMPILE)
-	EnMenu (fProject OrElse TabIsCODEED, IDM_MAKE_RUN)			
-	EnMenu (fProject OrElse TabIsCODEED, IDM_MAKE_GO)			
-	EnMenu (fProject OrElse TabIsCODEED, IDM_MAKE_RUNDEBUG)		
-	EnMenu (fProject                   , IDM_MAKE_MODULE)	    		
-	EnMenu (                TabIsCODEED, IDM_MAKE_QUICKRUN)		
+	EnMenu (fProject OrElse TabIsCODEED, IDM_MAKE_RUN)
+	EnMenu (fProject OrElse TabIsCODEED, IDM_MAKE_GO)
+	EnMenu (fProject OrElse TabIsCODEED, IDM_MAKE_RUNDEBUG)
+	EnMenu (fProject                   , IDM_MAKE_MODULE)
+	EnMenu (                TabIsCODEED, IDM_MAKE_QUICKRUN)
 
 
-	'IDM_TOOLS							 
+	'IDM_TOOLS
 	EnMenu (TabIsAny, IDM_TOOLS_EXPORT)
 
-	'IDM_OPTIONS					
-	'IDM_OPTIONS_LANGUAGE			
-	'IDM_OPTIONS_CODE				
-	'IDM_OPTIONS_DIALOG				
-	'IDM_OPTIONS_PATH				
-	'IDM_OPTIONS_DEBUG				
-	'IDM_OPTIONS_MAKE				
-	'IDM_OPTIONS_EXTERNALFILES		   
+	'IDM_OPTIONS
+	'IDM_OPTIONS_LANGUAGE
+	'IDM_OPTIONS_CODE
+	'IDM_OPTIONS_DIALOG
+	'IDM_OPTIONS_PATH
+	'IDM_OPTIONS_DEBUG
+	'IDM_OPTIONS_MAKE
+	'IDM_OPTIONS_EXTERNALFILES
 	'IDM_OPTIONS_ADDINS
-	'IDM_OPTIONS_ENVIRONMENT				
-	'IDM_OPTIONS_TOOLS				
-	'IDM_OPTIONS_HELP				
+	'IDM_OPTIONS_ENVIRONMENT
+	'IDM_OPTIONS_TOOLS
+	'IDM_OPTIONS_HELP
 
 	'IDM_HELP
 	'IDM_HELP_ABOUT
@@ -636,36 +642,36 @@ Sub EnableMenu ()
 	'IDM_WINDOW_TOGGLE_LOCK
     'IDM_WINDOW_UNLOCKALL
 	'IDM_WINDOW_ALL_BUT_CURRENT
-	EnMenu (TabCount > 1, IDM_WINDOW_NEXTTAB)		
+	EnMenu (TabCount > 1, IDM_WINDOW_NEXTTAB)
 	EnMenu (TabCount > 1, IDM_WINDOW_PREVIOUSTAB)
 	'IDM_WINDOW_SWITCHTAB
 	EnMenu (fProject, IDM_WINDOW_TAB2PROJECT)
 	'IDM_WINDOW_CLOSE_ALL_NONPROJECT
 
-	'IDM_OUTPUT_CLEAR				
-	'IDM_OUTPUT_SELECTALL			
-	'IDM_OUTPUT_COPY				
+	'IDM_OUTPUT_CLEAR
+	'IDM_OUTPUT_SELECTALL
+	'IDM_OUTPUT_COPY
 
-	'IDM_IMMEDIATE_CLEAR            
-	'IDM_IMMEDIATE_SELECTALL        
-	'IDM_IMMEDIATE_COPY             
-	
+	'IDM_IMMEDIATE_CLEAR
+	'IDM_IMMEDIATE_SELECTALL
+	'IDM_IMMEDIATE_COPY
+
 	EnMenu (PropertyValid, IDM_PROPERTY_JUMP)
 	EnMenu (PropertyValid, IDM_PROPERTY_COPY_NAME)
 	EnMenu (PropertyValid, IDM_PROPERTY_COPY_SPEC)
-	'IDM_PROPERTY_FINDALL			
+	'IDM_PROPERTY_FINDALL
 	'IDM_PROPERTY_HILIGHT
-	'IDM_PROPERTY_HILIGHT_UPDATE 	
-	'IDM_PROPERTY_HILIGHT_RESET 	
+	'IDM_PROPERTY_HILIGHT_UPDATE
+	'IDM_PROPERTY_HILIGHT_RESET
 
-	'IDM_FIB_OPEN_STD                   
-	'IDM_FIB_OPEN_HEX                   
+	'IDM_FIB_OPEN_STD
+	'IDM_FIB_OPEN_HEX
 	'IDM_FIB_OPEN_TXT
-	'IDM_FIB_OPEN_EXTERN                 
-    
+	'IDM_FIB_OPEN_EXTERN
+
     'accelerator only
-	'IDM_HELPF1							
-	'IDM_HELPCTRLF1						
+	'IDM_HELPF1
+	'IDM_HELPCTRLF1
 
 End Sub
 
@@ -673,7 +679,7 @@ End Sub
 '	Dim bm As Integer = Any
 '	Dim chrg As CHARRANGE
 '	Dim id As Integer = Any
-'    Dim hMnu As HMENU = Any 
+'    Dim hMnu As HMENU = Any
 '
 '	hMnu = GetMenu (ah.hwnd)
 '
@@ -885,7 +891,7 @@ End Sub
 '		Else
 '			'Disable(IDM_EDIT_RETURN)
 '		EndIf
-'        
+'
 '        id=GetWindowLong(ah.hred,GWL_ID)
 '		If id=IDC_CODEED Then
 '    		Enable(IDM_EDIT_FINDDECLARE)
@@ -916,7 +922,7 @@ End Sub
 '    		Disable(IDM_EDIT_ELEVATOR_DOWN)
 '
 '		EndIf
-'		
+'
 '		'If id=IDC_HEXED Then
 '    	'	Disable(IDM_EDIT_BLOCKCOMMENT)
 '    	'	Disable(IDM_EDIT_BLOCKUNCOMMENT)
@@ -1030,7 +1036,7 @@ End Sub
 '	    	EnableContext(IDM_PROPERTY_COPY_SPEC)     ' MOD 23.1.2012 ADD
 '		EndIf
 '	EndIf
-'	
+'
 '	If fProject Then
 '		Enable(IDM_FILE_CLOSEPROJECT)
 '		Enable(IDM_PROJECT_ADDNEWFILE)
@@ -1088,7 +1094,7 @@ End Sub
 'Function IsResOpen() As HWND
 '	Dim tci As TCITEM
 '    Dim i As Integer = Any
-'    
+'
 '	tci.mask=TCIF_PARAM
 '	i=0
 '	Do While TRUE
@@ -1123,7 +1129,7 @@ End Sub
 '		If SendMessage(ah.hred,REM_ISCHARPOS,chrg.cpMin,0)=3 Then       ' 3=IsString
 '			x=SendMessage(ah.hred,EM_EXLINEFROMCHAR,0,chrg.cpMax)
 '			' MOD 21.1.2012
-'			GetLineByNo ah.hred, x, @buff           
+'			GetLineByNo ah.hred, x, @buff
 '			GetEnclosedStr 0, buff, buff, Cast (UByte, 34), Cast (UByte, 34)
 '			'chrg.cpMin=SendMessage(ah.hred,EM_LINEINDEX,x,0)
 '			'buff=Chr(255) & Chr(1)

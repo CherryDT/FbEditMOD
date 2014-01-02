@@ -374,8 +374,20 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			ah.hwnd        = hWin
 			ad.lpFBCOLOR   = @fbcol
 			ad.lpWINPOS    = @wpos
-			ah.hshp        = GetDlgItem (hWin, IDC_SHP)                ' Shape
-			ah.hsbr        = GetDlgItem (hWin, IDC_STATUSBAR)          ' Statusbar
+			ah.hshp        = GetDlgItem (hWin, IDC_SHP)             ' Handle of shape
+			ah.hsbr        = GetDlgItem (hWin, IDC_STATUSBAR)       ' Handle of statusbar
+			ah.hcbobuild   = GetDlgItem (hWin, IDC_CBOBUILD)        ' Handle of build combobox
+			ah.htoolbar    = GetDlgItem (hWin, IDC_TOOLBAR)         ' Handle of toolbar control
+			ah.htabtool    = GetDlgItem (hWin, IDC_TABSELECT)       ' Handle of tab tool
+			ah.hout        = GetDlgItem (hWin, IDC_OUTPUT)          ' Handle of output window
+			ah.himm        = GetDlgItem (hWin, IDC_IMMEDIATE)       ' Handle of immediate window			
+			ah.hdbgtab     = GetDlgItem (hWin, IDC_TABDEBUG)        ' Handle of debug tab window			
+			ah.hregister   = GetDlgItem (hWin, IDC_REGISTER)        ' Handle of register window
+			ah.hfpu        = GetDlgItem (hWin, IDC_FPU)             ' Handle of fpu window
+			ah.hmmx        = GetDlgItem (hWin, IDC_MMX)             ' Handle of mmx window
+			ah.hprj        = GetDlgItem (hWin, IDC_TRVPRJ)          ' Handle of project browser
+			ah.hfib        = GetDlgItem (hWin, IDC_FILEBROWSER)     ' Handle of file browser
+			ah.hpr         = GetDlgItem (hWin, IDC_PROPERTY)        ' Handle of property browser
 			
 			' Set close button image
             hBmp = LoadImage (hInstance, MAKEINTRESOURCE (IDB_CLOSE), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR)    ' LR_LOADMAP3DCOLORS)
@@ -397,46 +409,32 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			'	ad.HelpPath=Left(ad.AppPath,2) & ad.HelpPath
 			'EndIf
 			'FixPath(ad.HelpPath)
-			' Get handle of build combobox
-			ah.hcbobuild=GetDlgItem(hWin,IDC_CBOBUILD)
-			' Get handle of ToolBar control
+			
 			ad.tbwt=694
-			ah.htoolbar=GetDlgItem(hWin,IDC_TOOLBAR)
 			DoToolbar ah.htoolbar, __FB_DEBUG__
 
 			SbarInit
+			
+			SetWindowLong ah.htabtool, GWL_ID, IDC_TABSELECT
+			lpOldTabToolProc = Cast (WNDPROC, SetWindowLong (ah.htabtool, GWL_WNDPROC, Cast (Long, @TabToolProc)))
 
-			' Handle of tab tool
-			ah.htabtool=GetDlgItem(hWin,IDC_TABSELECT)
-			SetWindowLong(ah.htabtool,GWL_ID,IDC_TABSELECT)
-			lpOldTabToolProc=Cast(Any Ptr,SetWindowLong(ah.htabtool,GWL_WNDPROC,Cast(Integer,@TabToolProc)))
-			' Handle of output window
-			ah.hout=GetDlgItem(hWin,IDC_OUTPUT)
-			SetWindowLong(ah.hout,GWL_ID,IDC_OUTPUT)
-			lpOldOutputProc = Cast(Any Ptr,SetWindowLong(ah.hout,GWL_WNDPROC,Cast(Integer,@OutputProc)))
-	    	'lpOldOutputProc = Cast (WNDPROC, SendMessage (ah.hout, REM_SUBCLASS, 0, Cast (LPARAM, @OutputProc)))
+			SetWindowLong ah.hout, GWL_ID,IDC_OUTPUT
+			lpOldOutputProc = Cast (WNDPROC, SetWindowLong (ah.hout, GWL_WNDPROC, Cast (Long, @OutputProc)))
+	    	
+			SetWindowLong ah.himm, GWL_ID, IDC_IMMEDIATE
+			lpOldImmediateProc = Cast (WNDPROC, SetWindowLong (ah.himm, GWL_WNDPROC, Cast (Long, @ImmediateProc)))
 
-			' Handle of immediate window
-			ah.himm=GetDlgItem(hWin,IDC_IMMEDIATE)
-			SetWindowLong(ah.himm,GWL_ID,IDC_IMMEDIATE)
-			lpOldImmediateProc=Cast(Any Ptr,SetWindowLong(ah.himm,GWL_WNDPROC,Cast(Integer,@ImmediateProc)))
-			' Handle of debug tab window
-			ah.hdbgtab=GetDlgItem(hWin,IDC_TABDEBUG)
+			lpOldProjectProc = Cast (WNDPROC, SetWindowLong (ah.hprj, GWL_WNDPROC, Cast (Long, @ProjectProc)))
+            lpOldFileBrowserProc = Cast (WNDPROC, SetWindowLong (ah.hfib, GWL_WNDPROC, Cast (Long, @FileBrowserProc)))
+
 			' Create the tabs
 			tci.mask=TCIF_TEXT
 			tci.pszText=@szReg
 			SendMessage(ah.hdbgtab,TCM_INSERTITEM,999,Cast(LPARAM,@tci))
-			'SendMessage(ah.hdbgtab,TCM_SETCURSEL,i,0)
 			tci.pszText=@szFpu
 			SendMessage(ah.hdbgtab,TCM_INSERTITEM,999,Cast(LPARAM,@tci))
 			tci.pszText=@szMmx
 			SendMessage(ah.hdbgtab,TCM_INSERTITEM,999,Cast(LPARAM,@tci))
-			
-			ah.hregister=GetDlgItem(hWin,IDC_REGISTER)            ' Handle of register window
-			ah.hfpu=GetDlgItem(hWin,IDC_FPU)                      ' Handle of fpu window
-			ah.hmmx=GetDlgItem(hWin,IDC_MMX)                      ' Handle of mmx window
-			' Handle of font
-			'hDlgFnt=Cast(HFONT,SendMessage(ah.htabtool,WM_GETFONT,0,0))
 			
 			' read ini
 			For id = 1 To 15
@@ -575,9 +573,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			buff=GetInternalString(IS_PROJECT)
 			tci.pszText=@buff
 			SendMessage(ah.htab,TCM_INSERTITEM,999,Cast(Integer,@tci))
-			' Project browser
-			ah.hprj=GetDlgItem(hWin,IDC_TRVPRJ)
-			lpOldProjectProc=Cast(Any Ptr,SetWindowLong(ah.hprj,GWL_WNDPROC,Cast(Integer,@ProjectProc)))
+
 			' Create the imagelist (file icons)
 			ah.himl=ImageList_Create(16,16,ILC_MASK Or ILC_COLOR8,16,0)
 			hBmp = LoadBitmap (hInstance, MAKEINTRESOURCE (IDB_FILES))
@@ -587,8 +583,6 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			SendMessage(ah.htabtool,TCM_SETIMAGELIST,0,Cast(Integer,ah.himl))
 			
 			' Setup filebrowser
-			ah.hfib=GetDlgItem(hWin,IDC_FILEBROWSER)
-			lpOldFileBrowserProc = Cast (WNDPROC, SetWindowLong (ah.hfib, GWL_WNDPROC, Cast (LONG, @FileBrowserProc)))
 			If DirExists (ad.DefProjectPath) Then
 			    SendMessage ah.hfib, FBM_SETPATH, FALSE, Cast (LPARAM, @ad.DefProjectPath)
 			Else 
@@ -602,7 +596,6 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			SendMessage(ah.hfib,FBM_SETTOOLTIP,2,Cast(LPARAM,@buff))    ' button: file filter on/off
 			
 			' Property definitions
-			ah.hpr=GetDlgItem(hWin,IDC_PROPERTY)
 			SendMessage(ah.hPr,PRM_SETLANGUAGE,nFREEBASIC,0)
 			buff=GetInternalString(IS_RAPROPERTY1)
 			SendMessage(ah.hpr,PRM_SETTOOLTIP,1,Cast(LPARAM,@buff))

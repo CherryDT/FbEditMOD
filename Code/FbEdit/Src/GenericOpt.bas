@@ -283,7 +283,7 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
     Dim i       As Integer               = Any 
     Dim n       As Integer               = Any 
     Dim Success As BOOL                  = Any 
-    Dim TabStop As Const Integer         = 140     ' separates name and command (istbox width)  
+    Dim TabStop As Const Integer         = 140     ' separates name and command (listbox width)  
            
 	Select Case uMsg
 		Case WM_INITDIALOG
