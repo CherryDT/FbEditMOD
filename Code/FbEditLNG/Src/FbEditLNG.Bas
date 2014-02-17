@@ -5,8 +5,8 @@
 #Include Once "windows.bi"
 #Include Once "win/commdlg.bi"
 
-#Include "Language.bi"
-#Include "FbEditLNG.bi"
+#Include "..\FbEdit\Inc\Language.bi"
+#Include "Inc\FbEditLNG.bi"
 #Include "MiscLNG.bas"
 #Include "MenuLNG.bas"
 #Include "DialogLNG.bas"
@@ -210,7 +210,7 @@ End Function
 	SetCurrentDirectory(@szAppPath)
 
 	hRichEditDll=LoadLibrary("riched20.dll")
-	hFbEditDll=LoadLibrary("FbEdit.dll")
+	hFbEditDll=LoadLibrary("..\FbEdit.dll")
 	If hFbEditDll Then
 		DialogBoxParam(hInstance,Cast(ZString Ptr,IDD_DLGLNG),NULL,@DlgProc,NULL)
 		FreeLibrary(hFbEditDll)

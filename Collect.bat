@@ -91,7 +91,7 @@ xcopy /F /Y "%CD%\Code\CustomControl\SpreadSheet\SprSht.dll" "%CD%\Build\CustomC
 echo .
 echo *** get Language Files ***
 xcopy /F /Y "%CD%\Data\Language\*.*" "%CD%\Build\Language\*" >> Collect.log || goto ERR_Exit
-
+xcopy /F /Y "%CD%\Code\FbEditLNG\Build\FbEditLNG.exe" "%CD%\Build\Language\*" >> Collect.log || goto ERR_Exit
 
 
 :: ###############################################

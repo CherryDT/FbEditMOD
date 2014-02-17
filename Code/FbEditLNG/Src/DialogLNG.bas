@@ -76,7 +76,7 @@ Function DlgTranslateProc(ByVal hWin As HWND,ByVal lParam As LPARAM) As Boolean
 
 	If GetParent(hWin)=hLngDlg Then
 		id=GetWindowLong(hWin,GWL_ID)
-		buff=FindString(Str(lParam),Str(id))
+		buff=FindString2(Str(lParam),Str(id))
 		If buff<>"" Then
 			SendMessage(hWin,WM_SETTEXT,0,Cast(LPARAM,@buff))
 		EndIf
@@ -132,7 +132,7 @@ Function TestDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 				EndDialog(hWin,NULL)
 			Else
 				hLngDlg=hWin
-				buff=FindString(Str(lParam),Str(lParam))
+				buff=FindString2(Str(lParam),Str(lParam))
 				If buff<>"" Then
 					SendMessage(hWin,WM_SETTEXT,0,Cast(LPARAM,@buff))
 				EndIf

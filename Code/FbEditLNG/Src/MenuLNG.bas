@@ -66,7 +66,7 @@ Nxt:
 	If GetMenuItemInfo(hMnu,nPos,TRUE,@mii) Then
 		If mii.wID<>0 And szBuff<>"(Empty)" Then
 			szID=Str(mii.wID)
-			szBuff=FindString(szApp,szID)
+			szBuff=FindString2(szApp,szID)
 			If lstrlen(@szBuff) Then
 				SetMenuItemInfo(hMnu,nPos,TRUE,@mii)
 			EndIf

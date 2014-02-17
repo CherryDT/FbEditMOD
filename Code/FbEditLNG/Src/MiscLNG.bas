@@ -67,7 +67,7 @@ Sub ConvertFrom(ByVal buff As ZString ptr)
 
 End Sub
 
-Function FindString(ByVal szApp As String,ByVal szKey As String) As String
+Function FindString2(ByVal szApp As String,ByVal szKey As String) As String
 	Dim hMem As HGLOBAL
 	Dim buff As ZString*512
 	Dim As Integer x,y,z
