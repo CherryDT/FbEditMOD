@@ -359,6 +359,7 @@ Then
 This
 ThreadCall
 ThreadCreate
+ThreadDetach
 ThreadWait
 Time
 TimeSerial
