@@ -132,6 +132,7 @@ Input,n:Integer,filenum:Integer|String
 Input,n:Integer|String
 Int,number:Double|Double
 IsDate,stringdate:String|Integer
+IsRedirected,is_input:Long=-1|Long
 Kill,ByRef filename:String|Integer
 LBound,array:Any,dimension:Integer=1|Integer
 LCase,ByRef Str:String|String

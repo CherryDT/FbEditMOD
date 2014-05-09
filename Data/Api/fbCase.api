@@ -200,6 +200,7 @@ Int
 Integer
 Is
 IsDate
+IsRedirected
 Kill
 LBound
 LCase
