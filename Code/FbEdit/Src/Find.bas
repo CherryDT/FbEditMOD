@@ -211,14 +211,14 @@ Function FindRegEx (Byval Buffer As HGLOBAL) As Integer
 
 	If f.RegEx.value Then
     	If RegNExec (@(f.RegEx), Buffer + f.ft.chrg.cpMin, f.ft.chrg.cpMax - f.ft.chrg.cpMin + 1, 1, @RegExMatch, 0) Then
-    	    Return -1    ' not found
+    	    Return NOT_FOUND    ' not found
     	Else
     	    f.ft.chrgText.cpMin = f.ft.chrg.cpMin + RegExMatch.rm_so
             f.ft.chrgText.cpMax = f.ft.chrg.cpMin + RegExMatch.rm_eo
     	    Return f.ft.chrgText.cpMin
     	EndIf
 	Else
-	    Return -1
+	    Return NOT_FOUND
 	EndIf 
 
 End Function
@@ -461,7 +461,7 @@ Sub InitFindRange
         				    If pTABMEM->profileinx Then
         				    	f.listoffiles += Str (pTABMEM->profileinx) + ","
         				    EndIf 	
-        					EndIf     
+        				EndIf     
     				Else
     					Exit For
     				EndIf
@@ -481,6 +481,8 @@ Sub InitFindRange
     				EndIf
     			Next
 			EndIf	
+			Print "generated: f.listoffiles:"; f.listoffiles
+		
 			
 			'f.listoffiles=","
 			'' Add open project files
@@ -561,7 +563,7 @@ Sub ResetFind
 
 	If f.fnoreset=FALSE Then
 		
-		f.fres          = -1
+		f.fres          = NOT_FOUND
 		f.fonlyonetime  = 0
 		f.nreplacecount = 0
 		
@@ -636,30 +638,30 @@ Function FindInFile(ByVal hWin As HWND,ByVal frType As Integer) As Integer
 	        	res = FindRegEx (hMem)
 	            GlobalFree hMem
 	    	Else 
-	    		res = -1	
+	    		res = NOT_FOUND	
 	    	EndIf
 	    End Select
 	    
-		If res<>-1 Then                                   ' found
+		If res <> NOT_FOUND Then                          ' found
 			If f.fdir = FM_DIR_UP Then
-				f.ft.chrg.cpMin=f.ft.chrgText.cpMin-1
+				f.ft.chrg.cpMin = f.ft.chrgText.cpMin - 1
 			Else
-				f.ft.chrg.cpMin=f.ft.chrgText.cpMax
+				f.ft.chrg.cpMin = f.ft.chrgText.cpMax
 			EndIf
 		Else                                              ' not found
 			If f.fdir = FM_DIR_ALL And f.fsearch <> FM_RANGE_SELECTION Then 
-				If f.chrginit.cpMin<>0 And f.ft.chrg.cpMax>f.chrginit.cpMax Then
-					f.ft.chrg.cpMin=f.chrgrange.cpMin
-					'f.ft.chrg.cpMax=f.chrginit.cpMax      'Regex version
-					f.ft.chrg.cpMax=f.chrginit.cpMax-1   'Win32 version
-					f.chrginit.cpMin=0
-					res=FindInFile(hWin,frType)
+				If f.chrginit.cpMin <> 0 And f.ft.chrg.cpMax > f.chrginit.cpMax Then
+					f.ft.chrg.cpMin = f.chrgrange.cpMin
+					'f.ft.chrg.cpMax=f.chrginit.cpMax        'Regex version
+					f.ft.chrg.cpMax = f.chrginit.cpMax - 1   'Win32 version
+					f.chrginit.cpMin = 0
+					res = FindInFile (hWin, frType)
 				EndIf
 			EndIf
 		EndIf
 		Return res
 	Else
-		Return -1
+		Return NOT_FOUND
 	EndIf
 		
 End Function
@@ -673,22 +675,29 @@ Function Find (ByVal hWin As HWND, ByVal frType As Integer) As Integer
 	Dim hEditor  As HWND               = Any 
 	Dim i        As Integer            = Any 
 	Dim nLine    As Integer
+    Dim Bm       As LRESULT            = Any
+    Dim BmID     As LRESULT            = Any 
+	
+    Static LastLoadedFromProjectList As Integer 
 
+    Print "********************"
+    Print "Start Find"
+    
     ' MOD 17.2.2012
     'SetCursor LoadCursor (NULL, IDC_WAIT)
-    SendMessage ah.hout, EM_EXSETSEL, 0, Cast (LPARAM, @Type<CHARRANGE>(-1, -1))
+    'SendMessage ah.hout, EM_EXSETSEL, 0, Cast (LPARAM, @Type<CHARRANGE>(-1, -1))
 	'chrg.cpMin=-1
 	'chrg.cpMax=-1
 	'SendMessage(ah.hout,EM_EXSETSEL,0,Cast(LPARAM,@chrg))
 	' ====================
-	f.nlinesout=SendMessage(ah.hout,EM_GETLINECOUNT,0,0)
+	'f.nlinesout=SendMessage(ah.hout,EM_GETLINECOUNT,0,0)
 TryAgain:
 	Select Case f.fsearch
 	    Case FM_RANGE_PROC			' Current Procedure
 			If f.fnoproc Then
 				While TRUE
 					f.fres=FindInFile(ah.hred,frType)
-					If f.fres<>-1 Then
+					If f.fres <> NOT_FOUND Then
 						isinp.nLine=SendMessage(ah.hred,EM_EXLINEFROMCHAR,0,f.ft.chrgText.cpMin)
 						isinp.lpszType=StrPtr("p")
 						If fProject Then
@@ -718,7 +727,7 @@ TryAgain:
             hEditor = ah.hred
             Do	    
 	            f.fres = FindInFile (hEditor, frType)
-	            If f.fres = -1 Then
+	            If f.fres = NOT_FOUND Then
       				If Len (f.listoffiles) = 0 Then Exit Do
       				i = InStr (f.listoffiles, ",")
     				f.ffileno = Val (f.listoffiles)
@@ -779,9 +788,23 @@ TryAgain:
 	    Case FM_RANGE_PROJECT			' All Project Files
 
             hEditor = ah.hred
+           
             Do	    
 	            f.fres = FindInFile (hEditor, frType)
-	            If f.fres = -1 Then
+	            Print "f.fres:";f.fres
+	            Print "f.FoundAny:";f.FoundAny
+	            Print "LastLoadedFromProjectList:";LastLoadedFromProjectList
+	            Print "ListofFiles:";f.listoffiles
+	            Print "---------------------------"
+	            If f.fres = NOT_FOUND Then
+	                If FALSE Then
+    	                If f.FoundAny = FALSE Then
+    	                    If LastLoadedFromProjectList Then
+    	                        CloseTab (GetTabIDByFileID (LastLoadedFromProjectList))
+    	                        LastLoadedFromProjectList = 0
+    	                    EndIf
+    	                EndIf
+	                EndIf
       				If Len (f.listoffiles) = 0 Then Exit Do
       				i = InStr (f.listoffiles, ",")
     				f.ffileno = Val (f.listoffiles)
@@ -798,6 +821,8 @@ TryAgain:
     				EndIf
     				InitCharRange
                     f.fonlyonetime = 0
+                    f.FoundAny = FALSE
+                    LastLoadedFromProjectList = f.ffileno 
 	            Else    
 	                If hEditor <> ah.hred Then
 					    SelectTabByWindow hEditor
@@ -900,7 +925,8 @@ TryAgain:
 			f.fres=FindInFile(ah.hred,frType)
 			'
 	End Select
-	If f.fres<>-1 Then
+	
+	If f.fres <> NOT_FOUND Then                 ' Found
 		If f.fskipcommentline Then
 			i=SendMessage(ah.hred,REM_ISCHARPOS,f.ft.chrgText.cpMin,0)
 			If i=1 Or i=2 Then
@@ -914,19 +940,18 @@ TryAgain:
 		EndIf
 		If f.flogfind Then
 			If f.fonlyonetime=0 Then
-			    TextToOutput ad.filename
-				'SendMessage(ah.hout,EM_REPLACESEL,FALSE,Cast(LPARAM,@ad.filename))
-				'SendMessage(ah.hout,EM_REPLACESEL,FALSE,Cast(LPARAM,@CR))
-				SendMessage(ah.hout,REM_SETBOOKMARK,f.nlinesout,BMT_SPEC)
-				SendMessage(ah.hout,REM_SETBMID,f.nlinesout,0)
+			    TextToOutput ad.filename, BMT_SPEC, 0
+				'SendMessage(ah.hout,REM_SETBOOKMARK,f.nlinesout,BMT_SPEC)
+				'SendMessage(ah.hout,REM_SETBMID,f.nlinesout,0)
 				f.fonlyonetime=1
-				f.nlinesout+=1
+				'f.nlinesout+=1
 			EndIf
 			'buff=Chr(255) & Chr(1)
 			nLine=SendMessage(ah.hred,EM_EXLINEFROMCHAR,0,f.fres)
 			' MOD 21.1.2012
 			GetLineByNo ah.hred, nLine, @buff
-			TextToOutput " (" + Str (nLine + 1) + ") " + buff
+			'TextToOutput " (" + Str (nLine + 1) + ") " + buff
+			
 			'chrg.cpMin=SendMessage(ah.hred,EM_LINEINDEX,nLine,0)
 			'chrg.cpMax=SendMessage(ah.hred,EM_GETLINE,nLine,Cast(LPARAM,@buff))
 			'buff[chrg.cpMax]=NULL
@@ -937,25 +962,31 @@ TryAgain:
 			'SendMessage(ah.hout,EM_REPLACESEL,FALSE,Cast(LPARAM,@s))
 			'SendMessage(ah.hout,EM_REPLACESEL,FALSE,Cast(LPARAM,@CR))
 			' ===========================
-			i=SendMessage(ah.hred,REM_GETBOOKMARK,nLine,0)
-			If i<>BMT_STD Then
-				SendMessage(ah.hout,REM_SETBOOKMARK,f.nlinesout,BMT_STD)
-				SendMessage(ah.hred,REM_SETBOOKMARK,nLine,BMT_STD)
-				i=SendMessage(ah.hout,REM_GETBMID,f.nlinesout,0)
-				SendMessage(ah.hred,REM_SETBMID,nLine,i)
+			Bm   = SendMessage (ah.hred, REM_GETBOOKMARK, nLine, 0)
+			If Bm = BMT_STD Then
+    			BmID = SendMessage (ah.hred, REM_GETBMID, nLine, 0)
+				TextToOutput " (" + Str (nLine + 1) + ") " + buff, BMT_REPEAT, BmID
+				'SendMessage(ah.hout,REM_SETBOOKMARK,f.nlinesout,BMT_REPEAT)
+				'SendMessage(ah.hout,REM_SETBMID,f.nlinesout,0)
 			Else
-				SendMessage(ah.hout,REM_SETBOOKMARK,f.nlinesout,BMT_REPEAT)
-				SendMessage(ah.hout,REM_SETBMID,f.nlinesout,0)
+				SendMessage ah.hred, REM_SETBOOKMARK, nLine, BMT_STD
+				BmID = SendMessage (ah.hred, REM_GETBMID, nLine, 0)
+				TextToOutput " (" + Str (nLine + 1) + ") " + buff, BMT_STD, BmID
+				'SendMessage(ah.hout,REM_SETBOOKMARK,f.nlinesout,BMT_STD)
+				
+				'i=SendMessage(ah.hout,REM_GETBMID,f.nlinesout,0)
+				'SendMessage(ah.hred,REM_SETBMID,nLine,i)
 			EndIf
-			f.nlinesout+=1
+			'f.nlinesout+=1
 		EndIf
 		' Mark the found text
+		f.FoundAny = TRUE
 		ad.fNoNotify=TRUE
 		SendMessage(ah.hred,EM_EXSETSEL,0,Cast(LPARAM,@f.ft.chrgText))
 		SendMessage(ah.hred,REM_VCENTER,0,0)
 		SendMessage(ah.hred,EM_SCROLLCARET,0,0)
 		ad.fNoNotify=FALSE
-	Else
+	Else                                        ' NOT found
 		Select Case f.fsearch
 			Case FM_RANGE_PROJECT				' Project Files searched
 				buff=GetInternalString(IS_PROJECT_FILES_SEARCHED)
@@ -1194,7 +1225,7 @@ Sub FindAllInside
             MessageBeep MB_ICONEXCLAMATION 
             Exit Do 
         EndIf
-	Loop Until f.fres = -1
+	Loop Until f.fres = NOT_FOUND
     
     f.Busy = FALSE    
     ResetFind 
@@ -1360,7 +1391,7 @@ Function FindDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 						ShowDlgItem (hWin, IDC_EDT_REPLACETEXT, SW_SHOWNA)
 						SetFocus GetDlgItem (hWin, IDC_EDT_REPLACETEXT)      ' MOD 20.2.2012  add
 					Else
-						If f.fres<>-1 Then
+						If f.fres <> NOT_FOUND Then
 							f.nreplacecount+=1
 							SendMessage(ah.hred,EM_REPLACESEL,TRUE,Cast(Integer,@f.replacebuff))
 							If f.fdir = FM_DIR_UP Then
@@ -1384,10 +1415,10 @@ Function FindDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 		    Case IDC_BTN_REPLACEALL
 		        If IsDlgItemEnabled (hWin, IDC_BTN_REPLACEALL) Then
 			        ClearFindMsg
-					If f.fres=-1 Then
-						Find(hWin,f.fr)
+					If f.fres = NOT_FOUND Then
+						Find hWin, f.fr
 					EndIf
-					Do While f.fres<>-1
+					Do While f.fres <> NOT_FOUND
 						SendMessage hWin, WM_COMMAND, MAKEWPARAM (IDC_BTN_REPLACE, BN_CLICKED), 0
 					Loop
 					ResetFind

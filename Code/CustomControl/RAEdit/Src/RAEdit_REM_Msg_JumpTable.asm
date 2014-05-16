@@ -257,8 +257,7 @@
 			invoke GetCursor
 			push	eax
 			push	nBmid
-			invoke LoadCursor,0,IDC_WAIT
-			invoke SetCursor,eax
+			invoke xSetCursor, IDC_WAIT, FALSE
 			mov		esi,offset blockdefs
 			lea		edi,[esi+32*4]
 			.while dword ptr [esi]
@@ -276,7 +275,7 @@
 				invoke InvalidateRect,[ebx].EDIT.edtb.hwnd,NULL,FALSE
 			.endif
 			pop		eax
-			invoke SetCursor,eax
+			invoke xSetCursor, eax, TRUE
 			xor		eax,eax
 			ret
 		align 4
@@ -1058,11 +1057,20 @@
 				invoke IsSelectionLocked,ebx,[ebx].EDIT.cpMin,[ebx].EDIT.cpMax
 				or		eax,eax
 				jne		ErrBeep
+				
+				invoke GetCursor
+				push eax
+				invoke xSetCursor, IDC_WAIT, FALSE
+
 				.if wParam==CONVERT_TABTOSPACE || wParam==CONVERT_SPACETOTAB
 					invoke ConvertIndent,ebx,wParam
 				.else
 					invoke ConvertCase,ebx,wParam
 				.endif
+				
+				pop		eax
+				invoke xSetCursor, eax, TRUE
+				
 				invoke InvalidateEdit,ebx,[ebx].EDIT.edta.hwnd
 				invoke InvalidateEdit,ebx,[ebx].EDIT.edtb.hwnd
 				invoke SetCaret,ebx,[esi].RAEDT.cpy

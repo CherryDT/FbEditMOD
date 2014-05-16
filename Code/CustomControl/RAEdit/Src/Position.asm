@@ -545,7 +545,7 @@ SetCaret proc uses ebx,hMem:DWORD,cpy:DWORD
 		sub		edx,[ebx].EDIT.cpMin
 		.if sdword ptr eax<=pt.x && sdword ptr ecx<[ebx].EDIT.edtb.rc.right && !edx
 			invoke ShowCaret,[ebx].EDIT.focus
-			invoke ShowCaret,[ebx].EDIT.focus
+			invoke ShowCaret,[ebx].EDIT.focus                 
 			mov		[ebx].EDIT.fCaretHide,FALSE
 		.elseif ![ebx].EDIT.fCaretHide
 			invoke HideCaret,[ebx].EDIT.focus
@@ -611,7 +611,7 @@ InvalidateEdit proc uses ebx esi,hMem:DWORD,hWin:DWORD
 	.if [esi].RAEDT.rc.bottom
 		invoke GetTopFromYp,ebx,[esi].RAEDT.hwnd,[esi].RAEDT.cpy
 		invoke InvalidateRect,[esi].RAEDT.hwnd,NULL,FALSE
-;		invoke UpdateWindow,[esi].RAEDT.hwnd
+;		invoke UpdateWindow,[esi].RAEDT.hwnd					; *** MOD
 	.endif
 	ret
 

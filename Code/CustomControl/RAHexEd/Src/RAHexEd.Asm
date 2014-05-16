@@ -120,14 +120,18 @@ SplittBtnProc proc uses ebx esi edi,hWin:HWND,uMsg:UINT,wParam:WPARAM,lParam:LPA
 
 	mov		eax,uMsg
 	.if eax==WM_MOUSEMOVE
+	    invoke ShowCursor, FALSE                ; *** MOD
 		invoke SetCursor,hHSCur
+		invoke ShowCursor, TRUE
 	.elseif eax==WM_LBUTTONDOWN
 		invoke GetParent,hWin
 		invoke GetWindowLong,eax,0
 		mov		ebx,eax
 		mov		[ebx].EDIT.fresize,1
 		invoke SetCapture,[ebx].EDIT.hwnd
+		invoke ShowCursor, FALSE                ; *** MOD
 		invoke SetCursor,hHSCur
+		invoke ShowCursor, TRUE
 	.elseif eax==WM_LBUTTONDBLCLK
 		invoke GetParent,hWin
 		invoke GetWindowLong,eax,0
@@ -991,18 +995,24 @@ SetCur:
 	add		edi,[ebx].EDIT.datawt
 	add		edi,[ebx].EDIT.fntinfo.fntwt
 	.if sdword ptr eax<ecx
+		invoke ShowCursor, FALSE                ; *** MOD
 		invoke SetCursor,hSelCur
+		invoke ShowCursor, TRUE
 		mov		eax,[esi].HEEDT.rc.right
 		xor		ecx,ecx
 		inc		ecx
 	.elseif sdword ptr eax<edx
+		invoke ShowCursor, FALSE                ; *** MOD
 		invoke LoadCursor,0,IDC_ARROW
 		invoke SetCursor,eax
+		invoke ShowCursor, TRUE
 		xor		eax,eax
 		xor		ecx,ecx
 	.elseif  sdword ptr eax>edi
+	    invoke ShowCursor, FALSE                ; *** MOD
 		invoke LoadCursor,0,IDC_ARROW
 		invoke SetCursor,eax
+		invoke ShowCursor, TRUE
 		mov		eax,edi
 		xor		ecx,ecx
 	.else
@@ -1524,8 +1534,10 @@ RAWndProc proc uses ebx esi edi,hWin:HWND,uMsg:UINT,wParam:WPARAM,lParam:LPARAM
 		;lParam=lpStream
 		invoke GetCursor
 		push	eax
+		invoke ShowCursor, FALSE                ; *** MOD
 		invoke LoadCursor,0,IDC_WAIT
 		invoke SetCursor,eax
+		invoke ShowCursor, TRUE
 		invoke StreamIn,ebx,lParam
 		xor		eax,eax
 		mov		[ebx].EDIT.edta.nline,eax
@@ -1535,8 +1547,10 @@ RAWndProc proc uses ebx esi edi,hWin:HWND,uMsg:UINT,wParam:WPARAM,lParam:LPARAM
 		mov		[ebx].EDIT.cpx,eax
 		invoke InvalidateRect,[ebx].EDIT.edta.hwnd,NULL,FALSE
 		invoke InvalidateRect,[ebx].EDIT.edtb.hwnd,NULL,FALSE
+		invoke ShowCursor, FALSE                ; *** MOD
 		pop		eax
 		invoke SetCursor,eax
+		invoke ShowCursor, TRUE
 		invoke SelChange,ebx,SEL_TEXT
 		xor		eax,eax
 		jmp		Ex
@@ -1545,11 +1559,15 @@ RAWndProc proc uses ebx esi edi,hWin:HWND,uMsg:UINT,wParam:WPARAM,lParam:LPARAM
 		;lParam=lpStream
 		invoke GetCursor
 		push	eax
+		invoke ShowCursor, FALSE                ; *** MOD
 		invoke LoadCursor,0,IDC_WAIT
 		invoke SetCursor,eax
+		invoke ShowCursor, TRUE
 		invoke StreamOut,ebx,lParam
+		invoke ShowCursor, FALSE                ; *** MOD
 		pop		eax
 		invoke SetCursor,eax
+		invoke ShowCursor, TRUE
 		xor		eax,eax
 		jmp		Ex
 	.elseif eax==EM_GETMODIFY

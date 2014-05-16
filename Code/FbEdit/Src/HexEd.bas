@@ -20,8 +20,8 @@ Dim Shared lpOldHexEdProc    As WNDPROC
 Function CreateHexEd (Byref sFile As zString) As HWND
 
 	Dim hTmp    As HWND         = Any 
-    Dim i       As Integer      = Any 
-	Dim buffer  As ZString * 64
+    'Dim i       As Integer      = Any 
+	'Dim buffer  As ZString * 64
 	
 	Const Style As DWORD        = WS_CHILD Or WS_VISIBLE Or WS_CLIPCHILDREN Or WS_CLIPSIBLINGS
 

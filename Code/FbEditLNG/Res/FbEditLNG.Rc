@@ -8,7 +8,7 @@
 #define IDD_DLGMENU 30100
 #define IDD_DLGTEST 30200
 
-#include "../../FbEdit/Res/FbEdit.rc"
+#include "../FbEdit/Res/FbEdit.rc"
 
 IDD_DLGLNG DIALOGEX 6, 5, 465, 273
 CAPTION "FbEdit language translation"

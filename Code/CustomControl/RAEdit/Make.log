@@ -3,7 +3,7 @@ Copyright (C) Microsoft Corp. 1985-1998. All rights reserved.
 
 Using codepage 1252 as default
 Creating RAEdit.res
-RC: RCPP -CP 1252 -f C:\Program Files (x86)\FbEditSVN\Code\CustomControl\RAEdit\RCa01816 -g C:\Program Files (x86)\FbEditSVN\Code\CustomControl\RAEdit\RDa01816 -DRC_INVOKED -D_WIN32 -pc\:/ -E -I. -I Src\ -I .
+RC: RCPP -CP 1252 -f C:\Program Files (x86)\FbEditSVN\Code\CustomControl\RAEdit\RCa02652 -g C:\Program Files (x86)\FbEditSVN\Code\CustomControl\RAEdit\RDa02652 -DRC_INVOKED -D_WIN32 -pc\:/ -E -I. -I Src\ -I .
 
 Src\RAEdit.rc.
 Writing VERSION:1,	lang:0x409,	size 600.
@@ -23,13 +23,19 @@ Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
 
 
 Start Pass1
+Processed /DEFAULTLIB:masm32.lib
 Processed /DEFAULTLIB:comctl32.lib
 Processed /DEFAULTLIB:user32.lib
 Processed /DEFAULTLIB:kernel32.lib
 Processed /DEFAULTLIB:gdi32.lib
 Processed /DEFAULTLIB:ole32.lib
+Processed /DEFAULTLIB:VKDebug.lib
 
 Searching Libraries
+    Searching C:\Program Files (x86)\Masm32\Lib\masm32.lib:
+      Found _line@24
+        Referenced in RAEdit.obj
+        Loaded masm32.lib(line.obj)
     Searching C:\Program Files (x86)\Masm32\Lib\comctl32.lib:
       Found _ImageList_AddMasked@12
         Referenced in RAEdit.obj
@@ -133,6 +139,7 @@ Searching Libraries
         Loaded user32.lib(user32.dll)
       Found _GetDC@4
         Referenced in RAEdit.obj
+        Referenced in masm32.lib(line.obj)
         Loaded user32.lib(user32.dll)
       Found _GetFocus@0
         Referenced in RAEdit.obj
@@ -430,6 +437,7 @@ Searching Libraries
         Loaded gdi32.lib(gdi32.dll)
       Found _CreatePen@12
         Referenced in RAEdit.obj
+        Referenced in masm32.lib(line.obj)
         Loaded gdi32.lib(gdi32.dll)
       Found _CreateRectRgn@16
         Referenced in RAEdit.obj
@@ -442,6 +450,7 @@ Searching Libraries
         Loaded gdi32.lib(gdi32.dll)
       Found _DeleteObject@4
         Referenced in RAEdit.obj
+        Referenced in masm32.lib(line.obj)
         Loaded gdi32.lib(gdi32.dll)
       Found _GetDeviceCaps@8
         Referenced in RAEdit.obj
@@ -460,15 +469,18 @@ Searching Libraries
         Loaded gdi32.lib(gdi32.dll)
       Found _LineTo@12
         Referenced in RAEdit.obj
+        Referenced in masm32.lib(line.obj)
         Loaded gdi32.lib(gdi32.dll)
       Found _MoveToEx@16
         Referenced in RAEdit.obj
+        Referenced in masm32.lib(line.obj)
         Loaded gdi32.lib(gdi32.dll)
       Found _SelectClipRgn@8
         Referenced in RAEdit.obj
         Loaded gdi32.lib(gdi32.dll)
       Found _SelectObject@8
         Referenced in RAEdit.obj
+        Referenced in masm32.lib(line.obj)
         Loaded gdi32.lib(gdi32.dll)
       Found _SetBkColor@8
         Referenced in RAEdit.obj
@@ -541,7 +553,6 @@ Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
 "/def:Src\RAEdit.def" 
 "/name:RAEdit.dll" 
 "/out:Build\RAEdit.lib" 
-"/libpath:C:\Program Files (x86)\Masm32\Lib" 
 /include:_DllEntry@12 
 /SUBSYSTEM:CONSOLE 
 "RAEdit.obj" 
@@ -550,13 +561,19 @@ Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
 /verbose 
 
 Start Pass1
+Processed /DEFAULTLIB:masm32.lib
 Processed /DEFAULTLIB:comctl32.lib
 Processed /DEFAULTLIB:user32.lib
 Processed /DEFAULTLIB:kernel32.lib
 Processed /DEFAULTLIB:gdi32.lib
 Processed /DEFAULTLIB:ole32.lib
+Processed /DEFAULTLIB:VKDebug.lib
 
 Searching Libraries
+    Searching C:\Program Files (x86)\Masm32\Lib\masm32.lib:
+      Found _line@24
+        Referenced in RAEdit.obj
+        Loaded masm32.lib(line.obj)
     Searching C:\Program Files (x86)\Masm32\Lib\comctl32.lib:
       Found _ImageList_AddMasked@12
         Referenced in RAEdit.obj
@@ -660,6 +677,7 @@ Searching Libraries
         Loaded user32.lib(user32.dll)
       Found _GetDC@4
         Referenced in RAEdit.obj
+        Referenced in masm32.lib(line.obj)
         Loaded user32.lib(user32.dll)
       Found _GetFocus@0
         Referenced in RAEdit.obj
@@ -957,6 +975,7 @@ Searching Libraries
         Loaded gdi32.lib(gdi32.dll)
       Found _CreatePen@12
         Referenced in RAEdit.obj
+        Referenced in masm32.lib(line.obj)
         Loaded gdi32.lib(gdi32.dll)
       Found _CreateRectRgn@16
         Referenced in RAEdit.obj
@@ -969,6 +988,7 @@ Searching Libraries
         Loaded gdi32.lib(gdi32.dll)
       Found _DeleteObject@4
         Referenced in RAEdit.obj
+        Referenced in masm32.lib(line.obj)
         Loaded gdi32.lib(gdi32.dll)
       Found _GetDeviceCaps@8
         Referenced in RAEdit.obj
@@ -987,15 +1007,18 @@ Searching Libraries
         Loaded gdi32.lib(gdi32.dll)
       Found _LineTo@12
         Referenced in RAEdit.obj
+        Referenced in masm32.lib(line.obj)
         Loaded gdi32.lib(gdi32.dll)
       Found _MoveToEx@16
         Referenced in RAEdit.obj
+        Referenced in masm32.lib(line.obj)
         Loaded gdi32.lib(gdi32.dll)
       Found _SelectClipRgn@8
         Referenced in RAEdit.obj
         Loaded gdi32.lib(gdi32.dll)
       Found _SelectObject@8
         Referenced in RAEdit.obj
+        Referenced in masm32.lib(line.obj)
         Loaded gdi32.lib(gdi32.dll)
       Found _SetBkColor@8
         Referenced in RAEdit.obj
@@ -1068,7 +1091,7 @@ End Pass1
 End Generating .exp file
 
 Searching Libraries
-    Searching C:\Program Files (x86)\Masm32\Lib\comctl32.lib:
+    Searching C:\Program Files (x86)\Masm32\Lib\masm32.lib:
 
 Done Searching Libraries
 
@@ -1078,6 +1101,7 @@ Start Pass2
      RAEdit.exp
      RAEdit.res
      RAEdit.obj
+     masm32.lib(line.obj)
      comctl32.lib(comctl32.dll)
      comctl32.lib(comctl32.dll)
      comctl32.lib(comctl32.dll)

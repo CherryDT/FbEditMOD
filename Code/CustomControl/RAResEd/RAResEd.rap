@@ -155,7 +155,7 @@ Options=52
 3=0,0,0,0,582
 4=0,0,0,0,36
 <<<<<<< .mine
-1=0,0,718,485,38090
+1=0,0,718,485,917
 7=0,0,718,485,76351
 6=0,0,0,0,12169
 9=0,0,718,485,85584
@@ -241,10 +241,7 @@ Options=52
 >>>>>>> .r52
 
 [AutoLoad]
-<<<<<<< .mine
-AutoLoad=39,3,26,25,16,9,8,51,10,17,7,1,5,2,18,13,43,28,21,24,36,35,22,37,42,33,27,6
-=======
-AutoLoad=39,3,26,25,16,9,8,51,10,17,7,1,5,2,18,13,43,28,21,24,36,35,22,37,42,33,27,30,6,29,34,32
+AutoLoad=1
 >>>>>>> .r52
 [VerInf]
 Nme=VERINF1
@@ -291,7 +288,7 @@ MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
 <<<<<<< .mine
-MilestoneOnDateDate=3
+MilestoneOnDateDate=27
 =======
 MilestoneOnDateDate=30
 >>>>>>> .r52
@@ -394,7 +391,7 @@ Group=Assembly,Resources,Misc,Include
 51=,,
 [PTimer]
 <<<<<<< .mine
-PTimer=1636188673
+PTimer=1637646877
 =======
 PTimer=1647308128
 >>>>>>> .r52

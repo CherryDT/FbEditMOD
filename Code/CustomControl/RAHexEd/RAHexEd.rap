@@ -79,7 +79,7 @@ Options=52
 [Size]
 4=0,0,0,0,58
 2=0,0,0,0,531
-1=0,0,0,0,2459
+1=0,0,0,0,38866
 3=0,0,0,0,45
 6=0,0,0,0,2927
 7=0,0,0,0,777
@@ -113,16 +113,16 @@ Options=52
 AutoLoad=1,7,13,6,9,15,16,8,14,2,4,3
 
 [Find]
-1="HexPaint"
-2="wm_paint"
-3="MOD"
-4="DEFSELASCCOLOR"
-5="hBrAscSelBck"
-6="selascbckcol"
-7="DrawSelAsciiBack"
-8="DTATXT"
-9="dta"
-10="HEM_SETCOLOR"
+1="setcursor"
+2="HexPaint"
+3="wm_paint"
+4="MOD"
+5="DEFSELASCCOLOR"
+6="hBrAscSelBck"
+7="selascbckcol"
+8="DrawSelAsciiBack"
+9="DTATXT"
+10="dta"
 
 [VerInf]
 Nme=VERINF1
@@ -172,7 +172,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=3
+MilestoneOnDateDate=8
 MilestoneOnDateTimeYear=2004
 MilestoneOnDateTimeMonth=11
 MilestoneOnDateTimeDate=19
@@ -216,7 +216,7 @@ ProductVer4Range=0
 14=,
 4=
 [PTimer]
-PTimer=227963301
+PTimer=235617771
 [Exports]
 1=GetDef
 2=GetDefEx

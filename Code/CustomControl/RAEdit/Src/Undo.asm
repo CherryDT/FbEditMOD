@@ -64,8 +64,7 @@ DoUndo proc uses ebx edi,hMem:DWORD
 			pop		edx
 			push	eax
 			push	edx
-			invoke LoadCursor,0,IDC_WAIT
-			invoke SetCursor,eax
+			invoke xSetCursor, IDC_WAIT, FALSE
 			pop		edx
 			mov		eax,[edi+edx].RAUNDO.cp
 			mov		[ebx].EDIT.cpMin,eax
@@ -78,7 +77,7 @@ DoUndo proc uses ebx edi,hMem:DWORD
 				dec		ecx
 			.endw
 			pop		eax
-			invoke SetCursor,eax
+			invoke xSetCursor, eax, TRUE
 		.elseif al==UNDO_DELETEBLOCK
 			push	[ebx].EDIT.fOvr
 			mov		[ebx].EDIT.fOvr,FALSE
@@ -87,9 +86,8 @@ DoUndo proc uses ebx edi,hMem:DWORD
 			pop		edx
 			push	eax
 			push	edx
-			invoke LoadCursor,0,IDC_WAIT
-			invoke SetCursor,eax
-			pop		edx
+			invoke xSetCursor, IDC_WAIT, FALSE
+			pop	    edx
 			mov		ecx,[edi+edx].RAUNDO.cp
 			mov		[ebx].EDIT.cpMin,ecx
 			mov		[ebx].EDIT.cpMax,ecx
@@ -107,7 +105,7 @@ DoUndo proc uses ebx edi,hMem:DWORD
 				dec		ecx
 			.endw
 			pop		eax
-			invoke SetCursor,eax
+			invoke xSetCursor, eax, TRUE
 			pop		[ebx].EDIT.fOvr
 		.endif
 		mov		edx,[ebx].EDIT.rpUndo
@@ -203,8 +201,7 @@ DoRedo proc uses ebx edi,hMem:DWORD
 			pop		edx
 			push	eax
 			push	edx
-			invoke LoadCursor,0,IDC_WAIT
-			invoke SetCursor,eax
+			invoke xSetCursor, IDC_WAIT, FALSE
 			pop		edx
 			mov		ecx,[edi+edx].RAUNDO.cp
 			mov		[ebx].EDIT.cpMin,ecx
@@ -225,7 +222,7 @@ DoRedo proc uses ebx edi,hMem:DWORD
 			.endw
 			mov		[ebx].EDIT.rpUndo,edx
 			pop		eax
-			invoke SetCursor,eax
+			invoke xSetCursor, eax, TRUE
 			pop		[ebx].EDIT.fOvr
 		.elseif al==UNDO_DELETEBLOCK
 			push	edx
@@ -233,8 +230,7 @@ DoRedo proc uses ebx edi,hMem:DWORD
 			pop		edx
 			push	eax
 			push	edx
-			invoke LoadCursor,0,IDC_WAIT
-			invoke SetCursor,eax
+			invoke xSetCursor, IDC_WAIT, FALSE
 			pop		edx
 			mov		eax,[edi+edx].RAUNDO.cp
 			mov		[ebx].EDIT.cpMin,eax
@@ -250,7 +246,7 @@ DoRedo proc uses ebx edi,hMem:DWORD
 				dec		ecx
 			.endw
 			pop		eax
-			invoke SetCursor,eax
+			invoke xSetCursor, eax, TRUE
 		.endif
 		mov		edx,[ebx].EDIT.rpUndo
 		.if edx
@@ -329,9 +325,14 @@ SaveUndo proc uses ebx esi edi,hMem:DWORD,nFun:DWORD,cp:DWORD,lp:DWORD,cb:DWORD
 SaveUndo endp
 
 Undo proc uses ebx,hMem:DWORD,hWin:DWORD
-	LOCAL	pt:POINT
+	;LOCAL	pt:POINT                                         *** MOD
 
 	mov		ebx,hMem
+
+	invoke GetCursor                          ; *** MOD
+	push eax                                  ; *** MOD
+	invoke xSetCursor, IDC_WAIT, FALSE        ; *** MOD
+
 	test	[ebx].EDIT.nMode,MODE_BLOCK
 	.if ZERO?
 		invoke DoUndo,ebx
@@ -339,6 +340,7 @@ Undo proc uses ebx,hMem:DWORD,hWin:DWORD
 		invoke DoUndo,ebx
 		invoke SetBlockFromCp,ebx,[ebx].EDIT.cpMin,FALSE
 	.endif
+	
 	invoke GetCharPtr,ebx,[ebx].EDIT.cpMin
 	invoke SetCaretVisible,hWin,[esi].RAEDT.cpy
 	invoke SetCaret,ebx,[esi].RAEDT.cpy
@@ -346,15 +348,24 @@ Undo proc uses ebx,hMem:DWORD,hWin:DWORD
 	invoke InvalidateEdit,ebx,[ebx].EDIT.edtb.hwnd
 	invoke SetCpxMax,ebx,hWin
 	invoke SelChange,ebx,SEL_TEXT
+	
+	pop eax                                   ; *** MOD
+	invoke xSetCursor, eax, TRUE              ; *** MOD
+
 	ret
 
 Undo endp
 
 Redo proc uses ebx,hMem:DWORD,hWin:DWORD
-	LOCAL	pt:POINT
-	LOCAL	oldrects[2]:RECT
+	;LOCAL	pt:POINT                                         *** MOD
+	;LOCAL	oldrects[2]:RECT                                 *** MOD
 
 	mov		ebx,hMem
+
+	invoke GetCursor                          ; *** MOD
+	push eax                                  ; *** MOD
+	invoke xSetCursor, IDC_WAIT, FALSE        ; *** MOD
+
 	test	[ebx].EDIT.nMode,MODE_BLOCK
 	.if ZERO?
 		invoke DoRedo,ebx
@@ -369,6 +380,10 @@ Redo proc uses ebx,hMem:DWORD,hWin:DWORD
 	invoke InvalidateEdit,ebx,[ebx].EDIT.edtb.hwnd
 	invoke SetCpxMax,ebx,hWin
 	invoke SelChange,ebx,SEL_TEXT
+
+	pop		eax                               ; *** MOD
+	invoke xSetCursor, eax, TRUE              ; *** MOD
+
 	ret
 
 Redo endp

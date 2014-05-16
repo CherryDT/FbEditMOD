@@ -81,8 +81,9 @@ End Function
 
 Sub BrowseForFolder (ByVal hWin As HWND, ByVal nID As Integer)
 	
-	Dim pidl As LPCITEMIDLIST
+	Dim pIdL As LPCITEMIDLIST
 	Dim bri  As BROWSEINFO
+    Dim Path As ZString * MAX_PATH 
     
     bri.hwndOwner       = hWin
 	'bri.pidlRoot       = 0
@@ -90,17 +91,15 @@ Sub BrowseForFolder (ByVal hWin As HWND, ByVal nID As Integer)
 	'bri.lpszTitle      = 0
 	bri.ulFlags         = BIF_RETURNONLYFSDIRS Or BIF_BROWSEINCLUDEFILES Or BIF_NEWDIALOGSTYLE        ' Or BIF_EDITBOX
 	bri.lpfn            = @BrowseForFolderCallBack
-	bri.lParam          = Cast (LPARAM, @buff) 
+	bri.lParam          = Cast (LPARAM, @Path) 
 	'bri.iImage         = 0
 
-	' get path   
-	GetDlgItemText hWin, nID, @buff, MAX_PATH 
-	pidl = SHBrowseForFolder (@bri)
-	If pidl Then
-		SHGetPathFromIDList pidl, @buff
-   		CoTaskMemFree pidl
-		' set new path back to edit
-		SetDlgItemText hWin, nID, @buff
+	GetDlgItemText hWin, nID, @Path, MAX_PATH     ' get path from editbox 
+	pIdL = SHBrowseForFolder (@bri)
+	If pIdL Then
+		SHGetPathFromIDList pIdL, @Path
+   		CoTaskMemFree pIdL
+		SetDlgItemText hWin, nID, @Path           ' set new path back to editbox
 	EndIf
 
 End Sub

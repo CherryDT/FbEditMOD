@@ -20,12 +20,13 @@ Type FIND
 	fnoreset				As Boolean						' Flag to handle opening a new file
 	listoffiles			    As String
 	listidx                 As Integer                      ' char index walks through listoffiles
-	nlinesout			    As Integer
+	nlinesout			    As Integer                      ' unused
 	fres					As Integer						' Find result
     RegEx                   As regex_t                      ' MOD 16.2.2012
     Busy                    As BOOLEAN                      ' MOD 28.3.2012 lenghty op is running, clear to stop it
     LoadForSearch           As ZString * 260                ' list of extensions, matching project files are loaded for searching 
     SaveOnExit              As BOOL                         ' FALSE skips saving of dialogbox data (cancel button)
+    FoundAny                As BOOL                         ' FALSE if nothing found in searched file
 End Type
 
 
@@ -55,6 +56,7 @@ Declare Sub UpDateFind (ByVal hWin As HWND,ByVal cpMin As Integer,ByVal fChanged
 Declare Function FindDlgProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer
 Declare Function IsFileSearchable (ByVal pFileSpec As ZString Ptr) As BOOL 
 
+#Define NOT_FOUND                           -1
 
 #Define IDD_DLG_FIND						2500
 #Define IDC_CBO_FINDTEXT					2001

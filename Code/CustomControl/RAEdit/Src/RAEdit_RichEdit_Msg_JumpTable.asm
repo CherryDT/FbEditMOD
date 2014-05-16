@@ -135,8 +135,7 @@
 			;lParam=lpStream
 			invoke GetCursor
 			push	eax
-			invoke LoadCursor,0,IDC_WAIT
-			invoke SetCursor,eax
+			invoke xSetCursor, IDC_WAIT, FALSE
 			invoke StreamIn,ebx,lParam
 			xor		eax,eax
 			mov		[ebx].EDIT.edta.cpy,eax
@@ -166,7 +165,7 @@
 			invoke SetCaret,ebx,0
 			invoke SelChange,ebx,SEL_TEXT
 			pop		eax
-			invoke SetCursor,eax
+			invoke xSetCursor, eax, TRUE
 			inc		nUndoid
 			xor		eax,eax
 			ret
@@ -176,11 +175,10 @@
 			;lParam=lpStream
 			invoke GetCursor
 			push	eax
-			invoke LoadCursor,0,IDC_WAIT
-			invoke SetCursor,eax
+			invoke xSetCursor, IDC_WAIT, FALSE
 			invoke StreamOut,ebx,lParam
 			pop		eax
-			invoke SetCursor,eax
+			invoke xSetCursor, eax, TRUE
 			xor		eax,eax
 			ret
 		align 4 

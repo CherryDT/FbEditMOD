@@ -82,7 +82,7 @@ FileVersion=2.0.1.6
 CompanyName=
 [Size]
 2=0,0,0,0,4021
-1=0,0,0,0,78
+1=0,0,0,0,21115
 3=0,0,0,0,8
 4=0,0,0,0,56
 8=0,0,0,0,1285
@@ -118,16 +118,16 @@ Options=52
 0=
 
 [Find]
-1="GM_SETBACKCOLOR"
-2="create"
-3="COLOR_HIGHLIGHTTEXT"
-4="wm_drawitem"
-5="WORK"
-6="MOD  work"
-7="[ebx].GRID.hbrback"
-8="MOD"
-9="hbrback"
-10="wm_Draw"
+1="setcursor"
+2="GM_SETBACKCOLOR"
+3="create"
+4="COLOR_HIGHLIGHTTEXT"
+5="wm_drawitem"
+6="WORK"
+7="MOD  work"
+8="[ebx].GRID.hbrback"
+9="MOD"
+10="hbrback"
 
 [VersionControl]
 Settings=1278
@@ -139,7 +139,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=3
+MilestoneOnDateDate=7
 MilestoneOnDateTimeYear=2003
 MilestoneOnDateTimeMonth=10
 MilestoneOnDateTimeDate=18
@@ -194,7 +194,7 @@ AutoLoad=11,2,9,1,4,3,6,8,7,12,10
 4=
 3=
 [PTimer]
-PTimer=226086717
+PTimer=226121818
 [Exports]
 1=GetDefEx
 2=GetDef

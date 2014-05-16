@@ -80,7 +80,7 @@
 #Define REM_CLRBOOKMARKS					REM_BASE+9		' 0,nType:Integer
 #Define REM_NXTBOOKMARK						REM_BASE+10		' nLine:Integer,nType:Integer
 #Define REM_PRVBOOKMARK						REM_BASE+11		' nLine:Integer,nType:Integer
-#Define REM_FINDBOOKMARK					REM_BASE+12		' nBmID:Integer,0
+#Define REM_FINDBOOKMARK					REM_BASE+12		' nBmID:Integer,0 | returns -1=NOT FOUND or LineNo (zerobased)
 #Define REM_SETBLOCKS						REM_BASE+13		' pLINERANGE:LINERANGE Ptr,0
 #Define REM_ISLINE							REM_BASE+14		' nLine:Integer,pszDef:ZString Ptr
 #Define REM_GETWORD							REM_BASE+15		' nBuffSize:Integer,pBuff:ZString Ptr

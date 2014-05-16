@@ -175,7 +175,7 @@ Sub IndentComment(Byref char As zString,ByVal fUn As Boolean)
 	x=ad.fNoNotify
 	ad.fNoNotify=TRUE
 	nmin=999
-	SendMessage(ah.hred,WM_SETREDRAW,FALSE,0)
+	'SendMessage(ah.hred,WM_SETREDRAW,FALSE,0)
 	SendMessage(ah.hred,REM_LOCKUNDOID,TRUE,0)
 	SendMessage(ah.hred,EM_EXGETSEL,0,Cast(LPARAM,@ochrg))
 	chrg.cpMin=ochrg.cpMin
@@ -355,8 +355,8 @@ Sub IndentComment(Byref char As zString,ByVal fUn As Boolean)
 	SendMessage(ah.hred,EM_EXSETSEL,0,Cast(LPARAM,@ochrg))
 	SendMessage(ah.hred,EM_HIDESELECTION,FALSE,0)
 	SendMessage(ah.hred,REM_LOCKUNDOID,FALSE,0)
-	SendMessage(ah.hred,WM_SETREDRAW,TRUE,0)
-	SendMessage(ah.hred,REM_REPAINT,0,0)
+	'SendMessage(ah.hred,WM_SETREDRAW,TRUE,0)
+	'SendMessage(ah.hred,REM_REPAINT,0,0)
 	SetFocus(ah.hred)
 	ad.fNoNotify=x
 
@@ -1773,7 +1773,7 @@ Function CreateTxtEd (Byref sFile As zString) As HWND
 	Dim buffer  As ZString * 64
 
 	Const Style As DWORD        = WS_CHILD                Or WS_VISIBLE        Or WS_CLIPCHILDREN   Or _
-	    		                      WS_CLIPSIBLINGS         Or STYLE_SCROLLTIP   Or STYLE_DRAGDROP    Or _
+	    		                  WS_CLIPSIBLINGS         Or STYLE_SCROLLTIP   Or STYLE_DRAGDROP    Or _
 	      	                      STYLE_AUTOSIZELINENUM   Or STYLE_NOHILITE    Or STYLE_NOCOLLAPSE  Or _
 	                              STYLE_NODIVIDERLINE
 
@@ -1784,7 +1784,7 @@ Function CreateTxtEd (Byref sFile As zString) As HWND
     	UpdateEditOptions hTmp
 
    		SendMessage hTmp, REM_SETWORDGROUP, 0, 15
-			SendMessage hTmp, REM_SETSTYLEEX, STILEEX_LINECHANGED Or STILEEX_STRINGMODEFB, 0
+		SendMessage hTmp, REM_SETSTYLEEX, STILEEX_LINECHANGED Or STILEEX_STRINGMODEFB, 0
     	SendMessage hTmp, WM_SETTEXT, 0, Cast (LPARAM, @"")
     	SendMessage hTmp, EM_SETMODIFY, FALSE, 0
 
@@ -1798,7 +1798,7 @@ Function CreateTxtEd (Byref sFile As zString) As HWND
     	lpOldCoTxEdProc = Cast (WNDPROC, SendMessage (hTmp, REM_SUBCLASS, 0, Cast (LPARAM, @CoTxEdProc)))
     	CallAddins ah.hwnd, AIM_CREATEEDIT, Cast (WPARAM, hTmp), 0, HOOK_CREATEEDIT
 
-			If edtopt.linenumbers Then
+		If edtopt.linenumbers Then
     		SendDlgItemMessage hTmp, -2, BM_CLICK, 0, 0
     	EndIf
     EndIf

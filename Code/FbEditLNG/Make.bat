@@ -6,7 +6,44 @@ call:GetIniValue "..\..\Make.ini" "FBHome" FBHome
 
 echo.
 echo *** compiling .rc ***
-windres --output-format=coff -I ../FbEdit  "Res\FbEditLNG.Rc" "FbEditLNG.Rc.o" > Make.log || goto ERR_Exit
+
+rem if installed use MinGW toolchain
+windres --version
+IF %ERRORLEVEL% EQU 9009 (
+    echo windres not found
+) else (
+    windres --verbose --output-format=coff --include-dir="../FbEdit"  "Res\FbEditLNG.Rc" "FbEditLNG.Rc.o" > Make.log || goto ERR_Exit
+    goto RC_Ready
+)
+
+
+rem if installed use MS DDK
+RC /?
+IF %ERRORLEVEL% EQU 9009 (
+    echo RC not found
+) else (
+    RC /I ../FbEdit /FO "FbEditLNG.res" "Res\FbEditLNG.Rc" > Make.log || goto ERR_Exit
+    CVTRES /MACHINE:IX86 /OUT:"FbEditLNG.Rc.o" "FbEditLNG.res"
+    goto RC_Ready
+)
+
+
+rem dont use GoRC
+"%FBHome%\bin\win32\GoRC.exe" /h
+IF %ERRORLEVEL% EQU 9009 (
+    echo GoRC not found
+    goto ERR_Exit
+) else (
+    ::goto ERR_Exit
+    REM TODO  (doesnt work)
+    set INCLUDE="%CD%\..\FbEdit"
+    "%FBHome%\bin\win32\GoRC.exe" /fo "FbEditLNG.Rc.obj" "Res\FbEditLNG.Rc" > Make.log || goto ERR_Exit
+    rename FbEditLNG.Rc.obj FbEditLNG.Rc.o
+)
+
+
+:RC_Ready
+
 
 echo.
 echo *** compiling .bas ***
@@ -20,6 +57,7 @@ echo .
 echo *** cleanup ***
 del FbEditLNG.Rc.o || goto ERR_Exit
 del FbEditLNG.o || goto ERR_Exit
+del FbEditLNG.res
 
 
 
@@ -43,7 +81,7 @@ echo ********************************
 echo .
 echo .
 echo .
-Make.log
+start Make.log
 exit /b 1
 
 

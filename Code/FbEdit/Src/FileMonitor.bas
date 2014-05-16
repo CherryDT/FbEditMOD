@@ -14,9 +14,9 @@
 
     Declare Sub FileMonitorProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal idEvent As UINT, ByVal dwTime As DWORD)
 
-    #Define IDT_FILEMONITOR     200
+    #Define IDT_FILEMONITOR       200
 
-    Dim Shared TimerRunning As UINT  
+    Dim Shared TimerRunning As UINT
 
 
 
@@ -42,39 +42,38 @@ End Sub
 
 Sub FileMonitorProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal idEvent As UINT, ByVal dwTime As DWORD)
 
-	Dim tci      As TCITEM
-	Dim i        As Integer         = 0
-	Dim hFile    As HANDLE          = Any 
-	Dim ft       As FILETIME        = Any 
+    Dim tci      As TCITEM
+    Dim i        As Integer         = 0
+    Dim hFile    As HANDLE          = Any 
+    Dim ft       As FILETIME        = Any 
     Dim buffer   As ZString  * 1024 = Any 
     Dim ExitCode As Integer         = Any 
 
-	tci.mask = TCIF_PARAM
-	
-	'Print "FileMon:"; idEvent; ":"; dwTime
-	
-	Do
-		If SendMessage (ah.htabtool, TCM_GETITEM, i, Cast (LPARAM ,@tci)) Then
-			GetLastWriteTime pTABMEM->filename, @ft
-			If CompareFileTime (@ft, @pTABMEM->ft) > 0 Then
-				
-				FileMonitorStop
-				buffer = pTABMEM->filename + CR + GetInternalString (IS_FILE_CHANGED_OUTSIDE_EDITOR) + CR + GetInternalString (IS_REOPEN_THE_FILE)
-				ExitCode = MessageBox (ah.hwnd, @buffer, @szAppName, MB_YESNO Or MB_ICONEXCLAMATION)
+    tci.mask = TCIF_PARAM
+    
+    'Print "FileMon:"; idEvent; ":"; dwTime
+    
+    Do
+        If SendMessage (ah.htabtool, TCM_GETITEM, i, Cast (LPARAM ,@tci)) Then
+            GetLastWriteTime pTABMEM->filename, @ft
+            If CompareFileTime (@ft, @pTABMEM->ft) > 0 Then
+                
+                FileMonitorStop
+                buffer = pTABMEM->filename + CR + GetInternalString (IS_FILE_CHANGED_OUTSIDE_EDITOR) + CR + GetInternalString (IS_REOPEN_THE_FILE)
+                ExitCode = MessageBox (ah.hwnd, @buffer, @szAppName, MB_YESNO Or MB_ICONEXCLAMATION)
 
-				If ExitCode = IDYES Then
-					ReadTheFile pTABMEM->hedit, pTABMEM->filename             ' Reload file
-					SetFileInfo pTABMEM->hedit, pTABMEM->filename
-				EndIf
+                If ExitCode = IDYES Then
+                    ReadTheFile pTABMEM->hedit, pTABMEM->filename             ' Reload file
+                    SetFileInfo pTABMEM->hedit, pTABMEM->filename
+                EndIf
                                     
                 GetLastWriteTime pTABMEM->filename, @pTABMEM->ft 
-			    FileMonitorStart
-			EndIf
-		Else
-			Exit Do
-		EndIf
-		i += 1
-	Loop
+                FileMonitorStart
+            EndIf
+        Else
+            Exit Do
+        EndIf
+        i += 1
+    Loop
 
 End Sub 
-

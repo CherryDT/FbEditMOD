@@ -9,10 +9,11 @@ comment *
 option casemap :none   ; case sensitive
 option proc:private
 
-include windows.inc
+include ..\..\VKDebug\Build\VKDebug.inc
+;include windows.inc
 include comctl32.inc
-include user32.inc
-include kernel32.inc
+;include user32.inc
+;include kernel32.inc
 include gdi32.inc
 include ole32.inc
 
@@ -21,6 +22,7 @@ includelib user32.lib
 includelib kernel32.lib
 includelib gdi32.lib
 includelib ole32.lib
+includelib VKDebug.lib
 
 ;include \RadASM\Masm\Inc\RADbg.inc
 ;include masm32.inc
@@ -480,14 +482,18 @@ SplittBtnProc proc uses ebx,hWin:HWND,uMsg:UINT,wParam:WPARAM,lParam:LPARAM
 		invoke GetParent,hWin
 		invoke GetWindowLong,eax,0
 		mov		ebx,eax
+		invoke ShowCursor, FALSE                ; *** MOD
 		invoke SetCursor,hHSCur
+		invoke ShowCursor, TRUE
 	.elseif eax==WM_LBUTTONDOWN
 		invoke GetParent,hWin
 		invoke GetWindowLong,eax,0
 		mov		ebx,eax
 		mov		[ebx].EDIT.fresize,1
 		invoke SetCapture,[ebx].EDIT.hwnd
+		invoke ShowCursor, FALSE                ; *** MOD
 		invoke SetCursor,hHSCur
+		invoke ShowCursor, TRUE
 	.elseif eax==WM_LBUTTONDBLCLK
 		invoke GetParent,hWin
 		push	eax
@@ -1993,10 +1999,7 @@ RAEditProc proc uses ebx esi edi,hWin:HWND,uMsg:UINT,wParam:WPARAM,lParam:LPARAM
 		and		eax,MK_SHIFT
 		mov		fShift,eax
 		.if fOnSel
-			invoke ShowCursor, FALSE                ; *** MOD
-			invoke LoadCursor,0,IDC_ARROW
-			invoke SetCursor,eax
-			invoke ShowCursor, TRUE
+			invoke xSetCursor, IDC_ARROW, FALSE
 		.endif
 		invoke SendMessage,[ebx].EDIT.htt,TTM_ACTIVATE,FALSE,0
 		invoke SendMessage,[ebx].EDIT.htt,TTM_ACTIVATE,TRUE,0
@@ -2145,10 +2148,7 @@ RAEditProc proc uses ebx esi edi,hWin:HWND,uMsg:UINT,wParam:WPARAM,lParam:LPARAM
 			.if eax>3 || edx>3
 				mov		fOnSel,0
 				mov		peff,0
-				invoke ShowCursor, FALSE                ; *** MOD
-				invoke LoadCursor,0,IDC_ARROW
-				invoke SetCursor,eax
-				invoke ShowCursor, TRUE
+				invoke xSetCursor, IDC_ARROW, FALSE
 				mov		hDragSourceMem,ebx
 				mov		eax,hWin
 				mov		hDragWin,eax
@@ -2333,8 +2333,9 @@ RAEditProc proc uses ebx esi edi,hWin:HWND,uMsg:UINT,wParam:WPARAM,lParam:LPARAM
 							sub		eax,[ebx].EDIT.selbarwt
 							add		eax,15
 							.if eax<12
-								invoke LoadCursor,0,IDC_ARROW
-								mov		hCur,eax
+								;invoke LoadCursor,0,IDC_ARROW
+								;mov		hCur,eax
+								mov hCur, IDC_ARROW
 								mov		fOnBM,TRUE
 							.endif
 						.endif
@@ -2357,15 +2358,16 @@ RAEditProc proc uses ebx esi edi,hWin:HWND,uMsg:UINT,wParam:WPARAM,lParam:LPARAM
 						.if eax!=0Dh
 							;On selection
 							mov		fOnSel,1
-							invoke LoadCursor,0,IDC_ARROW
-							mov		hCur,eax
+							;invoke LoadCursor,0,IDC_ARROW
+							;mov		hCur,eax
+							mov hCur, IDC_ARROW
 						.endif
 					.endif
 				.endif
 			.endif
-			invoke ShowCursor, FALSE                ; *** MOD
-			invoke SetCursor,hCur
-			invoke ShowCursor, TRUE
+			;invoke ShowCursor, FALSE                ; *** MOD
+			invoke xSetCursor, hCur, TRUE
+			;invoke ShowCursor, TRUE
 		.endif
 		xor		eax,eax
 		ret
@@ -2457,10 +2459,7 @@ RAEditProc proc uses ebx esi edi,hWin:HWND,uMsg:UINT,wParam:WPARAM,lParam:LPARAM
 					mov		[ebx].EDIT.cpMin,eax
 					mov		[ebx].EDIT.cpMax,eax
 					invoke GetCharPtr,ebx,eax
-					invoke ShowCursor, FALSE                ; *** MOD
-					invoke LoadCursor,0,IDC_ARROW
-					invoke SetCursor,eax
-					invoke ShowCursor, TRUE
+					invoke xSetCursor, IDC_ARROW, FALSE
 					invoke SetCaretVisible,[esi].RAEDT.hwnd,[esi].RAEDT.cpy
 					invoke SelChange,ebx,SEL_OBJECT
 					invoke SetCaret,ebx,[esi].RAEDT.cpy
@@ -2517,24 +2516,15 @@ RAEditProc proc uses ebx esi edi,hWin:HWND,uMsg:UINT,wParam:WPARAM,lParam:LPARAM
 			invoke GetCursorPos,addr ptDrag
 			invoke ScreenToClient,hWin,addr ptDrag
 			mov		fOnSel,2
-			invoke ShowCursor, FALSE                ; *** MOD
-			invoke LoadCursor,0,IDC_ARROW
-			invoke SetCursor,eax
-			invoke ShowCursor, TRUE
+			invoke xSetCursor, IDC_ARROW, FALSE
 		.endif
 		xor		eax,eax
 		ret
 	.elseif eax==WM_LBUTTONUP
 		.if fOnBM
-			invoke ShowCursor, FALSE                ; *** MOD
-			invoke LoadCursor,0,IDC_ARROW
-			invoke SetCursor,eax
-			invoke ShowCursor, TRUE 
+			invoke xSetCursor, IDC_ARROW, FALSE
 		.elseif fOnSel==1
-		    invoke ShowCursor, FALSE                ; *** MOD
-			invoke LoadCursor,0,IDC_ARROW
-			invoke SetCursor,eax
-			invoke ShowCursor, TRUE
+			invoke xSetCursor, IDC_ARROW, FALSE
 		.elseif fOnSel==2
 			mov		fOnSel,0
 			invoke SendMessage,hWin,WM_LBUTTONDOWN,wParam,lParam
@@ -2551,10 +2541,7 @@ RAEditProc proc uses ebx esi edi,hWin:HWND,uMsg:UINT,wParam:WPARAM,lParam:LPARAM
 		mov		edx,[ebx].EDIT.nMode
 		and		edx,MODE_BLOCK
 		.if fOnBM
-		    invoke ShowCursor, FALSE                ; *** MOD
-			invoke LoadCursor,0,IDC_ARROW
-			invoke SetCursor,eax
-			invoke ShowCursor, TRUE
+		    invoke xSetCursor, IDC_ARROW, FALSE
 			invoke SetCaretVisible,[esi].RAEDT.hwnd,[esi].RAEDT.cpy
 			invoke SelChange,ebx,SEL_OBJECT
 		.elseif !eax && !edx
@@ -2589,10 +2576,7 @@ RAEditProc proc uses ebx esi edi,hWin:HWND,uMsg:UINT,wParam:WPARAM,lParam:LPARAM
 			invoke SelChange,ebx,SEL_TEXT
 			mov		eax,[ebx].EDIT.cpMin
 			.if eax!=[ebx].EDIT.cpMax
-				invoke ShowCursor, FALSE                ; *** MOD
-				invoke LoadCursor,0,IDC_ARROW
-				invoke SetCursor,eax
-				invoke ShowCursor, TRUE
+				invoke xSetCursor, IDC_ARROW, FALSE
 				mov		fOnSel,1
 			.endif
 		.else

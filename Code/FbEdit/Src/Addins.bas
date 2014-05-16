@@ -13,9 +13,9 @@ Type lpDllFunction As Function (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wP
 Type lpInstallDll  As Function (ByVal hWnd As HWND, ByVal hInst As HINSTANCE) As ADDINHOOKS Ptr
 
 Type ADDIN
-	hdll        As HMODULE
-	lpdllfunc   As Any Ptr
-	hooks       As ADDINHOOKS
+    hdll        As HMODULE
+    lpdllfunc   As Any Ptr
+    hooks       As ADDINHOOKS
 End Type
 
 Dim Shared DllFunction        As lpDllFunction
@@ -200,7 +200,7 @@ Sub LoadAddins
     nInx=0
     hwin=ah.hwnd
     buff=ad.AppPath & "\Addins\*.dll"
-    
+
     hwfd=FindFirstFile(@buff,@wfd)
     If hwfd<>INVALID_HANDLE_VALUE Then
         While TRUE

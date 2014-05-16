@@ -22,7 +22,8 @@ echo *** compiling ASMs ***
 
 echo .
 echo *** linking DLL ***
-"%MasmBin%\LINK.EXE" /verbose /SUBSYSTEM:WINDOWS /RELEASE /DLL /DEF:Src\RAEdit.def /LIBPATH:"%MasmLib%" /OUT:"Build\RAEdit.dll" RAEdit.obj RAEdit.res >> Make.log || goto ERR_Exit
+set LIB="%MasmLib%";"..\..\VKDebug\Build"
+"%MasmBin%\LINK.EXE" /verbose /SUBSYSTEM:WINDOWS /RELEASE /DLL /DEF:Src\RAEdit.def /OUT:"Build\RAEdit.dll" RAEdit.obj RAEdit.res >> Make.log || goto ERR_Exit
 move Build\RAEdit.lib Build\libRAEdit.dll.a || goto ERR_Exit
 
 

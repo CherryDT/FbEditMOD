@@ -490,6 +490,7 @@ ConvertIndent proc uses ebx esi edi,hMem:DWORD,nFunction:DWORD
 	LOCAL	len:DWORD
 	LOCAL	spcount:DWORD
 
+
 	mov		ebx,hMem
 	inc		nUndoid
 	mov		edx,[ebx].EDIT.cpMin
@@ -497,6 +498,8 @@ ConvertIndent proc uses ebx esi edi,hMem:DWORD,nFunction:DWORD
 	.if eax<edx
 		xchg	eax,edx
 	.endif
+	;PrintDec eax, "cpMax"
+	;PrintDec edx, "cpMin"
 	push	eax
 	invoke GetLineFromCp,ebx,edx
 	invoke GetCpFromLine,ebx,eax
@@ -513,9 +516,12 @@ ConvertIndent proc uses ebx esi edi,hMem:DWORD,nFunction:DWORD
 	invoke xGlobalAlloc,GMEM_FIXED or GMEM_ZEROINIT,eax
 	mov		edi,eax
 	mov		hCMem,eax
+	;PrintDec hCMem
 	invoke xGlobalAlloc,GMEM_FIXED or GMEM_ZEROINIT,1024*32
 	mov		hLMem,eax
+	;PrintDec hLMem
 	invoke EditCopyNoLF,ebx,edi
+	;PrintText "Copy done"
 	.while byte ptr [edi]
 		call	GetIndent
 		.if edx
@@ -576,9 +582,11 @@ ConvertIndent proc uses ebx esi edi,hMem:DWORD,nFunction:DWORD
 			add		cpMax,eax
 			add		cpen,eax
 			invoke DeleteSelection,ebx,[ebx].EDIT.cpMin,[ebx].EDIT.cpMax
+			;PrintText "Deleted"
 			mov		[ebx].EDIT.cpMin,eax
 			mov		[ebx].EDIT.cpMax,eax
 			invoke EditPaste,ebx,esi
+			;PrintText "Pasted"
 		.endif
 		call	NextLine
 	.endw

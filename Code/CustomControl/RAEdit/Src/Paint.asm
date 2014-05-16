@@ -1143,6 +1143,7 @@ RAEditPaint proc uses ebx esi edi,hWin:HWND
 	.if eax==hWin
 		.if ![ebx].EDIT.fCaretHide
 			invoke HideCaret,hWin
+			mov		[ebx].EDIT.fCaretHide,TRUE                    ; *** MOD
 		.endif
 	.endif
 	invoke BeginPaint,hWin,addr ps
@@ -1417,8 +1418,9 @@ RAEditPaint proc uses ebx esi edi,hWin:HWND
 	invoke DeleteObject,hRgn1
 	invoke GetFocus
 	.if eax==hWin
-		.if ![ebx].EDIT.fCaretHide
+		.if [ebx].EDIT.fCaretHide
 			invoke ShowCaret,hWin
+			mov		[ebx].EDIT.fCaretHide,FALSE
 		.endif
 	.endif
 	ret
@@ -1507,6 +1509,7 @@ RAEditPaintNoBuff proc uses ebx esi edi,hWin:HWND
 	.if eax==hWin
 		.if ![ebx].EDIT.fCaretHide
 			invoke HideCaret,hWin
+			mov		[ebx].EDIT.fCaretHide,TRUE                ; *** MOD
 		.endif
 	.endif
 	invoke BeginPaint,hWin,addr ps
@@ -1752,8 +1755,9 @@ RAEditPaintNoBuff proc uses ebx esi edi,hWin:HWND
 	invoke DeleteObject,hRgn1
 	invoke GetFocus
 	.if eax==hWin
-		.if ![ebx].EDIT.fCaretHide
+		.if [ebx].EDIT.fCaretHide
 			invoke ShowCaret,hWin
+			mov		[ebx].EDIT.fCaretHide,FALSE
 		.endif
 	.endif
 	ret
@@ -1815,3 +1819,27 @@ DrawPageBreak:
 
 RAEditPaintNoBuff endp
 
+xSetCursor proc, NewCursor:DWORD, ParamIsHandle:BOOL
+	
+	LOCAL	hCursor:HCURSOR	
+	
+	.if ParamIsHandle
+		invoke GetCursor
+		.if eax != NewCursor
+			invoke ShowCursor, FALSE                ; *** MOD
+			invoke SetCursor, NewCursor
+			invoke ShowCursor, TRUE
+		.endif
+	.else
+		invoke LoadCursor, 0, NewCursor             ; NewCursor MUST be a "predefined cursor"
+		mov hCursor, eax
+		invoke GetCursor
+		.if eax != hCursor
+			invoke ShowCursor, FALSE                ; *** MOD
+			invoke SetCursor, hCursor
+			invoke ShowCursor, TRUE
+		.endif
+	.endif	
+	ret
+	
+xSetCursor endp	

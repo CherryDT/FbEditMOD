@@ -208,6 +208,7 @@
 			mov		[ebx].EDIT.cpMin,eax
 			mov		[ebx].EDIT.cpMax,eax
 			push	eax
+			
 			push	[ebx].EDIT.fOvr
 			mov		[ebx].EDIT.fOvr,0
 			invoke EditInsert,ebx,[ebx].EDIT.cpMin,lParam
@@ -221,14 +222,17 @@
 			invoke GetCharPtr,ebx,[ebx].EDIT.cpMin
 			invoke SetCaretVisible,[esi].RAEDT.hwnd,[esi].RAEDT.cpy
 			invoke SetCaret,ebx,[esi].RAEDT.cpy
+			
 			invoke InvalidateEdit,ebx,[ebx].EDIT.edta.hwnd
 			invoke InvalidateEdit,ebx,[ebx].EDIT.edtb.hwnd
 			invoke SetCpxMax,ebx,[esi].RAEDT.hwnd
 			invoke SelChange,ebx,SEL_TEXT
+            
 			inc		nUndoid
 			xor		eax,eax
 			mov		fNoSaveUndo,eax
-			ret
+			ret                                                         ; *** MOD testing
+			;jmp ExDef                                                    ; *** MOD testing
 		align 4 
 		_EM_GETLINECOUNT:
 			;wParam=0
@@ -276,6 +280,7 @@
 			;wParam=0
 			;lParam=0
 			inc		nUndoid
+			;PrintText "Start Undo"
 			invoke Undo,ebx,[esi].RAEDT.hwnd
 			inc		nUndoid
 			ret

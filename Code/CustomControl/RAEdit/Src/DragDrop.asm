@@ -314,8 +314,10 @@ IDropTarget_DragOver proc uses ebx esi edi,pthis,grfKeyState,pt:POINT,lpdwEffect
 			mov		edx,pt.y
 			sub		edx,[esi].RAEDT.cpy
 			invoke SetCaretPos,eax,edx
-			invoke ShowCaret,[edi].IDropTarget.hwnd
-			mov		[ebx].EDIT.fCaretHide,FALSE
+			.if [ebx].EDIT.fCaretHide                             ; *** MOD
+				invoke ShowCaret,[edi].IDropTarget.hwnd                 
+				mov		[ebx].EDIT.fCaretHide,FALSE
+			.endif                                                ; *** MOD
 			mov		edx,lpdwEffect
 			.if grfKeyState & MK_CONTROL
 				mov		dword ptr [edx],DROPEFFECT_COPY

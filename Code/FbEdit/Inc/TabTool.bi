@@ -21,7 +21,7 @@ Enum AddTabMode
 End Enum
 
 Enum CloseTabMode
-    CTM_STD = 0
+    CTM_STD          = 0
     CTM_IGNORE_DIRTY = 1             'ignores modify state
     CTM_PROJECTCLOSE = 1 Shl 1       'preserve open state on closing project files
 End Enum

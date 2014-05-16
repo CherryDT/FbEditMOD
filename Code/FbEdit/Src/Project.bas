@@ -1486,11 +1486,11 @@ End Sub
 '
 'End Function
 
-Function GetProjectFileName (ByVal nInx As Integer, ByVal PathMode As PathType) As ZString Ptr
+Function GetProjectFileName (ByVal FileID As Integer, ByVal PathMode As PathType) As ZString Ptr
 	
 	Static FileSpec As ZString * MAX_PATH
 
-	GetPrivateProfileString @"File", Str (nInx), NULL, @FileSpec, SizeOf (FileSpec), @ad.ProjectFile
+	GetPrivateProfileString @"File", Str (FileID), NULL, @FileSpec, SizeOf (FileSpec), @ad.ProjectFile
 	
 	If IsZStrNotEmpty (FileSpec) Then
 	    Select Case PathMode
