@@ -22,11 +22,11 @@
 
 
 Sub FileMonitorStart ()
-    
+
     If TimerRunning = 0 Then
         TimerRunning = SetTimer (ah.hwnd, IDT_FILEMONITOR, 2000, Cast (TIMERPROC, @FileMonitorProc))
     EndIf
-    
+
 End Sub
 
 
@@ -35,7 +35,7 @@ Sub FileMonitorStop ()
     If TimerRunning Then
         KillTimer ah.hwnd, IDT_FILEMONITOR
         TimerRunning = 0
-    EndIf 
+    EndIf
 
 End Sub
 
@@ -44,20 +44,20 @@ Sub FileMonitorProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal idEvent As UI
 
     Dim tci      As TCITEM
     Dim i        As Integer         = 0
-    Dim hFile    As HANDLE          = Any 
-    Dim ft       As FILETIME        = Any 
-    Dim buffer   As ZString  * 1024 = Any 
-    Dim ExitCode As Integer         = Any 
+    Dim hFile    As HANDLE          = Any
+    Dim ft       As FILETIME        = Any
+    Dim buffer   As ZString  * 1024 = Any
+    Dim ExitCode As Integer         = Any
 
     tci.mask = TCIF_PARAM
-    
+
     'Print "FileMon:"; idEvent; ":"; dwTime
-    
+
     Do
         If SendMessage (ah.htabtool, TCM_GETITEM, i, Cast (LPARAM ,@tci)) Then
             GetLastWriteTime pTABMEM->filename, @ft
             If CompareFileTime (@ft, @pTABMEM->ft) > 0 Then
-                
+
                 FileMonitorStop
                 buffer = pTABMEM->filename + CR + GetInternalString (IS_FILE_CHANGED_OUTSIDE_EDITOR) + CR + GetInternalString (IS_REOPEN_THE_FILE)
                 ExitCode = MessageBox (ah.hwnd, @buffer, @szAppName, MB_YESNO Or MB_ICONEXCLAMATION)
@@ -66,8 +66,8 @@ Sub FileMonitorProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal idEvent As UI
                     ReadTheFile pTABMEM->hedit, pTABMEM->filename             ' Reload file
                     SetFileInfo pTABMEM->hedit, pTABMEM->filename
                 EndIf
-                                    
-                GetLastWriteTime pTABMEM->filename, @pTABMEM->ft 
+
+                GetLastWriteTime pTABMEM->filename, @pTABMEM->ft
                 FileMonitorStart
             EndIf
         Else
@@ -76,4 +76,4 @@ Sub FileMonitorProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal idEvent As UI
         i += 1
     Loop
 
-End Sub 
+End Sub

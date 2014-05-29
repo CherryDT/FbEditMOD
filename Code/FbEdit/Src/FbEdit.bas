@@ -797,20 +797,6 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
                         Case IDM_DEBUG_TESTSTART
                             ' test stuff only
                             Print "IDM_DEBUG_TESTSTART:"
-                            'Print SendMessage (ah.hout,EM_GETLIMITTEXT,0,0)
-
-                            'SendMessage ah.hout, EM_EXLIMITTEXT, 0, 0
-                            'Print SendMessage (ah.hout,EM_GETLIMITTEXT,0,0)
-                            'SendMessage ah.hout, EM_SETLIMITTEXT, 0, 0
-                            'Print SendMessage (ah.hout,EM_GETLIMITTEXT,0,0)
-                            hCtl = ah.hred
-                            For i = 1 To 10000
-                                buff = !"\t" + Str(i) + "abcdefghi"
-                                SendMessage hCtl, EM_EXSETSEL, 0, Cast (LPARAM, @Type<CHARRANGE>(-1, -1))
-                                SendMessage hCtl, EM_REPLACESEL, FALSE, Cast (LPARAM, @buff)       ' append
-                                SendMessage hCtl, EM_REPLACESEL, FALSE, Cast (LPARAM, @CR)
-                                'UpdateWindow hWin
-                            Next
                         #EndIf
 
                         Case IDM_FILE_NEWPROJECT
@@ -1031,11 +1017,9 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
                             EndIf
 
                         Case IDM_EDIT_UNDO
-                            Print "MainDlgProc: IDM_EDIT_UNDO"
                             SendMessage(ah.hred,EM_UNDO,0,0)
                             '
                         Case IDM_EDIT_REDO
-                            Print "MainDlgProc: IDM_EDIT_REDO"
                             SendMessage(ah.hred,EM_REDO,0,0)
                             '
                         Case IDM_EDIT_EMPTYUNDO

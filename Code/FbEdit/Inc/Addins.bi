@@ -19,12 +19,12 @@ End Type
 
 
 Enum FileOpenMode
-    FOM_STD = 0 
-    FOM_HEX 
+    FOM_STD = 0
+    FOM_HEX
     FOM_TXT
     FOM_BG                                          ' create/update Tab, dont select
 End Enum
- 
+
 
 Type WINPOS
 	fmax			As Integer						' Main window is maximized
@@ -184,7 +184,7 @@ Type ADDINDATA
 	fbcPath			As ZString*260					' Path to compiler
 	lpFBCOLOR		As FBCOLOR Ptr					' Colors
 	smake			As ZString*260					' Make compile command
-	smakemodule		As ZString*260					' *** NOT USED ***    Make compile module command  
+	smakemodule		As ZString*260					' *** NOT USED ***    Make compile module command
 	smakeoutput		As ZString*260					' Make output filename
 	smakerun		As ZString*260					' Run command line parameters
 	smakerundebug	As ZString*260					' External debugger
@@ -221,7 +221,7 @@ Type ADDINFUNCTIONS
 	HH_Help              As Sub      ()
 	GetFileID            As Function (Byref sFile As ZString) As Integer
 End Type
- 
+
 ' Addin messages you can send to FbEdit main window
 
 #Define AIM_GETHANDLES		    WM_USER+1000		' Returns a pointer to an ADDINHANDLES type

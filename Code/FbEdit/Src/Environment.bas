@@ -96,7 +96,7 @@ Function EnvironProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WP
         row(1) = @FileSpec
         GetCurrentDirectory SizeOf (FileSpec), @FileSpec
         SendDlgItemMessage hWin, IDC_GRD_READONLY, GM_ADDROW, 0, Cast (LPARAM, @row(0))
-        
+
         row(0) = @"FBE_PATH"
         row(1) = @ad.AppPath
         SendDlgItemMessage hWin, IDC_GRD_READONLY, GM_ADDROW, 0, Cast (LPARAM, @row(0))
@@ -375,11 +375,11 @@ Function EnvironProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WP
     Return TRUE
 End Function
 
-Function ExpandStrByEnviron (ByRef Source As ZString, ByVal SourceSize As Integer, ByVal MaxAttempt As Integer = 5) As BOOL 
+Function ExpandStrByEnviron (ByRef Source As ZString, ByVal SourceSize As Integer, ByVal MaxAttempt As Integer = 5) As BOOL
 
     ' Source     [in]
     ' SourceSize [in]
-    
+
     ' expands substrings like %var% with values defined in environment
     ' substitution is done inplace
     ' MaxAttempt limits forwarding e.g. greeting=%var1%, %var2%
@@ -394,16 +394,16 @@ Function ExpandStrByEnviron (ByRef Source As ZString, ByVal SourceSize As Intege
         ExpandEnvironmentStrings @Source, @Dest, SizeOf (Dest)
 
         If Dest = Source Then
-            Return TRUE 
+            Return TRUE
         Else
-            If lstrcpyn (@Source, @Dest, SourceSize) = NULL Then                ' Source = Dest 
+            If lstrcpyn (@Source, @Dest, SourceSize) = NULL Then                ' Source = Dest
                 Return FALSE
             EndIf
         EndIf
     Next
-    
-    Return FALSE                 ' too much levels                              
-End Function 
+
+    Return FALSE                 ' too much levels
+End Function
 
 Sub UpdateEnvironment
 
@@ -414,10 +414,10 @@ Sub UpdateEnvironment
     Dim pEnvironBlock  As LPTCH               = Any
     Dim EditorMode     As Long                = Any
     Dim SectionBuffer  As ZString * 64 * 1024
-    Dim FileSpec       As ZString * MAX_PATH  
+    Dim FileSpec       As ZString * MAX_PATH
     Dim pBuff          As ZString Ptr         = Any
     Dim pBuffB         As ZString Ptr         = Any
-    Dim Success        As BOOL                = Any 
+    Dim Success        As BOOL                = Any
 
     ' Path
     For i = 1 To UBound (EnvPaths)
@@ -436,7 +436,7 @@ Sub UpdateEnvironment
     SetEnvironmentVariable @"BUILD_TYPE", @""                   ' updated by MakeBuild on every call
     GetCurrentDirectory SizeOf (FileSpec), @FileSpec
     SetEnvironmentVariable @"WORKING_PATH", @FileSpec
-    
+
     SetZStrEmpty (EStringValue)
     If ah.hred then
         EditorMode = GetWindowLong (ah.hred, GWL_ID)
@@ -476,7 +476,7 @@ Sub UpdateEnvironment
             SetEnvironmentVariable EItem, pBuffB
         ' Else
             ' cant expand this, leave untouched
-        EndIf     
+        EndIf
     Loop While i
     FreeEnvironmentStrings pEnvironBlock
 

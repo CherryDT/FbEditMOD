@@ -86,7 +86,7 @@
 #Define IDM_EDIT_ERROR						10055
 #Define IDM_EDIT_ERRORNEXT					10056
 #Define IDM_EDIT_ERRORCLEAR			    	10057
-#Define IDM_EDIT_HISTORYPASTE               10090  
+#Define IDM_EDIT_HISTORYPASTE               10090
 #Define IDM_EDIT_ELEVATOR_UP                10099
 #Define IDM_EDIT_ELEVATOR_DOWN              10100
 #Define IDM_EDIT_FORWARD                    10113
@@ -233,7 +233,7 @@
 #Define IDM_HELPF1							10231
 #Define IDM_HELPCTRLF1						10232
 
-#Define IDM_FIB_OPEN_STD                    10241 
+#Define IDM_FIB_OPEN_STD                    10241
 #Define IDM_FIB_OPEN_HEX                    10242
 #Define IDM_FIB_OPEN_TXT                    10243
 #Define IDM_FIB_OPEN_EXTERN                 10244
@@ -252,7 +252,7 @@
 #Define IDA_ACCEL							1
 #Define IDB_FILES							102
 
-' User 
+' User
 '#Define FBE_CHILDLOOSINGFOCUS               WM_USER + 1            ' Notify: child window got WM_KILLFOCUS, wparam = 0, lparam = ChildWindowHandle As HWND
 
 

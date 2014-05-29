@@ -80,10 +80,10 @@ Function AboutDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPAR
             ' Create an underlined font
             lf.lfUnderline=TRUE
             hUrlFontU=CreateFontIndirect(@lf)
-            ' Create a back brush          MOD 15.1.2012 dont work - GDI leakage 
+            ' Create a back brush          MOD 15.1.2012 dont work - GDI leakage
             'hUrlBrush=CreateSolidBrush(GetSysColor(COLOR_3DFACE))
             '
-            
+
         Case WM_COMMAND
             id=LoWord(wParam)
             Event=HiWord(wParam)
@@ -102,14 +102,14 @@ Function AboutDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPAR
                     SetTextColor(Cast(HDC,wParam),0)
                 EndIf
                 SetBkMode(Cast(HDC,wParam),TRANSPARENT)
-                
+
                 ' MOD 15.1.2012    use cached brush
                 Return Cast (Integer, GetSysColorBrush (COLOR_3DFACE))
                 'Return Cast(Integer,hUrlBrush)
                 '=============================
             EndIf
             Return 0
-        
+
         Case WM_CLOSE
             ' Delete font
             DeleteObject(hUrlFontU)

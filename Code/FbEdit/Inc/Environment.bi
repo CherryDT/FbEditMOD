@@ -18,11 +18,11 @@
 #Define IDC_BTN_ADD_USERSTRING  1614
 
 Declare Function EnvironProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
-Declare Function ExpandStrByEnviron (ByRef Source As ZString, ByVal SourceSize As Integer, ByVal MaxAttempt As Integer = 5) As BOOL 
+Declare Function ExpandStrByEnviron (ByRef Source As ZString, ByVal SourceSize As Integer, ByVal MaxAttempt As Integer = 5) As BOOL
 Declare Sub UpdateEnvironment ()
 
 Type EnvironVarName     As ZString * 64
-Type EnvironPathValue   As ZString * MAX_PATH 
+Type EnvironPathValue   As ZString * MAX_PATH
 Type EnvironStringValue As ZString * 1024
 Type EnvironItem        As ZString * SizeOf (EnvironVarName) + SizeOf (EnvironStringValue) + 1
 
@@ -36,25 +36,25 @@ End Enum
 
 Const EnvDlgGrdCount As Integer = 4
 
-Dim Shared EnvDlgGrdItems(1 To EnvDlgGrdCount) As Integer => { IDC_GRD_READONLY,   _ 
+Dim Shared EnvDlgGrdItems(1 To EnvDlgGrdCount) As Integer => { IDC_GRD_READONLY,   _
                                                                IDC_GRD_PATH,       _
                                                                IDC_GRD_USERPATH,   _
                                                                IDC_GRD_USERSTRING  _
                                                              }
 
-Dim Shared EnvDlgStcItems(1 To EnvDlgGrdCount) As Integer => { IDC_STC_READONLY,   _ 
+Dim Shared EnvDlgStcItems(1 To EnvDlgGrdCount) As Integer => { IDC_STC_READONLY,   _
                                                                IDC_STC_PATH,       _
                                                                IDC_STC_USERPATH,   _
                                                                IDC_STC_USERSTRING  _
                                                              }
 
-Dim Shared EnvDlgAddItems(1 To EnvDlgGrdCount) As Integer => { NULL,                  _ 
+Dim Shared EnvDlgAddItems(1 To EnvDlgGrdCount) As Integer => { NULL,                  _
                                                                NULL,                  _
                                                                IDC_BTN_ADD_USERPATH,  _
                                                                IDC_BTN_ADD_USERSTRING _
                                                              }
 
-Dim Shared EnvDlgDelItems(1 To EnvDlgGrdCount) As Integer => { NULL,                  _ 
+Dim Shared EnvDlgDelItems(1 To EnvDlgGrdCount) As Integer => { NULL,                  _
                                                                NULL,                  _
                                                                IDC_BTN_DEL_USERPATH,  _
                                                                IDC_BTN_DEL_USERSTRING _

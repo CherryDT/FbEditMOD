@@ -82,6 +82,7 @@ Lang=Deutsch (German), By B.Wiegmann / U. Richter
 2015=Alle Suchen
 2016=Löschen
 2019=Nachrichten
+2022=Nicht Entladen nach Suche
 2216=Suchtext:
 2217=Richtung
 2500=Suchen ...
@@ -92,7 +93,8 @@ Lang=Deutsch (German), By B.Wiegmann / U. Richter
 2505=Aktuelle Auswahl
 2507=Alle Projekt Dateien
 2508=FB Include Pfad
-2509=Laden bei projektweiter Suche
+2509=Laden zum Durchsuchen
+2510=Projektweite Suche
 ;--------------------------------------------------------------------------
 [3000]
 1=OK

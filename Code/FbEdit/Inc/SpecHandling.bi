@@ -2,7 +2,7 @@
 
 Enum FBEFileType
     FBFT_UNKOWN = 0
-    FBFT_CODE   
+    FBFT_CODE
     FBFT_RESOURCE
     FBFT_WINHELP
     FBFT_HTMLHELP
@@ -12,7 +12,7 @@ End Enum
 
 Declare Function GetFileName (ByVal pFileSpec As ZString Ptr) As ZString Ptr   ' MOD 22.1.2012 String -> Zstring Ptr
 Declare Function RemoveFileExt (ByVal pFileSpec As ZString Ptr) As ZString Ptr
-'Declare Function GetFileExt (ByVal pFileSpec As ZString Ptr) As ZString Ptr 
+'Declare Function GetFileExt (ByVal pFileSpec As ZString Ptr) As ZString Ptr
 Declare Sub GetFilePath (ByVal pFileSpec As ZString Ptr)
 'Declare Sub FixPath (Byref Path As ZString)
 Declare Function GetFileBaseName (ByVal pFileSpec As ZString Ptr) As ZString Ptr
@@ -28,9 +28,8 @@ Declare Function FileExists (ByVal pSpec As ZString Ptr) As BOOL
 Declare Function DirExists (ByVal pSpec As ZString Ptr) As BOOL
 
 
-Extern DirList      As String 
-Extern DirListLCase As String 
+Extern DirList      As String
+Extern DirListLCase As String
 
 
 
-  

@@ -121,16 +121,16 @@ Function GlobalAllocUI (ByVal nType As UINT, ByVal nSize As DWORD) As HGLOBAL
     	If hMem = 0 Then
     		Select Case MessageBox(ah.hwnd,"Memory allocation failed." & CRLF & Str(nSize) & " Bytes.",@szAppName,MB_ABORTRETRYIGNORE Or MB_ICONERROR)
     		Case IDRETRY
-    		    Continue Do 
+    		    Continue Do
     		Case IDABORT
     		    End
     		Case IDIGNORE
                 Return 0
     		End Select
     	Else
-    	    Return hMem    
+    	    Return hMem
     	EndIf
-    Loop 
+    Loop
 
 End Function
 
@@ -181,7 +181,7 @@ End Function
 Function GetOpenFileNameUI (ByVal pOFN As OPENFILENAME Ptr) As BOOL
 
     Dim pErrText  As ZString Ptr   = Any
-    Dim Success   As BOOL          = Any 
+    Dim Success   As BOOL          = Any
     Dim ErrorCode As DWORD         = Any
 
 	Success = GetOpenFileName (pOFN)

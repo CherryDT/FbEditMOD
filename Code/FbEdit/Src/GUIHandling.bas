@@ -24,11 +24,11 @@
 
 Dim Shared lpOldOutputProc        As WNDPROC
 Dim Shared lpOldImmediateProc     As WNDPROC
-Dim Shared lpOldFileBrowserProc   As WNDPROC  
-                                  
-Dim Shared MruProject(IDM_FILE_MRUPROJECT_LAST - IDM_FILE_MRUPROJECT_1) As ZString * MAX_PATH 
-Dim Shared MruFile   (IDM_FILE_MRUFILE_LAST    - IDM_FILE_MRUFILE_1)    As ZString * MAX_PATH 
-                                  
+Dim Shared lpOldFileBrowserProc   As WNDPROC
+
+Dim Shared MruProject(IDM_FILE_MRUPROJECT_LAST - IDM_FILE_MRUPROJECT_1) As ZString * MAX_PATH
+Dim Shared MruFile   (IDM_FILE_MRUFILE_LAST    - IDM_FILE_MRUFILE_1)    As ZString * MAX_PATH
+
 Dim Shared ttmsg                  As MESSAGE                 ' Tooltip
 Dim Shared ttpos                  As Integer
 Dim Shared novr                   As Integer
@@ -38,20 +38,20 @@ Dim Shared BrowseForFolderDefProc As WNDPROC
 
 
 Sub DoEvents (ByVal hWin As HWND)    ' ;-)
-    
+
     Dim Bottle As MSG
-    
+
     Do While PeekMessage (@Bottle, hWin, 0, 0, PM_REMOVE)                ' hWin = NULL peeks all messages from thread
   		If TranslateAccelerator (ah.hwnd, ah.haccel, @Bottle) = 0 Then
 			If IsDialogMessage (ah.hfind, @Bottle) = 0 Then
 				If IsDialogMessage (ah.hrareseddlg, @Bottle) = 0 Then
-                    TranslateMessage @Bottle 
-                    DispatchMessage  @Bottle 
-                EndIf 
-			EndIf  
-        EndIf  
-    Loop 
-    
+                    TranslateMessage @Bottle
+                    DispatchMessage  @Bottle
+                EndIf
+			EndIf
+        EndIf
+    Loop
+
 End Sub
 
 Function BrowseForFolderProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
@@ -59,19 +59,19 @@ Function BrowseForFolderProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wPar
 	Select Case uMsg
 	'Case WM_ACTIVATE
 	'	If wParam = WA_INACTIVE Then
-	'	    SendMessage hWin, WM_CLOSE, 0, 0 
+	'	    SendMessage hWin, WM_CLOSE, 0, 0
 	'	EndIf
-	'    Return 0 
+	'    Return 0
 	Case Else
         Return CallWindowProc (BrowseForFolderDefProc, hWin, uMsg, wParam, lParam)
-	End Select     
+	End Select
 
 End Function
 
 Function BrowseForFolderCallBack(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal lParam As LPARAM,ByVal lpData As Integer) As Integer
 
 	Select Case uMsg
-	Case BFFM_INITIALIZED 
+	Case BFFM_INITIALIZED
 	    BrowseForFolderDefProc = Cast (WNDPROC, SetWindowLongPtr (hWin, GWLP_WNDPROC, Cast (LONG_PTR, @BrowseForFolderProc)))
 		PostMessage hWin, BFFM_SETSELECTION, TRUE, lpData
 	End Select
@@ -83,18 +83,18 @@ Sub BrowseForFolder (ByVal hWin As HWND, ByVal nID As Integer)
 	
 	Dim pIdL As LPCITEMIDLIST
 	Dim bri  As BROWSEINFO
-    Dim Path As ZString * MAX_PATH 
-    
+    Dim Path As ZString * MAX_PATH
+
     bri.hwndOwner       = hWin
 	'bri.pidlRoot       = 0
 	'bri.pszDisplayName = 0
 	'bri.lpszTitle      = 0
 	bri.ulFlags         = BIF_RETURNONLYFSDIRS Or BIF_BROWSEINCLUDEFILES Or BIF_NEWDIALOGSTYLE        ' Or BIF_EDITBOX
 	bri.lpfn            = @BrowseForFolderCallBack
-	bri.lParam          = Cast (LPARAM, @Path) 
+	bri.lParam          = Cast (LPARAM, @Path)
 	'bri.iImage         = 0
 
-	GetDlgItemText hWin, nID, @Path, MAX_PATH     ' get path from editbox 
+	GetDlgItemText hWin, nID, @Path, MAX_PATH     ' get path from editbox
 	pIdL = SHBrowseForFolder (@bri)
 	If pIdL Then
 		SHGetPathFromIDList pIdL, @Path
@@ -107,9 +107,9 @@ End Sub
 Function OutputProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
 	
 	Dim pt       As Point   = Any
-	Dim hMnu     As HMENU   = Any 
+	Dim hMnu     As HMENU   = Any
     Dim hPrevCur As HCURSOR = Any
-    
+
 	Select Case uMsg
 		Case WM_CONTEXTMENU
 			If CallAddins(hWin,AIM_CONTEXTMEMU,wParam,lParam,HOOK_CONTEXTMEMU)=FALSE Then
@@ -130,7 +130,7 @@ Function OutputProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPA
 				TrackPopupMenu hMnu, TPM_LEFTALIGN Or TPM_RIGHTBUTTON, pt.x, pt.y, 0, ah.hwnd, 0
 				ShowCursor FALSE
 				SetCursor hPrevCur
-				ShowCursor TRUE 
+				ShowCursor TRUE
 
 				Return 0
 			EndIf
@@ -151,10 +151,10 @@ End Function
 
 Function ImmediateProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
 	
-	Dim pt       As Point   = Any 
+	Dim pt       As Point   = Any
 	Dim hMnu     As HMENU   = Any
     Dim hPrevCur As HCURSOR = Any
-    
+
 	Select Case uMsg
 		Case WM_CONTEXTMENU
 			If CallAddins(hWin,AIM_CONTEXTMEMU,wParam,lParam,HOOK_CONTEXTMEMU)=FALSE Then
@@ -175,7 +175,7 @@ Function ImmediateProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As 
 				TrackPopupMenu hMnu, TPM_LEFTALIGN Or TPM_RIGHTBUTTON, pt.x, pt.y, 0, ah.hwnd, 0
 				ShowCursor FALSE
 				SetCursor hPrevCur
-				ShowCursor TRUE 
+				ShowCursor TRUE
 
 				Return 0
 			EndIf
@@ -195,18 +195,18 @@ End Function
 
 Function FileBrowserProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
 	
-	'Dim NotifyMsg As TV_KEYDOWN   
-	'Dim Buffer As ZString * MAX_PATH 
-	' 
+	'Dim NotifyMsg As TV_KEYDOWN
+	'Dim Buffer As ZString * MAX_PATH
+	'
 	'Select Case uMsg
 	'Case WM_KEYDOWN
 	'	Print "FileBrowser KEYDOWN"			
-	'Case WM_NOTIFY 
+	'Case WM_NOTIFY
 	'	NotifyMsg = *Cast (TV_KEYDOWN Ptr, lParam)
 	'	'Print Cast(TV_KEYDOWN Ptr,LPARAM)->wVKey
 	'	'Print Cast(TV_KEYDOWN Ptr,LPARAM)->hdr.code
 	'	If NotifyMsg.hdr.code = TVN_KEYDOWN Then
-	'		Select Case NotifyMsg.wVKey 
+	'		Select Case NotifyMsg.wVKey
 	'		case VK_RETURN
 	'			Print "RETURN"	
 	'			SendMessage hWin,FBM_GETSELECTED,0,Cast (LPARAM, @Buffer)
@@ -260,7 +260,7 @@ Sub ShowImmediate(ByVal bShow As Boolean)
 End Sub
 
 Sub TextToOutput OverLoad (Byval pText As ZString Ptr)
-    
+
     If (wpos.fview And VIEW_OUTPUT) = 0 Then                              ' show if hidden
 		SendMessage ah.hwnd, WM_COMMAND, IDM_VIEW_OUTPUT, 0
 	EndIf
@@ -273,18 +273,18 @@ Sub TextToOutput OverLoad (Byval pText As ZString Ptr)
 End Sub
 
 Sub TextToOutput OverLoad (Byval pText As ZString Ptr, ByVal SoundNo As UINT)
-    
+
     TextToOutput pText
     MessageBeep SoundNo
 
 End Sub
 
 Sub TextToOutput OverLoad (Byval pText As ZString Ptr, ByVal BookMarkType As BookMarkTypes, ByVal BookMarkID As Integer)
-    
-    Dim LastLine As LRESULT = Any  
-    
+
+    Dim LastLine As LRESULT = Any
+
     LastLine = SendMessage (ah.hout, EM_GETLINECOUNT, 0, 0)
-    TextToOutput pText    
+    TextToOutput pText
 
 	SendMessage ah.hout, REM_SETBOOKMARK, LastLine, BookMarkType
 	SendMessage ah.hout, REM_SETBMID, LastLine, BookMarkID
@@ -292,9 +292,9 @@ Sub TextToOutput OverLoad (Byval pText As ZString Ptr, ByVal BookMarkType As Boo
 End Sub
 
 Sub TextToOutput Overload (ByVal StdMsg As OutputTextTemplate)
-    
-    Dim ErrText As ZString * 512 = Any 
-    
+
+    Dim ErrText As ZString * 512 = Any
+
     Select Case StdMsg
     Case OTT_HLINE
         TextToOutput String (80, Asc ("="))
@@ -302,56 +302,56 @@ Sub TextToOutput Overload (ByVal StdMsg As OutputTextTemplate)
         FormatMessage FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError, NULL, @ErrText, SizeOf (ErrText), NULL
 		TextToOutput ErrText
     End Select
-    
+
 End Sub
 
 Sub ListAllBookmarks ()
 
      ' TabID = 0 ... n  (zerobased)
-    
+
 	Dim tci             As TCITEM
 	Dim TabID           As Integer    = 0
 	Dim LineNo          As Integer    = Any
-	Dim EditorLines     As Integer    = Any 
+	Dim EditorLines     As Integer    = Any
 	Dim OutputLine      As Integer    = Any
-	Dim HeadLineWritten As BOOLEAN    = Any 
+	Dim HeadLineWritten As BOOLEAN    = Any
 	Dim BookmarkID      As Integer    = Any
-	Dim EditorMode      As Long       = Any 
+	Dim EditorMode      As Long       = Any
 	
-	OutputLine = SendMessage (ah.hout, EM_GETLINECOUNT, 0, 0) 
+	OutputLine = SendMessage (ah.hout, EM_GETLINECOUNT, 0, 0)
 	tci.mask = TCIF_PARAM
-    
+
 	Do
 		If SendMessage (ah.htabtool, TCM_GETITEM, TabID, Cast (LPARAM, @tci)) Then
 		EditorMode = GetWindowLong (pTABMEM->hedit, GWL_ID)
 		If     EditorMode = IDC_CODEED _
-		OrElse EditorMode = IDC_TEXTED Then 
-                
+		OrElse EditorMode = IDC_TEXTED Then
+
                 EditorLines = SendMessage (pTABMEM->hedit, EM_GETLINECOUNT, 0, 0)
                 HeadLineWritten = FALSE
-                
+
     			For LineNo = 0 To EditorLines - 1
            			If SendMessage (pTABMEM->hedit, REM_GETBOOKMARK, LineNo, 0) = BMT_STD Then
-    			        If HeadLineWritten = FALSE Then      
+    			        If HeadLineWritten = FALSE Then
                    			TextToOutput pTABMEM->filename
                 			SendMessage ah.hout, REM_SETBOOKMARK, OutputLine, BMT_SPEC
                 			OutputLine += 1
-                            HeadLineWritten = TRUE 			        
+                            HeadLineWritten = TRUE 			
     			        EndIf
     			        GetLineByNo pTABMEM->hedit, LineNo, @buff
     			        TextToOutput " (" + Str (LineNo + 1) + ") " + buff
     			        SendMessage ah.hout, REM_SETBOOKMARK, OutputLine, BMT_STD
                         BookmarkID = SendMessage (ah.hout, REM_GETBMID, OutputLine, 0)
     			     	SendMessage pTABMEM->hedit, REM_SETBMID, LineNo, BookmarkID
-    
-    			        OutputLine += 1    
+
+    			        OutputLine += 1
            			EndIf
     			Next
 			EndIf			
         	TabID += 1
 		Else
 		    TextToOutput OTT_HLINE
-	        Exit Sub 
+	        Exit Sub
 		EndIf
 	Loop
 
@@ -495,8 +495,8 @@ End Sub
 
 Sub MakeSubMenu (ByVal SubMenuID As UINT, ByVal FirstID As UINT, ByVal LastID As UINT, ByRef IniSection As ZString Ptr)
 	
-	Dim ID  As UInteger  = Any 
-	Dim x   As Integer   = Any 
+	Dim ID  As UInteger  = Any
+	Dim x   As Integer   = Any
 	Dim mii As MENUITEMINFO
 
 	mii.cbSize = SizeOf (MENUITEMINFO)
@@ -507,31 +507,31 @@ Sub MakeSubMenu (ByVal SubMenuID As UINT, ByVal FirstID As UINT, ByVal LastID As
 	    DeleteMenu mii.hSubMenu, ID, MF_BYCOMMAND
 		GetPrivateProfileString IniSection, Str (ID - FirstID + 1), NULL, @buff, GOD_EntrySize, @ad.IniFile
 		If IsZStrNotEmpty (buff) Then
-			ReplaceChar1stHit buff, Asc (","), NULL 
+			ReplaceChar1stHit buff, Asc (","), NULL
 			If buff = "-" Then
-				AppendMenu mii.hSubMenu, MF_SEPARATOR, ID, NULL 
+				AppendMenu mii.hSubMenu, MF_SEPARATOR, ID, NULL
 			Else
 				AppendMenu mii.hSubMenu, MF_STRING, ID, @buff
 			EndIf
 		EndIf
-	Next 
+	Next
 
 End Sub
 
 
 Sub MakeMenuCustomFilter ()
 	
-	Dim wfd        As WIN32_FIND_DATA    = Any 
-	Dim hwfd       As HANDLE             = Any 
-	Dim SearchSpec As ZString * MAX_PATH = Any 
-    Dim Success    As BOOL               = Any 
+	Dim wfd        As WIN32_FIND_DATA    = Any
+	Dim hwfd       As HANDLE             = Any
+	Dim SearchSpec As ZString * MAX_PATH = Any
+    Dim Success    As BOOL               = Any
    	Dim i          As Integer            = Any
-   	Dim mii        As MENUITEMINFO       
-    
+   	Dim mii        As MENUITEMINFO
+
 
 	SearchSpec = ad.AppPath + $"\CustomFilter\*.exe"
     i          = IDM_FORMAT_CUSTOMFILTER_1
-    
+
     With mii
         .cbSize = SizeOf (MENUITEMINFO)
         .fMask  = MIIM_SUBMENU
@@ -540,7 +540,7 @@ Sub MakeMenuCustomFilter ()
 
 	hwfd = FindFirstFile (@SearchSpec, @wfd)
 	If hwfd <> INVALID_HANDLE_VALUE Then
-		Do 
+		Do
  			If wfd.dwFileAttributes And FILE_ATTRIBUTE_DIRECTORY Then
 				                                                           ' skip directories
  			Else                                                           ' add to menu
@@ -553,7 +553,7 @@ Sub MakeMenuCustomFilter ()
    				If i = IDM_FORMAT_CUSTOMFILTER_LAST Then
    				    Exit Do
    				Else
-   				    i += 1    
+   				    i += 1
    				EndIf
  			EndIf
 
@@ -567,16 +567,16 @@ End Sub
 Sub MakeMenuMruProjects ()
 	
 	Dim Item  As ZString * 260
-	Dim pSpec As ZString Ptr = Any 
+	Dim pSpec As ZString Ptr = Any
 	Dim i     As Integer     = Any
-	Dim j     As Integer     = Any 
-	Dim x     As Integer     = Any 
-	Dim hMnu  As HMENU       = Any 
+	Dim j     As Integer     = Any
+	Dim x     As Integer     = Any
+	Dim hMnu  As HMENU       = Any
 
 	hMnu = GetSubMenu (ah.hmenu, 0)
 	For i = 0 To 3
 		DeleteMenu hMnu, IDM_FILE_MRUPROJECT_1 + i, MF_BYCOMMAND
-	Next 
+	Next
 
 	j = 0
 	For i = 1 To 4
@@ -588,16 +588,16 @@ Sub MakeMenuMruProjects ()
 				j += 1
 			EndIf
 		EndIf
-	Next 
+	Next
 	CallAddins(ah.hwnd,AIM_MENUREFRESH,0,0,HOOK_MENUREFRESH)
 
 End Sub
 
 Sub AddMruProject ()
 	'Dim sItem As ZString*260
-	Dim pFile As ZString Ptr = Any 
-	Dim i As Integer = Any 
-	Dim x As Integer = Any 
+	Dim pFile As ZString Ptr = Any
+	Dim i As Integer = Any
+	Dim x As Integer = Any
 	Dim hMnu As HMENU
 
 	hMnu = GetSubMenu (ah.hmenu, 0)
@@ -607,13 +607,13 @@ Sub AddMruProject ()
 		If lstrcmpi (@MruProject(i)[x], @ad.ProjectFile) = 0 Then
 			For x=i To 2
 				MruProject(x)=MruProject(x+1)
-			Next 
-			SetZStrEmpty (MruProject(3))             'MOD 26.1.2012 
+			Next
+			SetZStrEmpty (MruProject(3))             'MOD 26.1.2012
 		EndIf
-	Next 
+	Next
 	For i=3 To 1 Step -1
 		MruProject(i)=MruProject(i-1)
-	Next 
+	Next
 	MruProject(0)=ProjectDescription & "," & ad.ProjectFile
 	For i=0 To 3
 		DeleteMenu(hMnu,IDM_FILE_MRUPROJECT_1+i,MF_BYCOMMAND)
@@ -622,7 +622,7 @@ Sub AddMruProject ()
 		If x Then
 			AppendMenu(hMnu,MF_STRING,IDM_FILE_MRUPROJECT_1+i,"&" & Str(i+1) & " " & Left(MruProject(i),x-1))
 		EndIf
-	Next 
+	Next
 	CallAddins(ah.hwnd,AIM_MENUREFRESH,0,0,HOOK_MENUREFRESH)
 
 End Sub
@@ -660,15 +660,15 @@ Sub MakeMenuMruFiles ()
 			'	EndIf
 			'EndIf
 		EndIf
-	Next 
+	Next
 	CallAddins(ah.hwnd,AIM_MENUREFRESH,0,0,HOOK_MENUREFRESH)
 
 End Sub
 
 Sub AddMruFile (ByRef sFile As ZString)
 
-	Dim i As Integer = Any 
-	Dim n As Integer = Any 
+	Dim i As Integer = Any
+	Dim n As Integer = Any
 	Dim mii As MENUITEMINFO
 
 	If fProject Then
@@ -684,12 +684,12 @@ Sub AddMruFile (ByRef sFile As ZString)
 	For i = 0 To 8                                         ' remove dup from new item
 		If lstrcmpi (MruFile(i), sFile) = 0 Then
 			For n = i To 7
-				MruFile(n) = MruFile(n + 1)                ' by moving following items one place downwards  
-			Next 
+				MruFile(n) = MruFile(n + 1)                ' by moving following items one place downwards
+			Next
 			SetZStrEmpty (MruFile(8))                      ' free last item
-			Exit For 
+			Exit For
 		EndIf
-	Next 
+	Next
 	
 	For i = 8 To 1 Step -1                                 ' move all items one place upwards
 		MruFile(i) = MruFile(i - 1)
@@ -699,10 +699,10 @@ Sub AddMruFile (ByRef sFile As ZString)
 	For i = 0 To 8
 		DeleteMenu mii.hSubMenu, IDM_FILE_MRUFILE_1 + i, MF_BYCOMMAND
 		WritePrivateProfileString @"MruFile", Str(i + 1), @MruFile(i), @ad.IniFile
-		If IsZStrNotEmpty (MruFile(i)) Then 
+		If IsZStrNotEmpty (MruFile(i)) Then
 			AppendMenu mii.hSubMenu, MF_STRING, IDM_FILE_MRUFILE_1 + i, "&" + Str (i + 1) + " " + *GetFileName (MruFile(i))
-		EndIf 
-	Next 
+		EndIf
+	Next
 	
 	CallAddins ah.hwnd, AIM_MENUREFRESH, 0,0, HOOK_MENUREFRESH
 End Sub

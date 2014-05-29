@@ -2,7 +2,7 @@
 
 Enum GetPrivateProfileSpecMode       ' (bitmasked value)
     GPP_UnTouched = 0                ' no expansion / existence not checked
-    GPP_Expanded  = 1                ' environment expansion will be done 
+    GPP_Expanded  = 1                ' environment expansion will be done
     GPP_MustExist = ( 1 Shl 1)       ' if Spec doesnt exist, empty String is returned
 End Enum
 

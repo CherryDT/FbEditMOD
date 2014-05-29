@@ -24,7 +24,7 @@ Extern flocallist    As Boolean
 Extern fincludelist  As Boolean
 Extern fincliblist   As Boolean
 Extern fenumlist     As Boolean
-Extern sEditFileName As ZString * MAX_PATH 
+Extern sEditFileName As ZString * MAX_PATH
 Extern ccpos         As ZString Ptr
 Extern ccstring      As ZString * 65536
 

@@ -194,7 +194,7 @@ Type MEMSEARCH
 	fr					As Integer
 End Type
 
-Type PROPERTYITEM 
+Type PROPERTYITEM
 	nType			    As Integer				' Type 1 to 255
 	nOwner			    As Integer				' Project file ID
 	nLine			    As Integer 				' Line number

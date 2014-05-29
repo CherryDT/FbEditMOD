@@ -32,7 +32,7 @@ Dim Shared grdcol       As Integer
 Dim Shared hGrdBr       As HBRUSH
 
 Function TabOpt1Proc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer
-    
+
     ' Name Export Tab
 	
 	Select Case uMsg
@@ -107,7 +107,7 @@ Function TabOpt2Proc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 						    row(1)=Cast(Integer,@buff[x])
 						Else
 						    row(1)=0
-						EndIf      
+						EndIf
 					Else
 						row(0)=Cast(Integer,@buff)
 						row(1)=0
@@ -286,7 +286,7 @@ Function TabOpt4Proc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			nInx=1
 			While nInx<=64
 				fbcust.lpszStyle=@buff
-				SetZStrEmpty (buff)             'MOD 26.1.2012 
+				SetZStrEmpty (buff)             'MOD 26.1.2012
 				LoadFromIni "CustStyle", Str (nInx), "044", @fbcust, FALSE
 				If IsZStrNotEmpty (buff) Then
 					row(0)=@buff
@@ -418,7 +418,7 @@ Function TabOpt5Proc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 			fbrstype.lpszedit=@sEdit
 			nInx=1
 			While nInx<=32
-				SetZStrEmpty (sType)             'MOD 26.1.2012 
+				SetZStrEmpty (sType)             'MOD 26.1.2012
 				fbrstype.nid=0
 				LoadFromIni "ResType", Str (nInx), "0400", @fbrstype, FALSE
 				If IsZStrNotEmpty (sType) OrElse fbrstype.nid<>0 Then
@@ -587,7 +587,7 @@ Function TabOptionsProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WP
 			ts.pszText=StrPtr(buff)
 			SendMessage(hTabOpt,TCM_INSERTITEM,4,Cast(Integer,@ts))
 			' Create the tab dialogs
-			hTabDlg(0) = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLG_RESEDOPTION_TAB1), hTabOpt, @TabOpt1Proc)  ' Name Export  
+			hTabDlg(0) = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLG_RESEDOPTION_TAB1), hTabOpt, @TabOpt1Proc)  ' Name Export
 			hTabDlg(1) = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLG_RESEDOPTION_TAB3), hTabOpt, @TabOpt3Proc)  ' Grid Options
 			hTabDlg(2) = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLG_RESEDOPTION_TAB2), hTabOpt, @TabOpt2Proc)  ' Custom Controls
 			hTabDlg(3) = CreateDialog (hInstance, MAKEINTRESOURCE (IDD_DLG_RESEDOPTION_TAB4), hTabOpt, @TabOpt4Proc)  ' Custom Styles

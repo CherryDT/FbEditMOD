@@ -8,10 +8,10 @@
 
 Enum EditorType
     ET_ResEd   = 1
-    ET_CodeEd 
-    ET_HexEd  
-    ET_TextEd 
-    ET_CoTxEd  
+    ET_CodeEd
+    ET_HexEd
+    ET_TextEd
+    ET_CoTxEd
     ET_AlphaEd
 End Enum
 
@@ -30,7 +30,7 @@ Declare Sub IndentComment (Byref char As zString,ByVal fUn As Boolean)
 Declare Sub BlockModeToggle (ByVal hEditor As HWND = ah.hred)
 
 Declare Sub GetLineByNo (ByVal hWin As HWND, ByVal LineNo As Integer, Byval pBuff As ZString Ptr)
-Declare Sub GetLineUpToCaret (ByVal hWin As HWND, ByRef pBuff As ZString Ptr, ByRef LineNo As Integer) 
+Declare Sub GetLineUpToCaret (ByVal hWin As HWND, ByRef pBuff As ZString Ptr, ByRef LineNo As Integer)
 Declare Sub GetLineByCaret (ByVal hWin As HWND, ByRef pBuff As ZString Ptr, ByRef LineNo As Integer)     ' MOD 21.1.2012   Function GetLineBySel(ByVal hWin As HWND,ByRef lpszBuff As ZString Ptr) As Integer
 Declare Sub GetStringLiteralByCaret (ByVal hWin As HWND, ByRef pBuff As ZString Ptr, ByRef LineNo As Integer)
 
@@ -69,10 +69,10 @@ Type EditorTypeInfo
 End Type
 
 #Define MAXBLOCKDEFS 50
- 
+
 Extern lpOldCoTxEdProc    As WNDPROC
 Extern lpOldParCoTxEdProc As WNDPROC
-Extern lpOldCCProc        As WNDPROC 
+Extern lpOldCCProc        As WNDPROC
 
 Extern lstpos             As LASTPOS
 Extern szCaseConvert      As ZString * 32

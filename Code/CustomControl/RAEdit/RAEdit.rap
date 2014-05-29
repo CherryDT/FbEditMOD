@@ -104,12 +104,12 @@ CompanyName=
 
 [Size]
 1=0,0,0,0,44212
-16=0,666,210,222,23294
+16=0,666,210,222,36417
 22=0,222,210,222,4169
-23=210,222,210,222,2820
+23=210,222,210,222,15327
 24=210,666,210,222,2526
 19=210,0,210,222,8797
-2=840,222,210,222,8200
+2=840,222,210,222,5163
 9=0,444,210,222,10183
 10=630,666,210,222,40604
 11=210,444,210,222,11340
@@ -140,16 +140,16 @@ CompanyName=
 0=
 
 [Find]
-1="CONVERT_TABTOSPACE"
-2="replacesel"
-3="_EM_Replacesel"
-4="_EM_REDO"
-5="_EM_UNDO"
-6="em_undo"
-7="xSetCursor"
-8="InvalidateRect,[ebx].EDIT.edta.hwnd"
-9="InvalidateRect"
-10="rem_repaint"
+1="ischarpos"
+2="CONVERT_TABTOSPACE"
+3="replacesel"
+4="_EM_Replacesel"
+5="_EM_REDO"
+6="_EM_UNDO"
+7="em_undo"
+8="xSetCursor"
+9="InvalidateRect,[ebx].EDIT.edta.hwnd"
+10="InvalidateRect"
 
 [AutoLoad]
 AutoLoad=1,22,9,16,19,13,10,15,21,2,14,23,24
@@ -191,7 +191,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=16
+MilestoneOnDateDate=29
 MilestoneOnDateTimeYear=2006
 MilestoneOnDateTimeMonth=8
 MilestoneOnDateTimeDate=27
@@ -253,7 +253,7 @@ Group=Assembly,Resources,Misc
 3=
 
 [PTimer]
-PTimer=1331037898
+PTimer=1331767125
 
 [RADebugBP]
 16=

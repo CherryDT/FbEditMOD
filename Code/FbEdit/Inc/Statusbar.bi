@@ -1,6 +1,6 @@
 
 
-    Declare Sub SbarInit           () 
+    Declare Sub SbarInit           ()
     Declare Sub SbarClear          ()
     Declare Sub SbarLabelLockState ()
     Declare Sub SbarSetBlockMode   ()

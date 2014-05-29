@@ -46,7 +46,7 @@ Declare Sub MakeMenuCustomFilter ()
 
 Extern lpOldOutputProc      As WNDPROC
 Extern lpOldImmediateProc   As WNDPROC
-Extern lpOldFileBrowserProc As WNDPROC  
+Extern lpOldFileBrowserProc As WNDPROC
 
 Extern MruProject(3)        As ZString * 260
 Extern MruFile(8)           As ZString * 260

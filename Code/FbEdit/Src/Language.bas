@@ -21,15 +21,15 @@ Sub ConvertFrom (ByVal Buff As UByte Ptr)        ' MOD 31.1.2012    (ByVal Buff 
 	Dim x As Integer = 0
     Dim y As Integer = 0
 
-    Do  
+    Do
 	    Select Case Buff[x]
-	    Case Asc ("\") 
+	    Case Asc ("\")
 	        Select Case Buff[x+1]
 	        Case Asc("t")            '\t
 	            Buff[y] = 9
     	        x += 2
 	            y += 1
-	        Case Asc("r")            '\r 
+	        Case Asc("r")            '\r
 	            Buff[y] = 13
     	        x += 2
 	            y += 1
@@ -52,7 +52,7 @@ Sub ConvertFrom (ByVal Buff As UByte Ptr)        ' MOD 31.1.2012    (ByVal Buff 
 	    End Select
     Loop	
 
-	'Dim x As Integer = Any 
+	'Dim x As Integer = Any
     '
 	'x=1
 	'While x
@@ -82,7 +82,7 @@ Function FindString(ByVal hMem As HGLOBAL,Byref szApp As zString,Byref szKey As 
 	Dim buff As ZString*1024
 	Dim As Integer x,y,z
 	Dim lp As ZString Ptr
-    
+
 	If hMem Then
 		buff=!"\13\10[" & szApp & !"]\13\10"
 		lp=hMem
@@ -100,13 +100,13 @@ Function FindString(ByVal hMem As HGLOBAL,Byref szApp As zString,Byref szKey As 
 				buff=Mid(*lp,x,y-x)
 				ConvertFrom(@buff)
 			Else
-				SetZStrEmpty (buff)             'MOD 26.1.2012 
+				SetZStrEmpty (buff)             'MOD 26.1.2012
 			EndIf
 		Else
-			SetZStrEmpty (buff)                 'MOD 26.1.2012 
+			SetZStrEmpty (buff)                 'MOD 26.1.2012
 		EndIf
 	Else
-		SetZStrEmpty (buff)                     'MOD 26.1.2012 
+		SetZStrEmpty (buff)                     'MOD 26.1.2012
 	EndIf
 	Return buff
 

@@ -37,15 +37,15 @@ Dim Shared nType       As Integer
 '
 '	For nID=nID To nID+20
 '		DeleteMenu(hSubMenu,nID,MF_BYCOMMAND)
-'	Next 
+'	Next
 '
 'End Sub
 
 'Sub SetToolMenu(ByVal hWin As HWND)
 '	Dim hSubMnu As HMENU
-'	Dim nInx As Integer = Any 
-'	Dim nID As Integer  = Any 
-'	Dim sItem As GOD_EntryName 
+'	Dim nInx As Integer = Any
+'	Dim nID As Integer  = Any
+'	Dim sItem As GOD_EntryName
 '	Dim x As Integer
 '	Dim mii As MENUITEMINFO
 '
@@ -68,7 +68,7 @@ Dim Shared nType       As Integer
 '			EndIf
 '			nID += 1
 '		EndIf
-'	Next 
+'	Next
 '
 'End Sub
 
@@ -106,18 +106,18 @@ Dim Shared nType       As Integer
 
 Sub EditSet (ByVal hWin As HWND, ByVal EntryName As ZString Ptr, ByVal EntryItem As ZString Ptr)
 
-	fListUpdate = FALSE                  
+	fListUpdate = FALSE
 	SetDlgItemText hWin, IDC_EDT_ITEMNAME, EntryName
 	SetDlgItemText hWin, IDC_EDT_CMDLINE, EntryItem
     fListUpdate = TRUE
-    
+
 End Sub
 
 Sub EditUpdate (ByVal hWin As HWND)
 	
 	Dim Current As Integer     = Any
-	Dim pBuffB  As ZString Ptr = Any 
-	    
+	Dim pBuffB  As ZString Ptr = Any
+	
     Current = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCURSEL, 0, 0)
 	If Current <> LB_ERR Then
 		SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_GETTEXT, Current, Cast (LPARAM, @buff)
@@ -129,10 +129,10 @@ End Sub
 
 Sub ListUpdate (ByVal hWin As HWND)
 	
-	Dim i As UInteger = Any 
-    Dim n As Integer  = Any 
-    
-    If fListUpdate Then 
+	Dim i As UInteger = Any
+    Dim n As Integer  = Any
+
+    If fListUpdate Then
     	GetDlgItemText hWin, IDC_EDT_ITEMNAME, @buff, SizeOf (GOD_EntryName)
     	TrimWhiteSpace buff
     	ZStrReplaceChar @buff, Asc (","), Asc ("-")           ' forbidden char
@@ -140,26 +140,26 @@ Sub ListUpdate (ByVal hWin As HWND)
     	buff[n] = VK_TAB
     	GetDlgItemText hWin, IDC_EDT_CMDLINE, @buff[n + 1], SizeOf (GOD_EntryData)
     	TrimWhiteSpace buff[n + 1]
-    
+
     	i = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCURSEL, 0, 0)
     	If i = LB_ERR Then i = 0
     	
     	SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_DELETESTRING, i, 0
     	SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_INSERTSTRING, i, Cast (LPARAM, @buff)
     	SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_SETCURSEL, i, 0
-    EndIf 
+    EndIf
 
 End Sub
 
 Sub GenericOptSave (ByVal hWin As HWND)
 	
-	'Dim nInx     As Integer     = Any 
-	'Dim nID      As Integer     = Any 
-	'Dim x        As Integer     = Any 
-	'Dim y        As Integer     = Any  
-	Dim n        As Integer     = Any 
-	Dim i        As Integer     = Any  
-	Dim pSection As ZString Ptr = Any 
+	'Dim nInx     As Integer     = Any
+	'Dim nID      As Integer     = Any
+	'Dim x        As Integer     = Any
+	'Dim y        As Integer     = Any
+	Dim n        As Integer     = Any
+	Dim i        As Integer     = Any
+	Dim pSection As ZString Ptr = Any
 	Dim pFile    As ZString Ptr = Any
     Dim pBuff    As ZString Ptr = Any
 	'Dim sItem    As ZString * GOD_EntrySize
@@ -170,9 +170,9 @@ Sub GenericOptSave (ByVal hWin As HWND)
 	'buff[1] = 0
 
 	'Select Case nType
-	'Case GODM_ToolsMenu 
+	'Case GODM_ToolsMenu
 	'	WritePrivateProfileSection @"Tools",    @buff,                                        @ad.IniFile
-	'Case GODM_HelpMenu 
+	'Case GODM_HelpMenu
 	'	GetPrivateProfileString    @"Help",     @"F1",        NULL, @sItem,  SizeOf (sItem),  @ad.IniFile
 	'	GetPrivateProfileString    @"Help",     @"CtrlF1",    NULL, @sItem2, SizeOf (sItem2), @ad.IniFile
 	'	GetPrivateProfileString    @"Help",     @"FbEdit",    NULL, @sItem3, SizeOf (sItem3), @ad.IniFile
@@ -181,7 +181,7 @@ Sub GenericOptSave (ByVal hWin As HWND)
 	'	WritePrivateProfileString  @"Help",     @"F1",              @sItem,                   @ad.IniFile
 	'	WritePrivateProfileString  @"Help",     @"CtrlF1",          @sItem2,                  @ad.IniFile
 	'	WritePrivateProfileString  @"Help",     @"FbEdit",          @sItem3,                  @ad.IniFile
-	'Case GODM_MakeOptCollection 
+	'Case GODM_MakeOptCollection
 	'	nInx = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCURSEL, 0, 0)
    	'	If nInx = LB_ERR Then nInx = 0
 	'	x = GetPrivateProfileInt  (@"Make",     @"Module",    0,                              @ad.IniFile)
@@ -190,19 +190,19 @@ Sub GenericOptSave (ByVal hWin As HWND)
 	'	WritePrivateProfileString  @"Make",     @"Current",         Str (nInx + 1),           @ad.IniFile
 	'	WritePrivateProfileString  @"Make",     @"Module",          Str (x),                  @ad.IniFile
 	'	WritePrivateProfileString  @"Make",     @"fbcPath",         @sItem,                   @ad.IniFile
-	'Case GODM_MakeOptProject                                                                                   
-	'	nInx = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCURSEL, 0, 0)                       
-	'	If nInx = LB_ERR Then nInx = 0                                                        
+	'Case GODM_MakeOptProject
+	'	nInx = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCURSEL, 0, 0)
+	'	If nInx = LB_ERR Then nInx = 0
 	'	x = GetPrivateProfileInt  (@"Make",     @"Recompile", 0,                              @ad.ProjectFile)
 	'	y = GetPrivateProfileInt  (@"Make",     @"Module",    0,                              @ad.ProjectFile)
 	'	WritePrivateProfileSection @"Make",     @buff,                                        @ad.ProjectFile
 	'	WritePrivateProfileString  @"Make",     @"Current",         Str (nInx + 1),           @ad.ProjectFile
 	'	WritePrivateProfileString  @"Make",     @"Recompile",       Str (x),                  @ad.ProjectFile
 	'	WritePrivateProfileString  @"Make",     @"Module",          Str (y),                  @ad.ProjectFile
-	'Case GODM_RegExLib                                                                                    
+	'Case GODM_RegExLib
 	'    WritePrivateProfileSection @"RegExLib", @buff,                                        @ad.IniFile
 	'End Select
-    
+
 	Select Case nType
 	Case GODM_ToolsMenu
 		pSection = @"Tools"      : pFile = @ad.IniFile
@@ -212,15 +212,15 @@ Sub GenericOptSave (ByVal hWin As HWND)
 		pSection = @"Make"       : pFile = @ad.IniFile
 	Case GODM_MakeOptProject, GODM_MakeOptModule
 		pSection = @"Make"       : pFile = @ad.ProjectFile
-	Case GODM_RegExLib 
+	Case GODM_RegExLib
 	    pSection = @"RegExLib"   : pFile = @ad.IniFile
 	Case Else
-	    Exit Sub 
-	End Select 
-    
+	    Exit Sub
+	End Select
+
     For i = 1 To GOD_MaxItems
         n = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETTEXT, i - 1, Cast (LPARAM, @buff))
-        If n > 0 Then 
+        If n > 0 Then
             pBuff = @buff
 			ReplaceChar1stHit buff, VK_TAB, Asc (",")
         Else
@@ -242,18 +242,18 @@ Sub GenericOptSave (ByVal hWin As HWND)
 	'			WritePrivateProfileString @"Help",     Str (nID), @buff, @ad.IniFile
 	'		Case GODM_MakeOptCollection
 	'			WritePrivateProfileString @"Make",     Str (nID), @buff, @ad.IniFile
-	'		Case GODM_MakeOptProject 
+	'		Case GODM_MakeOptProject
 	'			WritePrivateProfileString @"Make",     Str (nID), @buff, @ad.ProjectFile
-	'		Case GODM_RegExLib 
+	'		Case GODM_RegExLib
 	'		    WritePrivateProfileString @"RegExLib", Str (nID), @buff, @ad.IniFile
-	'		End Select 
+	'		End Select
 	'		nID += 1
 	'	EndIf
 	'	nInx += 1
 	'Loop
 	
 	'Select Case nType
-	'Case GODM_ToolsMenu   
+	'Case GODM_ToolsMenu
 	'	'SetToolMenu(ah.hwnd)
 	'	MakeSubMenu IDM_TOOLS, IDM_TOOLS_USER_1, IDM_TOOLS_USER_LAST, "Tools"
 	'	CallAddins(ah.hwnd,AIM_MENUREFRESH,0,0,HOOK_MENUREFRESH)
@@ -263,28 +263,28 @@ Sub GenericOptSave (ByVal hWin As HWND)
 	'	CallAddins(ah.hwnd,AIM_MENUREFRESH,0,0,HOOK_MENUREFRESH)
 	''Case GODM_MakeOptCollection, GODM_MakeOptProject
 	''	GetMakeOption
-	'End Select 
+	'End Select
 
 End Sub
 
 Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
 	
-	Dim id      As Long 
-	Dim Event   As Long 
+	Dim id      As Long
+	Dim Event   As Long
 	Dim nInx    As Integer
-	Dim nMax    As Integer 
+	Dim nMax    As Integer
 	Dim x       As Integer
 	Dim sItem   As GOD_EntryName
 	Dim sCmd    As GOD_EntryData
 	Dim CmdLine As ZString * (32 * 1024)
 	Dim ArgList As ZString * MAX_PATH
-	Dim pBuff   As ZString Ptr 
+	Dim pBuff   As ZString Ptr
 	Dim ofn     As OPENFILENAME
-    Dim i       As Integer               = Any 
-    Dim n       As Integer               = Any 
-    Dim Success As BOOL                  = Any 
-    Dim TabStop As Const Integer         = 140     ' separates name and command (listbox width)  
-           
+    Dim i       As Integer               = Any
+    Dim n       As Integer               = Any
+    Dim Success As BOOL                  = Any
+    Dim TabStop As Const Integer         = 140     ' separates name and command (listbox width)
+
 	Select Case uMsg
 		Case WM_INITDIALOG
 			TranslateDialog(hWin,IDD_DLG_GENERICOPTION)
@@ -297,16 +297,16 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 			SendDlgItemMessage hWin, IDC_BTN_DOWN, BM_SETIMAGE, IMAGE_ICON, Cast (LPARAM, ImageList_GetIcon (ah.hmnuiml, 3, ILD_NORMAL))
 			nType = lParam
 			Select Case nType
-			Case GODM_ToolsMenu 
+			Case GODM_ToolsMenu
 				buff=GetInternalString(IS_TOOLS_MENU_OPTION)
-			Case GODM_HelpMenu 
+			Case GODM_HelpMenu
 				buff=GetInternalString(IS_HELP_MENU_OPTION)
 			Case GODM_MakeOptCollection
 				buff=GetInternalString(IS_BUILD_OPTIONS)
-			Case GODM_MakeOptProject 
+			Case GODM_MakeOptProject
 				buff=GetInternalString(IS_PROJECT_BUILD_OPTIONS)
 				ShowDlgItem (hWin, IDC_BTN_IMPORT, SW_SHOW)
-			Case GODM_MakeOptImport 
+			Case GODM_MakeOptImport
 				buff=GetInternalString(IS_IMPORT_BUILD_OPTION)
 				ShowDlgItem (hWin, IDC_BTN_INSERT, SW_HIDE)
 				ShowDlgItem (hWin, IDC_BTN_DELETE, SW_HIDE)
@@ -315,7 +315,7 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 				EnableDlgItem(hWin,IDC_EDT_CMDLINE,FALSE)
 				EnableDlgItem(hWin,IDC_EDT_ITEMNAME,FALSE)
 				EnableDlgItem(hWin,IDC_BTN_EXPLORE,FALSE)
-			Case GODM_RegExLib 
+			Case GODM_RegExLib
 			    buff = GetInternalString (IS_REGEX_LIB)
    				ShowDlgItem (hWin, IDC_BTN_EXPLORE, SW_HIDE)          ' remove explore button
 			Case GODM_MakeOptModule
@@ -333,7 +333,7 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 					GetPrivateProfileString @"Help", Str (i), NULL, @buff, SizeOf (sCmd), @ad.IniFile
 				Case GODM_MakeOptCollection, GODM_MakeOptImport
 					GetPrivateProfileString @"Make", Str (i), NULL, @buff, SizeOf (sCmd), @ad.IniFile
-				Case GODM_MakeOptProject, GODM_MakeOptModule 
+				Case GODM_MakeOptProject, GODM_MakeOptModule
 					GetPrivateProfileString @"Make", Str (i), NULL, @buff, SizeOf (sCmd), @ad.ProjectFile
 				Case GODM_RegExLib
 				    GetPrivateProfileString @"RegExLib", Str (i), NULL, @buff, SizeOf (sCmd), @ad.IniFile
@@ -346,7 +346,7 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 				    Exit Do
 				EndIf
 			    i += 1
-			Loop  
+			Loop
 			
 			Select Case nType
 			Case GODM_MakeOptCollection
@@ -354,7 +354,7 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 			Case GODM_MakeOptProject
 				nInx = GetPrivateProfileInt (@"Make", @"Current", 1, @ad.ProjectFile) - 1
 			Case Else
-			    nInx = 0    
+			    nInx = 0
 			End Select
 
 			SendDlgItemMessage(hWin,IDC_LST_ITEMS,LB_SETCURSEL,nInx,0)
@@ -413,11 +413,11 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 							'
 					    Case IDC_BTN_IMPORT
 							n = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCOUNT, 0, 0)
-							If n < GOD_MaxItems Then  
+							If n < GOD_MaxItems Then
     							x = nType
     							i = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_GENERICOPTION), hWin, @GenericOptDlgProc, GODM_MakeOptImport)
     							nType = x
-							    If i Then 
+							    If i Then
     								GetPrivateProfileString @"Make", Str (i), NULL, @buff, GOD_EntrySize, @ad.IniFile
 									ReplaceChar1stHit buff, Asc (","), VK_TAB
     								i = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCURSEL, 0, 0)
@@ -432,7 +432,7 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 							'
 					    Case IDC_BTN_INSERT
 							i = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCOUNT, 0, 0)
-							If i < GOD_MaxItems Then 
+							If i < GOD_MaxItems Then
     							nInx = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCURSEL, 0, 0)
     							If nInx = LB_ERR Then nInx = 0
     							SendDlgItemMessage hWin, IDC_LST_ITEMS, LB_INSERTSTRING, nInx, Cast (LPARAM, @!"\t")
@@ -460,15 +460,15 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 							GetDlgItemText hWin, IDC_EDT_CMDLINE, @CmdLine, SizeOf (sCmd)
 							
 							Select Case nType
-							Case GODM_HelpMenu 
+							Case GODM_HelpMenu
 								CmdLineSubstExeUI CmdLine, hWin, @HLPFilterString
 							Case Else
 								CmdLineSubstExeUI CmdLine, hWin, @EXEFilterString
 							End Select
 							
 	                        If lstrlen (CmdLine) >= SizeOf (sCmd) Then 						
-                                (@CmdLine)[SizeOf (sCmd) - 1] = 0                       ' trunc 
-                                TextToOutput "*** commandline too long - substitution failed ***", MB_ICONHAND 
+                                (@CmdLine)[SizeOf (sCmd) - 1] = 0                       ' trunc
+                                TextToOutput "*** commandline too long - substitution failed ***", MB_ICONHAND
                                 TextToOutput CmdLine
 	                        EndIf	
 							SetDlgItemText hWin, IDC_EDT_CMDLINE, @CmdLine
@@ -478,7 +478,7 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
                     ListUpdate hWin
 					'
 				Case LBN_SELCHANGE
-					EditUpdate hWin 
+					EditUpdate hWin
 					'
 			End Select
 			'

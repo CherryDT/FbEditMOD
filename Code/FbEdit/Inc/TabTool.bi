@@ -34,7 +34,7 @@ Declare Function ShowTab (ByRef FileSpec As ZString) As BOOLEAN
 Declare Function CloseTab (ByVal TabID As Integer, ByVal Mode As CloseTabMode = CTM_STD) As Integer   ' MOD 1.2.2012   DelTab(ByVal hWin As HWND)
 Declare Function CloseAllProjectTabs () As BOOL
 Declare Function CloseAllTabsButCurrent () As BOOL
-Declare Function CloseAllNonProjectTabs () As BOOL 
+Declare Function CloseAllNonProjectTabs () As BOOL
 Declare Function CloseAllTabs () As BOOL
 Declare Sub UpdateTab ()
 Declare Sub UpdateAllTabs (ByVal nType As Integer)
@@ -45,8 +45,8 @@ Declare Sub Tab2Project ()
 Declare Sub ToggleTabLock (ByVal TabId As Integer)
 Declare Sub SetTabLock (ByVal TabID As Integer, ByVal NewState As BOOL)
 Declare Sub UnlockAllTabs ()
-Declare Function GetTabLock (ByVal TabId As Integer) As BOOL 
-Declare Function GetTabLockByCurrTab () As Integer  
+Declare Function GetTabLock (ByVal TabId As Integer) As BOOL
+Declare Function GetTabLockByCurrTab () As Integer
 
 
 Declare Sub SetFileIDByTabID (ByVal TabID As Integer, ByVal NewFileID As Integer)
@@ -57,20 +57,20 @@ Declare Function SaveSelectionDlgProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByV
 
 Declare Function CountCodeEdTabs () As Integer
 Declare Sub OpenTheFile (Byref FileSpec As ZString, ByVal OpenMode As FileOpenMode)
-Declare Function IsFileForOpenExtern (ByVal pFileSpec As ZString Ptr) As BOOL 
+Declare Function IsFileForOpenExtern (ByVal pFileSpec As ZString Ptr) As BOOL
 Declare Function OpenFileExtern (ByRef FileSpec As ZString, ByVal OpenMode As FileOpenExternMode) As BOOL
 Declare Sub OpenAFile (ByVal OpenMode As FileOpenMode)                ' MOD 1.2.2012 OpenAFile(ByVal hWin As HWND,ByVal fHex As Boolean)
 Declare Sub OpenAProject ()                                           ' MOD 1.2.2012    OpenAProject(ByVal hWin As HWND) As Boolean
 
 Declare Function GetTabIDByFileID (ByVal FileID As Integer)	As Integer
 Declare Function GetTabIDByEditWindow (ByVal hEditor As HWND) As Integer
-'Declare Function GetTabIDByCurrTab () As Integer  
+'Declare Function GetTabIDByCurrTab () As Integer
 Declare Function GetFileIDByEditor (ByVal hWin As HWND) As Integer
 Declare Function GetFileIDByCurrTab () As Integer
 Declare Function GetEditWindowBySpec (Byref fn As ZString) As HWND          ' MOD 1.2.2012   (ByVal hWin As HWND,ByVal fn As String,ByVal fShow As Boolean) As HWND
-Declare Function GetEditWindowByFileID (ByVal FileID As Integer) As HWND 
-Declare Function GetEditWindowByTabID (ByVal TabID As Integer) As HWND 
-Declare Function GetEditWindowByFocus () As HWND 
+Declare Function GetEditWindowByFileID (ByVal FileID As Integer) As HWND
+Declare Function GetEditWindowByTabID (ByVal TabID As Integer) As HWND
+Declare Function GetEditWindowByFocus () As HWND
 Declare Function GetModifyFlag (ByVal hEdit As HWND) As BOOL
 
 Declare Sub SelectTabByWindow (ByVal hEdit As HWND)
@@ -81,7 +81,7 @@ Declare Function TabToolProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam 
 
 
 #Define IDD_DLG_SAVESELECTION		5000
-#Define pTABMEM                     Cast (TABMEM Ptr, tci.lParam) 
+#Define pTABMEM                     Cast (TABMEM Ptr, tci.lParam)
 
 
 Extern lpOldTabToolProc        As WNDPROC
@@ -89,6 +89,6 @@ Extern curtab                  As Integer
 Extern prevtab                 As Integer
 
 
-Const INVALID_TABID            As Integer = -1 
+Const INVALID_TABID            As Integer = -1
 
 

@@ -12,11 +12,11 @@ Type CaretHistory
         Const MaxItems                As Integer     = 50
         Dim   Top                     As Integer     = Any
         Dim   Curr                    As Integer     = Any
-        Dim   Items                   As Integer     = Any 
-        Dim   LoopMem(1 To MaxItems)  As CARETPOS    = Any 
-        
-        Declare Function MapIdx   (ByVal Idx As Integer) As Integer         
-        
+        Dim   Items                   As Integer     = Any
+        Dim   LoopMem(1 To MaxItems)  As CARETPOS    = Any
+
+        Declare Function MapIdx   (ByVal Idx As Integer) As Integer
+
     Public:
         Declare Sub      GoBackward ()
         Declare Sub      GoForward  ()

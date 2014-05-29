@@ -29,7 +29,7 @@ Function ResEdProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,
 	Dim    rect         As RECT
 	Dim    x            As Integer
 	Dim    y            As Integer
-	Dim    nInx         As Integer 
+	Dim    nInx         As Integer
 	Dim    pt           As Point
 	Dim    hMnu         As HMENU
 	Dim    hDll         As HMODULE
@@ -57,7 +57,7 @@ Function ResEdProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,
 				GetPrivateProfileString(StrPtr("CustCtrl"),Str(nInx),NULL,@buff,260,@ad.IniFile)
 				If IsZStrNotEmpty (buff) Then
 				    y = lstrlen (buff)
-				    If buff[y - 1] = Asc (",") Then buff[y - 1] = NULL    ' no pending comma allowed 
+				    If buff[y - 1] = Asc (",") Then buff[y - 1] = NULL    ' no pending comma allowed
 					hDll=Cast(HMODULE,SendMessage(ah.hraresed,DEM_ADDCONTROL,0,Cast(Integer,@buff)))
 					If hDll Then
 						hCustDll(x)=hDll
@@ -69,7 +69,7 @@ Function ResEdProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,
 			nInx=1
 			While nInx<=64
 				fbcust.lpszStyle=@buff
-				SetZStrEmpty (buff)             'MOD 26.1.2012 
+				SetZStrEmpty (buff)             'MOD 26.1.2012
 				LoadFromIni "CustStyle", Str (nInx), "044", @fbcust, FALSE
 				If IsZStrNotEmpty (buff) Then
 					cust.szStyle=buff
@@ -86,7 +86,7 @@ Function ResEdProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,
 				fbrstype.nid=0
 				fbrstype.lpszext=@sExt
 				fbrstype.lpszedit=@sEdit
-				SetZStrEmpty (sType)             'MOD 26.1.2012 
+				SetZStrEmpty (sType)             'MOD 26.1.2012
 				LoadFromIni "ResType", Str (nInx), "0400", @fbrstype, FALSE
 				If IsZStrNotEmpty (sType) OrElse fbrstype.nid<>0 Then
 					ZStrReplaceChar @sExt, Asc("!"), Asc(",")      ' MOD 23.1.2012
@@ -113,7 +113,7 @@ Function ResEdProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,
 			GetClientRect(hWin,@rect)
 			MoveWindow(ah.hraresed,0,0,rect.right,rect.bottom,TRUE)
             MoveWindow(ah.hrareseddlg,0,0,rect.right,rect.bottom,TRUE)
-            
+
 '		Case EM_GETMODIFY
 '			Return SendMessage(ah.hraresed,PRO_GETMODIFY,0,0)
 '			'
@@ -140,7 +140,7 @@ Function ResEdProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,
 			SendMessage(ah.hraresed,DEM_DELETECONTROLS,0,0)
 			'
 		Case WM_NOTIFY
-			#Define pCTLDBLCLICK     Cast (CTLDBLCLICK Ptr, lParam) 
+			#Define pCTLDBLCLICK     Cast (CTLDBLCLICK Ptr, lParam)
 			If pCTLDBLCLICK->nmhdr.code = NM_DBLCLK Then
 				CallAddins(hWin,AIM_CTLDBLCLK,0,lParam,HOOK_CTLDBLCLK)              ' TODO: whats that ???
 			EndIf
@@ -184,7 +184,7 @@ Function ResEdProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,
             'Print "ResEd:SETFOCUS"
 	        SbarSetBlockMode
 	        SbarLabelLockState
-	        SbarSetWriteMode    
+	        SbarSetWriteMode
 
     	Case WM_KILLFOCUS
             'Print "ResEd:KILLFOCUS"

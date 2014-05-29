@@ -64,7 +64,7 @@ Sub AddTemplateFile(ByVal lpFile As ZString Ptr,ByVal hFile As HANDLE)
 			lstrcat(@buff,lpFile)
 			buff=buff & CRLF
 			WriteFile(hFile,@buff,Len(buff),@n,NULL)
-			SetZStrEmpty (buff)                     'MOD 26.1.2012 
+			SetZStrEmpty (buff)                     'MOD 26.1.2012
 			n=0
 			i=0
 			While n<nSize
@@ -76,14 +76,14 @@ Sub AddTemplateFile(ByVal lpFile As ZString Ptr,ByVal hFile As HANDLE)
 					buff=buff & CRLF
 					WriteFile(hFile,@buff,Len(buff),@i,NULL)
 					i=0
-					SetZStrEmpty (buff)             'MOD 26.1.2012 
+					SetZStrEmpty (buff)             'MOD 26.1.2012
 				EndIf
 			Wend
 			If i Then
 				buff=buff & CRLF
 				WriteFile(hFile,@buff,Len(buff),@i,NULL)
 				i=0
-				SetZStrEmpty (buff)                 'MOD 26.1.2012 
+				SetZStrEmpty (buff)                 'MOD 26.1.2012
 			EndIf
 			buff=szEBIN & CRLF
 			WriteFile(hFile,@buff,Len(buff),@n,NULL)
@@ -180,7 +180,7 @@ Function CreateTemplateDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wPara
 					szBuff=ad.ProjectPath
 					ofn.lpstrInitialDir=@szBuff
 					ofn.lpstrDefExt=@szNULL
-					SetZStrEmpty (buff)             'MOD 26.1.2012 
+					SetZStrEmpty (buff)             'MOD 26.1.2012
 					ofn.lpstrFile=StrPtr(buff)
 					ofn.nMaxFile=260
 					ofn.lpstrFilter=StrPtr(ALLFilterString)
@@ -206,7 +206,7 @@ Function CreateTemplateDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wPara
 					ofn.lpstrInitialDir=@szBuff
 					ofn.lpstrFilter=@TPLFilterString
 					ofn.lpstrDefExt=StrPtr("tpl")
-					SetZStrEmpty (buff)             'MOD 26.1.2012 
+					SetZStrEmpty (buff)             'MOD 26.1.2012
 					ofn.lpstrFile=StrPtr(buff)
 					ofn.nMaxFile=260
 					ofn.Flags=OFN_EXPLORER Or OFN_HIDEREADONLY Or OFN_PATHMUSTEXIST Or OFN_OVERWRITEPROMPT

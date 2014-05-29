@@ -10,35 +10,35 @@ Declare Function EditorOptDlgProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal
 
 
 Type EDITOPTION
-	tabsize			As Integer
-	expand			As Integer
-	hiliteline		As Integer
-	autoindent		As Integer
-	hilitecmnt		As Integer
-	linenumbers		As Integer
-	backup			As Integer
-	bracematch		As Integer
-	AutoBrace		As Integer
-	autocase		As Integer
-	autoblock		As Integer
-	autoformat		As Integer
-	codecomplete	As Integer
-	autosave		As Integer
-	autoload		As Integer
-	autowidth		As Integer
-	autoinclude		As Integer
-	closeonlocks	As Integer
-	tooltip			As Integer
-	smartmath		As Integer
-	ExtraLineSpace  As Integer                      '0.25 LF steps
+    tabsize			As Integer
+    expand			As Integer
+    hiliteline		As Integer
+    autoindent		As Integer
+    hilitecmnt		As Integer
+    linenumbers		As Integer
+    backup			As Integer
+    bracematch		As Integer
+    AutoBrace		As Integer
+    autocase		As Integer
+    autoblock		As Integer
+    autoformat		As Integer
+    codecomplete	As Integer
+    autosave		As Integer
+    autoload		As Integer
+    autowidth		As Integer
+    autoinclude		As Integer
+    closeonlocks	As Integer
+    tooltip			As Integer
+    smartmath		As Integer
+    ExtraLineSpace  As Integer                      '0.25 LF steps
 End Type
 
 Type EDITFONT
-	size			As Integer
-	charset			As Integer
-	szFont			As ZString Ptr
-	weight			As Integer
-	italics			As Integer
+    size			As Integer
+    charset			As Integer
+    szFont			As ZString Ptr
+    weight			As Integer
+    italics			As Integer
 End Type
 
 
@@ -115,7 +115,7 @@ Extern edtfnt  As EDITFONT
 Extern lnrfnt  As EDITFONT
 Extern outpfnt As EDITFONT
 Extern toolfnt As EDITFONT
- 
+
 Extern custcol         As KWCOLOR
 Extern thme(15)        As THEME
 Extern szTheme(15)     As ZString * 32

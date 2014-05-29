@@ -9,10 +9,10 @@ Function FileBrowserProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As W
 	Dim sFile As String*260
 	Dim fCtrl As Boolean
     Dim p As Point
-    Dim Item As LRESULT 
-    
+    Dim Item As LRESULT
+
 	Select Case uMsg
-    
+
 	Case WM_RBUTTONDOWN
         SetFocus hWin                 ' MOD 14.2.2012
 		p.x = LoWord (lParam)
@@ -23,7 +23,7 @@ Function FileBrowserProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As W
 		'Item = SendMessage (hWin, LB_ITEMFROMPOINT, 0, lParam)
 		Print "n:"; Item
 		'SendMessage hWin, LB_SETCURSEL, Cast(WPARAM, Item), 0
-		Return FALSE  
+		Return FALSE
 		
 	Case Else
 		Return CallWindowProc (lpOldFileBrowserProc, hWin, uMsg, wparam, lparam)

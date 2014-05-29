@@ -37,8 +37,8 @@ Const TPLFilterString = "Template Files (*.tpl)"                + szNULL + "*.tp
 
 Common Shared hInstance           As HINSTANCE
 Common Shared hIcon               As HICON
-                                  
-' Misc                            
+
+' Misc
 Common Shared nLastLine           As Integer
 Common Shared nLastSize           As Integer
 Common Shared nCaretPos           As Integer
@@ -47,21 +47,21 @@ Common Shared s                   As ZString * (32 * 1024)
 Common Shared pCommandLine        As ZString Ptr
 Common Shared ApiFiles            As ZString * 260
 Common Shared DefApiFiles         As ZString * 260
-Common Shared CodeFiles           As ZString * 260                      ' CodeFiles      : LCASE p.def. - forced on every I/O 
-Common Shared OpenExternFiles     As ZString * 260                      ' OpenExternFiles: LCASE p.def. - forced on every I/O 
+Common Shared CodeFiles           As ZString * 260                      ' CodeFiles      : LCASE p.def. - forced on every I/O
+Common Shared OpenExternFiles     As ZString * 260                      ' OpenExternFiles: LCASE p.def. - forced on every I/O
 
 Common Shared fTimer              As Integer
 'Common Shared fChangeNotification As Integer
- 
+
 Common Shared nHideOut            As Integer
-Common Shared fInUse              As BOOLEAN 
+Common Shared fInUse              As BOOLEAN
 
 ' Modeless dialogs
 Common Shared findvisible         As HWND
 Common Shared gotovisible         As HWND
-                                  
+
 Common Shared wpos                As WINPOS
-                                  
+
 Common Shared szLastDir           As ZString * MAX_PATH
 
 #Include Once "Inc\LineQueue.bi"

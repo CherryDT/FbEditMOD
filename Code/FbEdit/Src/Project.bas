@@ -19,7 +19,7 @@
 #Include Once "Inc\Property.bi"
 #Include Once "Inc\Resource.bi"
 #Include Once "Inc\SpecHandling.bi"
-#Include Once "Inc\TabTool.bi" 
+#Include Once "Inc\TabTool.bi"
 #Include Once "Inc\ZStringHandling.bi"
 
 #Include Once "Inc\Project.bi"
@@ -93,11 +93,11 @@ Dim Shared ProjectDeleteFiles As ZString * 260
 Dim Shared nMain              As Integer
 Dim Shared nMainRC            As Integer             ' MOD 30.1.2012 ADD
 Dim Shared fRecompile         As Integer
-Dim Shared lpOldProjectProc   As WNDPROC 
-Dim Shared fAddMainFiles      As BOOLEAN  
-Dim Shared fCompileIfNewer    As BOOLEAN  
-Dim Shared fAddModuleFiles    As BOOLEAN  
-Dim Shared fIncVersion        As BOOLEAN 
+Dim Shared lpOldProjectProc   As WNDPROC
+Dim Shared fAddMainFiles      As BOOLEAN
+Dim Shared fCompileIfNewer    As BOOLEAN
+Dim Shared fAddModuleFiles    As BOOLEAN
+Dim Shared fIncVersion        As BOOLEAN
 Dim Shared fRunCmd            As BOOLEAN
 
 
@@ -125,7 +125,7 @@ Dim Shared ModPath As MODULEPATH
 
 
 
-Function MakeProjectFileName (Byref FileSpec As Const ZString) As String  
+Function MakeProjectFileName (Byref FileSpec As Const ZString) As String
 	
 	' FileSpec can be relative or absolute, result will be canonicalized
 	
@@ -168,7 +168,7 @@ Function GetFileID (Byref sFile As zString) As Integer
 
     If fProject Then
         FileSpec = MakeProjectFileName (sFile)
-        
+
     	nInx=1
     	nMiss=0
     	Do While nInx<256 And nMiss<MAX_MISS
@@ -213,9 +213,9 @@ End Function
 
 Sub UpdateProjectFileName(Byref sOldFile As zString,Byref sNewFile As ZString)
 	
-	Dim nInx  As Integer = Any 
-	Dim nMiss As Integer = Any 
-	Dim sItem As ZString * MAX_PATH 
+	Dim nInx  As Integer = Any
+	Dim nMiss As Integer = Any
+	Dim sItem As ZString * MAX_PATH
 
 	nInx=1
 	nMiss=0
@@ -265,20 +265,20 @@ Function GetFileImg (ByRef FileSpec As ZString, ByVal FileID As Integer) As Inte
 	        Case Else       :   Return 1
 	        End Select
 	    Else
-	                            Return 1    
+	                            Return 1
 	    EndIf
 	Case ".bi"              :   Return 2
 	Case ".rc"
 	    If fProject Then
 	        Select Case FileID
-	        Case nMainRC    :   Return 7  
+	        Case nMainRC    :   Return 7
 	        Case Else       :   Return 3
             End select
 	    Else
-	                            Return 3    
+	                            Return 3
 	    EndIf
 	Case ".tbr", ".bmp", ".ico", ".cur"
-	                            Return 3                 
+	                            Return 3
 	Case ".txt"             :   Return 4
 	Case ".asm"
 	    If fProject Then
@@ -287,11 +287,11 @@ Function GetFileImg (ByRef FileSpec As ZString, ByVal FileID As Integer) As Inte
 	        Case Else       :   Return 5
 	        End Select
 	    Else
-	                            Return 5    
+	                            Return 5
 	    EndIf
 	Case ".bat", ".cmd"     :   Return 9
 	Case Else               :   Return 5
-	End Select    
+	End Select
 
 	'If UCase(Right(sFile,4))=".BAS" Then
 	'	Return 1
@@ -306,7 +306,7 @@ Function GetFileImg (ByRef FileSpec As ZString, ByVal FileID As Integer) As Inte
 
 End Function
 
-Function GetFamilyName (ByRef sFile As ZString) As String 
+Function GetFamilyName (ByRef sFile As ZString) As String
 	
 	Select Case LCase (*PathFindExtension (@sFile))
 	Case ".bas"
@@ -327,19 +327,19 @@ Function GetFamilyName (ByRef sFile As ZString) As String
 	    Return GetInternalString(IS_RESOURCE)
 	Case ".bat", ".cmd"
 	    Return GetInternalString(IS_SCRIPT)
-	Case Else 
+	Case Else
 	    Return GetInternalString(IS_MISC)
 	End Select
-    
+
 End Function
 
-Function GetTrvSelItemData (ByRef FileSpec As ZString, ByRef FileID As Integer, ByRef hTVItem As HTREEITEM, ByVal PathMode As PathType) As BOOLEAN 
-    
+Function GetTrvSelItemData (ByRef FileSpec As ZString, ByRef FileID As Integer, ByRef hTVItem As HTREEITEM, ByVal PathMode As PathType) As BOOLEAN
+
     ' FileSpec [out]
     ' FileID   [out]
     ' hTVItem  [out]
     ' PathMode [in]
-    
+
 	Dim tvi    As TV_ITEM
 	Dim buffer As ZString * MAX_PATH
 
@@ -354,28 +354,28 @@ Function GetTrvSelItemData (ByRef FileSpec As ZString, ByRef FileID As Integer, 
 		    tvi.Mask       = TVIF_TEXT Or TVIF_PARAM
 			tvi.pszText    = @buffer
 			tvi.cchTextMax = SizeOf (buffer)
-	    EndIf 
-	    
+	    EndIf
+	
 		SendMessage ah.hprj, TVM_GETITEM, 0, Cast (LPARAM, @tvi)
-	    
+	
 	    If tvi.lParam Then
             Select Case PathMode
-            Case PT_RELATIVE 
+            Case PT_RELATIVE
                 FileSpec = buffer
                 FileID = tvi.lParam
-                Return TRUE 
-            Case PT_ABSOLUTE 
+                Return TRUE
+            Case PT_ABSOLUTE
                 FileSpec = MakeProjectFileName (buffer)
                 FileID = tvi.lParam
-                Return TRUE     
+                Return TRUE
             End Select
-	    EndIf     
+	    EndIf
 	EndIf
-   
+
     'hTVItem = 0
     SetZStrEmpty (FileSpec)
     FileID = 0
-    Return FALSE 
+    Return FALSE
 
 End Function
 
@@ -497,9 +497,9 @@ Function AddTrvNode(ByVal hPar As HTREEITEM,ByVal lpPth As ZString Ptr,ByVal nIm
 	'EndIf
 
 	'If nImg = 1 Then      ' .bas File
-    '    If lParam = nMain Then 
+    '    If lParam = nMain Then
     '        nImg = 7      ' main file marker precedence
-    '    Elseif lParam >= 1001 Then 
+    '    Elseif lParam >= 1001 Then
     '        nImg = 6      ' module marker
     '    EndIf
 	'EndIf
@@ -510,7 +510,7 @@ Function AddTrvNode(ByVal hPar As HTREEITEM,ByVal lpPth As ZString Ptr,ByVal nIm
 	'Case nMain, nMainRC
 	'    nImg = 7         ' only if nMain<>0, nMainRC<>0
 	'Case Is > 1000
-	'    nImg = 6    
+	'    nImg = 6
 	'End Select
 	' ======================
 	
@@ -550,7 +550,7 @@ Sub SetProjectFileInfo (ByVal hWin As HWND,ByVal lpPFI As PFI Ptr)
 		EndIf
 		i=i+1
 	Wend
-	GotoTextLine hWin, lpPFI->nPos, TRUE 
+	GotoTextLine hWin, lpPFI->nPos, TRUE
 	'chrg.cpMin=SendMessage(hWin,EM_LINEINDEX,lpPFI->nPos,0)
 	'chrg.cpMax=chrg.cpMin
 	'SendMessage(hWin,EM_EXSETSEL,0,Cast(Integer,@chrg))
@@ -615,18 +615,18 @@ End Sub
 
 'Sub ParseProject
 '
-'	Dim sItem      As ZString * MAX_PATH = Any 
-'	Dim nInx       As Integer            = Any 
-'	Dim nMiss      As Integer            = Any 
-'	Dim Base       As Integer            = Any 
-'    
-'    If fProject Then 
-'        For Base = 0 To 1000 Step 1000    
+'	Dim sItem      As ZString * MAX_PATH = Any
+'	Dim nInx       As Integer            = Any
+'	Dim nMiss      As Integer            = Any
+'	Dim Base       As Integer            = Any
+'
+'    If fProject Then
+'        For Base = 0 To 1000 Step 1000
 '            nMiss = 0
 '        	For nInx = Base + 1 To Base + 256
 '        		
 '        		GetPrivateProfileString @"File", Str (nInx), NULL, @sItem, SizeOf (sItem), @ad.ProjectFile
-'                            
+'
 '        		If sItem[0] Then
 '    			    If GetFBEFileType (sItem) = FBFT_CODE Then               ' 1 = code files
 '                        ParseFile (sItem)
@@ -635,7 +635,7 @@ End Sub
 '        		Else
 '        	        If nMiss > MAX_MISS Then Exit For
 '        		    nMiss += 1
-'        		EndIf 
+'        		EndIf
 '        	Next
 '        Next
 '    EndIf
@@ -882,13 +882,13 @@ Function OpenProject() As Integer
 	'/
 	' Open files
 	While Len(szTabOrder)
-		DoEvents NULL 
+		DoEvents NULL
 		nInx=Val(szTabOrder)
 		GetPrivateProfileString(StrPtr("File"),Str(nInx),NULL,@sItem,SizeOf(sItem),@ad.ProjectFile)
 		If IsZStrNotEmpty (sItem) Then
 			sItem=MakeProjectFileName(sItem)
 			ReadProjectFileInfo(nInx,@pfi)
-			' MOD 10.2.2012   
+			' MOD 10.2.2012
 			Select Case pfi.nLoad
 	       'Case 0 : skip loading
 			Case 1 : OpenTheFile(sItem,FOM_STD)
@@ -908,7 +908,7 @@ Function OpenProject() As Integer
 		If x Then
 			szTabOrder=Mid(szTabOrder,x+1)
 		Else
-			SetZStrEmpty (szTabOrder)             'MOD 26.1.2012 
+			SetZStrEmpty (szTabOrder)             'MOD 26.1.2012
 		EndIf
 	Wend
 	'SendMessage(ah.hprj,TVM_EXPAND,TVE_EXPAND,Cast(Integer,hPar))
@@ -920,22 +920,22 @@ Function OpenProject() As Integer
 	RefreshProjectTree
 	GetMakeOption
 	SetWinCaption
-    
+
     nInx = GetPrivateProfileInt (@"TabOrder", @"CurrentTab", 0, @ad.ProjectFile)
 	SelectTabByFileID nInx                    	  ' no action, if nInx = 0
-	SetFocus ah.hred   
+	SetFocus ah.hred
 	
 	AddMruProject
 	CallAddins(ah.hwnd,AIM_PROJECTOPEN,0,0,HOOK_PROJECTOPEN)
 	szLastDir=ad.ProjectPath
-	POL_Changed = TRUE 
+	POL_Changed = TRUE
 	'fTimer = 1                                    ' turn on
 	Return 0
 
 End Function
 
 Function CloseProject() As Integer
-    
+
     SaveProjectTabOrder
 	
 	'If CloseAllTabs(fProject,0,edtopt.closeonlocks)=FALSE Then         ' MOD 1.2.2012 removed ah.hwnd
@@ -947,7 +947,7 @@ Function CloseProject() As Integer
     	'SendMessage(ah.hpr,PRM_DELPROPERTY,0,0)
     	'SendMessage(ah.hpr,PRM_SELECTPROPERTY,Asc("p")+256,0)
     	fProject=FALSE
-    	SetZStrEmpty (ad.ProjectFile)             ' MOD 26.1.2012 
+    	SetZStrEmpty (ad.ProjectFile)             ' MOD 26.1.2012
     	SetHiliteWords(ah.hwnd)
     	' Add api files
     	LoadApiFiles
@@ -958,7 +958,7 @@ Function CloseProject() As Integer
     	CallAddins(ah.hwnd,AIM_PROJECTCLOSE,0,0,HOOK_PROJECTCLOSE)
     	' Search Module
     	'f.fsearch=1
-    	POL_Changed = TRUE                        ' if there are no open tabs in project  
+    	POL_Changed = TRUE                        ' if there are no open tabs in project
     	Return TRUE
     Else
     	Return FALSE
@@ -969,9 +969,9 @@ End Function
 Function CountProjectResource () As Integer
 
     Dim Count    As Integer = 0
-    Dim nMiss    As Integer = Any 
-    Dim i        As Integer = Any 
-    Dim FileName As ZString * MAX_PATH      
+    Dim nMiss    As Integer = Any
+    Dim i        As Integer = Any
+    Dim FileName As ZString * MAX_PATH
 
     If fProject Then
         nMiss = 0
@@ -985,24 +985,24 @@ Function CountProjectResource () As Integer
     		Else
     	        If nMiss > MAX_MISS Then Exit For
     		    nMiss += 1
-    		EndIf 
+    		EndIf
     	Next
     EndIf
-    
+
     Return Count
 End Function
 
 Function GetProjectMainResource () As String
 	'Dim nInx As Integer
 	'Dim nMiss As Integer
-	Dim sItem As ZString * MAX_PATH 
+	Dim sItem As ZString * MAX_PATH
 	'Dim sFile As String
 
 	'TODO
     nMainRC = GetPrivateProfileInt (@"File", @"MainRC", 0, ad.ProjectFile)
     If nMainRC Then
         GetPrivateProfileString @"File", Str (nMainRC), NULL, @sItem, SizeOf (sItem), @ad.ProjectFile
-        Return sItem 
+        Return sItem
     Else
       	'nInx=1
     	'nMiss=0
@@ -1027,21 +1027,21 @@ End Function
 
 Function RemoveProjectPath (ByRef sFile As ZString) As ZString Ptr     ' MOD 7.1.2012 ByVal -> ByRef
 
-    Static OutString As ZString * MAX_PATH 
+    Static OutString As ZString * MAX_PATH
     Dim    Success   As BOOL = Any
-    
-    ' special case: paths are identical 
+
+    ' special case: paths are identical
     ' sFile       = c:\path1\path2\File.ext
     ' ProjectPath = c:\path1\path2
     ' result      = .\FileBaseName.ext
-    
+
     Success = PathRelativePathTo (@OutString, @ad.ProjectPath, FILE_ATTRIBUTE_DIRECTORY, @sFile, NULL)
 
     If Success Then
-        If OutString[1] = Asc("\") AndAlso OutString[0] = Asc(".") Then  
+        If OutString[1] = Asc("\") AndAlso OutString[0] = Asc(".") Then
             Return @OutString[2]         ' special case: fix it
         Else
-            Return @OutString    
+            Return @OutString
         EndIf
     Else
         Return @sFile
@@ -1096,16 +1096,16 @@ Function GetTrvItem(ByVal hPar As HTREEITEM,ByRef sFile As String) As HTREEITEM
 		EndIf
 		GetTrvItem(hCld,sFile)
 		hCld=Cast(HTREEITEM,SendMessage(ah.hprj,TVM_GETNEXTITEM,TVGN_NEXT,Cast(LPARAM,hCld)))
-	Loop 
+	Loop
 	Return 0                                      ' MOD 7.1.2012   EndIf
 
-End Function 
+End Function
 
 Sub SelectTrvItem(Byref sFile As ZString)
 	
 	Dim sSelect   As ZString * MAX_PATH
 	Dim hItem     As HTREEITEM = Any
-	Dim hRootItem As HTREEITEM = Any 
+	Dim hRootItem As HTREEITEM = Any
 		
 	If fProject Then
 		' MOD 1.3.2012
@@ -1124,14 +1124,14 @@ End Sub
 Sub AddProjectFile(Byref sFile As ZString,ByVal fModule As Boolean)
 
 	Dim sItem As ZString * 260
-	Dim nInx  As Integer = Any 
+	Dim nInx  As Integer = Any
 	'Dim hPar  As HTREEITEM                             ' MOD 1.3.2012
-    
+
 	' Find free project file index
-	If fModule Then 
-	    nInx = 1000 
-	Else 
-	    nInx = 0    
+	If fModule Then
+	    nInx = 1000
+	Else
+	    nInx = 0
 	EndIf
 
 	Do
@@ -1145,10 +1145,10 @@ Sub AddProjectFile(Byref sFile As ZString,ByVal fModule As Boolean)
 	WritePrivateProfileString @"File", Str (nInx), @sItem, @ad.ProjectFile
 	RefreshProjectTree
 	OpenTheFile sFile, FOM_STD
- 
-    If GetFBEFileType (sFile) = FBFT_CODE Then 
+
+    If GetFBEFileType (sFile) = FBFT_CODE Then
         POL_Changed = TRUE
-    EndIf               
+    EndIf
 End Sub
 
 Sub AddAProjectFile(Byref sFile As zString,ByVal fModule As Boolean,ByVal fCreate As Boolean)
@@ -1173,9 +1173,9 @@ Sub AddNewProjectFile()
 	Dim FileSpec As ZString * MAX_PATH
 	Dim Title    As ZString * 1024
 	Dim ofn      As OPENFILENAME
-    
+
     Title = GetInternalString (IS_ADD_NEW_FILE)
-    
+
     With ofn
     	.lStructSize     = SizeOf (OPENFILENAME)
     	.hwndOwner       = GetOwner
@@ -1199,9 +1199,9 @@ Sub AddExistingProjectFile ()
 	Dim ofn     As OPENFILENAME
 	Dim Buffer  As ZString * 32 * 1024
 	Dim Title   As ZString * 1024
-	Dim SubStr1 As ZString * MAX_PATH 
-	Dim SubStrN As ZString * MAX_PATH 
-	Dim Idx     As Integer = Any 
+	Dim SubStr1 As ZString * MAX_PATH
+	Dim SubStrN As ZString * MAX_PATH
+	Dim Idx     As Integer = Any
 	
 	Title = GetInternalString (IS_ADD_EXISTING_FILE)
 	
@@ -1209,14 +1209,14 @@ Sub AddExistingProjectFile ()
     	.lStructSize     = SizeOf (OPENFILENAME)
     	.hwndOwner       = GetOwner
     	.hInstance       = hInstance
-    	.lpstrFile       = @Buffer                      
-    	.nMaxFile        = SizeOf (Buffer)              
+    	.lpstrFile       = @Buffer
+    	.nMaxFile        = SizeOf (Buffer)
     	.lpstrFilter     = @ALLFilterString
     	.Flags           = OFN_EXPLORER      Or OFN_FILEMUSTEXIST    Or OFN_HIDEREADONLY Or _
     	                   OFN_PATHMUSTEXIST Or OFN_ALLOWMULTISELECT
    		.lpstrInitialDir = @ad.ProjectPath
    		.lpstrTitle      = @Title
-	End With 
+	End With
 	
 	If GetOpenFileNameUI (@ofn) Then
 		
@@ -1230,20 +1230,20 @@ Sub AddExistingProjectFile ()
 				DePackStr Idx, Buffer, SubStrN, SizeOf (SubStrN)
 				AddAProjectFile SubStr1 + "\" + SubStrN, FALSE, FALSE
 			Loop While Idx
-		EndIf 
+		EndIf
 		szLastDir = SubStr1		
 	EndIf
 
 End Sub
 
 Sub AddNewProjectModule()
-    
+
     Dim FileSpec As ZString * MAX_PATH
     Dim Title    As ZString * 1024
 	Dim ofn      As OPENFILENAME
-    
+
     Title = GetInternalString (IS_ADD_NEW_MODULE)
-    
+
     With ofn
     	.lStructSize     = SizeOf (OPENFILENAME)
     	.hwndOwner       = GetOwner
@@ -1268,9 +1268,9 @@ Sub AddExistingProjectModule ()
 	Dim ofn     As OPENFILENAME
 	Dim Buffer  As ZString * 32 * 1024
 	Dim Title   As ZString * 1024
-	Dim SubStr1 As ZString * MAX_PATH 
-	Dim SubStrN As ZString * MAX_PATH 
-	Dim Idx     As Integer = Any 
+	Dim SubStr1 As ZString * MAX_PATH
+	Dim SubStrN As ZString * MAX_PATH
+	Dim Idx     As Integer = Any
 	
 	Title = GetInternalString (IS_ADD_EXISTING_MODULE)
 	
@@ -1278,14 +1278,14 @@ Sub AddExistingProjectModule ()
     	.lStructSize     = SizeOf (OPENFILENAME)
     	.hwndOwner       = GetOwner
     	.hInstance       = hInstance
-    	.lpstrFile       = @Buffer                      
-    	.nMaxFile        = SizeOf (Buffer)              
+    	.lpstrFile       = @Buffer
+    	.nMaxFile        = SizeOf (Buffer)
     	.lpstrFilter     = @MODFilterString
     	.Flags           = OFN_EXPLORER      Or OFN_FILEMUSTEXIST    Or OFN_HIDEREADONLY Or _
     	                   OFN_PATHMUSTEXIST Or OFN_ALLOWMULTISELECT
    		.lpstrInitialDir = @ad.ProjectPath
    		.lpstrTitle      = @Title
-	End With 
+	End With
 	
 	If GetOpenFileNameUI (@ofn) Then
 		
@@ -1299,7 +1299,7 @@ Sub AddExistingProjectModule ()
 				DePackStr Idx, Buffer, SubStrN, SizeOf (SubStrN)
 				AddAProjectFile SubStr1 + "\" + SubStrN, TRUE, FALSE
 			Loop While Idx
-		EndIf 
+		EndIf
 		szLastDir = SubStr1		
 	EndIf
 
@@ -1309,8 +1309,8 @@ End Sub
 Sub RemoveProjectFile (ByVal FileID As Integer, ByVal hTVItem As HTREEITEM, ByVal fDontAsk As BOOLEAN)
 
 	Dim FileSpec As ZString * MAX_PATH
-    Dim TabId    As Integer            = Any 
-    
+    Dim TabId    As Integer            = Any
+
 	If FileID Then
         TabID = GetTabIDByFileID (FileID)
         FileSpec = *GetProjectFileName (FileID, PT_RELATIVE)
@@ -1321,7 +1321,7 @@ Sub RemoveProjectFile (ByVal FileID As Integer, ByVal hTVItem As HTREEITEM, ByVa
 			EndIf
 		EndIf
 	
-		SendMessage ah.hprj, TVM_DELETEITEM, 0, Cast (LPARAM, hTVItem)       
+		SendMessage ah.hprj, TVM_DELETEITEM, 0, Cast (LPARAM, hTVItem)
 		WritePrivateProfileString @"File", Str (FileID), NULL, @ad.ProjectFile               ' remove key
 		If FileID >= 1001 Then
 		    WritePrivateProfileString @"Make", "CCL" + Str (FileID), NULL, @ad.ProjectFile   ' remove key
@@ -1340,22 +1340,22 @@ Sub RemoveProjectFile (ByVal FileID As Integer, ByVal hTVItem As HTREEITEM, ByVa
 		'SendMessage ah.hpr, PRM_REFRESHLIST, 0, 0
 
         SetFileIDByTabID TabID, 0                     ' update TabMem, file is no more project member
-       	UpdateTabImageByTabID TabID        
+       	UpdateTabImageByTabID TabID
         If GetFBEFileType (FileSpec) = FBFT_CODE Then
             POL_Changed = TRUE
         EndIf
-        
+
 		If fDontAsk = FALSE Then
 			CallAddins ah.hwnd, AIM_PROJECTREMOVE, FileID, Cast (LPARAM, StrPtr (FileSpec)), HOOK_PROJECTREMOVE
 		EndIf
 	EndIf
 
-    'Dim tvi As TV_ITEM          
+    'Dim tvi As TV_ITEM
     'Dim nInx As Integer
     'Dim nMiss As Integer
     'Dim sItem As ZString*260
     'Dim buff As ZString*260
-    'Dim hTVItem As HTREEITEM 
+    'Dim hTVItem As HTREEITEM
 	' MOD 11.2.2012
 	'buff = TrvGetSelFileSpec (nInx, hTVItem, PT_RELATIVE)
 	'If FileID Then
@@ -1371,7 +1371,7 @@ Sub RemoveProjectFile (ByVal FileID As Integer, ByVal hTVItem As HTREEITEM, ByVa
 	'		tvi.pszText=@buff
 	'		tvi.cchTextMax=260
 	'		SendMessage(ah.hprj,TVM_GETITEM,0,Cast(Integer,@tvi))
-	'	EndIf 
+	'	EndIf
 	'============================	
 	'	 nInx=1
 	'	 nMiss=0
@@ -1443,9 +1443,9 @@ Sub RemoveProjectFile (ByVal FileID As Integer, ByVal hTVItem As HTREEITEM, ByVa
 End Sub
 
 Sub InsertInclude (ByRef FileSpec As ZString, ByVal IncMode As IncludeMode)
-   
-   'Dim tvi As TV_ITEM                                MOD 11.2.2012                   123456789012345678  
-	Dim buffer As ZString * MAX_PATH + 18 = Any     ' MOD 1.3.2012  surrounding text  #Include Once "" + CR + NULL  
+
+   'Dim tvi As TV_ITEM                                MOD 11.2.2012                   123456789012345678
+	Dim buffer As ZString * MAX_PATH + 18 = Any     ' MOD 1.3.2012  surrounding text  #Include Once "" + CR + NULL
    'Dim path As String                                MOD 7.2.2012
 
 
@@ -1462,7 +1462,7 @@ Sub InsertInclude (ByRef FileSpec As ZString, ByVal IncMode As IncludeMode)
 	'		tvi.pszText=@buffer
 	'		tvi.cchTextMax=260
 	'		SendMessage(ah.hprj,TVM_GETITEM,0,Cast(Integer,@tvi))
-	'	EndIf 
+	'	EndIf
     ' ========================	
         If GetFBEFileType (FileSpec) = FBFT_CODE Then	                                                                       ' MOD 7.2.2012 SendMessage(ah.hprj,TVM_GETITEM,0,Cast(Integer,@tvi))
 		    If IncMode = IM_INCLUDE Then
@@ -1473,7 +1473,7 @@ Sub InsertInclude (ByRef FileSpec As ZString, ByVal IncMode As IncludeMode)
 		    SendMessage ah.hred, EM_REPLACESEL, TRUE, Cast (LPARAM, @buffer)
         Else
     		TextToOutput "*** no source file selected ***", MB_ICONHAND
-        EndIf    
+        EndIf
 	'EndIf	
 
 End Sub
@@ -1494,27 +1494,27 @@ Function GetProjectFileName (ByVal FileID As Integer, ByVal PathMode As PathType
 	
 	If IsZStrNotEmpty (FileSpec) Then
 	    Select Case PathMode
-	    Case PT_RELATIVE      
+	    Case PT_RELATIVE
 	        Return @FileSpec
 	    Case PT_ABSOLUTE
 	        FileSpec = MakeProjectFileName (FileSpec)
-	        Return @FileSpec 
+	        Return @FileSpec
 	    End Select
 	Else
-	    Return @""    
+	    Return @""
 	EndIf
 
 End Function
 
 Sub ToggleProjectFile (ByRef OldFileID As Integer)
-    
+
     ' toggles file state: module / non module
 	
 	Dim sItem     As ZString * 260
-	Dim NewFileID As Integer = Any 
+	Dim NewFileID As Integer = Any
 	Dim FileSpec  As ZString * MAX_PATH
 	Dim FileExt   As ZString * MAX_PATH
-	Dim TabID     As Integer = Any 
+	Dim TabID     As Integer = Any
 	
 	If OldFileID Then
         TabID = GetTabIDByFileID (OldFileID)
@@ -1536,18 +1536,18 @@ Sub ToggleProjectFile (ByRef OldFileID As Integer)
     		EndIf
     		
     		' find free project FileID
-    		Do 
+    		Do
     			GetPrivateProfileString @"File", Str (NewFileID), NULL, @sItem, SizeOf (sItem), @ad.ProjectFile
     			If IsZStrNotEmpty (sItem) Then
     				NewFileID += 1
     			Else
-    				Exit Do 
+    				Exit Do
     			EndIf
-    		Loop 
+    		Loop
     		
     		' add the file to project file
     		WritePrivateProfileString @"File", Str (NewFileID), @FileSpec, @ad.ProjectFile
-            
+
     		If nMain = OldFileID Then
     		    WritePrivateProfileString @"File", @"Main", Str (NewFileID), @ad.ProjectFile
                 nMain = NewFileID		
@@ -1559,7 +1559,7 @@ Sub ToggleProjectFile (ByRef OldFileID As Integer)
     		CallAddins ah.hwnd, AIM_PROJECTTOGGLE, OldFileID, NewFileID, HOOK_PROJECTTOGGLE
     		OldFileID = NewFileID                     ' assign change
 		Else
-            TextToOutput "*** invalid file selected ***", MB_ICONHAND  
+            TextToOutput "*** invalid file selected ***", MB_ICONHAND
 		EndIf
 	EndIf
 
@@ -1640,13 +1640,13 @@ End Sub
 
 Sub SetAsMainFile (ByVal FileID As Integer)
 
-	Dim nOldMain   As Integer = Any  
-	Dim nOldMainRC As Integer = Any 
+	Dim nOldMain   As Integer = Any
+	Dim nOldMainRC As Integer = Any
 	Dim FileSpec   As ZString * MAX_PATH
 	
 	If FileID Then
         FileSpec = *GetProjectFileName (FileID, PT_RELATIVE)
-        
+
         Select Case LCase (*PathFindExtension (@FileSpec))
         Case ".bas"
             nOldMain = nMain
@@ -1656,19 +1656,19 @@ Sub SetAsMainFile (ByVal FileID As Integer)
 			RefreshProjectTree
 			UpdateTabImageByFileID nMain
 			UpdateTabImageByFileID nOldMain
-        
+
         Case ".rc"
             nOldMainRC = nMainRC
     		
 			WritePrivateProfileString @"File", @"MainRC", Str (FileID), @ad.ProjectFile
 			nMainRC = FileID
 			RefreshProjectTree
-			UpdateTabImageByFileID nMainRC 
+			UpdateTabImageByFileID nMainRC
 			UpdateTabImageByFileID nOldMainRC
-        
-        Case Else 
-            TextToOutput "*** invalid file selected ***", MB_ICONHAND  
-        End Select 
+
+        Case Else
+            TextToOutput "*** invalid file selected ***", MB_ICONHAND
+        End Select
 	EndIf
 
 End Sub
@@ -1685,20 +1685,20 @@ End Sub
 
 Sub ReadProjectFileInfo(ByVal nInx As Integer,ByVal lpPFI As PFI Ptr)
 	
-	'Dim i As Integer 
+	'Dim i As Integer
 	'lpPFI->nGroup=0
 	'lpPFI->nPos=0
 	'lpPFI->nLoad=0
 	'For i=0 To 15
 	'	lpPFI->nColl(i)=0
-	'Next 
+	'Next
 
     'ZeroMemory (lpPFI, SizeOf (PFI))         ' faster
-    
+
     Dim InitialPFI As PFI                       ' use freebasic standard ctor
-    
-    *lpPFI = InitialPFI                         ' reset 
-  
+
+    *lpPFI = InitialPFI                         ' reset
+
 	LoadFromIni "FileInfo", Str (nInx), "4444444444444444444", lpPFI, TRUE
 
 End Sub
@@ -1710,7 +1710,7 @@ Sub WriteProjectFileInfo(ByVal hWin As HWND,ByVal nInx As Integer,ByVal fProject
 	'Dim sFile As ZString*260
 	Dim As Integer i,v,b,x,y,nLine
     Dim EditorMode As Long = Any
-    
+
 	sTmp=Str(nInx)
 	LoadFromIni "FileInfo", @sTmp, "4444444444444444444", @pfi, TRUE
 
@@ -1718,7 +1718,7 @@ Sub WriteProjectFileInfo(ByVal hWin As HWND,ByVal nInx As Integer,ByVal fProject
     EditorMode = GetWindowLong (hWin, GWL_ID)
     If fProjectClose Then                          ' mark files opened
         Select Case EditorMode
-        Case IDC_CODEED 
+        Case IDC_CODEED
             'If GetFBEFileType (GetProjectFileName (nInx, PT_RELATIVE)) = 2 Then    ' .RC-File
             '    pfi.nLoad = 2                      ' Loadtype: 2 = TXT
             'Else
@@ -1726,13 +1726,13 @@ Sub WriteProjectFileInfo(ByVal hWin As HWND,ByVal nInx As Integer,ByVal fProject
             'EndIf
             pfi.nLoad = 1                          ' Loadtype: 1 = STD
         Case IDC_TEXTED
-        	pfi.nLoad = 2                          ' Loadtype: 2 = TXT 
+        	pfi.nLoad = 2                          ' Loadtype: 2 = TXT
         Case IDC_HEXED
             pfi.nLoad = 3                          ' Loadtype: 3 = HEX
         Case IDC_RESED
             pfi.nLoad = 1                          ' Loadtype: 1 = STD
         End Select
-    Else 
+    Else
         pfi.nLoad = 0                              ' Loadtype: 0 = NoLoad
     EndIf
 	'pfi.nLoad=fProjectClose
@@ -1746,7 +1746,7 @@ Sub WriteProjectFileInfo(ByVal hWin As HWND,ByVal nInx As Integer,ByVal fProject
     ' =============================
 	
 	If     EditorMode = IDC_CODEED _
-    OrElse EditorMode = IDC_TEXTED Then 
+    OrElse EditorMode = IDC_TEXTED Then
 		SendMessage(hWin,EM_EXGETSEL,0,Cast(Integer,@chrg))
 		pfi.nPos=SendMessage(hWin,EM_LINEFROMCHAR,chrg.cpMin,0)
 		i=0
@@ -1916,7 +1916,7 @@ Function CreateNewProject(ByVal hWin As HWND,ByVal hTab1 As HWND,ByVal hTab2 As 
 	Dim sItem As ZString*260
 	Dim sFile As ZString*260
 	Dim hFile As HANDLE
-	Dim lret As DWORD 
+	Dim lret As DWORD
 	Dim sProName As String
 
 	' Create project path
@@ -2285,7 +2285,7 @@ Function ApiOptionProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPA
 							'
 						Case IDOK
 							nInx=0
-							SetZStrEmpty (buff)             'MOD 26.1.2012 
+							SetZStrEmpty (buff)             'MOD 26.1.2012
 							While TRUE
 								If SendDlgItemMessage(hWin,IDC_LSTAPIFILES,LB_GETTEXT,nInx,Cast(LPARAM,@sItem))=LB_ERR Then
 									Exit While
@@ -2353,7 +2353,7 @@ End Function
 '        Dim WinRECT as RECT
 '        GetWindowRect (hWin, @WinRECT)
 '        MapWindowPoints NULL, GetParent (hWin), Cast (Point Ptr, @WinRECT), 2
-'        
+'
 '        Cast (WINDOWPOS Ptr, lParm)->CX = WinRECT.Right - WinRECT.Left
 '        If Cast (WINDOWPOS Ptr, lParm)->y <> WinRECT.Top Then
 '            Cast (WINDOWPOS Ptr, lParm)->CY = WinRECT.Bottom - WinRECT.Top
@@ -2361,30 +2361,30 @@ End Function
 '        If Cast (WINDOWPOS ptr, lParm)->CY < 100 Then Cast (WINDOWPOS ptr, lParm)->CY = 100
 '        Cast (WINDOWPOS Ptr, lParm)->x = WinRECT.Left
 '        Cast (WINDOWPOS Ptr, lParm)->y = WinRECT.Top
-'	    
-'	    Return FALSE 
+'	
+'	    Return FALSE
 '	Case Else
 '        Return CallWindowProc (ModuleCCLsDefProc, hWin, uMsg, wParm, lParm)
-'	End select    
+'	End select
 '
-'End Function 
+'End Function
 
 Function ProjectOptionDlgProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
 	
-	Dim x        As Integer       = Any  
+	Dim x        As Integer       = Any
 	Dim i        As Integer       = Any
-	Dim n        As Integer       = Any 
+	Dim n        As Integer       = Any
 	Dim sItem    As ZString * 260
 	Dim pBuffB   As ZString Ptr   = Any
-	Dim CCLName  As GOD_EntryName = Any 
-	Dim CCLData  As GOD_EntryData = Any 
-	Dim hGrd     As HWND          = Any 
+	Dim CCLName  As GOD_EntryName = Any
+	Dim CCLData  As GOD_EntryData = Any
+	Dim hGrd     As HWND          = Any
 	Dim clmn     As COLUMN
-	Dim row(2)   As ZString Ptr 
-    Dim nMiss    As Integer       = Any 
+	Dim row(2)   As ZString Ptr
+    Dim nMiss    As Integer       = Any
     Dim FileName As ZString * MAX_PATH
     Dim Result   As Integer       = Any
-    Dim FileID   As Integer       = Any 
+    Dim FileID   As Integer       = Any
    	Dim ofn      As OPENFILENAME
 
 	Select Case uMsg
@@ -2430,13 +2430,13 @@ Function ProjectOptionDlgProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wPa
 			CheckDlgButton hWin, IDC_CHKINCVERSION, fIncVersion
 			CheckDlgButton hWin, IDC_CHKRUN, fRunCmd
 			SendDlgItemMessage hWin, IDC_RBN_MODUL_MANUAL + fRecompile, BM_CLICK, 0, 0     ' at last, because doing some modifications
-            
+
             hGrd = GetDlgItem (hWin, IDC_GRD_MODUL_CCL)
 			SendMessage hGrd, WM_SETFONT, SendMessage (hWin, WM_GETFONT, 0, 0), FALSE
 			SendMessage hGrd, GM_SETHDRHEIGHT, 0, 22
 			SendMessage hGrd, GM_SETROWHEIGHT, 0, 20
             'ModuleCCLsDefProc = Cast (WNDPROC, SetWindowLongPtr (hGrd, GWLP_WNDPROC, Cast (LONG_PTR, @ModuleCCLsProc)))
-                        
+
 			clmn.colwt       = 160
 			clmn.lpszhdrtext = @"Module"
 			clmn.ctype       = TYPE_EDITTEXT
@@ -2453,21 +2453,21 @@ Function ProjectOptionDlgProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wPa
 			clmn.ctype       = TYPE_EDITTEXT
 			clmn.ctextmax    = SizeOf (CCLData)
 			SendMessage hGrd, GM_ADDCOL, 0, Cast (LPARAM, @clmn)
-                
+
             nMiss = 0
         	For i = 1001 To 1256
         		GetPrivateProfileString @"File", Str (i), NULL, @FileName, SizeOf (FileName), @ad.ProjectFile
         		If FileName[0] Then
    				    GetCCL i, @CCLName, @CCLData
    				    row(0) = @FileName
-			        row(1) = @CCLName 
-			        row(2) = @CCLData 
+			        row(1) = @CCLName
+			        row(2) = @CCLData
     			    SendMessage hGrd, GM_ADDROW, 0, Cast (LPARAM, @row(0))
                     nMiss = 0
         		Else
         	        If nMiss > MAX_MISS Then Exit For
         		    nMiss += 1
-        		EndIf 
+        		EndIf
         	Next
 
 	    Case WM_CLOSE
@@ -2526,7 +2526,7 @@ Function ProjectOptionDlgProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wPa
         			WritePrivateProfileString @"Make", @"PreBuildBatch", @FileName, @ad.ProjectFile
         			GetDlgItemText hWin, IDC_EDT_POSTBUILDBATCH, @FileName, SizeOf (FileName)
         			WritePrivateProfileString @"Make", @"PostBuildBatch", @FileName, @ad.ProjectFile
-                    
+
 					hGrd = GetDlgItem (hWin, IDC_GRD_MODUL_CCL)
 					n = SendMessage (hGrd, GM_GETROWCOUNT, 0, 0)
 					For i = 0 To n - 1
@@ -2552,7 +2552,7 @@ Function ProjectOptionDlgProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wPa
 					'
 				Case IDC_BTNMAKEOPT
 					x = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_GENERICOPTION), hWin, @GenericOptDlgProc, GODM_MakeOptProject)
-					If x Then 
+					If x Then
 					    WritePrivateProfileString @"Make", @"Current", Str (x), @ad.ProjectFile
 						GetMakeOption
 					EndIf
@@ -2588,14 +2588,14 @@ Function ProjectOptionDlgProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wPa
 					If GetOpenFileNameUI (@ofn) Then
 						SetDlgItemText hWin, IDC_EDT_PREBUILDBATCH, @FileName
 					EndIf
-			    
+			
 				Case IDC_BTNAPIFILES
 					If DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_PROJECTAPI), hWin, @ApiOptionProc) Then
 						SetDlgItemText(hWin,IDC_EDTAPIFILES,@buff)
 					EndIf
 					'
      			Case IDC_RBN_MODUL_INBUILD, IDC_RBN_MODUL_PREBUILD, IDC_RBN_MODUL_MANUAL
-			        If IsDlgButtonChecked(hWin, IDC_RBN_MODUL_INBUILD) Then 
+			        If IsDlgButtonChecked(hWin, IDC_RBN_MODUL_INBUILD) Then
 			            CheckDlgButton(hWin, IDC_CHKCOMPILENEWER, BST_UNCHECKED)
 			            EnableDlgItem (hWin, IDC_CHKCOMPILENEWER, FALSE)
             			CheckDlgButton(hWin, IDC_CHKADDMODULEFILES, BST_CHECKED)
@@ -2607,14 +2607,14 @@ Function ProjectOptionDlgProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wPa
 			            EnableDlgItem (hWin, IDC_GRD_MODUL_CCL, FALSE)
 			        Else
 			            EnableDlgItem (hWin, IDC_CHKCOMPILENEWER, TRUE)
-			            EnableDlgItem (hWin, IDC_CHKADDMODULEFILES, TRUE) 
+			            EnableDlgItem (hWin, IDC_CHKADDMODULEFILES, TRUE)
 			            EnableDlgItem (hWin, IDC_GRD_MODUL_CCL, TRUE)
 			            SendDlgItemMessage hWin, IDC_GRD_MODUL_CCL, GM_SETBACKCOLOR, GetSysColor (COLOR_WINDOW), 0
 			            SendDlgItemMessage hWin, IDC_GRD_MODUL_CCL, GM_SETTEXTCOLOR, GetSysColor (COLOR_WINDOWTEXT), 0
 			            SendDlgItemMessage hWin, IDC_GRD_MODUL_CCL, GM_SETBACKHIGHCOLOR, GetSysColor (COLOR_HIGHLIGHT), 0
 			            SendDlgItemMessage hWin, IDC_GRD_MODUL_CCL, GM_SETTEXTHIGHCOLOR, GetSysColor (COLOR_HIGHLIGHTTEXT), 0
 			        EndIf
-			        ' 
+			        '
 			End Select
 
     	Case WM_NOTIFY
@@ -2629,14 +2629,14 @@ Function ProjectOptionDlgProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wPa
 					Result = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_GENERICOPTION), hWin, @GenericOptDlgProc, GODM_MakeOptModule)
                     If Result > 0 Then
 	                    GetPrivateProfileString @"Make", Str (Result), NULL, @buff, GOD_EntrySize, @ad.ProjectFile
-                        SplitStr buff, Asc (","), pBuffB 
+                        SplitStr buff, Asc (","), pBuffB
                         SendMessage hGrd, GM_SETCELLDATA, MAKEWPARAM (1, pGRIDNOTIFY->row), Cast (LPARAM, @buff)
-                        
+
        					n = SendMessage (hGrd, GM_GETROWCOUNT, 0, 0)
     					For i = 0 To n - 1                                     ' update whole column 2
                             SendMessage hGrd, GM_GETCELLDATA, MAKEWPARAM (1, i), Cast (LPARAM, @CCLName)
-                            GetCCLData @CCLName, @CCLData   
-                            SendMessage hGrd, GM_SETCELLDATA, MAKEWPARAM (2, i), Cast (LPARAM, @CCLData)     
+                            GetCCLData @CCLName, @CCLData
+                            SendMessage hGrd, GM_SETCELLDATA, MAKEWPARAM (2, i), Cast (LPARAM, @CCLData)
     					Next
     					pGRIDNOTIFY->fcancel = TRUE                            ' cancel default processing, everything is done
     					'*Cast (ZString Ptr, pGRIDNOTIFY->lpdata) = buff       ' set column 1 (name)
@@ -2644,7 +2644,7 @@ Function ProjectOptionDlgProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wPa
     		    Case GN_BEFOREEDIT
     		        Select Case pGRIDNOTIFY->col
     		        Case 1       :    pGRIDNOTIFY->fcancel = FALSE
-    		        Case Else    :    pGRIDNOTIFY->fcancel = TRUE     
+    		        Case Else    :    pGRIDNOTIFY->fcancel = TRUE
     		        End Select
     		    End Select
     		EndIf
@@ -2702,7 +2702,7 @@ Function ProjectProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 				        OpenTheFile sFile, FOM_TXT
 				    Else
 				        OpenTheFile sFile, FOM_STD
-				    EndIf    
+				    EndIf
 					'OpenTheFile(sFile,FOM_STD)
 					' ============================
 					fTimer=1
@@ -2713,14 +2713,14 @@ Function ProjectProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 				'Return lret
 			EndIf
 			
-		Case WM_CHAR 
+		Case WM_CHAR
 			If wParam = VK_RETURN Then
             	GetTrvSelItemData sFile, 0, 0, PT_ABSOLUTE
 			    If GetKeyState (VK_CONTROL) And &H80 Then
 			        OpenTheFile sFile, FOM_TXT
 			    Else
 			        OpenTheFile sFile, FOM_STD
-			    EndIf    
+			    EndIf
 				Return 0
 			Else
 				Return CallWindowProc (lpOldProjectProc, hWin, uMsg, wParam, lParam)
@@ -2742,7 +2742,7 @@ Function ProjectProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 				If lret Then
 					If (GetFileAttributes(sFile) And FILE_ATTRIBUTE_DIRECTORY)=0 Then
 						If fProject Then
-						    If      fCtrl _ 
+						    If      fCtrl _
 						    AndAlso lstrcmpi (PathFindExtension (sFile), @".bas") = 0 Then
 								AddProjectFile sFile, TRUE        ' add as module
 							Else
@@ -2771,7 +2771,7 @@ End Function
 
 Sub MODULEPATH.SetPath(ByRef path As String, ByVal setmembers As Integer)
 	relpath = path
-	If setmembers = 1 Then 
+	If setmembers = 1 Then
 		currentpath = relpath
 		dim count As Integer = 0
 		Dim path_length As Integer = Len(relpath)
@@ -2779,8 +2779,8 @@ Sub MODULEPATH.SetPath(ByRef path As String, ByVal setmembers As Integer)
 		For i As Integer = 0 To path_length-1
 			If Asc(relpath, i+1) = Asc("\") Then
 				count+=1
-			EndIf 
-		Next 
+			EndIf
+		Next
 		currentdepth = 0
 		maxdepth = count
 	EndIf
@@ -2793,7 +2793,7 @@ Function MODULEPATH.GetNextFolder() As String
 	current = currentpath
 	If currentdepth < maxdepth Then
 		position = InStr(current, "\")
-		If position>0 Then 
+		If position>0 Then
 			fold = Left(current, position-1)
 			current = Mid(current, position+1)
 			currentpath = current
@@ -2824,7 +2824,7 @@ Function MODULEPATH.GetPathFromProjectFile(ByVal hwndtv As HWND,ByRef itemid As 
 		hparent=Cast(HTREEITEM,SendMessage(hwndtv,TVM_GETNEXTITEM,TVGN_PARENT,Cast(LPARAM,hparent)))
 	Loop While hparent <> hbase
 	Return Left( spath, Len(spath)-1 )
-End Function 
+End Function
 
 Function MODULEPATH.GetPathName() As String
 	Return currentpath

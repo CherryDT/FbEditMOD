@@ -150,13 +150,13 @@ Function HexFindDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WP
 			ElseIf Event=EN_CHANGE Then
 				' Update text buffers
 				Select Case id
-				Case IDC_HEXFINDTEXT 
+				Case IDC_HEXFINDTEXT
 					GetDlgItemText hWin, id, @hexfindbuff, SizeOf (hexfindbuff)
 					freshex = -1
 				Case IDC_HEXREPLACETEXT
 					GetDlgItemText hWin, id, @hexreplacebuff, SizeOf (hexreplacebuff)
 					freshex = -1
-				End Select 
+				End Select
 			EndIf
 			'
 		Case WM_CLOSE

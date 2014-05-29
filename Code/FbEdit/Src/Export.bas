@@ -246,8 +246,8 @@ Sub ExportMessages()
 End Sub
 
 Function ExportDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer
-    
-    Dim PropertyButton As Integer = Any 
+
+    Dim PropertyButton As Integer = Any
 	
 	Select Case uMsg
 		Case WM_INITDIALOG

@@ -17,15 +17,15 @@
 
 Sub SaveExternalFile (ByVal hWin As HWND)
 
-	Dim nInx  As Integer = Any 
-	Dim Count As Integer = Any 
+	Dim nInx  As Integer = Any
+	Dim Count As Integer = Any
 	Dim sItem As ZString * 260
 	
 	WritePrivateProfileSection "Open", !"\0", ad.IniFile        'remove all keys
 	
 	nInx  = 0
 	Count = 1
-	Do                   
+	Do
 		If SendDlgItemMessage (hWin, IDC_LSTFILETYPE, LB_GETTEXT, nInx, Cast (LPARAM, @sItem)) = LB_ERR Then
 			Exit Do
 		Else

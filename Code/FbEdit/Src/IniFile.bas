@@ -209,14 +209,14 @@ Const szSecProjectZip=	    !"[ProjectZip]\13\10"_
 								!";Optional incluse date=1 or datetime=2\13\10"_
 								!"opt=2\13\10"
 Const szSecRegExLib=        !"[RegExLib]\13\10"_
-                                $"1=Function Returning String,function [_a-z\d]* *\([,_ a-z\d]*\) as string" !"\13\10" 
+                                $"1=Function Returning String,function [_a-z\d]* *\([,_ a-z\d]*\) as string" !"\13\10"
 
 
 Sub IniKeyNotFoundMsg (ByVal pSectionName As ZString Ptr, ByVal pKeyName As ZString Ptr)
-    
-    TextToOutput "*** ini file error ***", MB_ICONHAND 
-    TextToOutput "Section: [" + *pSectionName + "], Key: " + *pKeyName + ", not found in " + ad.IniFile      
-    
+
+    TextToOutput "*** ini file error ***", MB_ICONHAND
+    TextToOutput "Section: [" + *pSectionName + "], Key: " + *pKeyName + ", not found in " + ad.IniFile
+
 End Sub
 
 Sub SaveToIni (ByVal pSection As ZString Ptr, ByVal pKey As ZString Ptr, ByRef Types As ZString, ByVal pStruct As Any Ptr, ByVal fProject As Boolean)
@@ -224,13 +224,13 @@ Sub SaveToIni (ByVal pSection As ZString Ptr, ByVal pKey As ZString Ptr, ByRef T
 	Dim value   As ZString * 4096
 	Dim buffer  As ZString * 256
 	Dim i       As Integer        = Any
-	Dim ofs     As Integer        = Any 
-    Dim pAppend As ZString Ptr    = Any 
-    
+	Dim ofs     As Integer        = Any
+    Dim pAppend As ZString Ptr    = Any
+
     ofs = 0
-    i = 0 
+    i = 0
 	Do	
-		Select Case Types[i] 
+		Select Case Types[i]
 		Case Asc ("4")                           			' DWORD (32bit unsigned)
 	        buffer = Str (*Cast (DWORD Ptr, pStruct + ofs))
 		    pAppend = @buffer
@@ -244,7 +244,7 @@ Sub SaveToIni (ByVal pSection As ZString Ptr, ByVal pKey As ZString Ptr, ByRef T
 		Case Asc ("0")                               	    ' *(ZString Ptr)
             pAppend = *Cast (ZString Ptr Ptr, pStruct + ofs)
 			ofs += SizeOf (ZString Ptr)
-	    
+	
 	    Case Asc ("1")                                      ' Byte
 			buffer = Str (*Cast (Byte Ptr, pStruct + ofs))
 		    pAppend = @buffer
@@ -260,7 +260,7 @@ Sub SaveToIni (ByVal pSection As ZString Ptr, ByVal pKey As ZString Ptr, ByRef T
 		
 		Case Else
 		    Exit Do                                         ' error in format string
-		    
+		
 		End Select
 
         If IsZStrEmpty (value) Then
@@ -270,14 +270,14 @@ Sub SaveToIni (ByVal pSection As ZString Ptr, ByVal pKey As ZString Ptr, ByRef T
         EndIf
 
 	    i += 1
-	Loop 
+	Loop
 	
 	If fProject Then
 		WritePrivateProfileString pSection, pKey, @value, @ad.ProjectFile
 	Else
 		WritePrivateProfileString pSection, pKey, @value, @ad.IniFile
 	EndIf
-	                                                                
+	
 End Sub
 
 'Sub SaveToIni(ByVal lpszApp As ZString Ptr,ByVal lpszKey As ZString Ptr,Byref lpszTypes As ZString,ByVal lpDta As Any Ptr,ByVal fProject As Boolean)
@@ -285,7 +285,7 @@ End Sub
 '	Dim i As Integer = Any
 '	Dim ofs As Integer
 '	'Dim tmp As ZString*260                          ' MOD 25.1.2012
-'	Dim v As Integer = Any 
+'	Dim v As Integer = Any
 '	Dim p As ZString Ptr
 '	
 '	i = 0
@@ -317,7 +317,7 @@ End Sub
 '			value=value & "," & Str (*Cast (DWORD Ptr, lpDta + ofs))
 '			ofs += 4
 '		End Select
-'        i += 1    
+'        i += 1
 '	Loop
 '
 '	value=Mid(value,2)
@@ -337,8 +337,8 @@ Function LoadFromIni(ByVal lpszApp As ZString Ptr,ByVal lpszKey As ZString Ptr,B
 	Dim v As Integer
 	Dim p As ZString Ptr
 	Dim szDta As ZString*4096
-    Dim pIniFile As ZString Ptr = Any 
-    
+    Dim pIniFile As ZString Ptr = Any
+
 	If fProject Then
 		pIniFile = @ad.ProjectFile
 	Else
@@ -384,9 +384,9 @@ Function LoadFromIni(ByVal lpszApp As ZString Ptr,ByVal lpszKey As ZString Ptr,B
 			If InStr(szDta,",") Then
 				szDta=Mid(szDta,InStr(szDta,",")+1)
 			Else
-				SetZStrEmpty (szDta)             'MOD 26.1.2012 
+				SetZStrEmpty (szDta)             'MOD 26.1.2012
 			EndIf
-		Next 
+		Next
 	Else
 		Return FALSE
 	EndIf
@@ -443,7 +443,7 @@ Sub UpdateColorsTo1065()
 	fbcol.racol.oprback=fbcol.racol.bckcol
 	SaveToIni(StrPtr("Win"),StrPtr("Colors"),"444444444444444444444444444444444",@fbcol,FALSE)
 	For i=1 To 15
-		SetZStrEmpty (THEME)             'MOD 26.1.2012 
+		SetZStrEmpty (THEME)             'MOD 26.1.2012
 		thm.lpszTheme=@THEME
 		LoadFromIni "Theme", Str (i), "044444444444444444444444444444444444444444444444444", @thm, FALSE
 		If THEME<>"" Then
@@ -488,7 +488,7 @@ Sub UpdateColorsTo1067()
 	fbcol.racol.changesaved=65280
 	SaveToIni(StrPtr("Win"),StrPtr("Colors"),"4444444444444444444444444444444",@fbcol,FALSE)
 	For i=1 To 15
-		SetZStrEmpty (THEME)             'MOD 26.1.2012 
+		SetZStrEmpty (THEME)             'MOD 26.1.2012
 		thm.lpszTheme=@THEME
 		LoadFromIni "Theme", Str (i), "044444444444444444444444444444444444444444444444444", @thm, FALSE
 		If Theme<>"" Then
@@ -513,13 +513,13 @@ End Sub
 Sub CheckIniFile()
 	
 	Dim lret           As DWORD              = Any
-	Dim hFile          As HANDLE             = Any 
+	Dim hFile          As HANDLE             = Any
     Dim Path           As ZString * MAX_PATH = Any
-    Dim IniFileVersion As DWORD              = Any 
-    Dim IniBackupSpec  As ZString * MAX_PATH = Any  
-    Dim BackupSuccess  As BOOL               = Any 
+    Dim IniFileVersion As DWORD              = Any
+    Dim IniBackupSpec  As ZString * MAX_PATH = Any
+    Dim BackupSuccess  As BOOL               = Any
     Dim Modified       As BOOL               = FALSE
-     
+
 	IniBackupSpec  = ad.IniFile + ".old"
 	IniFileVersion = GetPrivateProfileInt ("Win", "Version", 0, @ad.IniFile)
 	BackupSuccess  = CopyFile (@ad.IniFile, @IniBackupSpec, FALSE)
@@ -529,7 +529,7 @@ Sub CheckIniFile()
 		If HFILE = INVALID_HANDLE_VALUE Then
 			MessageBox NULL, !"ERROR: cannot create:\n\n" + ad.IniFile, @szAppName, MB_OK Or MB_ICONERROR
 			End
-		Else		    
+		Else		
 			buff = szSecWin        & szSecTheme      & szSecEdit1    & szSecEdit2   & szSecEdit3    & _
 			       szSecEdit4      & szSecEdit5      & szSecEdit6    & szSecEdit7   & szSecBlock    & _
 			       szSecAutoFormat & szSecResource   & szSecTools    & szSecHelp    & _  'szSecProject  & _
@@ -540,16 +540,16 @@ Sub CheckIniFile()
 			WriteFile(hFile,@buff,Len(buff),@lret,NULL)
 			CloseHandle(hFile)
 	        MessageBox NULL, "New ini file written", @szAppName, MB_OK Or MB_ICONINFORMATION
-	        DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_ENVIRON), ah.hwnd, @EnvironProc) 
+	        DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_ENVIRON), ah.hwnd, @EnvironProc)
        		IniFileVersion = GetPrivateProfileInt ("Win", "Version", 0, @ad.IniFile) 'skip the following
-		    Modified = TRUE 
+		    Modified = TRUE
 		EndIf
-	EndIf 
+	EndIf
 
 	If IniFileVersion < 1065 Then
 		UpdateColorsTo1065
 		Modified = TRUE
-	EndIf 
+	EndIf
 
 	If IniFileVersion < 1067 Then
 		UpdateColorsTo1067
@@ -569,50 +569,50 @@ Sub CheckIniFile()
 	If IniFileVersion < 1071 Then
 		UpdateSection "Block", szSecBlock
 		Modified = TRUE
-	EndIf 
+	EndIf
 
 	If IniFileVersion < 1076 Then
 		GetPrivateProfileString(StrPtr("Api"),StrPtr("Api"),NULL,@buff,SizeOf(buff),@ad.IniFile)
-		If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012  
+		If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012
 		buff &="fmod (fmod Sound),rae (RAEdit),rap (RAProperty),racc (RACodeComplete),raf (RAFile),rah (RAHexEd),rag (RAGrid),rar (RAResEd),spr (SpreadSheet)"
 		WritePrivateProfileString("Api","Api",@buff,@ad.IniFile)
 		' xxxCall.api
 		GetPrivateProfileString(StrPtr("Api"),StrPtr("Call"),NULL,@buff,SizeOf(buff),@ad.IniFile)
-		If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012  
+		If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012
 		buff &="fmodCall.api"
 		WritePrivateProfileString("Api","Call",@buff,@ad.IniFile)
 		' xxxConst.api
 		GetPrivateProfileString(StrPtr("Api"),StrPtr("Const"),NULL,@buff,SizeOf(buff),@ad.IniFile)
-		If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012  
+		If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012
 		buff &="raeConst.api,rapConst.api,raccConst.api,rafConst.api,rahConst.api,ragConst.api,rarConst.api,sprConst.api"
 		WritePrivateProfileString("Api","Const",@buff,@ad.IniFile)
 		' xxxStruct.api
 		GetPrivateProfileString(StrPtr("Api"),StrPtr("Struct"),NULL,@buff,SizeOf(buff),@ad.IniFile)
-		If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012  
+		If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012
 		buff &="fmodStruct.api,raeStruct.api,rapStruct.api,raccStruct.api,rafStruct.api,rahStruct.api,ragStruct.api,rarStruct.api,sprStruct.api"
 		WritePrivateProfileString("Api","Struct",@buff,@ad.IniFile)
 		' xxxWord.api
 		GetPrivateProfileString(StrPtr("Api"),StrPtr("Word"),NULL,@buff,SizeOf(buff),@ad.IniFile)
-		If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012  
+		If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012
 		buff &="fmodWord.api,raeWord.api,rapWord.api,raccWord.api,rafWord.api,rahWord.api,ragWord.api,rarWord.api,sprWord.api"
 		WritePrivateProfileString("Api","Word",@buff,@ad.IniFile)
 		' xxxEnum.api
 		GetPrivateProfileString(StrPtr("Api"),StrPtr("Enum"),NULL,@buff,SizeOf(buff),@ad.IniFile)
-		If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012  
+		If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012
 		buff &="fmodEnum.api,raeEnum.api,rapEnum.api"
 		WritePrivateProfileString("Api","Enum",@buff,@ad.IniFile)
 		' xxxMsg.api
 		GetPrivateProfileString(StrPtr("Api"),StrPtr("Msg"),NULL,@buff,SizeOf(buff),@ad.IniFile)
-		If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012  
+		If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012
 		buff &="raeMsg.api,rapMsg.api,raccMsg.api,rafMsg.api,rahMsg.api,ragMsg.api,rarMsg.api,sprMsg.api"
 		WritePrivateProfileString("Api","Msg",@buff,@ad.IniFile)
 		' Add Api File Creator to tools menu
 		lret=1
 		While TRUE
 			GetPrivateProfileString(StrPtr("Tools"),Str(lret),NULL,@buff,SizeOf(buff),@ad.IniFile)
-			If IsZStrEmpty (buff) Then                         ' MOD 27.1.2012  
+			If IsZStrEmpty (buff) Then                         ' MOD 27.1.2012
 				WritePrivateProfileString("Tools",Str(lret),"Api File Creator,$A\Tools\MakeApi.exe ""$A""",@ad.IniFile)
-				Exit While                             
+				Exit While
 			EndIf
 			lret+=1
 		Wend
@@ -628,8 +628,8 @@ Sub CheckIniFile()
 		'FixPath buff
 		'PathCombine @buff, @ad.AppPath, @buff
 		WritePrivateProfileString "EnvironPath", "PROJECTS_PATH", @buff, @ad.IniFile
-        WritePrivateProfileString "Project", "Path", NULL, @ad.IniFile              ' remove key 
-        
+        WritePrivateProfileString "Project", "Path", NULL, @ad.IniFile              ' remove key
+
         'GetPrivateProfileString "Make", "fbcPath", NULL, @buff, MAX_PATH, @ad.IniFile
         GetPrivateProfilePath "Make", "fbcPath", @ad.IniFile, @buff, GPP_Untouched
         'FixPath buff
@@ -640,10 +640,10 @@ Sub CheckIniFile()
             WritePrivateProfileString "EnvironPath", "FBCINC_PATH", @"", @ad.IniFile
             WritePrivateProfileString "EnvironPath", "FBCLIB_PATH", @"", @ad.IniFile
         Else
-            PathCombine @Path, @buff, "include"    
+            PathCombine @Path, @buff, "include"
             WritePrivateProfileString "EnvironPath", "FBCINC_PATH", @Path, @ad.IniFile
             PathCombine @Path, @buff, "lib"
-            WritePrivateProfileString "EnvironPath", "FBCLIB_PATH", @Path, @ad.IniFile    
+            WritePrivateProfileString "EnvironPath", "FBCLIB_PATH", @Path, @ad.IniFile
         EndIf
         'GetPrivateProfileString "Help", "Path", NULL, @buff, MAX_PATH, @ad.IniFile
         GetPrivateProfilePath "Help", "Path", @ad.IniFile, @buff, GPP_Untouched
@@ -663,31 +663,31 @@ Sub CheckIniFile()
         ''FixPath buff
         ''PathCombine @buff, @ad.AppPath, @buff
         'WritePrivateProfileString "Help", "CtrlF1", @buff, @ad.IniFile
-        
+
         UpdateSection "Open", szSecOpen
 		UpdateSection "RegExLib", szSecRegExLib
 		Modified = TRUE
 	EndIf
 
     If IniFileVersion > ad.version Then
-        MessageBox NULL, !"ERROR: FbEdit older than ini file\nprogram version:\t" + Str (ad.version) + !"\nini version:\t" + Str (IniFileVersion), @szAppName, MB_OK Or MB_ICONERROR                
-        End 
+        MessageBox NULL, !"ERROR: FbEdit older than ini file\nprogram version:\t" + Str (ad.version) + !"\nini version:\t" + Str (IniFileVersion), @szAppName, MB_OK Or MB_ICONERROR
+        End
     EndIf
 
 	WritePrivateProfileString "Win", "Version", Str (ad.version), @ad.IniFile
-    
+
     If Modified Then
         buff = !"Updated:\n" + ad.IniFile
         If BackupSuccess Then
             buff += !"\n\nBackup:\n" + IniBackupSpec
-        EndIf    
+        EndIf
         MessageBox NULL, @buff, @szAppName, MB_OK Or MB_ICONINFORMATION
-    EndIf 
+    EndIf
 End Sub
 
 'Sub CheckIniFileOld()
 '	
-'	Dim lret           As DWORD 
+'	Dim lret           As DWORD
 '	Dim hFile          As HANDLE
 '   Dim Path           As ZString * MAX_PATH
 '		If hFile<>INVALID_HANDLE_VALUE Then
@@ -700,7 +700,7 @@ End Sub
 '			
 '			WriteFile(hFile,@buff,Len(buff),@lret,NULL)
 '			CloseHandle(hFile)
-'	        DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_ENVIRON), ah.hwnd, @EnvironProc) 
+'	        DialogBox (hInstance, MAKEINTRESOURCE (IDD_DLG_ENVIRON), ah.hwnd, @EnvironProc)
 '			'DialogBox(hInstance,Cast(ZString Ptr,IDD_DLGPATHOPTION),NULL,@PathOptDlgProc)
 '		Else
 '			' Could not create it.
@@ -754,44 +754,44 @@ End Sub
 '				'
 '			ElseIf IniFileVersion < 1076 Then
 '				GetPrivateProfileString(StrPtr("Api"),StrPtr("Api"),NULL,@buff,SizeOf(buff),@ad.IniFile)
-'				If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012  
+'				If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012
 '				buff &="fmod (fmod Sound),rae (RAEdit),rap (RAProperty),racc (RACodeComplete),raf (RAFile),rah (RAHexEd),rag (RAGrid),rar (RAResEd),spr (SpreadSheet)"
 '				WritePrivateProfileString("Api","Api",@buff,@ad.IniFile)
 '				' xxxCall.api
 '				GetPrivateProfileString(StrPtr("Api"),StrPtr("Call"),NULL,@buff,SizeOf(buff),@ad.IniFile)
-'				If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012  
+'				If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012
 '				buff &="fmodCall.api"
 '				WritePrivateProfileString("Api","Call",@buff,@ad.IniFile)
 '				' xxxConst.api
 '				GetPrivateProfileString(StrPtr("Api"),StrPtr("Const"),NULL,@buff,SizeOf(buff),@ad.IniFile)
-'				If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012  
+'				If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012
 '				buff &="raeConst.api,rapConst.api,raccConst.api,rafConst.api,rahConst.api,ragConst.api,rarConst.api,sprConst.api"
 '				WritePrivateProfileString("Api","Const",@buff,@ad.IniFile)
 '				' xxxStruct.api
 '				GetPrivateProfileString(StrPtr("Api"),StrPtr("Struct"),NULL,@buff,SizeOf(buff),@ad.IniFile)
-'				If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012  
+'				If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012
 '				buff &="fmodStruct.api,raeStruct.api,rapStruct.api,raccStruct.api,rafStruct.api,rahStruct.api,ragStruct.api,rarStruct.api,sprStruct.api"
 '				WritePrivateProfileString("Api","Struct",@buff,@ad.IniFile)
 '				' xxxWord.api
 '				GetPrivateProfileString(StrPtr("Api"),StrPtr("Word"),NULL,@buff,SizeOf(buff),@ad.IniFile)
-'				If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012  
+'				If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012
 '				buff &="fmodWord.api,raeWord.api,rapWord.api,raccWord.api,rafWord.api,rahWord.api,ragWord.api,rarWord.api,sprWord.api"
 '				WritePrivateProfileString("Api","Word",@buff,@ad.IniFile)
 '				' xxxEnum.api
 '				GetPrivateProfileString(StrPtr("Api"),StrPtr("Enum"),NULL,@buff,SizeOf(buff),@ad.IniFile)
-'				If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012  
+'				If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012
 '				buff &="fmodEnum.api,raeEnum.api,rapEnum.api"
 '				WritePrivateProfileString("Api","Enum",@buff,@ad.IniFile)
 '				' xxxMsg.api
 '				GetPrivateProfileString(StrPtr("Api"),StrPtr("Msg"),NULL,@buff,SizeOf(buff),@ad.IniFile)
-'				If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012  
+'				If IsZStrNotEmpty (buff) Then buff &=","               ' MOD 27.1.2012
 '				buff &="raeMsg.api,rapMsg.api,raccMsg.api,rafMsg.api,rahMsg.api,ragMsg.api,rarMsg.api,sprMsg.api"
 '				WritePrivateProfileString("Api","Msg",@buff,@ad.IniFile)
 '				' Add Api File Creator to tools menu
 '				lret=1
 '				While TRUE
 '					GetPrivateProfileString(StrPtr("Tools"),Str(lret),NULL,@buff,SizeOf(buff),@ad.IniFile)
-'					If IsZStrEmpty (buff) Then                         ' MOD 27.1.2012  
+'					If IsZStrEmpty (buff) Then                         ' MOD 27.1.2012
 '						WritePrivateProfileString("Tools",Str(lret),"Api File Creator,$A\Tools\MakeApi.exe ""$A""",@ad.IniFile)
 '						Exit While
 '					EndIf
@@ -799,24 +799,24 @@ End Sub
 '				Wend
 '				'
 '			ElseIf IniFileVersion < 1077 Then
-'				'			    
+'				'			
 '			ElseIf IniFileVersion < 1078 Then
 '    			Print "iniver < 1078"
 '    			GetPrivateProfileString   "Project", "Path", NULL, @buff, MAX_PATH, @ad.IniFile
 '    			FixPath buff
 '    			PathCombine @buff, @ad.AppPath, @buff
 '    			WritePrivateProfileString "EnvironPath", "PROJECTS_PATH", @buff, @ad.IniFile
-'		        WritePrivateProfileString "Project", "Path", NULL, @ad.IniFile              ' remove key 
-'		        
+'		        WritePrivateProfileString "Project", "Path", NULL, @ad.IniFile              ' remove key
+'		
 '		        GetPrivateProfileString   "Make", "fbcPath", NULL, @buff, MAX_PATH, @ad.IniFile
 '		        FixPath buff
 '		        PathCombine @buff, @ad.AppPath, @buff
 '		        WritePrivateProfileString "EnvironPath", "FBC_PATH", @buff, @ad.IniFile
 '                WritePrivateProfileString "Make", "fbcPath", NULL, @ad.IniFile              ' remove key
 '                PathCombine Path, buff, "include"
-'                WritePrivateProfileString "EnvironPath", "FBCINC_PATH", @Path, @ad.IniFile 
+'                WritePrivateProfileString "EnvironPath", "FBCINC_PATH", @Path, @ad.IniFile
 '                PathCombine Path, buff, "lib"
-'                WritePrivateProfileString "EnvironPath", "FBCLIB_PATH", @Path, @ad.IniFile 
+'                WritePrivateProfileString "EnvironPath", "FBCLIB_PATH", @Path, @ad.IniFile
 '
 ' 		        GetPrivateProfileString   "Help", "Path", NULL, @buff, MAX_PATH, @ad.IniFile
 '		        FixPath buff
@@ -835,66 +835,66 @@ End Sub
 
 Sub GetPrivateProfilePath (ByVal pSectionName As ZString Ptr, ByVal pKeyName As ZString Ptr, ByVal pIniSpec As ZString Ptr, ByVal pPath As ZString Ptr, ByVal Mode As GetPrivateProfileSpecMode)
 
-    Dim Success As BOOL = Any 
+    Dim Success As BOOL = Any
 
     GetPrivateProfileString pSectionName, pKeyName, NULL, pPath, MAX_PATH, pIniSpec
-   
-    If IsZStrEmpty (*pPath) Then  
-        TextToOutput "*** ini file error - value not found ***", MB_ICONHAND 
-        TextToOutput "File: " + *pIniSpec + ", Section: [" + *pSectionName + "], Key: " + *pKeyName     
-        Exit Sub 
+
+    If IsZStrEmpty (*pPath) Then
+        TextToOutput "*** ini file error - value not found ***", MB_ICONHAND
+        TextToOutput "File: " + *pIniSpec + ", Section: [" + *pSectionName + "], Key: " + *pKeyName
+        Exit Sub
     Else
         If Mode = GPP_Expanded Then
 	        UpdateEnvironment
-			Success = ExpandStrByEnviron (*pPath, MAX_PATH) 
+			Success = ExpandStrByEnviron (*pPath, MAX_PATH)
             If Success = FALSE Then
-                TextToOutput "*** commandline too long - expansion by environment failed ***", MB_ICONHAND 
+                TextToOutput "*** commandline too long - expansion by environment failed ***", MB_ICONHAND
                 TextToOutput *pPath
                 SetZStrEmpty (*pPath)
-                Exit Sub  
-            EndIf 
+                Exit Sub
+            EndIf
         EndIf
 
         If Mode And GPP_MustExist Then
             If DirExists (pPath) = FALSE Then
-                TextToOutput "*** ini file error - directory not found ***", MB_ICONHAND 
+                TextToOutput "*** ini file error - directory not found ***", MB_ICONHAND
                 TextToOutput "File: " + *pIniSpec + ", Section: [" + *pSectionName + "], Key: " + *pKeyName + " = " + *pPath
                 SetZStrEmpty (*pPath)
-                Exit Sub 
+                Exit Sub
             EndIf
-        EndIf 
+        EndIf
     EndIf
 End Sub
 
 Sub GetPrivateProfileSpec (ByVal pSectionName As ZString Ptr, ByVal pKeyName As ZString Ptr, ByVal pIniSpec As ZString Ptr, ByVal pSpec As ZString Ptr, ByVal Mode As GetPrivateProfileSpecMode)
-    
-    Dim Success As BOOL = Any 
-    
+
+    Dim Success As BOOL = Any
+
     GetPrivateProfileString pSectionName, pKeyName, NULL, pSpec, MAX_PATH, pIniSpec
-   
-    If IsZStrEmpty (*pSpec) Then  
-        TextToOutput "*** ini file error - value not found ***", MB_ICONHAND 
+
+    If IsZStrEmpty (*pSpec) Then
+        TextToOutput "*** ini file error - value not found ***", MB_ICONHAND
         TextToOutput "File: " + *pIniSpec + ", Section: [" + *pSectionName + "], Key: " + *pKeyName
-        Exit Sub 
+        Exit Sub
     Else
-        
+
         If Mode And GPP_Expanded Then
 	        UpdateEnvironment
-			Success = ExpandStrByEnviron (*pSpec, MAX_PATH) 
+			Success = ExpandStrByEnviron (*pSpec, MAX_PATH)
             If Success = FALSE Then
-                TextToOutput "*** commandline too long - expansion by environment failed ***", MB_ICONHAND 
+                TextToOutput "*** commandline too long - expansion by environment failed ***", MB_ICONHAND
                 TextToOutput *pSpec
                 SetZStrEmpty (*pSpec)
-                Exit Sub  
-            EndIf 
+                Exit Sub
+            EndIf
         EndIf
-        
+
         If Mode And GPP_MustExist Then
             If FileExists (pSpec) = FALSE Then
-                TextToOutput "*** ini file error - file not found ***", MB_ICONHAND 
-                TextToOutput "File: " + *pIniSpec + ", Section: [" + *pSectionName + "], Key: " + *pKeyName + " = " + *pSpec     
+                TextToOutput "*** ini file error - file not found ***", MB_ICONHAND
+                TextToOutput "File: " + *pIniSpec + ", Section: [" + *pSectionName + "], Key: " + *pKeyName + " = " + *pSpec
                 SetZStrEmpty (*pSpec)
-                Exit Sub 
+                Exit Sub
             EndIf
         EndIf
     EndIf

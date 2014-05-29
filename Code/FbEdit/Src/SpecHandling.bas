@@ -396,7 +396,7 @@ Sub CmdLineSubstExeUI (ByRef CmdLine       As ZString,    _         ' [IN] requi
     Dim   ofn         As OPENFILENAME
     Dim   ArgList     As ZString * CmdLineSize
     Dim   OldCmdLine  As ZString * CmdLineSize
-    
+
     OldCmdLine = CmdLine
 
     With ofn

@@ -36,7 +36,7 @@ Declare Function GetProjectMainResource () As String
 Declare Function CountProjectResource () As Integer
 Declare Function GetFileImg (ByRef sFileSpec As ZString, ByVal FileID As Integer) As Integer
 Declare Function GetFileID (Byref sFile As ZString) As Integer
-Declare Function MakeProjectFileName (Byref FileSpec As Const ZString) As String  
+Declare Function MakeProjectFileName (Byref FileSpec As Const ZString) As String
 Declare Function RemoveProjectPath (ByRef sFile As ZString) As ZString Ptr     ' MOD 7.1.2012 ByVal -> ByRef
 Declare Function CloseProject () As Integer
 Declare Function OpenProject () As Integer
@@ -58,7 +58,7 @@ Declare Sub SetProjectFileInfo (ByVal hWin As HWND,ByVal lpPFI As PFI Ptr)
 
 Declare Sub RefreshProjectTree
 Declare Sub SelectTrvItem (Byref sFile As ZString)
-Declare Function GetTrvSelItemData (ByRef FileSpec As ZString, ByRef FileID As Integer, ByRef hTVItem As HTREEITEM, ByVal PathMode As PathType) As BOOLEAN 
+Declare Function GetTrvSelItemData (ByRef FileSpec As ZString, ByRef FileID As Integer, ByRef hTVItem As HTREEITEM, ByVal PathMode As PathType) As BOOLEAN
 
 Declare Function ProjectProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer
 Declare Function NewProjectDlgProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
@@ -72,10 +72,10 @@ Extern ProjectDeleteFiles As ZString * 260
 Extern nMain              As Integer
 Extern nMainRC            As Integer             ' MOD 30.1.2012 ADD
 Extern fRecompile         As Integer
-Extern lpOldProjectProc   As WNDPROC 
-Extern fAddMainFiles      As BOOLEAN 
-Extern fCompileIfNewer    As BOOLEAN 
-Extern fAddModuleFiles    As BOOLEAN 
-Extern fIncVersion        As BOOLEAN 
+Extern lpOldProjectProc   As WNDPROC
+Extern fAddMainFiles      As BOOLEAN
+Extern fCompileIfNewer    As BOOLEAN
+Extern fAddModuleFiles    As BOOLEAN
+Extern fIncVersion        As BOOLEAN
 Extern fRunCmd            As BOOLEAN
 

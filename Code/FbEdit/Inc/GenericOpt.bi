@@ -3,7 +3,7 @@
 Declare Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPARAM, ByVal lParam As LPARAM) As Integer
 
 Type  GOD_EntryName As ZString * 32
-Type  GOD_EntryData As ZString * MAX_PATH  
+Type  GOD_EntryData As ZString * MAX_PATH
 
 Const GOD_EntrySize As Integer = SizeOf (GOD_EntryName) + 1 + SizeOf (GOD_EntryData)      ' 1 Delimiter
 Const GOD_MaxItems  As Integer = 50

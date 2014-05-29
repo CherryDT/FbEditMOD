@@ -47,7 +47,7 @@ Sub SaveProjectTabOrder ()
 	Dim tci       As TCITEM
 	Dim i         As Integer = 0
   	Dim sTabOrder As String
-    Dim FirstItem As BOOL    = TRUE  
+    Dim FirstItem As BOOL    = TRUE
 
 	tci.mask = TCIF_PARAM
 	Do
@@ -56,18 +56,18 @@ Sub SaveProjectTabOrder ()
 			    If FirstItem Then
 			        sTabOrder = Str (pTABMEM->profileinx)
 			        FirstItem = FALSE
-			    Else 
+			    Else
 			        sTabOrder += "," + Str (pTABMEM->profileinx)
 			    EndIf
 			EndIf
     		i += 1
 		Else
-			Exit Do 
+			Exit Do
 		EndIf
 	Loop
 
 	WritePrivateProfileString @"TabOrder", @"TabOrder"  , sTabOrder               , @ad.ProjectFile
-    WritePrivateProfileString @"TabOrder", @"CurrentTab", Str (GetFileIDByCurrTab), @ad.ProjectFile   ' writes 0, if curr tab = non project tab 
+    WritePrivateProfileString @"TabOrder", @"CurrentTab", Str (GetFileIDByCurrTab), @ad.ProjectFile   ' writes 0, if curr tab = non project tab
 
 End Sub
 
@@ -79,25 +79,25 @@ Sub SetTabLock (ByVal TabID As Integer, ByVal NewState As BOOL)
 	If SendMessage (ah.htabtool, TCM_GETITEM, TabID, Cast (LPARAM, @tci)) Then
 		If NewState = TRUE Then
             pTABMEM->locked = TRUE
-		    SendMessage ah.htabtool, TCM_HIGHLIGHTITEM, TabID, TRUE 
+		    SendMessage ah.htabtool, TCM_HIGHLIGHTITEM, TabID, TRUE
 		Else
 		    pTABMEM->locked = FALSE
 		    SendMessage ah.htabtool, TCM_HIGHLIGHTITEM, TabID, FALSE
 		EndIf
 	EndIf
-           
+
 End Sub
 
-Function GetTabLock (ByVal TabId As Integer) As BOOL 
+Function GetTabLock (ByVal TabId As Integer) As BOOL
 
 	Dim tci      As TCITEM
 
 	tci.mask = TCIF_PARAM
 
 	If SendMessage (ah.htabtool, TCM_GETITEM, TabID, Cast (LPARAM, @tci)) Then
-		Return pTABMEM->locked 
+		Return pTABMEM->locked
 	EndIf
-    
+
 End Function
 
 Sub ToggleTabLock (ByVal TabId As Integer)
@@ -108,20 +108,20 @@ Sub ToggleTabLock (ByVal TabId As Integer)
 
 	If SendMessage (ah.htabtool, TCM_GETITEM, TabID, Cast (LPARAM, @tci)) Then
 		If pTABMEM->locked = TRUE Then
-		    pTABMEM->locked = FALSE    
+		    pTABMEM->locked = FALSE
             SendMessage ah.htabtool, TCM_HIGHLIGHTITEM, TabID, FALSE
         Else
-		    pTABMEM->locked = TRUE     
-            SendMessage ah.htabtool, TCM_HIGHLIGHTITEM, TabID, TRUE 
+		    pTABMEM->locked = TRUE
+            SendMessage ah.htabtool, TCM_HIGHLIGHTITEM, TabID, TRUE
 		EndIf
 	EndIf
 	
 End Sub
 
-Function GetTabLockByCurrTab () As Integer  
+Function GetTabLockByCurrTab () As Integer
 
 	Dim tci      As TCITEM
-	Dim CurrTab  As Integer    = Any 
+	Dim CurrTab  As Integer    = Any
 
 	tci.mask = TCIF_PARAM
 	CurrTab = SendMessage (ah.htabtool, TCM_GETCURSEL, 0, 0)
@@ -129,7 +129,7 @@ Function GetTabLockByCurrTab () As Integer
 	If CurrTab <> INVALID_TABID Then
 		If SendMessage (ah.htabtool, TCM_GETITEM, CurrTab, Cast (LPARAM, @tci)) Then
 			Return pTABMEM->locked
-		EndIf 
+		EndIf
 	EndIf
 
 	Return INVALID_TABID
@@ -145,22 +145,22 @@ Sub SetFileIDByTabID (ByVal TabID As Integer, ByVal NewFileID As Integer)
 	If SendMessage (ah.htabtool, TCM_GETITEM, TabId, Cast (LPARAM, @tci)) Then
         pTABMEM->profileinx = NewFileID
 	EndIf
-   
+
 End Sub
 
 Sub Tab2Project ()
 
 	Dim tci      As TCITEM
-	Dim CurrTab  As Integer    = Any 
-    
+	Dim CurrTab  As Integer    = Any
+
     If fProject Then
     	tci.mask = TCIF_PARAM
     	CurrTab = SendMessage (ah.htabtool, TCM_GETCURSEL, 0, 0)
-    
+
     	If CurrTab <> INVALID_TABID Then
     		If SendMessage (ah.htabtool, TCM_GETITEM, CurrTab, Cast (LPARAM, @tci)) Then
-   				AddAProjectFile pTABMEM->filename, FALSE, FALSE 
-    		EndIf 
+   				AddAProjectFile pTABMEM->filename, FALSE, FALSE
+    		EndIf
     	EndIf
     EndIf
 
@@ -171,8 +171,8 @@ Function CountCodeEdTabs () As Integer
 	Dim tci        As TCITEM
 	Dim i          As Integer = 0
     Dim Count      As Integer = 0
-    Dim EditorMode As Integer = Any 
-    
+    Dim EditorMode As Integer = Any
+
 	tci.mask = TCIF_PARAM
 	
 	Do
@@ -186,10 +186,10 @@ Function CountCodeEdTabs () As Integer
 			Return Count
 		EndIf
 	Loop
-    
+
 End Function
 
-Function GetEditWindowByFileID (ByVal FileID As Integer) As HWND 
+Function GetEditWindowByFileID (ByVal FileID As Integer) As HWND
 
 	Dim tci      As TCITEM
 	Dim i        As Integer    = 0
@@ -209,10 +209,10 @@ Function GetEditWindowByFileID (ByVal FileID As Integer) As HWND
 
 End Function
 
-Function GetEditWindowByTabID (ByVal TabID As Integer) As HWND 
+Function GetEditWindowByTabID (ByVal TabID As Integer) As HWND
 
     ' TabID = 0 ... n  (zerobased)
-    
+
 	Dim tci As TCITEM
 	
 	tci.mask = TCIF_PARAM
@@ -225,22 +225,16 @@ Function GetEditWindowByTabID (ByVal TabID As Integer) As HWND
 	
 End Function
 
-Function GetEditWindowBySpec (Byref fn As ZString) As HWND     ' MOD 1.2.2012   (ByVal hWin As HWND,ByVal fn As String,ByVal fShow As Boolean) As HWND
+Function GetEditWindowBySpec (Byref fn As ZString) As HWND
 
 	Dim tci      As TCITEM
-	'Dim hOld As HWND
-	Dim i        As Integer    = 0 
+	Dim i        As Integer    = 0
 
-	tci.mask=TCIF_PARAM
+	tci.mask = TCIF_PARAM
 
 	Do
 		If SendMessage(ah.htabtool,TCM_GETITEM,i,Cast(Integer,@tci)) Then
 		    If lstrcmpi(fn,pTABMEM->filename)=0 Then
-                ' MOD 3.2.2012  removed, call function ShowTab
-				'If fShow Then
-				'	SelectTab(lpTABMEM->hedit,0)         ' MOD 1.2.2012 removed ah.hwnd
-				'	SetFocus(ah.hred)
-				'EndIf
 				Return pTABMEM->hedit
 			EndIf
 			i += 1
@@ -251,56 +245,56 @@ Function GetEditWindowBySpec (Byref fn As ZString) As HWND     ' MOD 1.2.2012   
 
 End Function
 
-Function GetEditWindowByFocus () As HWND 
-    
+Function GetEditWindowByFocus () As HWND
+
     If ah.hred = GetParent (GetFocus ()) Then
         Return ah.hred
     Else
         Return 0
     EndIf
-    
+
 End Function
 
 Function ShowTab (ByRef FileSpec As ZString) As BOOLEAN
-    
+
     Dim hEdit As HWND = Any
-    
+
     hEdit = GetEditWindowBySpec (FileSpec)
-    
+
     If hEdit Then
 		SelectTabByWindow hEdit
 		SetFocus ah.hred
-        Return TRUE 
+        Return TRUE
     Else
-        Return FALSE 
+        Return FALSE
     EndIf
 
 End Function
 
-Sub GetResTabID (ByRef ResTabID As Integer, ByRef ResFileSpec As String)  
-    
+Sub GetResTabID (ByRef ResTabID As Integer, ByRef ResFileSpec As String)
+
 	Dim tci      As TCITEM
-    
+
     ResTabID = 0
 	tci.mask = TCIF_PARAM
 	Do
 		If SendMessage (ah.htabtool, TCM_GETITEM, ResTabID, Cast (LPARAM, @tci)) Then
 			If GetWindowLong (pTABMEM->hedit, GWL_ID) = IDC_RESED Then
 				ResFileSpec = pTABMEM->filename
-				Exit Sub 
+				Exit Sub
 			EndIf
 		    ResTabID += 1
 		Else
 			ResFileSpec = ""
 			ResTabID = INVALID_TABID      ' not found
-			Exit Sub 
+			Exit Sub
 		EndIf
 	Loop
-   
-End Sub 
 
-Function GetTabIDByEditWindow (ByVal hEditor As HWND) As Integer  
-    
+End Sub
+
+Function GetTabIDByEditWindow (ByVal hEditor As HWND) As Integer
+
 	Dim tci      As TCITEM
 	Dim i        As Integer = 0
 
@@ -315,7 +309,7 @@ Function GetTabIDByEditWindow (ByVal hEditor As HWND) As Integer
 			Return INVALID_TABID      ' not found
 		EndIf
 	Loop
-   
+
 End Function
 
 Function GetTabIDByFileID (ByVal FileID As Integer)	As Integer
@@ -337,7 +331,7 @@ Function GetTabIDByFileID (ByVal FileID As Integer)	As Integer
 
 End Function
 
-Sub GetTabIDBySpec (ByRef FileSpec As ZString, ByRef TabID As Integer, ByRef EditorMode As Integer)  
+Sub GetTabIDBySpec (ByRef FileSpec As ZString, ByRef TabID As Integer, ByRef EditorMode As Integer)
 
 	Dim tci As TCITEM
 
@@ -347,22 +341,22 @@ Sub GetTabIDBySpec (ByRef FileSpec As ZString, ByRef TabID As Integer, ByRef Edi
 		If SendMessage (ah.htabtool, TCM_GETITEM, TabID, Cast (LPARAM, @tci)) Then
 			If lstrcmpi (FileSpec, pTABMEM->filename) = 0 Then
 				EditorMode = GetWindowLong (pTABMEM->hedit, GWL_ID)
-				Exit Sub   
+				Exit Sub
 			EndIf
 		    TabID += 1
 		Else
 		    EditorMode = 0
 			TabID = INVALID_TABID      ' not found
-			Exit Sub 
+			Exit Sub
 		EndIf
 	Loop
-   
-End Sub 
+
+End Sub
 
 Sub NextTab(ByVal fPrev As Boolean)
 
-	Dim n        As Integer    = Any 
-	Dim i        As Integer    = Any 
+	Dim n        As Integer    = Any
+	Dim i        As Integer    = Any
 	Dim tci      As TCITEM
 	
 	n=SendMessage(ah.htabtool,TCM_GETITEMCOUNT,0,0)
@@ -390,7 +384,7 @@ End Sub
 Function WantToSaveTab (ByVal TabID As Integer) As BOOLEAN     ' MOD 9.2.2012 ADD
 	
     ' TabID = 0 ... n  (zerobased)
-    
+
 	Dim tci      As TCITEM
 	
 	tci.mask = TCIF_PARAM
@@ -410,7 +404,7 @@ Function WantToSaveTab (ByVal TabID As Integer) As BOOLEAN     ' MOD 9.2.2012 AD
 					'	Return SaveTabAs () Xor TRUE              ' MOD 2.1.2012   SaveFileAs(hWin)
 					'Else
 						WriteTheFile (pTABMEM->hedit, pTABMEM->filename)
-					    Return FALSE 
+					    Return FALSE
 					'EndIf
 					'
 				Case IDCANCEL
@@ -418,7 +412,7 @@ Function WantToSaveTab (ByVal TabID As Integer) As BOOLEAN     ' MOD 9.2.2012 AD
 					'
 			End Select
 		EndIf
-    EndIf 
+    EndIf
 	Return FALSE
 
 End Function
@@ -426,18 +420,18 @@ End Function
 Function CloseTab (ByVal TabID As Integer, ByVal Mode As CloseTabMode = CTM_STD) As Integer   ' MOD 1.2.2012   DelTab(ByVal hWin As HWND)
 	
 	Dim tci       As TCITEM
-	Dim CurrTabID As Integer    = Any 
-	'Dim x         As Integer    = Any 
-    
-    tci.mask = TCIF_PARAM
-    If SendMessage (ah.htabtool, TCM_GETITEM, TabID, Cast (LPARAM, @tci)) Then 
+	Dim CurrTabID As Integer    = Any
+	'Dim x         As Integer    = Any
 
-        If pTABMEM->locked = FALSE _ 
+    tci.mask = TCIF_PARAM
+    If SendMessage (ah.htabtool, TCM_GETITEM, TabID, Cast (LPARAM, @tci)) Then
+
+        If pTABMEM->locked = FALSE _
         OrElse edtopt.closeonlocks = TRUE Then
-           
+
             If Mode And CTM_IGNORE_DIRTY _
             OrElse WantToSaveTab (TabID) = FALSE Then           ' MOD 1.2.2012    WantToSave(hWin)=FALSE
-                
+
            		CurrTabID = SendMessage (ah.htabtool, TCM_GETCURSEL, 0, 0)
 
         		curtab = -1
@@ -445,10 +439,10 @@ Function CloseTab (ByVal TabID As Integer, ByVal Mode As CloseTabMode = CTM_STD)
         		CallAddins ah.hwnd, AIM_FILECLOSE, 0, Cast (LPARAM, @pTABMEM->filename), HOOK_FILECLOSE
         		If pTABMEM->profileinx Then
         		    If Mode And CTM_PROJECTCLOSE Then
-        			    WriteProjectFileInfo pTABMEM->hedit, pTABMEM->profileinx, TRUE 
+        			    WriteProjectFileInfo pTABMEM->hedit, pTABMEM->profileinx, TRUE
         		    Else
         		        WriteProjectFileInfo pTABMEM->hedit, pTABMEM->profileinx, FALSE
-        		    EndIf    
+        		    EndIf
         		EndIf
         		'SendMessage ah.hpr, PRM_DELPROPERTY, Cast (LPARAM, pTABMEM->hedit), 0
                	'SendMessage ah.hpr, PRM_REFRESHLIST, 0, 0
@@ -471,7 +465,7 @@ Function CloseTab (ByVal TabID As Integer, ByVal Mode As CloseTabMode = CTM_STD)
         		SendMessage ah.htabtool, TCM_DELETEITEM, TabID, 0
         		If CurrTabID = TabID Then
             		If SendMessage (ah.htabtool, TCM_GETITEMCOUNT, 0, 0) Then
-                        If TabID Then 
+                        If TabID Then
                             SelectTabByTabID TabID - 1
                         Else
                             SelectTabByTabID 0
@@ -483,7 +477,7 @@ Function CloseTab (ByVal TabID As Integer, ByVal Mode As CloseTabMode = CTM_STD)
             			EndIf
             			ShowWindow ah.hshp, SW_SHOWNA
             			If ah.hfullscreen Then DestroyWindow ah.hfullscreen
-            			SetZStrEmpty (ad.filename)             ' MOD 26.1.2012 
+            			SetZStrEmpty (ad.filename)             ' MOD 26.1.2012
             			ah.hred = 0
             			ah.hpane(0) = 0
             			ah.hpane(1) = 0
@@ -497,20 +491,20 @@ Function CloseTab (ByVal TabID As Integer, ByVal Mode As CloseTabMode = CTM_STD)
             	HideCCLists
             	POL_Changed = TRUE
             	Return TRUE   ' success, tab closed
-        	EndIf 
-            Return FALSE      ' no success, saving prevented 
-        EndIf 
+        	EndIf
+            Return FALSE      ' no success, saving prevented
+        EndIf
         Return FALSE          ' no success, tab locked
     Else
         Return TRUE           ' tab wasnt present, nothing to do, but success
-    EndIf   
+    EndIf
 End Function
 
 'Sub CloseTab (ByVal TabID As Integer)                                 ' MOD 1.2.2012   DelTab(ByVal hWin As HWND)
 '	Dim tci As TCITEM
 '	Dim lpTABMEM As TABMEM Ptr
 '	'Dim i As Integer
-'	Dim x As Integer = Any 
+'	Dim x As Integer = Any
 '	
 '	tci.mask=TCIF_PARAM
 '	If TabID >= 0 Then
@@ -552,7 +546,7 @@ Sub AddTab(ByVal hEdt As HWND, ByRef lpFileName As ZString, ByVal AddMode As Add
 	'Dim x As Integer         MOD 27.1.2012
 	Dim hFile    As HANDLE     = Any
 
-    ' MOD 31.1.2012 
+    ' MOD 31.1.2012
 	'i=SendMessage(ah.htabtool,TCM_GETCURSEL,0,0)
 	'buff=lpFileName
 	'Do While InStr(buff,"\")
@@ -594,32 +588,32 @@ Sub AddTab(ByVal hEdt As HWND, ByRef lpFileName As ZString, ByVal AddMode As Add
     	SendMessage (ah.htabtool, TCM_INSERTITEM, 999, Cast (LPARAM, @tci))       ' MOD 27.1.2012     x=SendMessage(ah.htabtool,TCM_INSERTITEM,999,Cast(Integer,@tci))
     	If wpos.fview And VIEW_TABSELECT Then
     		ShowWindow(ah.htabtool,SW_SHOWNA)
-    	EndIf 
+    	EndIf
     	If ah.hpane(0)=0 Then
     		ShowWindow(ah.hshp,SW_HIDE)
     	Else
     		ah.hpane(1)=hEdt
     	EndIf
-    
+
     	If AddMode = ATM_FOREGROUND Then      ' MOD 21.2.2012 add
         	SelectTabByWindow(hEdt)           ' MOD  1.2.2012 removed ah.hwnd
         	SetFocus(ah.hred)
         	'fTimer=1
-    	EndIf 
-    	POL_Changed = TRUE 
+    	EndIf
+    	POL_Changed = TRUE
     EndIf
 End Sub
 
 Sub UpdateTab()
-    
+
 	Dim tci      As TCITEM
-	Dim i        As Integer    = Any 
+	Dim i        As Integer    = Any
 
 	i=SendMessage(ah.htabtool,TCM_GETCURSEL,0,0)
 	tci.mask=TCIF_PARAM
 	SendMessage(ah.htabtool,TCM_GETITEM,i,Cast(Integer,@tci))
-	' MOD 26.1.2012 
-	'buff=ad.filename         
+	' MOD 26.1.2012
+	'buff=ad.filename
 	'Do While InStr(buff,"\")
 	'	buff=Mid(buff,InStr(buff,"\")+1)
 	'Loop
@@ -648,7 +642,7 @@ End Sub
 '	Dim tci      As TCITEM
 '	Dim hOld     As HWND       = Any
 '	Dim lpTABMEM As TABMEM Ptr = Any
-'	Dim i        As Integer    = Any 
+'	Dim i        As Integer    = Any
 '   'Dim BlockMode As Long        ' MOD 20.1.2012 ADD
 '
 '	tci.mask=TCIF_PARAM
@@ -692,8 +686,8 @@ End Sub
 '		EndIf
 '		i=i+1
 '	Wend
-'    
-'    ' MOD 20.1.2012 ADD    
+'
+'    ' MOD 20.1.2012 ADD
 '	'BlockMode = SendMessage (ah.hred, REM_GETMODE, 0, 0) And MODE_BLOCK
 '	'CheckMenuItem ah.hmenu, IDM_EDIT_BLOCKMODE, IIf (BlockMode, MF_CHECKED, MF_UNCHECKED)
 '	' ==================
@@ -701,7 +695,7 @@ End Sub
 'End Sub
 
 Sub UpdateTabImageByFileID (ByVal FileID As Integer)
-    
+
     Dim tci      As TCITEM
 	Dim TabID    As Integer    = 0
 	
@@ -721,11 +715,11 @@ Sub UpdateTabImageByFileID (ByVal FileID As Integer)
 		
 		TabID += 1
 	Loop
-    
+
 End Sub
 
 Sub UpdateTabImageByTabID (ByVal TabID As Integer)
-    
+
    	Dim tci As TCITEM
 	
 	tci.mask = TCIF_PARAM
@@ -735,14 +729,14 @@ Sub UpdateTabImageByTabID (ByVal TabID As Integer)
         tci.iImage = GetFileImg (pTABMEM->filename, pTABMEM->profileinx)
 		SendMessage (ah.htabtool, TCM_SETITEM, TabID, Cast (LPARAM, @tci))
 	EndIf
-    
+
 End Sub
 
 Sub SelectTabByTabID (ByVal TabID As Integer)
 
 	Dim tci      As TCITEM
 	Dim hOld     As HWND       = Any
-	        
+	
 	tci.mask = TCIF_PARAM
 
 	If SendMessage (ah.htabtool, TCM_GETITEM, TabID, Cast (LPARAM, @tci)) Then
@@ -771,37 +765,37 @@ Sub SelectTabByTabID (ByVal TabID As Integer)
 		SelectTrvItem(ad.filename)
         'Print "SelectTabByTabID"; TabID
         'SbarSetBlockMode
-        
-        
-        
+
+
+
         'If SendMessage(ah.hpr,PRM_GETSELBUTTON,0,0)=1 Then
 			'UpdateProperty
         'EndIf
-	EndIf 
-    
+	EndIf
+
 End Sub
 
 Sub SelectTabByFileID (ByVal nInx As Integer)
 
 	Dim tci       As TCITEM
 	Dim i         As Integer    = 0
-    
-    If nInx then    
+
+    If nInx then
     	tci.mask = TCIF_PARAM
-        
+
     	Do
     		If SendMessage (ah.htabtool, TCM_GETITEM, i, Cast (LPARAM, @tci)) Then
     			If pTABMEM->profileinx = nInx Then
     			    SelectTabByTabID i
-    				Exit Do 
+    				Exit Do
     			EndIf
     		Else
     		    OpenTheFile (*GetProjectFileName (nInx, PT_ABSOLUTE), FOM_STD)
-    			Exit Do 
+    			Exit Do
     		EndIf
     		i += 1
-    	Loop 
-    EndIf 
+    	Loop
+    EndIf
 End Sub
 
 Sub SelectTabByWindow (ByVal hEdit As HWND)
@@ -816,19 +810,19 @@ Sub SelectTabByWindow (ByVal hEdit As HWND)
     		If SendMessage(ah.htabtool,TCM_GETITEM,i,Cast(Integer,@tci)) Then
     			If pTABMEM->hedit=hEdit Then
        			    SelectTabByTabID i
-    				Exit Do 
+    				Exit Do
     			EndIf
     		Else
     			Exit Do	
     		EndIf
     		i += 1
     	Loop
-	EndIf 
+	EndIf
 End Sub
 
 Sub SwitchTab ()
-    
-	Dim n        As Integer    = Any 
+
+	Dim n        As Integer    = Any
 	Dim tci      As TCITEM
 
 	n = SendMessage (ah.htabtool, TCM_GETITEMCOUNT, 0, 0)
@@ -844,7 +838,7 @@ End Sub
 
 Sub SetFileInfo (ByVal hWin As HWND, ByVal pFileSpec As ZString Ptr)
 	
-	Dim nInx       As Integer = Any 
+	Dim nInx       As Integer = Any
 	Dim pfi        As PFI
     Dim EditorMode As Long    = Any
 
@@ -858,94 +852,94 @@ Sub SetFileInfo (ByVal hWin As HWND, ByVal pFileSpec As ZString Ptr)
     			SetProjectFileInfo hWin, @pfi
     		EndIf
     	EndIf
-    EndIf 
+    EndIf
 
 End Sub
 
-Function IsFileForOpenExtern (ByVal pFileSpec As ZString Ptr) As BOOL 
+Function IsFileForOpenExtern (ByVal pFileSpec As ZString Ptr) As BOOL
 	
 	' OpenExternFiles is LCASE p.def. - forced on file I/O
 	
 	Dim FileExt As ZString * MAX_PATH = *PathFindExtension (pFileSpec)
 		
-	If IsZStrEmpty (FileExt) Then Return FALSE 
+	If IsZStrEmpty (FileExt) Then Return FALSE
 	CharLower FileExt
 	
-	If InZStr (0, OpenExternFiles, FileExt + ".") >= 0 Then 
+	If InZStr (0, OpenExternFiles, FileExt + ".") >= 0 Then
 	    Return TRUE
 	Else
-	    Return FALSE    
+	    Return FALSE
 	EndIf
 
 End Function
 
 Function OpenFileExtern (ByRef FileSpec As ZString, ByVal OpenMode As FileOpenExternMode) As BOOL
-        
-    Dim QuotedSpec As ZString * MAX_PATH + 2 = Any 
-    Dim Success    As BOOL                   = Any 
-    
+
+    Dim QuotedSpec As ZString * MAX_PATH + 2 = Any
+    Dim Success    As BOOL                   = Any
+
     If IsZStrEmpty (Filespec) Then
         TextToOutput "*** error SHELLEXECUTE: empty filespec ***", MB_ICONHAND
-        Return FALSE     
+        Return FALSE
     EndIf
-    
+
     If      OpenMode = FOEM_ONLYALLOWED _
-    AndAlso IsFileForOpenExtern (@FileSpec) = FALSE Then 
+    AndAlso IsFileForOpenExtern (@FileSpec) = FALSE Then
  		Return FALSE         ' not allowed for ShellExecute by FbEdit.ini (no ErrText)
     Else
     	QuotedSpec = QUOTE + FileSpec + QUOTE
     	Success = ShellExecuteUI (ah.hwnd, @"open", @QuotedSpec, NULL, NULL, SW_SHOWDEFAULT)
         Return Success
-    EndIf 
+    EndIf
 
 End Function
 
 Sub OpenTheFile (Byref FileSpec As ZString, ByVal OpenMode As FileOpenMode)
 
-    Dim TabID       As Integer = Any 
+    Dim TabID       As Integer = Any
     Dim ResTabID    As Integer = Any
-    Dim TabMode     As Integer = Any 
-    Dim OldFileName As String 
+    Dim TabMode     As Integer = Any
+    Dim OldFileName As String
     Dim FileType    As Integer = Any
     Dim hEditor     As HWND    = Any
-    
-    If IsZStrEmpty (FileSpec) Then Exit Sub 
+
+    If IsZStrEmpty (FileSpec) Then Exit Sub
 	If CallAddins (ah.hwnd, AIM_FILEOPEN, 0, Cast (LPARAM, @FileSpec), HOOK_FILEOPEN) Then Exit Sub
 	
 	GetTabIDBySpec FileSpec, TabID, TabMode                ' zerobased
     FileType = GetFBEFileType (FileSpec)
-    
+
 	Select Case OpenMode
 	Case FOM_HEX
 		AddMruFile (FileSpec)
 
         If TabMode = IDC_HEXED Then                        ' exists, right mode
             SelectTabByTabID TabID
-            SetFocus ah.hred                           
+            SetFocus ah.hred
         Else                                               ' wrong mode
-            If TabID = INVALID_TABID  _                        
-            OrElse CloseTab (TabID) = TRUE then                           
-        	    AddTab CreateHexEd (FileSpec), FileSpec, ATM_FOREGROUND 
+            If TabID = INVALID_TABID  _
+            OrElse CloseTab (TabID) = TRUE then
+        	    AddTab CreateHexEd (FileSpec), FileSpec, ATM_FOREGROUND
         	    ReadTheFile ah.hred, FileSpec
             EndIf
-        EndIf    
+        EndIf
 
 	Case FOM_TXT
 		AddMruFile (FileSpec)
 
         If TabMode = IDC_TEXTED Then                       ' exists, right mode
             SelectTabByTabID TabID
-            SetFocus ah.hred                          
+            SetFocus ah.hred
         Else                                               ' wrong mode
-            If TabID = INVALID_TABID  _                        
-            OrElse CloseTab (TabID) = TRUE then                           
+            If TabID = INVALID_TABID  _
+            OrElse CloseTab (TabID) = TRUE then
             	AddTab CreateTxtEd (FileSpec), FileSpec, ATM_FOREGROUND
             	ReadTheFile ah.hred, FileSpec
                 SetFileInfo ah.hred, FileSpec
-            EndIf 
-        EndIf    
+            EndIf
+        EndIf
 
-	Case FOM_STD    
+	Case FOM_STD
     	Select Case FileType
     	Case FBFT_PROJECT                                  ' ProjectFile (.fbp)
     		If fProject Then
@@ -954,74 +948,74 @@ Sub OpenTheFile (Byref FileSpec As ZString, ByVal OpenMode As FileOpenMode)
     			EndIf
     		EndIf
     		ad.filename = FileSpec
-    		ad.ProjectFile = FileSpec 
+    		ad.ProjectFile = FileSpec
     		OpenProject
     		'fTimer = 1
-    		's = String (8192, 0)                           
-    	 
+    		's = String (8192, 0)
+    	
     	Case FBFT_RESOURCE                                 ' ResourceFile (.rc)
 			AddMruFile (FileSpec)
 
             If TabMode = IDC_RESED Then                    ' exists, right mode
                 SelectTabByTabID TabID
-                SetFocus ah.hres                      
+                SetFocus ah.hres
             Else                                           ' wrong mode
-                ' What we have: 1.rc as RESED and 2.rc as TXTED    
+                ' What we have: 1.rc as RESED and 2.rc as TXTED
                 ' What we want: 2.rc as RESED
                 ' What's to do: - close 1.rc as RESED
                 '               - open  1.rc as TXTED
                 '               - close 2.rc as TXTED
                 '               - open  2.rc as RESED
-                If CloseTab (TabID) = TRUE then                              
+                If CloseTab (TabID) = TRUE then
                 	GetResTabID ResTabId, OldFileName
                     If CloseTab (ResTabID) = TRUE Then
-                        If ResTabID <> INVALID_TABID Then 
+                        If ResTabID <> INVALID_TABID Then
             			    AddTab CreateTxtEd (OldFileName), OldFileName, ATM_FOREGROUND
             			    ReadTheFile ah.hred, OldFileName
         	    		    SetFileInfo ah.hred, OldFileName
-                        EndIf 
+                        EndIf
                			AddTab ah.hres, FileSpec, ATM_FOREGROUND
                			ReadTheFile ah.hres, FileSpec
-                    EndIf    
-                EndIf 
-            EndIf    
+                    EndIf
+                EndIf
+            EndIf
 		
 		Case FBFT_CODE                                     ' CodeFile (.bas .bi)
    			AddMruFile (FileSpec)
-            
+
             If TabMode = IDC_CODEED Then                   ' exists, right mode
                 SelectTabByTabID TabID
-                SetFileIDByTabID TabID, GetFileID (FileSpec) 
+                SetFileIDByTabID TabID, GetFileID (FileSpec)
                 UpdateTabImageByTabID TabID                ' exists, but wrong state: module / non module
-                SetFocus ah.hred                      
+                SetFocus ah.hred
             Else                                           ' wrong mode
-                If TabID = INVALID_TABID  _                        
-                OrElse CloseTab (TabID) = TRUE Then                            
+                If TabID = INVALID_TABID  _
+                OrElse CloseTab (TabID) = TRUE Then
         			AddTab CreateCodeEd (FileSpec), FileSpec, ATM_FOREGROUND
         			ReadTheFile ah.hred, FileSpec
         			SetFileInfo ah.hred, FileSpec
         			CallAddins ah.hwnd, AIM_FILEOPENNEW, Cast (WPARAM, ah.hred), Cast (LPARAM, @FileSpec), HOOK_FILEOPENNEW
                 EndIf
-            EndIf   
-	    
+            EndIf
+	
 	    Case Else                                          ' no one of: .fbp, .rc, .bas, .bi
 			AddMruFile (FileSpec)
-            
-            If OpenFileExtern (FileSpec, FOEM_ONLYALLOWED) Then 
+
+            If OpenFileExtern (FileSpec, FOEM_ONLYALLOWED) Then
                 Exit Sub
             EndIf
 
             If TabMode = IDC_TEXTED Then                   ' exists, right mode
                 SelectTabByTabID TabID
-                SetFocus ah.hred                      
+                SetFocus ah.hred
             Else                                           ' wrong mode
-                If TabID = INVALID_TABID  _                        
-                OrElse CloseTab (TabID) = TRUE Then                            
+                If TabID = INVALID_TABID  _
+                OrElse CloseTab (TabID) = TRUE Then
         			AddTab CreateTxtEd (FileSpec), FileSpec, ATM_FOREGROUND
         			ReadTheFile ah.hred, FileSpec
         			SetFileInfo ah.hred, FileSpec
                 EndIf
-            EndIf   
+            EndIf
     	End Select
 	
 	Case FOM_BG
@@ -1033,34 +1027,34 @@ Sub OpenTheFile (Byref FileSpec As ZString, ByVal OpenMode As FileOpenMode)
             If TabMode = IDC_CODEED Then                   ' exists, right mode
                 'dont select
             Else                                           ' wrong mode
-                If TabID = INVALID_TABID  _                        
-                OrElse CloseTab (TabID) = TRUE Then                             
+                If TabID = INVALID_TABID  _
+                OrElse CloseTab (TabID) = TRUE Then
                 	hEditor = CreateCodeEd (FileSpec)
                 	AddTab hEditor, FileSpec, ATM_BACKGROUND
                 	ReadTheFile hEditor, FileSpec
-                	SetFileInfo ah.hred, FileSpec
-                EndIf  
-            EndIf   
+                	'SetFileInfo ah.hred, FileSpec
+                EndIf
+            EndIf
 
        'Case FBFT_RESOURCE                                 ' ResourceFile (.rc)
         Case Else
 
-            'If OpenFileExtern (FileSpec, FOEM_ONLYALLOWED) Then 
+            'If OpenFileExtern (FileSpec, FOEM_ONLYALLOWED) Then
             '    Exit Sub
             'EndIf
 
             If TABMODE = IDC_TEXTED Then                       ' exists, right mode
-                'dont select                                    
+                'dont select
             Else                                               ' wrong mode
-                If TabID = INVALID_TABID  _                        
-                OrElse CloseTab (TabID) = TRUE then                           
+                If TabID = INVALID_TABID  _
+                OrElse CloseTab (TabID) = TRUE then
                 	hEditor = CreateTxtEd (FileSpec)
                 	AddTab hEditor, FileSpec, ATM_BACKGROUND
                 	ReadTheFile hEditor, FileSpec
-                	SetFileInfo ah.hred, FileSpec
-                EndIf 
-            EndIf    
-	    End Select 
+                	'SetFileInfo ah.hred, FileSpec
+                EndIf
+            EndIf
+	    End Select
 	End Select
 End Sub
 
@@ -1068,21 +1062,21 @@ Sub OpenAFile (ByVal OpenMode As FileOpenMode)         ' MOD 1.2.2012 OpenAFile(
 
 	Dim ofn     As OPENFILENAME
 	Dim Buffer  As ZString * 32 * 1024
-	Dim SubStr1 As ZString * MAX_PATH 
-	Dim SubStrN As ZString * MAX_PATH 
-	Dim Idx     As Integer = Any 
+	Dim SubStr1 As ZString * MAX_PATH
+	Dim SubStrN As ZString * MAX_PATH
+	Dim Idx     As Integer = Any
 	
 	With ofn
     	.lStructSize     = SizeOf (OPENFILENAME)
     	.hwndOwner       = GetOwner
     	.hInstance       = hInstance
-    	.lpstrFile       = @Buffer                      
-    	.nMaxFile        = SizeOf (Buffer)              
+    	.lpstrFile       = @Buffer
+    	.nMaxFile        = SizeOf (Buffer)
     	.lpstrFilter     = @ALLFilterString
     	.Flags           = OFN_EXPLORER      Or OFN_FILEMUSTEXIST    Or OFN_HIDEREADONLY Or _
     	                   OFN_PATHMUSTEXIST Or OFN_ALLOWMULTISELECT
    		.lpstrInitialDir = @szLastDir
-	End With 
+	End With
 	
 	If GetOpenFileNameUI (@ofn) Then
 		
@@ -1096,7 +1090,7 @@ Sub OpenAFile (ByVal OpenMode As FileOpenMode)         ' MOD 1.2.2012 OpenAFile(
 				DePackStr Idx, Buffer, SubStrN, SizeOf (SubStrN)
 				OpenTheFile SubStr1 + "\" + SubStrN, OpenMode
 			Loop While Idx
-		EndIf 
+		EndIf
 		szLastDir = SubStr1		
 	EndIf
 End Sub
@@ -1172,7 +1166,7 @@ Function UnicodeProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam as WPARA
 			'
 	    'Case WM_SIZE
 	    '    Print "WM_SIZE"
-	    '    Return TRUE 
+	    '    Return TRUE
 	
 	End Select
 	Return FALSE
@@ -1182,11 +1176,11 @@ End Function
 Function SaveTabAs() As BOOLEAN
 	
 	Dim ofn      As OPENFILENAME
-    Dim FileSpec As ZString * MAX_PATH 
+    Dim FileSpec As ZString * MAX_PATH
 
     FileSpec = ad.filename
     fUnicode = SendMessage (ah.hred, REM_GETUNICODE, 0, 0)
-    
+
     With ofn
         .lStructSize    = SizeOf (OPENFILENAME)
 	    .hwndOwner      = GetOwner
@@ -1194,13 +1188,13 @@ Function SaveTabAs() As BOOLEAN
 	    .lpstrFile      = @FileSpec
 	    .nMaxFile       = SizeOf (FileSpec)
 	    .lpstrDefExt    = @"bas"
-	    .lpstrFilter    = @ALLFilterString                         
+	    .lpstrFilter    = @ALLFilterString
 	    .Flags          = OFN_EXPLORER        Or OFN_HIDEREADONLY   Or OFN_PATHMUSTEXIST Or _
 	                      OFN_OVERWRITEPROMPT Or OFN_ENABLETEMPLATE Or OFN_ENABLEHOOK    Or _
 	                      OFN_ENABLESIZING
         .lpTemplateName = MAKEINTRESOURCE (IDD_TPL_SAVEUNICODE)
 	    .lpfnHook       = Cast (LPOFNHOOKPROC, @UnicodeProc)
-	End With 
+	End With
 	
 	If GetSaveFileName (@ofn) Then
 		ad.filename = FileSpec
@@ -1232,7 +1226,7 @@ End Function
 '						Return SaveFileAs() Xor TRUE               ' MOD 2.1.2012   SaveFileAs(hWin)
 '					Else
 '						WriteTheFile(ah.hred,ad.filename)
-'	                    Return FALSE 
+'	                    Return FALSE
 '					EndIf
 '					'
 '				Case IDCANCEL
@@ -1246,20 +1240,20 @@ End Function
 'End Function
 
 Sub UnlockAllTabs ()
-    
+
 	Dim tci      As TCITEM
 	Dim i        As Integer    = 0
 	
 	tci.mask=TCIF_PARAM
-	Do 
+	Do
 		If SendMessage (ah.htabtool, TCM_GETITEM, i, Cast (LPARAM, @tci)) Then
-			pTABMEM->locked = FALSE  
-		    SendMessage ah.htabtool, TCM_HIGHLIGHTITEM, i, FALSE 
+			pTABMEM->locked = FALSE
+		    SendMessage ah.htabtool, TCM_HIGHLIGHTITEM, i, FALSE
 		Else
-			Exit Do 
+			Exit Do
 		EndIf
 		i += 1
-	Loop 
+	Loop
 	
 End Sub
 
@@ -1283,11 +1277,11 @@ Function SaveSelectionDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam
 					    x = 0
 				    ElseIf (lParam = SAM_PROJECTFILES) AndAlso (pTABMEM->profileinx = 0) Then
 				        x = 0
-					ElseIf (lParam = SAM_ALLFILES_BUT_CURRENT) AndAlso (i = SendMessage (ah.htabtool, TCM_GETCURSEL, 0, 0)) Then 
+					ElseIf (lParam = SAM_ALLFILES_BUT_CURRENT) AndAlso (i = SendMessage (ah.htabtool, TCM_GETCURSEL, 0, 0)) Then
 					    x = 0
 					Else
     					x = GetModifyFlag (pTABMEM->hedit)
-					EndIf 
+					EndIf
 					If x Then
 						lstrcpy(@buff,pTABMEM->filename)
 						sItem = *GetFileName (buff)           ' MOD 22.1.2012
@@ -1389,9 +1383,9 @@ Function CloseAllTabs () As BOOL
 
 	Dim tci      As TCITEM
 	Dim i        As Integer = 0
- 
+
 	If DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_SAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_ALLFILES) Then
-		Return FALSE  
+		Return FALSE
 	EndIf
 
     tci.mask = TCIF_PARAM
@@ -1402,21 +1396,21 @@ Function CloseAllTabs () As BOOL
 			    i += 1           ' skip, tab will survive
 			EndIf
 		Else
-			Exit Do 
+			Exit Do
 		EndIf
 	Loop
-    
-    Return TRUE 
-    
-End Function 
+
+    Return TRUE
+
+End Function
 
 Function CloseAllTabsButCurrent () As BOOL
 
 	Dim tci      As TCITEM
 	Dim i        As Integer = 0
- 
+
 	If DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_SAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_ALLFILES_BUT_CURRENT) Then
-		Return FALSE  
+		Return FALSE
 	EndIf
 
     tci.mask = TCIF_PARAM
@@ -1431,13 +1425,13 @@ Function CloseAllTabsButCurrent () As BOOL
     		    i += 1               ' skip current
 			EndIf
 		Else
-			Exit Do 
+			Exit Do
 		EndIf
 	Loop
-    
-    Return TRUE 
-    
-End Function 
+
+    Return TRUE
+
+End Function
 
 Function CloseAllProjectTabs () As BOOL
 
@@ -1445,9 +1439,9 @@ Function CloseAllProjectTabs () As BOOL
 	Dim i        As Integer    = 0
 
 	If DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_SAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_PROJECTFILES) Then
-		Return FALSE  
+		Return FALSE
 	EndIf
-    
+
 	tci.mask = TCIF_PARAM
 
 	Do
@@ -1460,21 +1454,21 @@ Function CloseAllProjectTabs () As BOOL
     		    i += 1               ' skip non project tab
 			EndIf
 		Else
-			Exit Do 
+			Exit Do
 		EndIf
 	Loop
-    
-    Return TRUE 
-    
-End Function 
 
-Function CloseAllNonProjectTabs () As BOOL 
+    Return TRUE
+
+End Function
+
+Function CloseAllNonProjectTabs () As BOOL
 
 	Dim tci      As TCITEM
 	Dim i        As Integer    = 0
 
 	If DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_SAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_NONPROJECTFILES) Then
-        Return FALSE  
+        Return FALSE
 	EndIf
 
 	tci.mask = TCIF_PARAM
@@ -1489,16 +1483,16 @@ Function CloseAllNonProjectTabs () As BOOL
     		    i += 1               ' skip project tab
 			EndIf
 		Else
-			Exit Do 
+			Exit Do
 		EndIf
 	Loop
-    
-    Return TRUE 
+
+    Return TRUE
 
 End Function
 
 'Function CloseAllTabs(ByVal fProjectClose As Boolean,ByVal hWinDontClose As HWND,ByVal fCloseLocked As Boolean=FALSE) As Boolean
-'                                                         ' MOD 1.2.2012   Function CloseAllTabs(ByVal hWin As HWND,ByVal fProjectClose As Boolean,ByVal hWinDontClose As HWND,ByVal fCloseLocked As Boolean=FALSE) As Boolean                                        
+'                                                         ' MOD 1.2.2012   Function CloseAllTabs(ByVal hWin As HWND,ByVal fProjectClose As Boolean,ByVal hWinDontClose As HWND,ByVal fCloseLocked As Boolean=FALSE) As Boolean
 '	Dim tci As TCITEM
 '	Dim i As Integer
 '	Dim x As Integer
@@ -1530,7 +1524,7 @@ End Function
 '					EndIf
 '				EndIf
 '				CallAddins(ah.hwnd,AIM_FILECLOSE,0,Cast(LPARAM,@pTABMEM->filename),HOOK_FILECLOSE)
-'			    			    
+'			    			
 '			    If pTABMEM->profileinx Then             ' MOD 10.2.2012    If lpTABMEM->profileinx And GetWindowLong(lpTABMEM->hedit,GWL_ID)<>IDC_HEXED Then
 '					WriteProjectFileInfo(pTABMEM->hedit,pTABMEM->profileinx,fProjectClose)
 '				EndIf
@@ -1579,7 +1573,7 @@ End Function
 '		If ah.hfullscreen Then
 '			DestroyWindow(ah.hfullscreen)
 '		EndIf
-'		SetZStrEmpty (ad.filename)             'MOD 26.1.2012 
+'		SetZStrEmpty (ad.filename)             'MOD 26.1.2012
 '	EndIf
 '	SendMessage(ah.hpr,PRM_REFRESHLIST,0,0)
 '	SetWinCaption
@@ -1591,9 +1585,9 @@ End Function
 Sub OpenAProject ()                           ' MOD 1.2.2012    OpenAProject(ByVal hWin As HWND) As Boolean
 
 	Dim ofn   As OPENFILENAME
-	Dim sFile As ZString * MAX_PATH 
+	Dim sFile As ZString * MAX_PATH
 	Dim Title As ZString * 1024 = GetInternalString (IS_OPEN_PROJECT)
-    
+
     With ofn
     	.lStructSize     = SizeOf (OPENFILENAME)
     	.hwndOwner       = GetOwner
@@ -1605,7 +1599,7 @@ Sub OpenAProject ()                           ' MOD 1.2.2012    OpenAProject(ByV
     	.lpstrFilter     = @PRJFilterString
     	.lpstrTitle      = @Title
     	.Flags           = OFN_EXPLORER Or OFN_FILEMUSTEXIST Or OFN_HIDEREADONLY Or OFN_PATHMUSTEXIST
-	End With 
+	End With
 	
 	If GetOpenFileNameUI (@ofn) Then
 		OpenTheFile sFile, FOM_STD
@@ -1616,13 +1610,13 @@ End Sub
 Function SaveAllTabs () As BOOL                            ' MOD 2.1.2012   (ByVal hWin As HWND)
 	
 	Dim tci       As TCITEM
-	Dim i         As Integer = Any 
-	Dim NotSaved  As BOOL    = Any 
+	Dim i         As Integer = Any
+	Dim NotSaved  As BOOL    = Any
 	Dim hOld      As HWND
 
 	SetFocus ah.hred
 	tci.mask = TCIF_PARAM
-	NotSaved = FALSE 
+	NotSaved = FALSE
 	i        = 0
 	
 	Do
@@ -1632,7 +1626,7 @@ Function SaveAllTabs () As BOOL                            ' MOD 2.1.2012   (ByV
 				'	hOld=ah.hred
 				'	ah.hred=pTABMEM->hedit
 				'	ad.filename=pTABMEM->filename
-				'	SendMessage(ah.hwnd,WM_SIZE,SIZE_RESTORED,0)          ' MOD 2.1.2012   SendMessage(hWin,WM_SIZE,0,0)   
+				'	SendMessage(ah.hwnd,WM_SIZE,SIZE_RESTORED,0)          ' MOD 2.1.2012   SendMessage(hWin,WM_SIZE,0,0)
 				'	If ah.hred<>hOld Then
 				'		ShowWindow(ah.hred,SW_SHOW)
 				'		ShowWindow(hOld,SW_HIDE)
@@ -1641,7 +1635,7 @@ Function SaveAllTabs () As BOOL                            ' MOD 2.1.2012   (ByV
 				'	SendMessage(ah.htabtool,TCM_SETCURSEL,i,0)
 				'	SetWinCaption
 				'	If SaveTabAs()=FALSE Then                ' MOD 2.1.2012   SaveFileAs(hWin)
-				'		NotSaved = TRUE 
+				'		NotSaved = TRUE
 				'	EndIf
 				'Else
 					WriteTheFile(pTABMEM->hedit,pTABMEM->filename)
@@ -1659,7 +1653,7 @@ End Function
 Function GetModifyFlag (ByVal hEdit As HWND) As BOOL
 
     Dim EditMode As Long = Any
-    
+
     If hEdit Then
     	EditMode = GetWindowLong (hEdit, GWL_ID)
 
@@ -1669,14 +1663,14 @@ Function GetModifyFlag (ByVal hEdit As HWND) As BOOL
 			Return SendMessage (hEdit, EM_GETMODIFY, 0, 0)
 		EndIf
     EndIf
-    
-    Return FALSE 
+
+    Return FALSE
 End Function
 
 Function GetFileIDByCurrTab () As Integer
 
 	Dim tci      As TCITEM
-	Dim CurrTab  As Integer    = Any 
+	Dim CurrTab  As Integer    = Any
 
 	tci.mask = TCIF_PARAM
 	CurrTab = SendMessage (ah.htabtool, TCM_GETCURSEL, 0, 0)
@@ -1684,7 +1678,7 @@ Function GetFileIDByCurrTab () As Integer
 	If CurrTab <> INVALID_TABID Then
 		If SendMessage (ah.htabtool, TCM_GETITEM, CurrTab, Cast (LPARAM, @tci)) Then
 			Return pTABMEM->profileinx
-		EndIf 
+		EndIf
 	EndIf
 
 	Return 0
@@ -1694,10 +1688,10 @@ End Function
 Function GetFileIDByEditor(ByVal hWin As HWND) As Integer
 
 	Dim tci      As TCITEM
-	Dim i        As Integer    = 0 
+	Dim i        As Integer    = 0
 
 	tci.mask=TCIF_PARAM
-	Do 
+	Do
 		If SendMessage(ah.htabtool,TCM_GETITEM,i,Cast(Integer,@tci)) Then
 		 	If pTABMEM->hedit=hWin Then
 				Return pTABMEM->profileinx
@@ -1811,15 +1805,15 @@ End Sub
 
 Function TabToolProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer
 	
-	Dim TabID             As LRESULT = Any  
+	Dim TabID             As LRESULT = Any
 	Dim HitInfo           As TCHITTESTINFO
 	Dim tci               As TCITEM
-	Dim buffer            As ZString * MAX_PATH 
-	Dim pt                As Point 
+	Dim buffer            As ZString * MAX_PATH
+	Dim pt                As Point
    	Static TabIDLastEvent As Integer = INVALID_TABID
-    Static MoveCursorOn   As BOOL 
+    Static MoveCursorOn   As BOOL
     Static TabRECT        As RECT
-       
+
 	Select Case uMsg
 	Case WM_LBUTTONDBLCLK
 	    'Print "TabTool:WM_LBUTTONDBLCLK"
@@ -1842,12 +1836,12 @@ Function TabToolProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPAR
 		If TabID <> INVALID_TABID Then
 	        MoveCursorOn = TRUE
 	        GetWindowRect hWin, @TabRECT
-	        SetCapture hWin 
+	        SetCapture hWin
 			SelectTabByTabID TabID
 			SetFocus ah.hred
 			TabIDLastEvent = TabID
 			fTimer = 1
-			Return 0 
+			Return 0
 		EndIf
 
 	Case WM_LBUTTONUP
@@ -1855,9 +1849,9 @@ Function TabToolProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPAR
         MoveCursorOn = FALSE
         ShowCursor FALSE
         SetCursor (LoadCursor (NULL, IDC_ARROW))
-        ShowCursor TRUE 
+        ShowCursor TRUE
         ClipCursor NULL
-        ReleaseCapture 
+        ReleaseCapture
 
 		HitInfo.pt.x = LoWord (lParam)
 		HitInfo.pt.y = HiWord (lParam)
@@ -1895,13 +1889,13 @@ Function TabToolProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPAR
 
 	Case WM_MOUSEMOVE
         If MoveCursorOn Then
-            ShowCursor FALSE 
-            SetCursor (LoadCursor (NULL, IDC_SIZEWE)) 
-            ShowCursor TRUE 
+            ShowCursor FALSE
+            SetCursor (LoadCursor (NULL, IDC_SIZEWE))
+            ShowCursor TRUE
             ClipCursor @TabRECT
         EndIf
         Return 0
-    
+
 	End Select
 	Return CallWindowProc (lpOldTabToolProc, hWin, uMsg, wParam, lParam)
 

@@ -19,14 +19,14 @@ Dim Shared lpOldHexEdProc    As WNDPROC
 
 Function CreateHexEd (Byref sFile As zString) As HWND
 
-	Dim hTmp    As HWND         = Any 
-    'Dim i       As Integer      = Any 
+	Dim hTmp    As HWND         = Any
+    'Dim i       As Integer      = Any
 	'Dim buffer  As ZString * 64
 	
 	Const Style As DWORD        = WS_CHILD Or WS_VISIBLE Or WS_CLIPCHILDREN Or WS_CLIPSIBLINGS
 
 	hTmp = CreateWindowEx (WS_EX_CLIENTEDGE, @"RAHEXEDIT", NULL, Style, 0, 0, 0, 0, ah.hwnd, Cast (HMENU, IDC_HEXED), hInstance, 0)
-    
+
     If hTmp Then
         SetWindowLong hTmp, GWL_ID, IDC_HEXED           ' MOD 10.2.2012  add
     	UpdateEditOptions hTmp
@@ -59,7 +59,7 @@ Function HexEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPAR
 		    CallWindowProc lpOldHexEdProc, hWin, uMsg, wParam, lParam
             SbarSetWriteMode
             Return 0
-		End Select 
+		End Select
 
 	Case WM_SETFOCUS
         'Print "HexEd:SETFOCUS"
@@ -74,9 +74,9 @@ Function HexEdProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WPAR
 		EndIf
         SbarSetBlockMode             ' N/A
         SbarLabelLockState
-        SbarSetWriteMode    
+        SbarSetWriteMode
 		'Return 0
-        
+
 	Case WM_KILLFOCUS
         'Print "HexEd:KILLFOCUS"
 		'SendMessage ah.hwnd, FBE_CHILDLOOSINGFOCUS, 0, Cast (LPARAM, GetParent (hWin))     ' notify: window is loosing focus

@@ -39,7 +39,7 @@ Dim Shared flocallist            As Boolean
 Dim Shared fincludelist          As Boolean
 Dim Shared fincliblist           As Boolean
 Dim Shared fenumlist             As Boolean
-Dim Shared sEditFileName         As ZString * MAX_PATH 
+Dim Shared sEditFileName         As ZString * MAX_PATH
 Dim Shared ccpos                 As ZString Ptr
 Dim Shared ccstring              As ZString * 65536
 
@@ -80,7 +80,7 @@ Dim Shared deftypeendignore      As DEFTYPE = (TYPE_TWOWORDS     , DEFTYPE_ENDIG
 
 
 Sub SetupProperty()
-    
+
 	SendMessage(ah.hpr,PRM_SETCHARTAB,0,Cast(LPARAM,ad.lpCharTab))
 	SendMessage(ah.hpr,PRM_SETGENDEF,0,Cast(Integer,@defgen))
 	' Lines to skip
@@ -127,8 +127,8 @@ Sub SetupProperty()
 	'TODO
 	
 	'SendMessage(ah.hpr,PRM_ADDPROPERTYTYPE,Asc("t")+256,Cast(Integer,@"TEST"))
-     
-    
+
+
 	' Parse defs
 	SendMessage(ah.hpr,PRM_ADDDEFTYPE,0,Cast(Integer,@deftypesub))
 	SendMessage(ah.hpr,PRM_ADDDEFTYPE,0,Cast(Integer,@deftypeendsub))
@@ -184,29 +184,29 @@ Sub HideCCLists()
 End Sub
 
 Sub MoveList()
-    
+
 	Dim CCRect     As RECT    = Any
-	Dim EDRect     As RECT    = Any 
+	Dim EDRect     As RECT    = Any
     Dim CaretPos   As Point   = Any
-    Dim Hreq       As Integer = Any 
+    Dim Hreq       As Integer = Any
     Dim ItemRect   As RECT    = Any
-    Dim ItemCount  As Long    = Any 
-    Dim Border     As Integer = Any 
+    Dim ItemCount  As Long    = Any
+    Dim Border     As Integer = Any
     Dim CellHeight As Long    = Any            ' Editor: Textheight + Extra Linespacing
-    Dim hEDSplitt  As HWND    = Any 
-    
+    Dim hEDSplitt  As HWND    = Any
+
     #Define ItemHeight    ItemRect.bottom
     #Define EDHeight      EDRect.bottom
 
     hEDSplitt  = GetFocus ()
     Border     = 2 * GetSystemMetrics (SM_CYSIZEFRAME)
     CellHeight = SendMessage (ah.hred, REM_GETCELLHEIGHT, 0, 0)
-    
+
     GetClientRect hEDSplitt, @EDRect
-	GetCaretPos @CaretPos         
+	GetCaretPos @CaretPos
 
 	If CaretPos.y < -CellHeight OrElse CaretPos.y > EDHeight Then
-	    Exit Sub 
+	    Exit Sub
 	EndIf
 
 	SendMessage ah.hcc, CCM_GETITEMRECT, 0, Cast (LPARAM, @ItemRECT)
@@ -219,8 +219,8 @@ Sub MoveList()
 	Else                                                      ' not enough space below
 	    If CaretPos.y > EDHeight \ 2 Then     	              ' space above is larger
             If CaretPos.y > Hreq Then                         ' enough space above: SET ABOVE
-	            CCRect.top = CaretPos.y - Hreq 
-                CCRect.bottom = Hreq 
+	            CCRect.top = CaretPos.y - Hreq
+                CCRect.bottom = Hreq
             Else                                              ' not enough space above: FIT ABOVE
 	            Hreq = (CaretPos.y \ ItemHeight) * ItemHeight + Border
                 CCRect.top = CaretPos.y - Hreq
@@ -232,7 +232,7 @@ Sub MoveList()
 	    EndIf
 	EndIf
 
-	CCRect.left = CaretPos.x 
+	CCRect.left = CaretPos.x
 	If edtopt.autowidth Then
 		CCRect.right = SendMessage (ah.hcc, CCM_GETMAXWIDTH, 0, 0) + Border + 5   ' 5 = some space behind the last char
 	    If CCRect.right < 100 Then
@@ -248,7 +248,7 @@ Sub MoveList()
 	    SetWindowPos ah.hcc, HWND_TOP, CCRect.left, CCRect.top, CCRect.right, CCRect.bottom, SWP_NOACTIVATE Or SWP_SHOWWINDOW
     Else
         ShowWindow ah.hcc, SW_HIDE
-    EndIf 
+    EndIf
 
     #Undef ItemHeight
     #Undef EDHeight
@@ -281,7 +281,7 @@ End Sub
 
 Function FindExact(ByVal lpTypes As ZString Ptr,ByVal lpFind As ZString Ptr,ByVal fMatchCase As Boolean) As ZString Ptr
 	Dim lret As ZString Ptr
-   
+
 	lret=Cast(ZString Ptr,SendMessage(ah.hpr,PRM_FINDFIRST,Cast(Integer,lpTypes),Cast(Integer,lpFind)))
 	While lret
 		If fMatchCase Then
@@ -326,7 +326,7 @@ Sub GetItems(ByVal ntype As Integer)
 				ccpos=ccpos+Len(*ccpos)+1
 			EndIf
 		EndIf
-	Loop 
+	Loop
 
 End Sub
 
@@ -334,7 +334,7 @@ Sub UpdateList(ByVal lpProc As ZString Ptr)
 	Dim lret As Integer
 	Dim chrg As CHARRANGE
 	Dim ntype As Integer
-    
+
 	ccpos=@ccstring
 	SendMessage(ah.hcc,CCM_CLEAR,0,0)
 	SendMessage(ah.hred,EM_EXGETSEL,0,Cast(Integer,@chrg))
@@ -453,7 +453,7 @@ End Sub
 Sub UpdateStructList(ByVal lpProc As ZString Ptr)
 	
 	'Dim chrg As CHARRANGE
-	Dim nLine  As Integer = Any 
+	Dim nLine  As Integer = Any
 	Dim nowner As Integer = Any
     Dim x      As Integer = Any
     Dim n      As Integer = Any
@@ -463,7 +463,7 @@ Sub UpdateStructList(ByVal lpProc As ZString Ptr)
 	Dim sTemp  As ZString * 512
 	Dim sz(32) As ZString * 256
 	'Dim As ZString Ptr p(32)
-	Dim lpsz   As ZString Ptr 
+	Dim lpsz   As ZString Ptr
 
 	SendMessage(ah.hcc,CCM_CLEAR,0,0)
 	GetLineUpToCaret ah.hred, @sLine, nLine
@@ -484,7 +484,7 @@ Sub UpdateStructList(ByVal lpProc As ZString Ptr)
 		'If fProject Then
 		'	nowner=GetFileID(ad.filename)
 		'Else
-		    nowner=Cast(Integer,ah.hred)    
+		    nowner=Cast(Integer,ah.hred)
 		'EndIf
 
 		SendMessage(ah.hpr,PRM_GETSTRUCTSTART,Len(sLine),Cast(LPARAM,@sLine))
@@ -524,7 +524,7 @@ Sub UpdateStructList(ByVal lpProc As ZString Ptr)
                 k += 1
             End Select
         Loop
-        
+
 		'lpsz=@sLine
 		'p(0)=lpsz
 		'n=1
@@ -553,7 +553,7 @@ Sub UpdateStructList(ByVal lpProc As ZString Ptr)
 				' Cast(RECT,myrect).left=5
 				sz(x) = *(@sz(x) + 5)                'sz(x)=Mid(sz(x),6)
 				i=InStr(sz(x),",")
-				If i Then 
+				If i Then
 				    sz(x)[i - 1] = 0                 'sz(x)=Left(sz(x),i-1)
 				EndIf
 				' Remove leading whitespace
@@ -724,7 +724,7 @@ Function UpdateConstList(ByVal lpszApi As ZString Ptr,ByVal npos As Integer) As 
 	Dim ln As Integer
 	Dim ccal As CC_ADDLIST
 	Dim ntype As Integer
-    
+
     buff=Str(npos)
 	lstrcat(@buff,lpszApi)
 	lret=FindExact(StrPtr("A"),@buff,TRUE)
@@ -745,7 +745,7 @@ Function UpdateConstList(ByVal lpszApi As ZString Ptr,ByVal npos As Integer) As 
 			SendMessage ah.hpr, PRM_GETWORD, lstrlen (@buff), Cast (LPARAM, @buff)
 			If lstrlen(lret+lstrlen(lret)+1) Then
 				' Handles 3SendDlgItemMessage,2SendMessage and 2PostMessage
-				SetZStrEmpty (s)             'MOD 26.1.2012 
+				SetZStrEmpty (s)             'MOD 26.1.2012
 				ccal.lpszList=@s
 				ccal.lpszFilter=@buff
 				ccal.nType=2
@@ -833,7 +833,7 @@ Sub IsStructList()
 	If fProject Then
 		isinp.nOwner=GetFileIDByEditor(ah.hred)
 	Else
-	    isinp.nOwner=Cast(Integer,ah.hred)    
+	    isinp.nOwner=Cast(Integer,ah.hred)
 	EndIf
 	isinp.lpszType=StrPtr("pxyzo")
 	lret=Cast(ZString Ptr,SendMessage(ah.hpr,PRM_ISINPROC,0,Cast(LPARAM,@isinp)))
@@ -864,7 +864,7 @@ End Function
 
 Sub UpdateIncludeList()
 	Dim As Integer sFind,nType,nLen
-	Dim d As Integer = Any 
+	Dim d As Integer = Any
 	Dim As ZString*260 buffer,txt
 	Dim As ZString Ptr p
 	

@@ -108,21 +108,21 @@ Function GetFileMemSelected (Byval hEdit As HWND) As HGLOBAL
 
 
     If hEdit Then
-        
+
        	SendMessage hEdit, EM_EXGETSEL, 0, Cast (LPARAM, @chrg)
-        
-        'Print "cpMin:"; chrg.cpmin 
-        'Print "cpMax:"; chrg.cpmax       
-               
+
+        'Print "cpMin:"; chrg.cpmin
+        'Print "cpMax:"; chrg.cpmax
+
         If      chrg.cpMin = 0 _
         AndAlso chrg.cpMax = -1 Then                                           ' full range
             hMem = GetFileMem (hEdit)
 
-        Else 
+        Else
 			hMem = GlobalAllocUI (GMEM_FIXED, chrg.cpMax - chrg.cpMin + 1)      ' + pending NULL
 			If hMem Then
 			    SendMessage hEdit, EM_GETSELTEXT, 0, Cast (LPARAM, hMem)
-			EndIf 
+			EndIf
         EndIf
 
         Return hMem
@@ -142,7 +142,7 @@ Sub ReadResEdFile (ByVal hWin As HWND, ByVal hFile As HANDLE, ByVal lpFilename A
     hMem = GlobalAllocUI (GMEM_FIXED, nSize + 1)                     ' + pending NULL
     ReadFile hFile, hMem, nSize, @BytesRead, NULL
     Cast (ZString Ptr, hMem)[nSize] = 0                              ' append NULL
-    
+
     SendMessage ah.hraresed, PRO_OPEN, Cast (WPARAM, lpFilename), Cast (LPARAM, hMem)  ' RAResEd uses GetCurrentDirectory retrieving ProjectPath
     SendMessage ah.hraresed, PRO_SETNAME, Cast (WPARAM, lpFilename), NULL              ' lParam = Cast (LPARAM, @ad.ProjectPath) causes setting CurrentDir
 

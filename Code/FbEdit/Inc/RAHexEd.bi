@@ -91,9 +91,9 @@ Type HESELCHANGE
 	nline			As Integer	            	' Line number
 	nlines		    As Integer	            	' Total number of lines
 	fchanged		As Integer	            	' TRUE if changed since last
-End Type                                    
-                                            
-Type HEBMK                                  
+End Type
+
+Type HEBMK
 	hWin			As HWND		                ' Handle of window having the bookmark
 	nLine			As Integer	                ' Bookmarked line
 End Type

@@ -36,9 +36,9 @@ Sub GetCCLData (ByVal pCCLName As GOD_EntryName Ptr, ByVal pCCLData As GOD_Entry
     ' pCCLName: IN
     ' pCCLData: OUT
 
-    Dim n      As Integer     = Any 
+    Dim n      As Integer     = Any
     Dim pBuffB As ZString Ptr = Any
-    
+
     SetZStrEmpty (*pCCLData)
     For n = 1 To GOD_MaxItems
         GetPrivateProfileString @"Make", Str (n), NULL, @buff, GOD_EntrySize, @ad.ProjectFile
@@ -46,10 +46,10 @@ Sub GetCCLData (ByVal pCCLName As GOD_EntryName Ptr, ByVal pCCLData As GOD_Entry
         SplitStr buff, Asc (","), pBuffB
         If buff = *pCCLName Then
             *pCCLData = *pBuffB
-            Exit For 
+            Exit For
         EndIf
-    Next 
-    
+    Next
+
 End Sub
 
 Sub GetCCL (ByVal ModuleID As Integer, ByVal pCCLName As GOD_EntryName Ptr, ByVal pCCLData As GOD_EntryData Ptr)
@@ -57,23 +57,23 @@ Sub GetCCL (ByVal ModuleID As Integer, ByVal pCCLName As GOD_EntryName Ptr, ByVa
     ' ModuleID: IN
     ' pCCLName: OUT
     ' pCCLData: OUT
-    
-    GetPrivateProfileString @"Make", "CCL" + Str (ModuleID), NULL, pCCLName, SizeOf (GOD_EntryName), @ad.ProjectFile				    
+
+    GetPrivateProfileString @"Make", "CCL" + Str (ModuleID), NULL, pCCLName, SizeOf (GOD_EntryName), @ad.ProjectFile				
     If IsZStrNotEmpty (*pCCLName) Then
         GetCCLData pCCLName, pCCLData
     Else
-        SetZStrEmpty (*pCCLData)    
+        SetZStrEmpty (*pCCLData)
     EndIf
-    
+
 End Sub
 
 Sub GetMakeOption ()
 	
-	Dim i            As Integer     = Any 
+	Dim i            As Integer     = Any
     Dim n            As Integer     = Any
-    Dim pIniFileSpec As ZString Ptr = Any  
-    Dim pBuff        As ZString Ptr = Any 
-    
+    Dim pIniFileSpec As ZString Ptr = Any
+    Dim pBuff        As ZString Ptr = Any
+
 	SendMessage ah.hcbobuild, CB_RESETCONTENT, 0, 0
 	
 	If fProject Then
@@ -85,12 +85,12 @@ Sub GetMakeOption ()
 	For i = 1 To GOD_MaxItems
 	    GetPrivateProfileString @"Make", Str (i), NULL, @buff, SizeOf (ad.smake), pIniFileSpec
 		If IsZStrNotEmpty (buff) Then
-			ReplaceChar1stHit buff, Asc (","), NULL 
+			ReplaceChar1stHit buff, Asc (","), NULL
 			SendMessage ah.hcbobuild, CB_ADDSTRING, 0, Cast (LPARAM, @buff)
 		Else
-		    Exit For 
+		    Exit For
 		EndIf
-	Next 
+	Next
 
 	i = GetPrivateProfileInt (@"Make", @"Current", 1, pIniFileSpec)
 	SendMessage ah.hcbobuild, CB_SETCURSEL, i - 1, 0
@@ -101,7 +101,7 @@ Sub GetMakeOption ()
 	        ad.smake = *pBuff
 	    Else
 	        SetZStrEmpty (ad.smake)
-	    EndIf     
+	    EndIf
 		SBarSetBuildName @buff
 	EndIf
 
@@ -116,7 +116,7 @@ Sub GetMakeOption ()
 	GetPrivateProfileString @"Make", @"Output", NULL, @ad.smakeoutput,     SizeOf (ad.smakeoutput),     pIniFileSpec
 	GetPrivateProfileString @"Make", @"Run"   , NULL, @ad.smakerun,        SizeOf (ad.smakerun),        pIniFileSpec
 	GetPrivateProfileString @"Make", @"Delete", NULL, @ProjectDeleteFiles, SizeOf (ProjectDeleteFiles), pIniFileSpec
-    
+
 End Sub
 
 'Sub GetMakeOption()
@@ -177,9 +177,9 @@ End Sub
 '			ad.smakemodule=Mid(ad.smakemodule,nInx+1)
 '		EndIf
 '		fRecompile=0
-'		SetZStrEmpty (ad.smakeoutput)             ' MOD 26.1.2012 
-'		SetZStrEmpty (ad.smakerun)                ' MOD 26.1.2012 
-'		SetZStrEmpty (ProjectDeleteFiles)         ' MOD 26.1.2012 
+'		SetZStrEmpty (ad.smakeoutput)             ' MOD 26.1.2012
+'		SetZStrEmpty (ad.smakerun)                ' MOD 26.1.2012
+'		SetZStrEmpty (ProjectDeleteFiles)         ' MOD 26.1.2012
 '	EndIf
 '	If IsZStrNotEmpty (ad.fbcPath) AndAlso Mid(ad.smake,2,2)<>":\" AndAlso ad.smake[0] <> Asc("$") Then               ' MOD 27.1.2012  ...Left(ad.smake,1)<>"$" Then
 '		ad.smake=ad.fbcPath & "\" & ad.smake
@@ -281,11 +281,11 @@ Sub MakeRun (ByRef FileSpec As ZString)
 	
     Dim ExeSpec   As ZString * MAX_PATH + 2     ' quoted FileSpec
     Dim ParamLine As ZString * 32768
-    
+
     If IsZStrNotEmpty (FileSpec) Then
 	    GetFullPathName @FileSpec, MAX_PATH, @ExeSpec, NULL
         PathRenameExtension @ExeSpec, @".exe"
-        ExeSpec = QUOTE + ExeSpec + QUOTE            
+        ExeSpec = QUOTE + ExeSpec + QUOTE
     	
     	If fRunCmd Then
     		ParamLine = "/k " + ExeSpec + " " + ad.smakerun
@@ -295,7 +295,7 @@ Sub MakeRun (ByRef FileSpec As ZString)
     	EndIf
     Else
         TextToOutput "*** error execute ***", MB_ICONHAND
-        TextToOutput "empty filespec" 
+        TextToOutput "empty filespec"
     EndIf
 End Sub
 
@@ -303,35 +303,35 @@ Sub MakeRunDebug (ByRef DebuggeeSpec As ZString)
 	
 	Dim DebuggerSpec As ZString * MAX_PATH
     Dim ParamLine    As ZString * 32768
-    Dim Success      As BOOL    = Any 
-    
+    Dim Success      As BOOL    = Any
+
     If IsZStrNotEmpty (DebuggeeSpec) Then
 	    GetFullPathName @DebuggeeSpec, MAX_PATH, @ParamLine, NULL
         PathRenameExtension @ParamLine, @".exe"
         ParamLine = QUOTE + ParamLine + QUOTE + " " + ad.smakerun   ' debuggee + commandline parameters
-    
+
         If IsZStrNotEmpty (ad.smakerundebug) Then
             DebuggerSpec = ad.smakerundebug
             Success = ExpandStrByEnviron (DebuggerSpec, SizeOf (DebuggerSpec))
 
             If Success = FALSE Then
-                TextToOutput "*** commandline too long - expansion by environment failed ***", MB_ICONHAND 
+                TextToOutput "*** commandline too long - expansion by environment failed ***", MB_ICONHAND
                 TextToOutput DebuggerSpec
-                Exit Sub    
+                Exit Sub
             EndIf
-            
+
             DebuggerSpec = QUOTE + DebuggerSpec + QUOTE         ' "debugger.exe"
-           
+
             ShellExecuteUI NULL, NULL, @DebuggerSpec, @ParamLine, NULL, SW_SHOWNORMAL
         Else
             TextToOutput "*** error execute ***", MB_ICONHAND
-            TextToOutput "empty debugger spec" 
-            Exit Sub 
-        EndIf     
+            TextToOutput "empty debugger spec"
+            Exit Sub
+        EndIf
     Else
         TextToOutput "*** error execute ***", MB_ICONHAND
-        TextToOutput "empty debuggee spec" 
-        Exit Sub 
+        TextToOutput "empty debuggee spec"
+        Exit Sub
     EndIf
 End Sub
 
@@ -342,14 +342,14 @@ Function ProcessBuild(ByVal pCmdLine As ZString Ptr) As Integer
 	Dim pinfo       As PROCESS_INFORMATION
 	Dim hrd         As HANDLE
 	Dim hwr         As HANDLE
-	Dim BytesRead   As DWORD        = Any 
-	Dim Success     As BOOL         = Any 
+	Dim BytesRead   As DWORD        = Any
+	Dim Success     As BOOL         = Any
 	Dim buffer      As ZString * 4096
 	'Dim ErrMsg      As ZString * 256
-	Dim n           As Integer      = Any 
-	Dim rd          As UByte        = Any 
-    Dim ExitCode    As DWORD 
-    
+	Dim n           As Integer      = Any
+	Dim rd          As UByte        = Any
+    Dim ExitCode    As DWORD
+
 	sat.nLength              = SizeOf (SECURITY_ATTRIBUTES)
 	sat.lpSecurityDescriptor = NULL
 	sat.bInheritHandle       = TRUE
@@ -384,7 +384,7 @@ Function ProcessBuild(ByVal pCmdLine As ZString Ptr) As Integer
 				Success = ReadFile (hrd, @rd, 1, @BytesRead, NULL)
 				Select Case rd
 				Case 0, 10       ' LF
-					buffer[n] = NULL 
+					buffer[n] = NULL
 				    TextToOutput @buffer
 					n = 0
 				    DoEvents NULL	
@@ -395,7 +395,7 @@ Function ProcessBuild(ByVal pCmdLine As ZString Ptr) As Integer
 				End Select
 			Loop While Success
 
-            GetExitCodeProcess pinfo.hProcess, @ExitCode 
+            GetExitCodeProcess pinfo.hProcess, @ExitCode
 			CloseHandle pinfo.hProcess
 			CloseHandle pinfo.hThread
 			CloseHandle hrd
@@ -408,14 +408,14 @@ End Function
 Function GetErrLine(Byref ErrMsgLine As zString, ByVal fQuickRun As Boolean) As Integer
 
 	Dim CurrPath           As ZString * MAX_PATH
-	Dim FileSpec           As ZString * MAX_PATH   
-    Dim FileName           As String 
-    Dim LineNoStr          As String 
-    Dim i                  As Integer = Any 
+	Dim FileSpec           As ZString * MAX_PATH
+    Dim FileName           As String
+    Dim LineNoStr          As String
+    Dim i                  As Integer = Any
     Dim SearchExpr(1 To 3) As ZString Ptr => { @"(.+)\(([0-9]+)\) error [0-9]+:", _                ' compiler error
                                                @"(.+)\(([0-9]+)\) warning [0-9]+(\([0-9]+\))?:", _ ' compiler warning
                                                @"(.+):([0-9]+):" _                                 ' linker error
-                                             }        
+                                             }
     ' Errormessages:
     ' Linker:
     '	   "C:\path.ext1\file(123).ext2:1002: ErrText"
@@ -431,7 +431,7 @@ Function GetErrLine(Byref ErrMsgLine As zString, ByVal fQuickRun As Boolean) As 
 				If fProject Then
 				    PathCombine FileSpec, ad.ProjectPath, StrPtr (FileName)
 				Else
-					GetCurrentDirectory SizeOf (CurrPath), CurrPath 
+					GetCurrentDirectory SizeOf (CurrPath), CurrPath
 					PathCombine FileSpec, CurrPath, StrPtr (FileName)
 				EndIf
 	            OpenTheFile FileSpec, FOM_STD
@@ -439,14 +439,14 @@ Function GetErrLine(Byref ErrMsgLine As zString, ByVal fQuickRun As Boolean) As 
     		Return ValInt (LineNoStr) - 1                                 ' zerobased
     	EndIf	
     Next
-    
+
     Return -1
 
     ' skip drive letter separator, find second ":"
     ' skip reverse ")" from warning level
 
-	'buffer = ErrText  
-	'x = InStr (3, buffer, ":") - 1 - 1 - 1            '   ":", ")", zerobasing                                 
+	'buffer = ErrText
+	'x = InStr (3, buffer, ":") - 1 - 1 - 1            '   ":", ")", zerobasing
 	'GetEnclosedStrRev x, buffer, LineNoStr, Asc("("), Asc(")")
 
     'If x >= 0 Then
@@ -456,7 +456,7 @@ Function GetErrLine(Byref ErrMsgLine As zString, ByVal fQuickRun As Boolean) As 
 	'		    buffer = MakeProjectFileName (buffer)
 	'		Else
 	'			If buffer[1] <> Asc(":") Then
-	'				GetCurrentDirectory SizeOf (sItem), @sItem 
+	'				GetCurrentDirectory SizeOf (sItem), @sItem
 	'				buffer = sItem + "\" + buffer
 	'			EndIf
 	'		EndIf
@@ -544,30 +544,30 @@ End Sub
 
 Function MakeBuild (ByRef sMakeOpt As ZString, ByRef sFile As ZString, ByRef CCLName As ZString, ByVal fOnlyThisModule As BOOLEAN, ByVal fNoClear As BOOLEAN, ByVal fQuickRun As BOOLEAN) As Integer
 	
-	Dim FileID   As Integer            = Any 
-	Dim nMiss    As Integer            = Any 
-	Dim nLine    As Integer            = Any 
-	Dim ErrFlag  As BOOL               = Any 
+	Dim FileID   As Integer            = Any
+	Dim nMiss    As Integer            = Any
+	Dim nLine    As Integer            = Any
+	Dim ErrFlag  As BOOL               = Any
 	Dim id       As Integer            = Any
-	Dim ExitCode As Integer            = Any 
+	Dim ExitCode As Integer            = Any
 	Dim y        As Integer            = Any
 	Dim i        As Integer            = Any
-	Dim bm       As Integer            = Any  
+	Dim bm       As Integer            = Any
 	Dim buffer   As ZString * 4096
-	Dim FileName As ZString * MAX_PATH 
-	Dim Path     As ZString * MAX_PATH 
+	Dim FileName As ZString * MAX_PATH
+	Dim Path     As ZString * MAX_PATH
     Dim CmdLine  As ZString * 32768
 
 	If IsZStrEmpty (sFile) Then
 	    TextToOutput !"no file spec\r", MB_ICONERROR
-	    Return TRUE 
+	    Return TRUE
 	EndIf
 
 	CallAddins(ah.hwnd,AIM_MAKEBEGIN,Cast(WPARAM,@sFile),Cast(LPARAM,@sMakeOpt),HOOK_MAKEBEGIN)
 	ErrFlag = FALSE
 
     ' *** set current directory	
-	If fProject Then 
+	If fProject Then
 		SetCurrentDirectory @ad.ProjectPath	
 	Else
 		Path = sFile
@@ -576,18 +576,18 @@ Function MakeBuild (ByRef sMakeOpt As ZString, ByRef sFile As ZString, ByRef CCL
 	EndIf
 		
     ' *** set environment	
-	UpdateEnvironment 
+	UpdateEnvironment
     SetEnviron "BUILD_TYPE=" + CCLName
     SetEnviron "COMPILIN_BNAME=" + *GetFileBaseName (sFile)
-    
+
     ' *** start pre build batch
     If fProject Then
         GetPrivateProfileString @"Make", @"PreBuildBatch", NULL, CmdLine, SizeOf (CmdLine), ad.ProjectFile
         If IsZStrNotEmpty (CmdLine) Then
             ExitCode = ProcessBuild (CmdLine)
             If ExitCode Then
-                TextToOutput "exit code: " + Str (ExitCode), MB_ICONERROR  
-                ErrFlag = TRUE  
+                TextToOutput "exit code: " + Str (ExitCode), MB_ICONERROR
+                ErrFlag = TRUE
                 GoTo Exit_MakeBuild
             EndIf
         EndIf
@@ -597,12 +597,12 @@ Function MakeBuild (ByRef sMakeOpt As ZString, ByRef sFile As ZString, ByRef CCL
 	If fProject Then
 		If fOnlyThisModule = TRUE Then
 		    CmdLine = sMakeOpt + " """ + sFile + """"
-		Else 
+		Else
 			CmdLine = sMakeOpt
 			If fAddMainFiles Then
         		CmdLine += " """ + sFile + """"
         		If fQuickRun Then
-    				FileName = ad.filename                           
+    				FileName = ad.filename
     			    PathRenameExtension FileName, ".rc"
     			Else
     				FileName = GetProjectMainResource ()
@@ -623,19 +623,19 @@ Function MakeBuild (ByRef sMakeOpt As ZString, ByRef sFile As ZString, ByRef CCL
                	        If nMiss > MAX_MISS Then Exit For
 						nMiss += 1
 					EndIf
-				Next 
+				Next
 			EndIf
 			If IsZStrNotEmpty (ad.smakeoutput) AndAlso fQuickRun = FALSE Then
 				CmdLine += " -x """ + ad.smakeoutput + """"
 			EndIf
 		EndIf
 	Else
-		CmdLine = sMakeOpt + " """ + *GetFileName (sFile) + """"           
+		CmdLine = sMakeOpt + " """ + *GetFileName (sFile) + """"
 		If fOnlyThisModule = FALSE Then                       ' add resource only if building main
 			If fQuickRun Then
-				FileName = ad.filename         
+				FileName = ad.filename
 			Else
-				FileName = sFile       
+				FileName = sFile
 			EndIf
 			PathRenameExtension FileName, ".rc"
 		    If FileExists (FileName) Then
@@ -643,20 +643,20 @@ Function MakeBuild (ByRef sMakeOpt As ZString, ByRef sFile As ZString, ByRef CCL
 			EndIf
 		EndIf
 	EndIf
-    
+
     ' *** start compiler
     CmdLineCombinePath CmdLine, @ad.fbcPath
-	ExitCode = ProcessBuild (@CmdLine)                       
+	ExitCode = ProcessBuild (@CmdLine)
 
     ' *** process compiler output
 	Select Case ExitCode
 	Case 0
 	    ErrFlag = FALSE
 	Case CREATE_PROCESS_FAILED, CREATE_PIPE_FAILED
-	    ErrFlag = TRUE 
+	    ErrFlag = TRUE
 	Case Else
-	    ErrFlag = TRUE 
-	End Select     
+	    ErrFlag = TRUE
+	End Select
 
 	nLine = SendMessage (ah.hout, EM_GETLINECOUNT, 0, 0)
 
@@ -666,7 +666,7 @@ Function MakeBuild (ByRef sMakeOpt As ZString, ByRef sFile As ZString, ByRef CCL
 	    GetLineByNo ah.hout, i, @buffer
 	
 		If     InStr(buffer, " : error ") _
-		OrElse InStr(buffer, ") error ") Then 
+		OrElse InStr(buffer, ") error ") Then
 			SendMessage ah.hout, REM_SETBOOKMARK, i, BMT_ERROR
 			id = SendMessage (ah.hout, REM_GETBMID, i, 0)
 			y = GetErrLine (buffer, fQuickRun)
@@ -685,13 +685,13 @@ Function MakeBuild (ByRef sMakeOpt As ZString, ByRef sFile As ZString, ByRef CCL
 			SendMessage ah.hout, REM_SETBOOKMARK, i, BMT_ERROR
 			SendMessage ah.hout, REM_SETBMID, i, 0
 		EndIf
-	Next 
-	  
+	Next
+	
 
 	If ErrFlag Then
 		TextToOutput "build error(s)", MB_ICONERROR
         GoTo Exit_MakeBuild
-    EndIf 
+    EndIf
 
     ' *** start post build batch
     If fProject Then
@@ -699,18 +699,18 @@ Function MakeBuild (ByRef sMakeOpt As ZString, ByRef sFile As ZString, ByRef CCL
         If IsZStrNotEmpty (CmdLine) Then
             ExitCode = ProcessBuild (CmdLine)
             If ExitCode Then
-                TextToOutput "exit code: " + Str (ExitCode), MB_ICONERROR  
-                ErrFlag = TRUE  
+                TextToOutput "exit code: " + Str (ExitCode), MB_ICONERROR
+                ErrFlag = TRUE
                 GoTo Exit_MakeBuild
             EndIf
         EndIf
-    EndIf    
+    EndIf
 
     ' *** clean up only after building main
 	If fOnlyThisModule = FALSE Then
 		i = 0
 		Do
-		    GetSubStr i, ProjectDeleteFiles, FileName, SizeOf (FileName), CUByte (Asc (";"))  
+		    GetSubStr i, ProjectDeleteFiles, FileName, SizeOf (FileName), CUByte (Asc (";"))
 		    DeleteFiles FileName
 		Loop While i
 	EndIf
@@ -725,14 +725,14 @@ End Function
 Function FileCheck(Byref sPaths As zString,Byref sFiles As zString) As HANDLE
 	
 	Dim i          As Integer            = Any
-	Dim k          As Integer            = Any 
-	Dim x          As Integer            = Any 
-	Dim szFileName As ZString * MAX_PATH 
-	Dim hFile      As HANDLE             = Any 
-    
+	Dim k          As Integer            = Any
+	Dim x          As Integer            = Any
+	Dim szFileName As ZString * MAX_PATH
+	Dim hFile      As HANDLE             = Any
+
     i = 0
     Do
-        GetSubStr i, sPaths, szFileName, SizeOf (szFileName), CUByte (Asc (";")) 
+        GetSubStr i, sPaths, szFileName, SizeOf (szFileName), CUByte (Asc (";"))
         x = lstrlen (szFileName)
         k = 0
         Do
@@ -785,31 +785,31 @@ End Function
 
 Sub IsNewer (Byref sFile As zString, ByVal fInc As Integer, ByRef ft1 As FILETIME)
 	
-	Dim hFile                 As HANDLE             = Any 
-	Dim ft                    As FILETIME           
-	Dim hMem                  As HGLOBAL            
-	Dim hMem1                 As HGLOBAL            
-	Dim nSize                 As DWORD              = Any               
-	Dim BytesRead             As DWORD              = Any 
-	Dim StartIdx              As Integer            = Any 
-	Dim FileSpec              As String  
+	Dim hFile                 As HANDLE             = Any
+	Dim ft                    As FILETIME
+	Dim hMem                  As HGLOBAL
+	Dim hMem1                 As HGLOBAL
+	Dim nSize                 As DWORD              = Any
+	Dim BytesRead             As DWORD              = Any
+	Dim StartIdx              As Integer            = Any
+	Dim FileSpec              As String
     Dim pSearchExpr(1 To ...) As ZString Ptr        = { @"#include(( )+once)?( )+\x22(.+?)\x22", _      ' search pattern: include
                                                         @"#inclib( )+\x22(.+?)\x22"              _      '                 incLib
-                                                      }        
-    
+                                                      }
+
     'include code line:
     '   #Include "..\test\file.bi"           ' comment
     '   #Include Once "..\test\file.bi"      ' comment
     'inclib code line:
     '   #IncLib "..\test\file"               ' comment
-    
+
 	If fInc Then
         If IsZStrNotEmpty (ad.FbcIncPath) Then
             hFile = FileCheck (";" + ad.FbcIncPath + $"\", sFile)
         Else
             TextToOutput "*** Environment: FBCINC_PATH not defined ***", MB_ICONHAND
             hFile = Cast (HANDLE, INVALID_HANDLE_VALUE)
-        EndIf   
+        EndIf
 	Else
         If IsZStrNotEmpty (ad.FbcLibPath) Then
     		hFile = FileCheck (";" + ad.FbcLibPath + $"\", sFile & ";"       & _
@@ -821,9 +821,9 @@ Sub IsNewer (Byref sFile As zString, ByVal fInc As Integer, ByRef ft1 As FILETIM
         Else
             TextToOutput "*** Environment: FBCLIB_PATH not defined ***", MB_ICONHAND
             hFile = Cast (HANDLE, INVALID_HANDLE_VALUE)
-        EndIf   
+        EndIf
 	EndIf
-    
+
 	If hFile<>INVALID_HANDLE_VALUE Then
 		GetFileTime hFile, NULL, NULL, @ft
 		If CompareFileTime (@ft, @ft1) > 0 Then
@@ -835,7 +835,7 @@ Sub IsNewer (Byref sFile As zString, ByVal fInc As Integer, ByRef ft1 As FILETIM
 			hMem = GlobalAllocUI (GMEM_FIXED, nSize + 1)                     ' + pending NULL
 		    ReadFile hFile, hMem, nSize, @BytesRead, NULL
 		    CloseHandle hFile
-		    Cast (ZString Ptr, hMem)[nSize] = 0                              ' append NULL          
+		    Cast (ZString Ptr, hMem)[nSize] = 0                              ' append NULL
 
 			If *Cast (WORD Ptr, hMem) = &HFEFF Then 		                ' Unicode
 				hMem1 = GlobalAllocUI (GMEM_FIXED, nSize + 1)
@@ -843,26 +843,26 @@ Sub IsNewer (Byref sFile As zString, ByVal fInc As Integer, ByRef ft1 As FILETIM
 				    WideCharToMultiByte CP_ACP, 0, hMem, -1, hMem1, nSize, NULL, NULL
 				    GlobalFree hMem
 				    hMem = hMem1
-				EndIf 
+				EndIf
 			EndIf
-            
-            SendMessage ah.hpr, PRM_PREPARSE, TRUE, Cast (LPARAM, hMem)     ' remove single-/multi-line comments 
 
-            StartIdx = 0        
+            SendMessage ah.hpr, PRM_PREPARSE, TRUE, Cast (LPARAM, hMem)     ' remove single-/multi-line comments
+
+            StartIdx = 0
             Do
-                SearchRegEx StartIdx, hMem, pSearchExpr(1), 4, FileSpec, 0  ' search #Include  
+                SearchRegEx StartIdx, hMem, pSearchExpr(1), 4, FileSpec, 0  ' search #Include
                 If Len (FileSpec) Then
                     IsNewer FileSpec, TRUE, ft1
-                EndIf 
-            Loop While StartIdx    
+                EndIf
+            Loop While StartIdx
 
-            StartIdx = 0        
+            StartIdx = 0
             Do
                 SearchRegEx StartIdx, hMem, pSearchExpr(2), 2, FileSpec, 0  ' search #IncLib
                 If Len (FileSpec) Then
                     IsNewer FileSpec, FALSE, ft1
-                EndIf 
-            Loop While StartIdx    
+                EndIf
+            Loop While StartIdx
 
 	        'Dim hPtr                  As HGLOBAL
 	        'Dim ms                    As MEMSEARCH
@@ -871,7 +871,7 @@ Sub IsNewer (Byref sFile As zString, ByVal fInc As Integer, ByRef ft1 As FILETIM
 			'ms.fr        = FR_WHOLEWORD Or FR_DOWN              ' Memory search down is faster
 			'ms.lpMem     = hMem
             '
-			'Do 
+			'Do
 			'	hPtr = Cast (HGLOBAL, SendMessage (ah.hpr, PRM_MEMSEARCH, 0, Cast (LPARAM, @ms)))
 			'	If hPtr Then
 			'	    GetEnclosedStr 0, *Cast (ZString Ptr, hPtr), FileSpec, SizeOf (FileSpec), CUByte (34), CUByte (34)
@@ -880,21 +880,21 @@ Sub IsNewer (Byref sFile As zString, ByVal fInc As Integer, ByRef ft1 As FILETIM
 			'	Else
 			'	    Exit Do
 			'	EndIf
-			'Loop 
+			'Loop
             '
     		'ms.lpFind = @"#inclib"
 			'ms.lpMem  = hMem
 	        '
-			'Do 
+			'Do
 			'	hPtr = Cast (HGLOBAL, SendMessage (ah.hpr, PRM_MEMSEARCH, 0, Cast (LPARAM, @ms)))
 			'	If hPtr Then
    			'	    GetEnclosedStr 0, *Cast (ZString Ptr, hPtr), FileSpec, SizeOf (FileSpec), CUByte (34), CUByte (34)
 			'		IsNewer FileSpec, FALSE, ft1
 			'		ms.lpMem = hPtr + 1
 			'	Else
-			'	    Exit Do 
+			'	    Exit Do
 			'	EndIf
-			'Loop 
+			'Loop
 
 			GlobalFree hMem
 		Else
@@ -908,22 +908,22 @@ Function CompileModules () As Integer
 
 	Dim   SaveErr       As BOOL               = Any
 	Dim   OutputVisible As Integer            = Any
-	Dim   id            As Integer            = Any 
-	Dim   nMiss         As Integer            = Any 
+	Dim   id            As Integer            = Any
+	Dim   nMiss         As Integer            = Any
 	Dim   sFile         As ZString * MAX_PATH
 	Dim   sOFile        As ZString * MAX_PATH
-	Dim   hFile         As HANDLE             = Any 
-	Dim   ft1           As FILETIME           = Any 
-	Dim   ft2           As FILETIME           = Any 
-	Dim   CCLName       As GOD_EntryName      = Any 
+	Dim   hFile         As HANDLE             = Any
+	Dim   ft1           As FILETIME           = Any
+	Dim   ft2           As FILETIME           = Any
+	Dim   CCLName       As GOD_EntryName      = Any
     Dim   CCLData       As GOD_EntryData      = Any
-   	Dim   Success       As BOOL               = Any 
+   	Dim   Success       As BOOL               = Any
    	
 
     OutputVisible = wpos.fview And VIEW_OUTPUT
 
 	If edtopt.autosave Then
-		SaveErr = SaveAllTabs ()                     
+		SaveErr = SaveAllTabs ()
 	Else
 		SaveErr = DialogBoxParam (hInstance, MAKEINTRESOURCE (IDD_DLG_SAVESELECTION), ah.hwnd, @SaveSelectionDlgProc, SAM_ALLFILES)
 	EndIf
@@ -932,7 +932,7 @@ Function CompileModules () As Integer
         TextToOutput !"unsaved file(s) found\r", MB_ICONERROR
         fBuildErr = 1
         GoTo Exit_CompileModules
-	EndIf  
+	EndIf
 
 	UpdateAllTabs (2)                                                    ' clear errors
 	UpdateAllTabs (4)                                                    ' update dirty bit
@@ -945,14 +945,14 @@ Function CompileModules () As Integer
 			If IsZStrNotEmpty (sFile) Then
 				nMiss = 0
 				GetCCL id, @CCLName, @CCLData
-                
+
                 If IsZStrEmpty (CCLData) Then
-                    TextToOutput "*** undefined compiler command line ***", MB_ICONEXCLAMATION 
+                    TextToOutput "*** undefined compiler command line ***", MB_ICONEXCLAMATION
                     TextToOutput sFile
                     fBuildErr = 1
                     Exit for
                 EndIf
-                
+
                 'DebugPrint (fCompileIfNewer)
 				If fCompileIfNewer Then
 					sOFile = sFile
@@ -961,7 +961,7 @@ Function CompileModules () As Integer
 					If hFile = INVALID_HANDLE_VALUE Then                 ' file does not exist
 					    TextToOutput sOFile + !" not found\13"
 						fBuildErr = MakeBuild (CCLData, sFile, CCLName, TRUE, TRUE, FALSE)
-					Else 
+					Else
 						GetFileTime hFile, NULL, NULL, @ft2
 						CloseHandle hFile
 						ft1 = ft2
@@ -975,15 +975,15 @@ Function CompileModules () As Integer
 				Else
 					fBuildErr = MakeBuild (CCLData, sFile, CCLName, TRUE, TRUE, FALSE)
 				EndIf
-				If fBuildErr Then Exit For 
+				If fBuildErr Then Exit For
 
 			Else
        	        If nMiss > MAX_MISS Then Exit For
 				nMiss += 1
 			EndIf
-		Next 
+		Next
 	Else
-		TextToOutput "*** no modules available ***", MB_ICONEXCLAMATION 
+		TextToOutput "*** no modules available ***", MB_ICONEXCLAMATION
 		fBuildErr = 1
 	EndIf
 		
@@ -1002,30 +1002,30 @@ End Function
 Function Compile (ByRef sMake As zString) As Integer
 
     Dim   sFile         As ZString * MAX_PATH
-    Dim   SaveErr       As BOOL               = Any 
-	Dim   OutputVisible As Integer            = Any 
-	Dim   i             As Integer            = Any 
-    Dim   pIniFileSpec  As ZString Ptr        = Any  
-	Dim   CCLName       As GOD_EntryName      = Any 
+    Dim   SaveErr       As BOOL               = Any
+	Dim   OutputVisible As Integer            = Any
+	Dim   i             As Integer            = Any
+    Dim   pIniFileSpec  As ZString Ptr        = Any
+	Dim   CCLName       As GOD_EntryName      = Any
 	
     OutputVisible = wpos.fview And VIEW_OUTPUT
 	TextToOutput !"build:\r"
-	    
-    If fProject Then 
+	
+    If fProject Then
         If nMain = 0 Then
        	    TextToOutput !"no main module\r", MB_ICONERROR
             fBuildErr = 1
             GoTo Exit_Compile
-        EndIf     
+        EndIf
         If nMainRC = 0 Then
             If CountProjectResource () > 0 Then
        	        TextToOutput !"no main resource\r", MB_ICONERROR
                 fBuildErr = 1
                 GoTo Exit_Compile
             EndIf
-        EndIf     
+        EndIf
     EndIf
-    
+
 	If fIncVersion AndAlso fProject Then
 		If ah.hres Then
 			If SendMessage(ah.hraresed,PRO_GETMEM,0,0) Then
@@ -1051,7 +1051,7 @@ Function Compile (ByRef sMake As zString) As Integer
         TextToOutput !"unsaved file(s) found\r", MB_ICONERROR
         fBuildErr = 1
         GoTo Exit_Compile
-	EndIf  
+	EndIf
 	
 	UpdateAllTabs (2)                                	' clear errors
 	UpdateAllTabs (4)                                   ' update dirty bit	
@@ -1066,7 +1066,7 @@ Function Compile (ByRef sMake As zString) As Integer
 	GetPrivateProfileString @"Make", Str (i), NULL, @CCLName, SizeOf (CCLName), pIniFileSpec
     If IsZStrNotEmpty (CCLName) Then
 	    SplitStr CCLName, Asc (","), 0
-    EndIf 
+    EndIf
 	
 	If fProject Then
 		If fRecompile = RCM_PREBUILD Then

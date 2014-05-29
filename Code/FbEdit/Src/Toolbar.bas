@@ -10,7 +10,7 @@
 
 
 
-' Toolbar bitmap 
+' Toolbar bitmap
 #Define IDB_TBRBMP							100
 
 ' ToolBar
