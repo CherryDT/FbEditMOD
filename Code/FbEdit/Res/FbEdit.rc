@@ -565,16 +565,15 @@ BEGIN
   CONTROL "Cancel", IDCANCEL, "Button", 0x50010000, 286, 147, 48, 15
 END
 
-IDD_DLG_ABOUT DIALOGEX 0, -11, 146, 91
+IDD_DLG_ABOUT DIALOGEX 0, -11, 230, 91
 FONT 8, "MS Shell Dlg 2", 0, 0, 0
 STYLE 0x10C80880
 BEGIN
-  CONTROL "", -1, "Static", 0x50000000, 0, 0, 146, 70, 0x00000001
   CONTROL "OK", 1, "Button", 0x50010000, 94, 73, 48, 15
-  CONTROL "#100", -1, "Static", 0x50001003, 4, 3, 22, 20
-  CONTROL "FreeBASIC editor (C) KetilO 2010\r\n\r\nradasmide@hotmail.com", IDC_EDTABOUT, "Edit", 0x50000805, 32, 4, 112, 28
-  CONTROL "http://radasm.cherrytree.at/", IDC_URL, "Static", 0x50000381, 12, 36, 130, 11
-  CONTROL "http://fbedit.freebasic.net/", IDC_URL3, "Static", 0x50000381, 12, 52, 132, 11
+  CONTROL "#100", -1, "Static", 0x50001003, 7, 6, 22, 20
+  CONTROL "FreeBASIC editor (C) KetilO 2010", IDC_EDTABOUT, "Edit", 0x50000805, 59, 15, 112, 11
+  CONTROL "http://svn.freebasic-portal.de/fbedit/", IDC_URL, "Static", 0x50000381, 49, 36, 130, 11
+  CONTROL "http://freebasic.net/forum/", IDC_URL3, "Static", 0x50000381, 49, 52, 132, 11
 END
 
 IDD_DLG_BLOCK DIALOGEX 6, 6, 148, 62

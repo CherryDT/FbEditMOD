@@ -63,6 +63,7 @@
 #Include Once "Inc\ZStringHandling.bi"
 
 #Include Once "Inc\FbEdit.bi"
+#Include Once "Inc\SVNVersion.bi"
 #Include Once "Inc\showvars.bi"
 
 #Define IDT_GENERAL     100
@@ -3125,7 +3126,7 @@ End Function
     hRichEditDll = LoadLibrary ("riched20.dll")
 
     ad.lpCharTab   = GetCharTabPtr ()
-    ad.lpszVersion = @"FreeBASIC editor 1.0.7.8"
+    ad.lpszVersion = @"FreeBASIC editor 1.0.7.8 SVN Rev " SVN_REV
     ad.version     = 1078
     ad.lpBuff      = @buff
     ah.haccel      = LoadAccelerators (hInstance, Cast (ZString Ptr, IDA_ACCEL))

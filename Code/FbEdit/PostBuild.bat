@@ -1,7 +1,7 @@
 
 @echo off
 
-if /i %compilin_bname%==FbEdit (
+if /i "%compilin_bname%"=="FbEdit" (
     echo *** exhibit EXE ***
     copy /y ..\..\Build\FbEdit.exe Build\FbEdit.exe || goto :ERR_Exit
 ) else (
