@@ -8,6 +8,8 @@ set BFLAGS_MODULE_GENGAS=-c -v -w param -w escape -w all -w next
 set BFLAGS_MODULE_GENGCC=-c -v -w param -w escape -w all -w next -gen gcc -O 2
 set BFLAGS_MAIN=-v -s gui -w param -w escape -w all -w next
 
+:: exitcode always 0
+call GetSVNRev.bat
 
 echo .
 echo *** compiling modules ***

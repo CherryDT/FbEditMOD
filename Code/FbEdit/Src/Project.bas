@@ -911,6 +911,7 @@ Function OpenProject() As Integer
 			SetZStrEmpty (szTabOrder)             'MOD 26.1.2012
 		EndIf
 	Wend
+
 	'SendMessage(ah.hprj,TVM_EXPAND,TVE_EXPAND,Cast(Integer,hPar))
 	'tvs.hParent=hPar
 	'tvs.lpfnCompare=@TVCompare
