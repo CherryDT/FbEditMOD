@@ -15,7 +15,7 @@ dim SHARED hInstance as HINSTANCE
 #define STYLE_BLUE					&H0008
 #define STYLE_WHITE					&H000C
 #define STYLE_LEFTTOP				&H0000
-#define STYLE_CENTER					&H0010
+#define STYLE_CENTER				&H0010
 
 ' Default styles
 #define DEFSTYLE						WS_CHILD or WS_VISIBLE or STYLE_CENTER
@@ -35,79 +35,79 @@ CONST szName="IDC_TUT"
 
 ' This is a typical multistyle property description with 4 choises.
 type PROPERTYORIENTATION field=1
-	txt as string*32					' The lenght must match the actual string
-	and_style1 as integer
-	or_style1 as integer
-	and_exstyle1 as integer
-	or_exstyle1 as integer
-	and_style2 as integer
-	or_style2 as integer
-	and_exstyle2 as integer
-	or_exstyle2 as integer
-	and_style3 as integer
-	or_style3 as integer
-	and_exstyle3 as integer
-	or_exstyle3 as integer
-	and_style4 as integer
-	or_style4 as integer
-	and_exstyle4 as integer
-	or_exstyle4 as integer
+    txt as string*32					' The lenght must match the actual string
+    and_style1 as integer
+    or_style1 as integer
+    and_exstyle1 as integer
+    or_exstyle1 as integer
+    and_style2 as integer
+    or_style2 as integer
+    and_exstyle2 as integer
+    or_exstyle2 as integer
+    and_style3 as integer
+    or_style3 as integer
+    and_exstyle3 as integer
+    or_exstyle3 as integer
+    and_style4 as integer
+    or_style4 as integer
+    and_exstyle4 as integer
+    or_exstyle4 as integer
 end type
 
 ' This is also a typical multistyle property description with 4 choises.
 type PROPERTYBACKCOLOR field=1
-	txt as string*20					' The lenght must match the actual string
-	and_style1 as integer
-	or_style1 as integer
-	and_exstyle1 as integer
-	or_exstyle1 as integer
-	and_style2 as integer
-	or_style2 as integer
-	and_exstyle2 as integer
-	or_exstyle2 as integer
-	and_style3 as integer
-	or_style3 as integer
-	and_exstyle3 as integer
-	or_exstyle3 as integer
-	and_style4 as integer
-	or_style4 as integer
-	and_exstyle4 as integer
-	or_exstyle4 as integer
+    txt as string*20					' The lenght must match the actual string
+    and_style1 as integer
+    or_style1 as integer
+    and_exstyle1 as integer
+    or_exstyle1 as integer
+    and_style2 as integer
+    or_style2 as integer
+    and_exstyle2 as integer
+    or_exstyle2 as integer
+    and_style3 as integer
+    or_style3 as integer
+    and_exstyle3 as integer
+    or_exstyle3 as integer
+    and_style4 as integer
+    or_style4 as integer
+    and_exstyle4 as integer
+    or_exstyle4 as integer
 end type
 
 ' This is a False/True style or exstyle description.
 type PROPERTYFALSETRUE field=1
-	and_false as integer
-	or_false as integer
-	and_true as integer
-	or_true as integer
+    and_false as integer
+    or_false as integer
+    and_true as integer
+    or_true as integer
 end type
 
 ' Description of the 3 properties
 type PROPERTIES field=1
-	type1 as integer
-	property1 as PROPERTYORIENTATION ptr
-	type2 as integer
-	property2 as PROPERTYBACKCOLOR ptr
-	type3 as integer
-	property3 as PROPERTYFALSETRUE ptr
+    type1 as integer
+    property1 as PROPERTYORIENTATION ptr
+    type2 as integer
+    property2 as PROPERTYBACKCOLOR ptr
+    type3 as integer
+    property3 as PROPERTYFALSETRUE ptr
 end type
 
 type CCDEFEX field=1
-	ID as integer						'Controls uniqe ID. ID's below 1000 are reserved.
-	lptooltip as zstring ptr		'Pointer to FbEdit toolbox tooltip text
-	hbmp as HBITMAP					'Handle of FbEdit toolbox bitmap
-	lpcaption as zstring ptr		'Pointer to default caption text
-	lpname as zstring ptr			'Pointer to default idname text
-	lpclass as zstring ptr			'Pointer to class text
-	style as integer					'Default style
-	exstyle as integer				'Default ex-style
-	flist1 as integer					'Property listbox bitflag1
-	flist2 as integer					'Property listbox bitflag2
-	flist3 as integer					'Property listbox bitflag3
-	flist4 as integer					'Property listbox bitflag4
-	lpszproperty as zstring ptr	'Pointer to properties text
-	lpproprty as PROPERTIES ptr	'Pointer to properties descriptor
+    ID as integer						'Controls uniqe ID. ID's below 1000 are reserved.
+    lptooltip as zstring ptr		'Pointer to FbEdit toolbox tooltip text
+    hbmp as HBITMAP					'Handle of FbEdit toolbox bitmap
+    lpcaption as zstring ptr		'Pointer to default caption text
+    lpname as zstring ptr			'Pointer to default idname text
+    lpclass as zstring ptr			'Pointer to class text
+    style as integer					'Default style
+    exstyle as integer				'Default ex-style
+    flist1 as integer					'Property listbox bitflag1
+    flist2 as integer					'Property listbox bitflag2
+    flist3 as integer					'Property listbox bitflag3
+    flist4 as integer					'Property listbox bitflag4
+    lpszproperty as zstring ptr	'Pointer to properties text
+    lpproprty as PROPERTIES ptr	'Pointer to properties descriptor
 end type
 
 ' Property descriptions

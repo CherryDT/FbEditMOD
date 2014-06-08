@@ -96,7 +96,7 @@ MilestoneOnTime=2
 MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
-MilestoneOnDateDate=3
+MilestoneOnDateDate=8
 MilestoneOnDateTimeYear=2005
 MilestoneOnDateTimeMonth=1
 MilestoneOnDateTimeDate=6
@@ -129,14 +129,14 @@ BackupLocation=C:\RadASM\Masm\Projects\VCBackups\
 6=00FFFFFF
 7=00FFFFFF
 [Size]
-1=0,0,0,0,281
+1=0,0,0,0,2778
 3=0,0,0,0,53
-2=0,0,0,0,2381
+2=0,0,0,0,1394
 4=0,0,0,0,23
 7=0,0,0,0,2994
 6=0,0,0,0,171
 8=0,0,0,0,1260
-10=0,0,0,0,2746
+10=0,0,0,0,2042
 [BookMark]
 0=
 1=
@@ -151,11 +151,11 @@ BackupLocation=C:\RadASM\Masm\Projects\VCBackups\
 [BreakPoint]
 0=
 [Find]
-1="MOD"
-2="; *** MOD"
-3="itself"
-4="TTM_GETITEMTYPE"
-5="CCM_GETMAXWIDTH"
+1="CCM_GETMAXWIDTH"
+2="MOD"
+3="; *** MOD"
+4="itself"
+5="TTM_GETITEMTYPE"
 6="getitem"
 7="getitemwidth"
 8="CCM_SETVISIBLE"
@@ -171,7 +171,7 @@ BackupLocation=C:\RadASM\Masm\Projects\VCBackups\
 10=,
 4=
 [PTimer]
-PTimer=76228474
+PTimer=76320717
 [Exports]
 1=GetDef
 2=GetDefEx

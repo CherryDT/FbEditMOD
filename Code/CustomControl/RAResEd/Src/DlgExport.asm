@@ -487,9 +487,9 @@ SaveCtl proc uses ebx esi edi
 			.if [esi].DIALOG.exstyle || [esi].DIALOG.helpid
 				mov		ax,' ,'
 				stosw
-				.if [esi].DIALOG.exstyle
-					invoke SaveExStyle,[esi].DIALOG.exstyle
-				.endif
+				;.if [esi].DIALOG.exstyle                         ; *** MOD
+					invoke SaveExStyle,[esi].DIALOG.exstyle       ; save, even if zero
+				;.endif                                           ; *** MOD
 				.if [esi].DIALOG.helpid
 					mov		ax,' ,'
 					stosw
@@ -581,9 +581,9 @@ SaveCtl proc uses ebx esi edi
 			.if [esi].DIALOG.exstyle || [esi].DIALOG.helpid
 				mov		ax,' ,'
 				stosw
-				.if [esi].DIALOG.exstyle
-					invoke SaveExStyle,[esi].DIALOG.exstyle
-				.endif
+				;.if [esi].DIALOG.exstyle                       ; *** MOD
+					invoke SaveExStyle,[esi].DIALOG.exstyle     ; save, even if zero
+				;.endif                                         ; *** MOD
 				.if [esi].DIALOG.helpid
 					mov		ax,' ,'
 					stosw

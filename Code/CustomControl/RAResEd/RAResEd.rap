@@ -168,7 +168,7 @@ Options=52
 2=0,0,584,498,6433
 <<<<<<< .mine
 8=0,0,0,0,4685
-10=0,0,0,0,13417
+10=0,0,0,0,7449
 16=0,0,718,485,18551
 =======
 8=0,0,0,0,4685
@@ -210,38 +210,26 @@ Options=52
 48=0,0,0,0
 49=0,0,0,0
 50=0,0,0,0
-51=0,0,0,0,593
+51=0,0,0,0,11018
 52=0,0,0,0,4114
 53=
 
 
 [Find]
-<<<<<<< .mine
-1="','"
-2="GetProjectItemName"
-3="SetProjectItemName"
-4="PRO_setname"
-5="PRO_OPEN"
-6="todo"
-7="messagebox"
-8="PRO_SETEXPORT"
-9="ParseResource"
-10="pathcombine"
-=======
-1="','"
-2="'.'"
-3="mouse"
-4="GetProjectItemName"
-5="SetProjectItemName"
-6="PRO_setname"
-7="PRO_OPEN"
-8="todo"
-9="messagebox"
-10="PRO_SETEXPORT"
+1="SaveExStyle"
+2="saveex"
+3="SaveHexVal"
+4="','"
+5="GetProjectItemName"
+6="SetProjectItemName"
+7="PRO_setname"
+8="PRO_OPEN"
+9="todo"
+10="messagebox"
 >>>>>>> .r52
 
 [AutoLoad]
-AutoLoad=1
+AutoLoad=1,51,10
 >>>>>>> .r52
 [VerInf]
 Nme=VERINF1
@@ -288,7 +276,7 @@ MilestoneOnDate=0
 MilestoneOnDateWhen=1
 MilestoneOnDateStatus=0
 <<<<<<< .mine
-MilestoneOnDateDate=27
+MilestoneOnDateDate=8
 =======
 MilestoneOnDateDate=30
 >>>>>>> .r52
@@ -391,7 +379,7 @@ Group=Assembly,Resources,Misc,Include
 51=,,
 [PTimer]
 <<<<<<< .mine
-PTimer=1637646877
+PTimer=1639122537
 =======
 PTimer=1647308128
 >>>>>>> .r52

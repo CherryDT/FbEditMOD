@@ -2869,14 +2869,16 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
             '
         Case WM_MOUSEMOVE,WM_LBUTTONDOWN,WM_LBUTTONUP
             ' Size tool windows
-            x=LoWord(lParam)
+            x=LoWord(lParam)               ' x = GET_X_LPARAM (lParam)
             If x>&H7FFF Then
                 x=&HFFFF0000 Or x
             EndIf
-            y=HiWord(lParam)
+            
+            y=HiWord(lParam)               ' y = GET_Y_LPARAM (lParam)
             If y>&H7FFF Then
                 y=&HFFFF0000 Or y
             EndIf
+            
             GetWindowRect(ah.hshp,@rect)
             ScreenToClient(hWin,Cast(Point Ptr,@rect.right))
             If x>=rect.right And x<rect.right+3 Then
