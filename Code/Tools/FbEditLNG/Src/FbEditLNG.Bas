@@ -5,7 +5,7 @@
 #Include Once "windows.bi"
 #Include Once "win/commdlg.bi"
 
-#Include "..\FbEdit\Inc\Language.bi"
+#Include "..\..\FbEdit\Inc\Language.bi"
 #Include "Inc\FbEditLNG.bi"
 #Include "MiscLNG.bas"
 #Include "MenuLNG.bas"
@@ -154,7 +154,7 @@ Function DlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,By
 								lp=@InternalStrings+2
 								SendMessage(hEdt,EM_REPLACESEL,FALSE,Cast(LPARAM,lp))
 								SendMessage(hEdt,EM_REPLACESEL,FALSE,Cast(LPARAM,@szDivider))
-								szFile=szAppPath & "\Addins.txt"
+								szFile=szAppPath & "\Addins.lng"
 								hFile=CreateFile(@szFile,GENERIC_READ,FILE_SHARE_READ,NULL,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,NULL)
 								If hFile<>INVALID_HANDLE_VALUE Then
 									hMem=GlobalAlloc(GMEM_FIXED Or GMEM_ZEROINIT,64*1024)
@@ -215,7 +215,7 @@ End Function
 		DialogBoxParam(hInstance,Cast(ZString Ptr,IDD_DLGLNG),NULL,@DlgProc,NULL)
 		FreeLibrary(hFbEditDll)
 	Else
-		MessageBox(NULL,StrPtr("Could not find FbEdit.dll"),@szAppName,MB_OK Or MB_ICONERROR)
+		MessageBox(NULL,StrPtr($"Could not find ..\FbEdit.dll"),@szAppName,MB_OK Or MB_ICONERROR)
 	EndIf
 	FreeLibrary(hRichEditDll)
 

@@ -25,6 +25,8 @@ Dim Shared szFileName As ZString*260
 Const szNew As String=!"[Lang]\13\10Lang=English (default), By FbEdit team\13\10"
 Const szList As String=!"[1100] Goto Line\0" _
 							  !"[1200] Language\0" _
+							  !"[1600] Environment\0" _
+							  !"[1700] Custom Filter\0" _
 							  !"[2000] Options\0" _
 							  !"[2100] Dialog Options Page#1\0" _
 							  !"[2300] Dialog Options Page#2\0" _
@@ -35,20 +37,19 @@ Const szList As String=!"[1100] Goto Line\0" _
 							  !"[3000] About dialog\0" _
 							  !"[3200] Menu Options\0" _
 							  !"[4000] Code Editor Options\0" _
-							  !"[4100] External Files Option\0" _
 							  !"[5000] Save Files\0" _
 							  !"[5100] Debug / Quick Run Option\0" _
 							  !"[5200] Block Insert\0" _
 							  !"[5300] New Project\0" _
 							  !"[5360] New Project Options tab\0" _
 							  !"[5380] New Project Template tab\0" _
-							  !"[5400] Path Options\0" _
 							  !"[5500] Project Options\0" _
 							  !"[5600] Export properties to output\0" _
 							  !"[6000] Create Template\0" _
 							  !"[6100] Addin Manager\0" _
 							  !"[6200] Project Api files\0" _
 							  !"[6300] Hex Find ...\0" _
+							  !"[6500] Clipboard History\0" _
 							  !"[10000] Main menu\0" _
 							  !"[20000] Context menu\0" _
 							  !"\0"

@@ -2,7 +2,7 @@
 @echo off
 
 
-call:GetIniValue "..\..\Make.ini" "FBHome" FBHome
+call:GetIniValue "..\..\..\Make.ini" "FBHome" FBHome
 
 echo.
 echo *** compiling .rc ***
@@ -12,7 +12,7 @@ windres --version
 IF %ERRORLEVEL% EQU 9009 (
     echo windres not found
 ) else (
-    windres --verbose --output-format=coff --include-dir="../FbEdit"  "Res\FbEditLNG.Rc" "FbEditLNG.Rc.o" > Make.log || goto ERR_Exit
+    windres --verbose --output-format=coff --include-dir="../../FbEdit/" --include-dir="../../FbEdit/Res"  "Res\FbEditLNG.Rc" "FbEditLNG.Rc.o" > Make.log || goto ERR_Exit
     goto RC_Ready
 )
 
@@ -22,7 +22,7 @@ RC /?
 IF %ERRORLEVEL% EQU 9009 (
     echo RC not found
 ) else (
-    RC /I ../FbEdit /FO "FbEditLNG.res" "Res\FbEditLNG.Rc" > Make.log || goto ERR_Exit
+    RC /I ../../FbEdit /FO "FbEditLNG.res" "Res\FbEditLNG.Rc" > Make.log || goto ERR_Exit
     CVTRES /MACHINE:IX86 /OUT:"FbEditLNG.Rc.o" "FbEditLNG.res"
     goto RC_Ready
 )
@@ -34,9 +34,9 @@ IF %ERRORLEVEL% EQU 9009 (
     echo GoRC not found
     goto ERR_Exit
 ) else (
-    ::goto ERR_Exit
+    goto ERR_Exit
     REM TODO  (doesnt work)
-    set INCLUDE="%CD%\..\FbEdit"
+    set INCLUDE="%CD%\..\..\FbEdit";"%CD%\..\..\FbEdit\Res"
     "%FBHome%\bin\win32\GoRC.exe" /fo "FbEditLNG.Rc.obj" "Res\FbEditLNG.Rc" > Make.log || goto ERR_Exit
     rename FbEditLNG.Rc.obj FbEditLNG.Rc.o
 )

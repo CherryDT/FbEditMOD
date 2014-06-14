@@ -1,0 +1,77 @@
+#ifndef IDC_STATIC
+  #define IDC_STATIC -1
+#endif
+#define IDD_DLGLNG 30000
+#define IDC_EDTLNGFILE 30001
+#define IDC_BTNFILE 30002
+#define IDC_BTNLNGSAVE 30003
+#define IDC_BTNLNGNEW 30004
+#define IDC_EDTLNGLANG 30005
+#define IDC_STC1 30007
+#define IDC_LSTLNGDIALOG 30006
+#define IDC_STC2 30008
+#define IDC_STC3 30009
+#define IDC_STC4 30010
+#define IDD_DLGMENU 30100
+#define IDD_DLGTEST 30200
+#define IDR_VERSION1 1
+
+#include "../../FbEdit/Res/FbEdit.rc"
+
+IDD_DLGLNG DIALOGEX 6, 5, 477, 324
+CAPTION "FbEdit language translation"
+FONT 8, "MS Sans Serif", 400, 0, 0
+STYLE 0x10C80880
+EXSTYLE 0x00000001
+BEGIN
+  CONTROL "", IDC_EDTLNGFILE, "Edit", 0x50010800, 103, 7, 214, 13, 0x00000200
+  CONTROL "...", IDC_BTNFILE, "Button", 0x50010000, 319, 6, 15, 13
+  CONTROL "Save", IDC_BTNLNGSAVE, "Button", 0x50010000, 415, 305, 54, 13
+  CONTROL "Generate New Language File", IDC_BTNLNGNEW, "Button", 0x50010000, 100, 22, 116, 13
+  CONTROL "", IDC_EDTLNGLANG, "Edit", 0x503110C4, 2, 57, 343, 241, 0x00000200
+  CONTROL "Dialogs / Menus (dbl click to test)", IDC_STC1, "Static", 0x50000000, 357, 47, 114, 9
+  CONTROL "", IDC_LSTLNGDIALOG, "ListBox", 0x50010141, 357, 57, 116, 242, 0x00000200
+  CONTROL "String Table", IDC_STC2, "Static", 0x50000000, 3, 47, 114, 9
+  CONTROL "Load Language File:", IDC_STC3, "Static", 0x50000000, 3, 8, 96, 9
+  CONTROL "Read FbEdit.dll:", IDC_STC4, "Static", 0x50000000, 3, 24, 84, 9
+END
+
+IDD_DLGMENU DIALOGEX 6, 6, 352, 105
+CAPTION "Menu tester"
+FONT 8, "MS Sans Serif", 0, 0, 0
+STYLE 0x10C80880
+EXSTYLE 0x00000201
+BEGIN
+END
+
+IDD_DLGTEST DIALOGEX 6, 6, 341, 190
+CAPTION "Test container for child dialogs"
+FONT 8, "MS Sans Serif", 0, 0, 0
+STYLE 0x10CC0080
+EXSTYLE 0x00000001
+BEGIN
+END
+
+IDR_VERSION1 VERSIONINFO
+FILEVERSION 1, 0, 0, 1
+PRODUCTVERSION 1, 0, 0, 1
+FILEOS 0x00000004
+FILETYPE 0x00000001
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "04090000"
+    BEGIN
+      VALUE "FileVersion", "1.0.0.1\0"
+      VALUE "ProductVersion", "1.0.0.0\0"
+      VALUE "FileDescription", "Translation Utility for FreeBASIC Code Editor\0"
+      VALUE "InternalName", "FbEditLNG\0"
+      VALUE "OriginalFilename", "FbEditLNG.exe\0"
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x0409, 0x0000
+  END
+END
+
