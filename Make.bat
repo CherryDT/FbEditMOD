@@ -81,9 +81,16 @@ cd ..\..
 
 echo .
 echo *** build FBEditLNG ***
-cd Code\FBEditLNG
+cd Code\Tools\FBEditLNG
 call make.bat || goto ERR_Exit
-cd ..\..
+cd ..\..\..
+
+
+echo .
+echo *** build MakeApi ***
+cd Code\Tools\MakeApi
+call make.bat || goto ERR_Exit
+cd ..\..\..
 
 
 echo .

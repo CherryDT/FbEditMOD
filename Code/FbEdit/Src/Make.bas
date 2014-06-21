@@ -364,6 +364,7 @@ Function ProcessBuild(ByVal pCmdLine As ZString Ptr) As Integer
 		GetStartupInfo @STARTUPINFO
 		startupinfo.hStdOutput  = hwr
 		startupinfo.hStdError   = hwr
+		startupinfo.hStdInput   = hrd
 		startupinfo.dwFlags     = STARTF_USESHOWWINDOW Or STARTF_USESTDHANDLES
 		startupinfo.wShowWindow = SW_HIDE
 

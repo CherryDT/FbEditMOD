@@ -91,8 +91,7 @@ xcopy /F /Y "%CD%\Code\CustomControl\SpreadSheet\SprSht.dll" "%CD%\Build\CustomC
 echo .
 echo *** get Language Files ***
 xcopy /F /Y "%CD%\Data\Language\*.*" "%CD%\Build\Language\*" >> Collect.log || goto ERR_Exit
-xcopy /F /Y "%CD%\Code\Tools\FbEditLNG\Build\FbEditLNG.exe" "%CD%\Build\Tools\*" >> Collect.log || goto ERR_Exit
-xcopy /F /Y "%CD%\Code\Tools\FbEditLNG\Build\Addins.lng" "%CD%\Build\Tools\*" >> Collect.log || goto ERR_Exit
+
 
 
 :: ###############################################
@@ -159,6 +158,18 @@ xcopy /F /Y "%CD%\Data\Api\*.*" "%CD%\Build\Api\*" >> Collect.log || goto ERR_Ex
 
 
 :: ###############################################
+:: collect Tools Files
+:: ###############################################
+
+echo .
+xcopy /F /Y "%CD%\Code\Tools\FbEditLNG\Build\FbEditLNG.exe" "%CD%\Build\Tools\*" >> Collect.log || goto ERR_Exit
+xcopy /F /Y "%CD%\Code\Tools\FbEditLNG\Build\Addins.lng" "%CD%\Build\Tools\*" >> Collect.log || goto ERR_Exit
+xcopy /F /Y "%CD%\Code\Tools\MakeApi\Build\MakeApi.exe" "%CD%\Build\Tools\*" >> Collect.log || goto ERR_Exit
+xcopy /F /Y "%CD%\Code\Tools\MakeApi\Build\MakeApi.txt" "%CD%\Build\Tools\*" >> Collect.log || goto ERR_Exit
+
+
+
+:: ###############################################
 :: collect Include Files
 :: ###############################################
 
@@ -199,7 +210,6 @@ echo !Filter! > Filter.txt
 
 xcopy /F /Y /E /EXCLUDE:Filter.txt "%CD%\Code\Samples\*.*" "%CD%\Build\Projects\*" >> Collect.log || goto ERR_Exit
 xcopy /F /Y /E /EXCLUDE:Filter.txt "%CD%\Code\Addins\*.*" "%CD%\Build\Projects\Addins\*" >> Collect.log || goto ERR_Exit
-xcopy /F /Y /E /EXCLUDE:Filter.txt "%CD%\Code\Tools\*.*" "%CD%\Build\Projects\Tools\*" >> Collect.log || goto ERR_Exit
 
 del filter.txt
 

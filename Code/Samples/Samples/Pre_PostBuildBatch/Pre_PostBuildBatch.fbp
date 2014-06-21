@@ -28,7 +28,7 @@ Module=Module Build,fbc -c
 CCL1001=Module
 CCL1002=Module
 [TabOrder]
-CurrentTab=1001
+CurrentTab=1
 TabOrder=1,1002,2,3,1001
 [File]
 3=prebuild.bat

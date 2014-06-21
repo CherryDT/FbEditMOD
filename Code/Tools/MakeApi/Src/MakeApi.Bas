@@ -8,7 +8,7 @@
 #Include Once "win/shlwapi.bi"
 #include Once "file.bi"
 
-#Include "MakeApi.bi"
+#Include "Inc\MakeApi.bi"
 
 Sub TabReplace(ByRef szin As ZString)
 
@@ -538,8 +538,6 @@ Function DlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,By
 	Select Case uMsg
 		Case WM_INITDIALOG
 			hWnd=hWin
-			GetModuleFileName(NULL,@AppPath,260)
-			GetFilePath(AppPath)
 			hPrp=GetDlgItem(hWin,IDC_PRPCODE)
 			lpRAPROPERTY=Cast(RAPROPERTY Ptr,GetWindowLong(hPrp,0))
 			ShowWindow(lpRAPROPERTY->htbr,SW_HIDE)
@@ -570,11 +568,12 @@ Function DlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,By
 					ofn.lStructSize=sizeof(OPENFILENAME)
 					ofn.hwndOwner=hWin
 					ofn.hInstance=GetModuleHandle(NULL)
-					sInp=string(260,0)
+					sInp[0] = 0
 					ofn.lpstrFile=@sInp
 					ofn.nMaxFile=8192
 					ofn.lpstrFilter=@ALLFilterString
 					ofn.lpstrTitle=StrPtr("Input File")
+					ofn.lpstrInitialDir=@AppPath
 					ofn.Flags=OFN_PATHMUSTEXIST or OFN_HIDEREADONLY or OFN_FILEMUSTEXIST or OFN_EXPLORER Or OFN_ALLOWMULTISELECT
 					If GetOpenFileName(@ofn) Then
 						lstrcpy(@sPth,@sInp)
@@ -668,18 +667,14 @@ End Function
 	''
 	'' Create the Dialog
 	''
-	szWord="FbEdit.dll"
-	CommandLine=GetCommandLine
-	CommandLine=PathGetArgs(CommandLine)
-	If Len(*CommandLine) Then
-		szWord=*CommandLine & "\" & szWord
-	EndIf
-	hFbEditDll=LoadLibrary(szWord)
+
+	GetModuleFileName NULL, @AppPath, SizeOf (AppPath)
+    PathRemoveFileSpec @AppPath
+    
+    PathCombine FbEditPath, @AppPath, @".." 
+
+	hFbEditDll=LoadLibrary("..\FbEdit.dll")
 	If hFbEditDll Then
-		FbEditPath=*CommandLine
-		If Len(FbEditPath)=0 Then
-			FbEditPath="C:\FbEdit"
-		EndIf
 		CharTab=Cast(Any Ptr,GetProcAddress(hFbEditDll,StrPtr("GetCharTabPtr")))
 		lpCharTab=CharTab()
 
@@ -699,7 +694,7 @@ End Function
 		DialogBoxParam(hInstance, Cast(ZString Ptr,IDD_DLGAPI), NULL, @DlgProc, NULL)
 		FreeLibrary(hFbEditDll)
 	Else
-		MessageBox(NULL,"Could not find " & szWord,@szAppName,MB_OK Or MB_ICONERROR)
+		MessageBox(NULL, $"Could not find: ..\FbEdit.dll", @szAppName,MB_OK Or MB_ICONERROR)
 	EndIf
 	''
 	'' Program has ended

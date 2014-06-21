@@ -1,5 +1,5 @@
 
-#Include "RAProperty.bi"
+#Include "..\..\FbEdit\Inc\RAProperty.bi"
 
 Type RAPROPERTY
 	hwnd				As HWND
@@ -123,7 +123,6 @@ Const szConst1="3SendDlgItemMessage"
 Const szConst2="2SendMessage"
 Const szConst3="2PostMessage"
 
-Dim Shared CommandLine As ZString Ptr
 Dim Shared hInstance As HMODULE
 Dim Shared hWnd As HWND
 Dim Shared hPrp As HWND
