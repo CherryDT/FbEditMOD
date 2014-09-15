@@ -68,7 +68,6 @@ CULng
 CULngInt
 CUShort
 CUnsg
-CVShort
 Call
 Callocate
 Case
@@ -86,10 +85,10 @@ Color
 Command
 Common
 CondDestroy
-CondWait 
-Condbroadcast
-Condcreate
-Condsignal
+CondWait
+CondBroadcast
+CondCreate
+CondSignal
 Cons
 Const
 Constructor
@@ -101,6 +100,7 @@ Cvd
 Cvi
 Cvl
 Cvs
+CvShort
 Data
 Date
 DateAdd
@@ -122,8 +122,8 @@ DefUByte
 DefUInt
 DefUShort
 Defined
-Deflongint
-Defulongint
+DefLongInt
+DefULongInt
 Delete
 Destructor
 Dim
@@ -145,7 +145,7 @@ Eof
 Eqv
 Erase
 Erfn
-Erl 
+Erl
 Ermn
 Err
 Error
@@ -228,7 +228,7 @@ Lpt
 Mid
 Minute
 MkDir
-MkLongint
+MkLongInt
 MkShort
 Mkd
 Mki
@@ -258,7 +258,7 @@ On
 Once
 Open
 Operator
-Option 
+Option
 Or
 OrElse
 Out
@@ -409,7 +409,7 @@ Width
 Window
 WindowTitle
 With
-Write 
+Write
 Xor
 Year
 ZString
@@ -434,8 +434,8 @@ __FB_GCC__
 __FB_GOSUB__
 __FB_LANG__
 __FB_LINUX__
-__FB_MAIN__ 
-__FB_MIN_VERSION__ 
+__FB_MAIN__
+__FB_MIN_VERSION__
 __FB_MT__
 __FB_NETBSD__
 __FB_OPENBSD__
@@ -450,7 +450,7 @@ __FB_OUT_EXE__
 __FB_OUT_LIB__
 __FB_OUT_OBJ__
 __FB_PCOS__
-__FB_SIGNATURE__ 
+__FB_SIGNATURE__
 __FB_SSE__
 __FB_UNIX__
 __FB_VECTORIZE__
