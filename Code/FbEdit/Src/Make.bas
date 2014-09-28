@@ -723,7 +723,7 @@ Exit_MakeBuild:
 
 End Function
 
-Function FileCheck(Byref sPaths As zString,Byref sFiles As zString) As HANDLE
+Function FileCheck (Byref sPaths As ZString, ByRef sFiles As ZString) As HANDLE
 	
 	Dim i          As Integer            = Any
 	Dim k          As Integer            = Any
@@ -737,7 +737,7 @@ Function FileCheck(Byref sPaths As zString,Byref sFiles As zString) As HANDLE
         x = lstrlen (szFileName)
         k = 0
         Do
-            GetSubStr k, sFiles, szFileName[x], SizeOf (szFileName) - x, CUByte (Asc (";"))    ' append Filename
+            GetSubStr k, sFiles, *Cast (ZString Ptr, @szFileName[x]), SizeOf (szFileName) - x, CUByte (Asc (";"))    ' append Filename
 			
 			If IsZStrNotEmpty (szFileName) Then
 			    ZStrReplaceChar @szFileName, Asc ("/"), Asc ("\")

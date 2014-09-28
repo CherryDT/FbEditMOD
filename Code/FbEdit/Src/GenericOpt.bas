@@ -139,7 +139,7 @@ Sub ListUpdate (ByVal hWin As HWND)
     	n = lstrlen (buff)
     	buff[n] = VK_TAB
     	GetDlgItemText hWin, IDC_EDT_CMDLINE, @buff[n + 1], SizeOf (GOD_EntryData)
-    	TrimWhiteSpace buff[n + 1]
+    	TrimWhiteSpace *Cast (ZString Ptr, @buff[n + 1])
 
     	i = SendDlgItemMessage (hWin, IDC_LST_ITEMS, LB_GETCURSEL, 0, 0)
     	If i = LB_ERR Then i = 0

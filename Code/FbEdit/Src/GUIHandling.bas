@@ -81,7 +81,7 @@ End Function
 
 Sub BrowseForFolder (ByVal hWin As HWND, ByVal nID As Integer)
 	
-	Dim pIdL As LPCITEMIDLIST
+	Dim pIdL As LPITEMIDLIST
 	Dim bri  As BROWSEINFO
     Dim Path As ZString * MAX_PATH
 

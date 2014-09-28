@@ -221,7 +221,7 @@
 #Define CT_CMNTINITCHAR						7
 
 
-Type RASELCHANGE Field=1
+Type RASELCHANGE Field = 1
     nmhdr		As NMHDR
     chrg		As CHARRANGE								' Current selection
     seltyp		As Word										' SEL_TEXT or SEL_OBJECT
@@ -244,7 +244,7 @@ End Type
 #Define BD_NOBLOCK							&H40			' No block nesting
 #Define BD_ALTHILITE						&H80			' wordgroup+1
 
-Type RABLOCKDEF Field=1
+Type RABLOCKDEF Field = 1
     lpszStart	As ZString Ptr								' Block start
     lpszEnd		As ZString Ptr								' Block end
     lpszNot1	As ZString Ptr								' Dont hide line containing this or set to NULL
@@ -252,12 +252,12 @@ Type RABLOCKDEF Field=1
     flag		As Long										' High word is WordGroup(0-15)
 End Type
 
-Type LINERANGE Field=1
+Type LINERANGE Field = 1
     lnMin		As Long										' Starting line
     lnMax		As Long										' Ending line
 End Type
 
-Type BLOCKRANGE Field=1
+Type BLOCKRANGE Field = 1
     lnMin		As Long										' Starting line
     clMin		As Long										' Starting column
     lnMax		As Long										' Ending line

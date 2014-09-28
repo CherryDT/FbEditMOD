@@ -37,7 +37,7 @@ Function EnvironProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WP
     Dim    EStringValue   As EnvironStringValue
     Dim    EName          As EnvironVarName
     Dim    EditorMode     As Long                = Any
-    Dim    pPIDL          As LPCITEMIDLIST       = Any
+    Dim    pPIDL          As LPITEMIDLIST        = Any
     Dim    bri            As BROWSEINFO
     Dim    SectionBuffer  As ZString * 64 * 1024
     Dim    FileSpec       As ZString * MAX_PATH
@@ -259,7 +259,7 @@ Function EnvironProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WP
                 pPIDL = SHBrowseForFolder (@bri)
                 If pPIDL Then
                     SHGetPathFromIDList(pPIDL, Cast (ZString Ptr, pGRIDNOTIFY->lpdata))
-                    CoTaskMemFree pPIDL
+                    CoTaskMemFree Cast (PVOID, pPIDL)
                 EndIf
             Case GN_BEFOREEDIT
                 Select Case pGRIDNOTIFY->col
@@ -280,7 +280,7 @@ Function EnvironProc (ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam As WP
                 pPIDL = SHBrowseForFolder (@bri)
                 If pPIDL Then
                     SHGetPathFromIDList(pPIDL, Cast (ZString Ptr, pGRIDNOTIFY->lpdata))
-                    CoTaskMemFree pPIDL
+                    CoTaskMemFree Cast (PVOID, pPIDL)
                 EndIf
             Case GN_AFTEREDIT
                 Select Case pGRIDNOTIFY->col
@@ -469,7 +469,7 @@ Sub UpdateEnvironment
     pEnvironBlock = GetEnvironmentStrings ()
     i = 0
     Do
-        DePackStr i, *pEnvironBlock, EItem, SizeOf (EItem)   ' get copies, EnvironBlock is Const
+        DePackStr i, *Cast (ZString Ptr, pEnvironBlock), EItem, SizeOf (EItem)   ' get copies, EnvironBlock is Const
         SplitStr EItem, Asc ("="), pBuffB
         Success = ExpandStrByEnviron (*pBuffB, SizeOf (EItem) + @EItem - pBuffB)         ' but we wanna expand
         If Success Then

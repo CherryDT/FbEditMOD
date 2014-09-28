@@ -2350,7 +2350,7 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
                                     EndIf
                                 Wend
                                 If bm=BMT_COLLAPSE Or bm=BMT_EXPAND Then
-                                    If lret=-1 Then
+                                    If lret=-1 Then     ' no block start/end in this line
                                         ' Remove collapse bookmark
                                         If bm=BMT_EXPAND Then
                                             SendMessage(ah.hred,REM_EXPAND,nLastLine,0)

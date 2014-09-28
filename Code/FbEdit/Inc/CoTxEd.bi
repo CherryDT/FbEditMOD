@@ -70,24 +70,24 @@ End Type
 
 #Define MAXBLOCKDEFS 50
 
-Extern lpOldCoTxEdProc    As WNDPROC
-Extern lpOldParCoTxEdProc As WNDPROC
-Extern lpOldCCProc        As WNDPROC
+Extern lpOldCoTxEdProc        As WNDPROC
+Extern lpOldParCoTxEdProc     As WNDPROC
+Extern lpOldCCProc            As WNDPROC
 
-Extern lstpos             As LASTPOS
-Extern szCaseConvert      As ZString * 32
-Extern szIndent(MAXBLOCKDEFS)       As ZString * 32
-Extern autofmt(MAXBLOCKDEFS)        As AUTOFORMAT
+Extern lstpos                 As LASTPOS
+Extern szCaseConvert          As ZString * 32
+Extern szIndent(MAXBLOCKDEFS) As ZString * 32
+Extern autofmt(MAXBLOCKDEFS)  As AUTOFORMAT
 
 ' Code blocks
-Extern blk                As RABLOCKDEF
-Extern szSt(MAXBLOCKDEFS)           As ZString * 32
-Extern szEn(MAXBLOCKDEFS)           As ZString * 32
-Extern szNot1             As ZString * 32
-Extern szNot2             As ZString * 32
-Extern BD(MAXBLOCKDEFS)             As RABLOCKDEF
+Extern blk                    As RABLOCKDEF
+Extern szSt(MAXBLOCKDEFS)     As ZString * 32
+Extern szEn(MAXBLOCKDEFS)     As ZString * 32
+Extern szNot1                 As ZString * 32
+Extern szNot2                 As ZString * 32
+Extern BD(MAXBLOCKDEFS)       As RABLOCKDEF
 
-Extern EditInfo           As EditorTypeInfo
+Extern EditInfo               As EditorTypeInfo
 
 
 

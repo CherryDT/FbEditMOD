@@ -275,7 +275,7 @@ Sub GetEnclosedStr OverLoad (ByRef i As Integer, ByRef Source As ZString, ByRef 
 
 End Sub
 
-Sub GetSubStr OverLoad (ByRef i As Integer, ByRef Source As ZString, ByRef Dest As ZString, ByVal DestSize As Integer, Byref Delimiter As ZString)
+Sub GetSubStr OverLoad (ByRef i As Integer, ByRef Source As ZString, ByRef Dest As ZString, ByVal DestSize As Integer, ByRef Delimiter As ZString)
 
     ' for set of delimiters
     ' [in]  i = start of search (zerobased)
