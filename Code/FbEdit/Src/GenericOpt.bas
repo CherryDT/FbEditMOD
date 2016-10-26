@@ -467,7 +467,7 @@ Function GenericOptDlgProc(ByVal hWin As HWND, ByVal uMsg As UINT, ByVal wParam 
 							End Select
 							
 	                        If lstrlen (CmdLine) >= SizeOf (sCmd) Then 						
-                                (@CmdLine)[SizeOf (sCmd) - 1] = 0                       ' trunc
+                                CmdLine[SizeOf (sCmd) - 1] = 0                       ' trunc
                                 TextToOutput "*** commandline too long - substitution failed ***", MB_ICONHAND
                                 TextToOutput CmdLine
 	                        EndIf	

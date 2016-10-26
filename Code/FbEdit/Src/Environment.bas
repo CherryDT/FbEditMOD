@@ -1,5 +1,6 @@
 
 #Include Once "windows.bi"
+#Include Once "win/shlwapi.bi"
 
 #Include Once "Inc\RAGrid.bi"
 

@@ -54,7 +54,7 @@ Declare Sub FindWriteIni ()
 Declare Function Find (ByVal hWin As HWND,ByVal frType As Integer) As Integer
 Declare Sub ResetFind ()
 Declare Sub UpDateFind (ByVal hWin As HWND,ByVal cpMin As Integer,ByVal fChanged As Integer)
-Declare Function FindDlgProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer
+Declare Function FindDlgProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As LRESULT
 Declare Function IsFileSearchable (ByVal pFileSpec As ZString Ptr) As BOOL
 
 #Define NOT_FOUND                           -1

@@ -252,7 +252,8 @@ OpenProject proc uses esi,lpFileName:DWORD,hRCMem:DWORD
 	invoke GlobalUnlock,hRCMem
 	invoke GlobalFree,hRCMem
 	pop		eax
-	pop		edx
+	;pop		edx
+	mov edx, lpFileName
 	.if eax==-1
 		jmp		Ex
 	.endif

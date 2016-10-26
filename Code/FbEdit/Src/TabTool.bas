@@ -1607,7 +1607,7 @@ Sub OpenAProject ()                           ' MOD 1.2.2012    OpenAProject(ByV
 
 End Sub
 
-Function SaveAllTabs () As BOOL                            ' MOD 2.1.2012   (ByVal hWin As HWND)
+Function SaveAllTabs () As BOOLEAN                            ' MOD 2.1.2012   (ByVal hWin As HWND)
 	
 	Dim tci       As TCITEM
 	Dim i         As Integer = Any

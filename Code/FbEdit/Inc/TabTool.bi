@@ -51,7 +51,7 @@ Declare Function GetTabLockByCurrTab () As Integer
 
 Declare Sub SetFileIDByTabID (ByVal TabID As Integer, ByVal NewFileID As Integer)
 Declare Sub SetFileInfo (ByVal hWin As HWND, ByVal pFileSpec As ZString Ptr)
-Declare Function SaveAllTabs () As Integer                            ' MOD 2.1.2012   (ByVal hWin As HWND)
+Declare Function SaveAllTabs () As BOOLEAN                            ' MOD 2.1.2012   (ByVal hWin As HWND)
 Declare Function SaveTabAs() As BOOLEAN                               ' MOD 1.2.2012    SaveFileAs(ByVal hWin As HWND) As Boolean
 Declare Function SaveSelectionDlgProc (ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARAM,ByVal lParam As LPARAM) As Integer
 

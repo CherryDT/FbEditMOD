@@ -254,6 +254,10 @@ Sub SaveToIni (ByVal pSection As ZString Ptr, ByVal pKey As ZString Ptr, ByRef T
 			buffer = Str (*Cast (WORD Ptr, pStruct + ofs))
 		    pAppend = @buffer
 			ofs += SizeOf (WORD)
+
+		Case Asc ("9")                 ' String * LF_FACESIZE
+			pAppend =  Cast (ZString Ptr , pStruct + ofs)
+			ofs += LF_FACESIZE
 		
 		Case 0                                              ' end of format string
 		    Exit Do
@@ -380,6 +384,16 @@ Function LoadFromIni(ByVal lpszApp As ZString Ptr,ByVal lpszKey As ZString Ptr,B
 						RtlMoveMemory(lpDta+ofs,@v,4)
 					EndIf
 					ofs=ofs+4
+				Case 9
+					' String * LF_FACESIZE
+					p = Cast(ZString Ptr, lpDta+ofs)
+					If InStr(szDta,",") Then
+						tmp=Left(szDta,InStr(szDta,",")-1)
+					Else
+						tmp=szDta
+					EndIf
+					*p=tmp
+					ofs+=LF_FACESIZE
 			End Select
 			If InStr(szDta,",") Then
 				szDta=Mid(szDta,InStr(szDta,",")+1)
@@ -844,7 +858,7 @@ Sub GetPrivateProfilePath (ByVal pSectionName As ZString Ptr, ByVal pKeyName As 
         TextToOutput "File: " + *pIniSpec + ", Section: [" + *pSectionName + "], Key: " + *pKeyName
         Exit Sub
     Else
-        If Mode = GPP_Expanded Then
+        If Mode And GPP_Expanded Then
 	        UpdateEnvironment
 			Success = ExpandStrByEnviron (*pPath, MAX_PATH)
             If Success = FALSE Then

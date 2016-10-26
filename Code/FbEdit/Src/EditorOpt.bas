@@ -35,10 +35,10 @@ Dim Shared edtopt        As EDITOPTION = (3,0,0,1,0,0,3,1,1,1,1,1,1,0,0,0,1,1,1,
 Dim Shared fbcol         As FBCOLOR    = ((DEFBCKCOLOR,DEFTXTCOLOR,DEFSELBCKCOLOR,DEFSELTXTCOLOR,DEFCMNTCOLOR,DEFSTRCOLOR,DEFOPRCOLOR,DEFHILITE1,DEFHILITE2,DEFHILITE3,DEFSELBARCOLOR,DEFSELBARPEN,DEFLNRCOLOR,DEFNUMCOLOR,DEFCMNTBCK,DEFSTRBCK,DEFNUMBCK,DEFOPRBCK,DEFCHANGEDCLR,DEFCHANGESAVEDCLR),DEFBCKCOLOR,DEFTXTCOLOR,DEFBCKCOLOR,DEFTXTCOLOR)
 Dim Shared kwcol         As KWCOLOR    = (RGB(0,0,128),RGB(0,0,128),RGB(0,0,128),RGB(64,64,0),RGB(128,0,0),RGB(0,0,128),RGB(0,0,128),RGB(0,0,128),RGB(0,0,128),&H1000000+RGB(0,0,128),&H4000000+RGB(0,0,128),RGB(0,0,128),RGB(0,0,128),RGB(0,0,128),RGB(0,0,128),RGB(0,0,128),&H1000000+RGB(0,255,255),&H1000000+RGB(0,255,255),&H1000000+RGB(0,255,255))
 
-Dim Shared edtfnt        As EDITFONT   = (-12, 0, @"Courier New", 400, 0)
-Dim Shared lnrfnt        As EDITFONT   = ( -6, 0, @"Terminal"   , 400, 0)
-Dim Shared outpfnt       As EDITFONT   = (-11, 0, @"Tahoma"     , 400, 0)
-Dim Shared toolfnt       As EDITFONT   = (-11, 0, @"Tahoma"     , 400, 0)
+Dim Shared edtfnt        As EDITFONT   = (-12, 0, "Courier New", 400, 0)
+Dim Shared lnrfnt        As EDITFONT   = ( -6, 0, "Terminal"   , 400, 0)
+Dim Shared outpfnt       As EDITFONT   = (-11, 0, "Tahoma"     , 400, 0)
+Dim Shared toolfnt       As EDITFONT   = (-11, 0, "Tahoma"     , 400, 0)
 
 Dim Shared custcol       As KWCOLOR
 Dim Shared thme(15)      As THEME
@@ -452,8 +452,8 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 	edtfnt.charset    = lfnt.lfCharSet
 	edtfnt.weight     = lfnt.lfWeight
 	edtfnt.italics    = lfnt.lfItalic
-	*edtfnt.szFont    = lfnt.lfFaceName
-    SaveToIni @"Edit", @"EditFont", "54044", @edtfnt, FALSE
+	edtfnt.szFont    = lfnt.lfFaceName
+    SaveToIni @"Edit", @"EditFont", "54944", @edtfnt, FALSE
 
 	lfnt.lfItalic     = TRUE
 	DeleteObject ah.rafnt.hIFont
@@ -466,8 +466,8 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 	lnrfnt.charset    = lfnt.lfCharSet
 	lnrfnt.weight     = lfnt.lfWeight
 	lnrfnt.italics    = lfnt.lfItalic
-	*lnrfnt.szFont    = lfnt.lfFaceName
-	SaveToIni @"Edit", @"LnrFont", "54044", @lnrfnt, FALSE
+	lnrfnt.szFont    = lfnt.lfFaceName
+	SaveToIni @"Edit", @"LnrFont", "54944", @lnrfnt, FALSE
 
 	GetObject hTFont, SizeOf (LOGFONT), @lfnt
 	ah.hToolFont      = CreateFontIndirect (@lfnt)
@@ -475,8 +475,8 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 	toolfnt.charset   = lfnt.lfCharSet
 	toolfnt.weight    = lfnt.lfWeight
 	toolfnt.italics   = lfnt.lfItalic
-	*toolfnt.szFont   = lfnt.lfFaceName
-	SaveToIni @"Edit", @"ToolFont", "54044", @toolfnt, FALSE
+	toolfnt.szFont   = lfnt.lfFaceName
+	SaveToIni @"Edit", @"ToolFont", "54944", @toolfnt, FALSE
 
 	GetObject hOFont, SizeOf (LOGFONT), @lfnt
 	ah.hOutFont       = CreateFontIndirect (@lfnt)
@@ -484,8 +484,8 @@ Sub SaveEditOptions (ByVal hWin As HWND)
 	outpfnt.charset   = lfnt.lfCharSet
 	outpfnt.weight    = lfnt.lfWeight
 	outpfnt.italics   = lfnt.lfItalic
-	*outpfnt.szFont   = lfnt.lfFaceName
-	SaveToIni @"Edit", @"OutpFont", "54044", @outpfnt, FALSE
+	outpfnt.szFont   = lfnt.lfFaceName
+	SaveToIni @"Edit", @"OutpFont", "54944", @outpfnt, FALSE
 
 	SendMessage ah.hcc,       WM_SETFONT, Cast (WPARAM, ah.hToolFont), FALSE
 	SendMessage ah.htt,       WM_SETFONT, Cast (WPARAM, ah.hToolFont), FALSE

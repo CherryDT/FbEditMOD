@@ -36,7 +36,7 @@ End Type
 Type EDITFONT
     size			As Integer
     charset			As Integer
-    szFont			As ZString Ptr
+    szFont			As ZString * LF_FACESIZE
     weight			As Integer
     italics			As Integer
 End Type

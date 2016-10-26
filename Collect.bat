@@ -260,6 +260,11 @@ xcopy /F /Y "%CD%\Code\FbEditDLL\Build\FbEdit.dll" "%CD%\Build\*" >> Collect.log
 
 xcopy /F /Y "%CD%\Data\FbEdit.ini" "%CD%\Build\*" >> Collect.log || goto ERR_Exit
 
+echo .
+echo *** get tre4.dll + license ***
+
+xcopy /F /Y "%CD%\Requisite\tre*" "%CD%\Build\*" >> Collect.log || goto ERR_Exit
+
 
 
 

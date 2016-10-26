@@ -4,7 +4,7 @@
 
 #Include Once "windows.bi"
 #Include Once "win\HtmlHelp.bi"
-#Include Once "regex.bi"                        ' MOD 16.2.2012
+#Include Once "inc\tre_mod.bi"                        ' MOD 16.2.2012
 
 #Include Once "Inc\RAEdit.bi"
 #Include Once "Inc\RAResEd.bi"

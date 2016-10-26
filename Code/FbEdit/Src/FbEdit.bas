@@ -9,6 +9,8 @@
 
 '/
 
+#Include Once "crt\string.bi"
+
 #Include Once "windows.bi"
 #Include Once "win\richedit.bi"
 #Include Once "win\commctrl.bi"
@@ -448,7 +450,10 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
 
             GetPrivateProfilePath "Win"        , "Path"         , @ad.IniFile, @szLastDir        , GPP_MustExist
 
-            GetPrivateProfilePath "EnvironPath", "PROJECTS_PATH", @ad.IniFile, @ad.DefProjectPath, GPP_MustExist
+            GetPrivateProfilePath "EnvironPath", "FBC_PATH"     , @ad.IniFile, @ad.fbcPath       , GPP_Expanded Or GPP_MustExist
+            UpdateEnvironment ' So that one can use %FBE_PATH% !
+            
+            GetPrivateProfilePath "EnvironPath", "PROJECTS_PATH", @ad.IniFile, @ad.DefProjectPath, GPP_Expanded Or GPP_MustExist
             If DirExists (@ad.DefProjectPath) = FALSE Then
                 ad.DefProjectPath = ad.AppPath + $"\Project"
                 If DirExists (@ad.DefProjectPath) = FALSE Then
@@ -458,10 +463,10 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
                 TextToOutput "Replacement: " + ad.DefProjectPath
             EndIf
 
-            GetPrivateProfilePath "EnvironPath", "FBC_PATH"     , @ad.IniFile, @ad.fbcPath       , GPP_MustExist
-            GetPrivateProfilePath "EnvironPath", "FBCINC_PATH"  , @ad.IniFile, @ad.FbcIncPath    , GPP_MustExist
-            GetPrivateProfilePath "EnvironPath", "FBCLIB_PATH"  , @ad.IniFile, @ad.FbcLibPath    , GPP_MustExist
-            GetPrivateProfilePath "EnvironPath", "HELP_PATH"    , @ad.IniFile, @ad.HelpPath      , GPP_MustExist
+
+            GetPrivateProfilePath "EnvironPath", "FBCINC_PATH"  , @ad.IniFile, @ad.FbcIncPath    , GPP_Expanded Or GPP_MustExist
+            GetPrivateProfilePath "EnvironPath", "FBCLIB_PATH"  , @ad.IniFile, @ad.FbcLibPath    , GPP_Expanded Or GPP_MustExist
+            GetPrivateProfilePath "EnvironPath", "HELP_PATH"    , @ad.IniFile, @ad.HelpPath      , GPP_Expanded Or GPP_MustExist
 
             GetPrivateProfileString "Make", "QuickRun", "fbc -s console", @ad.smakequickrun, SizeOf (ad.smakequickrun), @ad.IniFile
             LoadFromIni "Edit"    , "EditOpt"   , "444444444444444444444"          , @edtopt , FALSE
@@ -482,41 +487,41 @@ Function MainDlgProc(ByVal hWin As HWND,ByVal uMsg As UINT,ByVal wParam As WPARA
             FindReadIni
 
             ' Create fonts
-            LoadFromIni "Edit", "EditFont", "44044", @edtfnt, FALSE
+            LoadFromIni "Edit", "EditFont", "44944", @edtfnt, FALSE
             lfnt.lfHeight     = edtfnt.size
             lfnt.lfCharSet    = edtfnt.charset
             lfnt.lfWeight     = edtfnt.weight
             lfnt.lfItalic     = edtfnt.italics
-            lfnt.lfFaceName   = *edtfnt.szFont
+            lfnt.lfFaceName   = edtfnt.szFont
             ah.rafnt.hFont    = CreateFontIndirect (@lfnt)
             lfnt.lfItalic     = TRUE
             ah.rafnt.hIFont   = CreateFontIndirect (@lfnt)
 
             'Font line_number
-            LoadFromIni "Edit", "LnrFont", "44044", @lnrfnt, FALSE
+            LoadFromIni "Edit", "LnrFont", "44944", @lnrfnt, FALSE
             lfnt.lfHeight     = lnrfnt.size
             lfnt.lfCharSet    = lnrfnt.charset
             lfnt.lfWeight     = lnrfnt.weight
             lfnt.lfItalic     = lnrfnt.italics
-            lfnt.lfFaceName   = *lnrfnt.szFont
+            lfnt.lfFaceName   = lnrfnt.szFont
             ah.rafnt.hLnrFont = CreateFontIndirect (@lfnt)
 
             ' Font output window
-            LoadFromIni "Edit", "OutpFont", "44044", @outpfnt, FALSE
+            LoadFromIni "Edit", "OutpFont", "44944", @outpfnt, FALSE
             lfnt.lfHeight     = outpfnt.size
             lfnt.lfCharSet    = outpfnt.charset
             lfnt.lfWeight     = outpfnt.weight
             lfnt.lfItalic     = outpfnt.italics
-            lfnt.lfFaceName   = *outpfnt.szFont
+            lfnt.lfFaceName   = outpfnt.szFont
             ah.hOutFont       = CreateFontIndirect (@lfnt)
 
             ' Font for tools
-            LoadFromIni "Edit", "ToolFont", "44044", @toolfnt, FALSE
+            LoadFromIni "Edit", "ToolFont", "44944", @toolfnt, FALSE
             lfnt.lfHeight     = toolfnt.size
             lfnt.lfCharSet    = toolfnt.charset
             lfnt.lfWeight     = toolfnt.weight
             lfnt.lfItalic     = toolfnt.italics
-            lfnt.lfFaceName   = *toolfnt.szFont
+            lfnt.lfFaceName   = toolfnt.szFont
             ah.hToolFont      = CreateFontIndirect (@lfnt)
 
             SendMessage ah.hout, REM_SETCHARTAB, Asc (";"), CT_OPER                               ' Turn off default comment char
@@ -3128,7 +3133,7 @@ End Function
     hRichEditDll = LoadLibrary ("riched20.dll")
 
     ad.lpCharTab   = GetCharTabPtr ()
-    ad.lpszVersion = @"FreeBASIC editor 1.0.7.8 - SVN Rev " SVN_REV
+    ad.lpszVersion = @"FreeBASIC editor 1.0.7.8a - Cherry Version"
     ad.version     = 1078
     ad.lpBuff      = @buff
     ah.haccel      = LoadAccelerators (hInstance, Cast (ZString Ptr, IDA_ACCEL))

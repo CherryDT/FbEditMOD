@@ -1,3 +1,12 @@
+FbEditMOD 1.0.7.8a BY CHERRY [cherry@cherrytree.at]
+
+    - added support for %FBE_PATH% and %FBC_PATH% in EnvironPath values - but there is no way to use them in the UI, you have to edit the INI file manually
+    - fixed crashes caused by overwriting constant strings (font names) - but I fear there might be more bugs like this still in there...
+    - fixed crash when opening RC file
+    - fixed crash related to reading of commandline
+    - fixed various small bugs and crashes
+    - changed icon
+    - use tre4.dll for regex
 
 FbEditMOD 1.0.7.8
 
