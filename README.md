@@ -29,7 +29,7 @@ Original homepage on archive.org: http://wayback.archive.org/web/20101221023849/
 
 Theoretically, all you would have to do is change Make.ini and run Make.bat, but I had a lot of problems doing that myself and did various changes to make it work. It is possible, though, that it now doesn't work for some others.
 
-If you just want to use a precompiled version, you can get it here: https://www.dropbox.com/s/ekq76lyncvoatsp/FBEdit_1078a_Cherry.7z?dl=0 (You will need to customize some things in the FbEdit.ini file though. Please also read the top entries in Changelog.txt.)
+If you just want to use a precompiled version, you can get it here: https://github.com/CherryDT/FbEditMOD/releases/ (You will need to customize some things in the FbEdit.ini file though. Please also read the top entries in Changelog.txt.)
 
 ### License
 
